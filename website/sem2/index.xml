@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sem2 on Project</title>
+    <link>https://example.org/sem2/</link>
+    <description>Recent content in sem2 on Project</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://example.org/sem2/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
