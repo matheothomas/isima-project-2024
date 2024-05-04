@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Project</title>
-    <link>https://example.org/tags/</link>
+    <link>https://matheothomas.github.io/isima-project-2024/tags/</link>
     <description>Recent content in Tags on Project</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://matheothomas.github.io/isima-project-2024/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
