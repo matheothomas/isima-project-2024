@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Main page on Project</title>
-    <link>https://matheothomas.github.io/isima-project-2024/</link>
+    <link>https://matheothomas.github.io/isima-project-2024/docs/</link>
     <description>Recent content in Main page on Project</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://matheothomas.github.io/isima-project-2024/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://matheothomas.github.io/isima-project-2024/docs/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
