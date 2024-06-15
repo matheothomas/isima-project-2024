@@ -1,0 +1,380 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/isima-project-2024/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=isima-project-2024/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>graphics_8h - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="http://localhost:1313/isima-project-2024/doc/pages/md_output_2files_2graphics__8h/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="graphics_8h">
+  <meta property="og:description" content="graphics_8h \ifile “/home/matheo/Documents/sea-battle/output/files/graphics_8h.md” \iline 1 title: include/graphics.h
+include/graphics.h Functions Name void placeShipTop(SDL_Renderer * renderer, int y, int x) void placeShipBottom(SDL_Renderer * renderer, int y, int x) void printCrossTop(SDL_Renderer * renderer, int y, int x) void printCrossBottom(SDL_Renderer * renderer, int y, int x) void printInfo(SDL_Renderer * renderer, int stat) void printSea(SDL_Renderer * renderer, sea ** s1, sea ** s2) void afficherFenetre(SDL_Renderer * renderer, sea ** s1, sea ** s2, int stat, int shipInit) Functions Documentation function placeShipTop void placeShipTop( SDL_Renderer * renderer, int y, int x ) function placeShipBottom void placeShipBottom( SDL_Renderer * renderer, int y, int x ) function printCrossTop void printCrossTop( SDL_Renderer * renderer, int y, int x ) function printCrossBottom void printCrossBottom( SDL_Renderer * renderer, int y, int x ) function printInfo void printInfo( SDL_Renderer * renderer, int stat ) function printSea void printSea( SDL_Renderer * renderer, sea ** s1, sea ** s2 ) function afficherFenetre void afficherFenetre( SDL_Renderer * renderer, sea ** s1, sea ** s2, int stat, int shipInit ) Source code /* name : graphics.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="graphics_8h">
+  <meta name="twitter:description" content="graphics_8h \ifile “/home/matheo/Documents/sea-battle/output/files/graphics_8h.md” \iline 1 title: include/graphics.h
+include/graphics.h Functions Name void placeShipTop(SDL_Renderer * renderer, int y, int x) void placeShipBottom(SDL_Renderer * renderer, int y, int x) void printCrossTop(SDL_Renderer * renderer, int y, int x) void printCrossBottom(SDL_Renderer * renderer, int y, int x) void printInfo(SDL_Renderer * renderer, int stat) void printSea(SDL_Renderer * renderer, sea ** s1, sea ** s2) void afficherFenetre(SDL_Renderer * renderer, sea ** s1, sea ** s2, int stat, int shipInit) Functions Documentation function placeShipTop void placeShipTop( SDL_Renderer * renderer, int y, int x ) function placeShipBottom void placeShipBottom( SDL_Renderer * renderer, int y, int x ) function printCrossTop void printCrossTop( SDL_Renderer * renderer, int y, int x ) function printCrossBottom void printCrossBottom( SDL_Renderer * renderer, int y, int x ) function printInfo void printInfo( SDL_Renderer * renderer, int stat ) function printSea void printSea( SDL_Renderer * renderer, sea ** s1, sea ** s2 ) function afficherFenetre void afficherFenetre( SDL_Renderer * renderer, sea ** s1, sea ** s2, int stat, int shipInit ) Source code /* name : graphics.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.css" integrity="">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.js" integrity=""></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc/">Documentation</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ifile-homematheodocumentssea-battleoutputfilesgraphics_8hmd--iline-1">\ifile &ldquo;/home/matheo/Documents/sea-battle/output/files/graphics_8h.md&rdquo;  \iline 1</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-placeshiptop">function placeShipTop</a></li>
+        <li><a href="#function-placeshipbottom">function placeShipBottom</a></li>
+        <li><a href="#function-printcrosstop">function printCrossTop</a></li>
+        <li><a href="#function-printcrossbottom">function printCrossBottom</a></li>
+        <li><a href="#function-printinfo">function printInfo</a></li>
+        <li><a href="#function-printsea">function printSea</a></li>
+        <li><a href="#function-afficherfenetre">function afficherFenetre</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="graphics_8h">graphics_8h</h1>
+<h2 id="ifile-homematheodocumentssea-battleoutputfilesgraphics_8hmd--iline-1">\ifile &ldquo;/home/matheo/Documents/sea-battle/output/files/graphics_8h.md&rdquo;  \iline 1</h2>
+<p>title: <a href="files/graphics_8h.md#file-graphics.h">include/graphics.h</a></p>
+<hr>
+<h1 id="includegraphicshfilesgraphics_8hmdfile-graphicsh"><a href="files/graphics_8h.md#file-graphics.h">include/graphics.h</a></h1>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-placeshiptop">placeShipTop</a></strong>(SDL_Renderer * renderer, int y, int x)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-placeshipbottom">placeShipBottom</a></strong>(SDL_Renderer * renderer, int y, int x)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-printcrosstop">printCrossTop</a></strong>(SDL_Renderer * renderer, int y, int x)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-printcrossbottom">printCrossBottom</a></strong>(SDL_Renderer * renderer, int y, int x)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-printinfo">printInfo</a></strong>(SDL_Renderer * renderer, int stat)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-printsea">printSea</a></strong>(SDL_Renderer * renderer, <a href="files/structsea_8md.md#file-structsea.md">sea</a> ** s1, <a href="files/structsea_8md.md#file-structsea.md">sea</a> ** s2)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-afficherfenetre">afficherFenetre</a></strong>(SDL_Renderer * renderer, <a href="files/structsea_8md.md#file-structsea.md">sea</a> ** s1, <a href="files/structsea_8md.md#file-structsea.md">sea</a> ** s2, int stat, int shipInit)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-placeshiptop">function placeShipTop</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> placeShipTop(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-placeshipbottom">function placeShipBottom</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> placeShipBottom(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-printcrosstop">function printCrossTop</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> printCrossTop(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-printcrossbottom">function printCrossBottom</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> printCrossBottom(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-printinfo">function printInfo</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> printInfo(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> stat
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-printsea">function printSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> printSea(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s1,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-afficherfenetre">function afficherFenetre</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> afficherFenetre(
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s1,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> stat,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> shipInit
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* name : graphics.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * author : matheo thomas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 13-11-23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef graphics_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define graphics_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Functions definitions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints a ship symbol on the top map
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">placeShipTop</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints a ship symbol on the bottom map
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">placeShipBottom</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints a cross symbol on the top map
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printCrossTop</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints a cross symbol on the bottom map
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printCrossBottom</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints &#34;Coulé !&#34; in the status area
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printInfo</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> stat);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prints the ships and crosses of a player 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printSea</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, sea <span style="color:#f92672">**</span>s1, sea <span style="color:#f92672">**</span>s2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Loads everything to be displayed in the window
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">afficherFenetre</span>(SDL_Renderer <span style="color:#f92672">*</span>renderer, sea <span style="color:#f92672">**</span>s1, sea <span style="color:#f92672">**</span>s2, <span style="color:#66d9ef">int</span> stat, <span style="color:#66d9ef">int</span> shipInit);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><hr>
+<p>Updated on 2024-06-14 at 23:46:27 +0200</p>
+<hr>
+<p>Updated on 2024-06-15 at 00:12:33 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

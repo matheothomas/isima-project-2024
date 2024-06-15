@@ -6,5 +6,72 @@
     <description>Recent content in Main page on Project</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://matheothomas.github.io/isima-project-2024/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>include/graphics.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8h/</guid>
+      <description>include/graphics.h Functions Name void placeShipTop(SDL_Renderer * renderer, int y, int x)Prints a ship symbol on the top map. void placeShipBottom(SDL_Renderer * renderer, int y, int x)Prints a ship symbol on the bottom map. void printCrossTop(SDL_Renderer * renderer, int y, int x)Prints a cross symbol on the top map. void printCrossBottom(SDL_Renderer * renderer, int y, int x)Prints a cross symbol on the bottom map. void printInfo(SDL_Renderer * renderer, int stat)Prints &amp;ldquo;Coulé !</description>
+    </item>
+    
+    <item>
+      <title>include/network.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/network_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/network_8h/</guid>
+      <description>include/network.h Classes Name struct netParams Struct definitions. Types Name typedef struct netParams netParams Struct definitions. Functions Name netParams mainNetworkServ()Defines and configures the socket for the server. netParams mainNetworkClient(char IPADDR[])Defines and configures the socket for the client. Types Documentation typedef netParams typedef struct netParams netParams; Struct definitions.
+Functions Documentation function mainNetworkServ netParams mainNetworkServ() Defines and configures the socket for the server.
+function mainNetworkClient netParams mainNetworkClient( char IPADDR[] ) Defines and configures the socket for the client.</description>
+    </item>
+    
+    <item>
+      <title>include/seaBattle.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/seabattle_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/seabattle_8h/</guid>
+      <description>include/seaBattle.h Classes Name struct sea Struct definitions. Types Name typedef struct sea sea Struct definitions. Functions Name sea ** initSea()creates and initialises a map. void showSea(sea ** s1, sea ** s2)prints the two maps on the standard output. int checkCoords(sea ** s, int c1, int c2)Verifies that the coordinates are empty and with the area. int placeShip(sea ** s, int id, int c1, int c2, char dir)Places the specified ship in the area if the coordinates are valid.</description>
+    </item>
+    
+    <item>
+      <title>src/graphics.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8c/</guid>
+      <description>src/graphics.c Functions Name void placeShipTop(SDL_Renderer * renderer, int y, int x)Prints a ship symbol on the top map. void placeShipBottom(SDL_Renderer * renderer, int y, int x)Prints a ship symbol on the bottom map. void printCrossTop(SDL_Renderer * renderer, int y, int x)Prints a cross symbol on the top map. void printCrossBottom(SDL_Renderer * renderer, int y, int x)Prints a cross symbol on the bottom map. void printInfo(SDL_Renderer * renderer, int stat)Prints &amp;ldquo;Coulé !</description>
+    </item>
+    
+    <item>
+      <title>src/main.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/main_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/main_8c/</guid>
+      <description>src/main.c Functions Name int main(int argc, char * argv[]) Functions Documentation function main int main( int argc, char * argv[] ) Source code /* name : main.c * author : matheo thomas * date : 10-11-23 */ #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;stdlib.h&amp;gt; #include&amp;lt;unistd.h&amp;gt; #include&amp;lt;netinet/in.h&amp;gt; #include&amp;lt;arpa/inet.h&amp;gt; #include&amp;lt;string.h&amp;gt; #include&amp;lt;sys/socket.h&amp;gt; #include&amp;lt;unistd.h&amp;gt; #include&amp;lt;SDL2/SDL.h&amp;gt; #include&amp;lt;SDL2/SDL_image.h&amp;gt; #include&amp;lt;SDL2/SDL_ttf.h&amp;gt; #include&amp;#34;network.h&amp;#34; #include&amp;#34;../include/seaBattle.h&amp;#34; #include&amp;#34;../include/graphics.h&amp;#34; int main(int argc, char *argv[]){ sea **s1ships = initSea(); sea **s1touches = initSea(); sea **s2ships = initSea(); sea **s2touches = initSea(); int infoShip[] = { -1, 5, 4, 3, 3, 2 }; // Graphical interface initialisation if(SDL_Init(SDL_INIT_VIDEO) &amp;lt;0){ fprintf(stderr, &amp;#34;Erreur d&amp;#39;initialisation de la SDL : %s\n&amp;#34;, SDL_GetError()); return EXIT_FAILURE; } int width = 800; int height = 860; SDL_Window *window; window = SDL_CreateWindow(&amp;#34;SDL2 Programme 0.</description>
+    </item>
+    
+    <item>
+      <title>src/network.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/network_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/network_8c/</guid>
+      <description>src/network.c Functions Name netParams mainNetworkServ()Defines and configures the socket for the server. netParams mainNetworkClient(char IPADDR[])Defines and configures the socket for the client. Defines Name PORT Functions Documentation function mainNetworkServ netParams mainNetworkServ() Defines and configures the socket for the server.
+function mainNetworkClient netParams mainNetworkClient( char IPADDR[] ) Defines and configures the socket for the client.
+Macros Documentation define PORT #define PORT 8080 Source code /* name : network.c * author : matheo thomas * date : 09-11-23 */ #include&amp;lt;stdio.</description>
+    </item>
+    
+    <item>
+      <title>src/seaBattle.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc/files/seabattle_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/seabattle_8c/</guid>
+      <description>src/seaBattle.c Functions Name sea ** initSea()creates and initialises a map. void showSea(sea ** s1, sea ** s2)prints the two maps on the standard output. int checkCoords(sea ** s, int c1, int c2)Verifies that the coordinates are empty and with the area. int placeShip(sea ** s, int id, int c1, int c2, char dir)Places the specified ship in the area if the coordinates are valid. void placeShips(sea ** sships, sea ** stouches)Asks the user where to put the ships to initiate the game.</description>
+    </item>
+    
   </channel>
 </rss>

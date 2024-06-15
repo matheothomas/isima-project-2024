@@ -1,0 +1,586 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src/seaBattle.c - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/seabattle_8c/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="src/seaBattle.c">
+  <meta property="og:description" content="src/seaBattle.c Functions Name sea ** initSea()creates and initialises a map. void showSea(sea ** s1, sea ** s2)prints the two maps on the standard output. int checkCoords(sea ** s, int c1, int c2)Verifies that the coordinates are empty and with the area. int placeShip(sea ** s, int id, int c1, int c2, char dir)Places the specified ship in the area if the coordinates are valid. void placeShips(sea ** sships, sea ** stouches)Asks the user where to put the ships to initiate the game.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="src/seaBattle.c">
+  <meta name="twitter:description" content="src/seaBattle.c Functions Name sea ** initSea()creates and initialises a map. void showSea(sea ** s1, sea ** s2)prints the two maps on the standard output. int checkCoords(sea ** s, int c1, int c2)Verifies that the coordinates are empty and with the area. int placeShip(sea ** s, int id, int c1, int c2, char dir)Places the specified ship in the area if the coordinates are valid. void placeShips(sea ** sships, sea ** stouches)Asks the user where to put the ships to initiate the game.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc/">Documentation</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#attributes">Attributes</a></li>
+    <li><a href="#defines">Defines</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-initsea">function initSea</a></li>
+        <li><a href="#function-showsea">function showSea</a></li>
+        <li><a href="#function-checkcoords">function checkCoords</a></li>
+        <li><a href="#function-placeship">function placeShip</a></li>
+        <li><a href="#function-placeships">function placeShips</a></li>
+        <li><a href="#function-victoire">function victoire</a></li>
+        <li><a href="#function-sent">function sent</a></li>
+        <li><a href="#function-received">function received</a></li>
+        <li><a href="#function-freesea">function freeSea</a></li>
+        <li><a href="#function-loadpreconfig">function loadPreConfig</a></li>
+      </ul>
+    </li>
+    <li><a href="#attributes-documentation">Attributes Documentation</a>
+      <ul>
+        <li><a href="#variable-infoship">variable infoShip</a></li>
+      </ul>
+    </li>
+    <li><a href="#macros-documentation">Macros Documentation</a>
+      <ul>
+        <li><a href="#define-size">define SIZE</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="srcseabattlec">src/seaBattle.c</h1>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="classes/structsea.md">sea</a> **</td>
+<td><strong><a href="files/seaBattle_8c.md#function-initsea">initSea</a></strong>()<!-- raw HTML omitted -->creates and initialises a map.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/seaBattle_8c.md#function-showsea">showSea</a></strong>(<a href="classes/structsea.md">sea</a> ** s1, <a href="classes/structsea.md">sea</a> ** s2)<!-- raw HTML omitted -->prints the two maps on the standard output.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/seaBattle_8c.md#function-checkcoords">checkCoords</a></strong>(<a href="classes/structsea.md">sea</a> ** s, int c1, int c2)<!-- raw HTML omitted -->Verifies that the coordinates are empty and with the area.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/seaBattle_8c.md#function-placeship">placeShip</a></strong>(<a href="classes/structsea.md">sea</a> ** s, int id, int c1, int c2, char dir)<!-- raw HTML omitted -->Places the specified ship in the area if the coordinates are valid.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/seaBattle_8c.md#function-placeships">placeShips</a></strong>(<a href="classes/structsea.md">sea</a> ** sships, <a href="classes/structsea.md">sea</a> ** stouches)<!-- raw HTML omitted -->Asks the user where to put the ships to initiate the game.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/seaBattle_8c.md#function-victoire">victoire</a></strong>(int id)<!-- raw HTML omitted -->returns 2 if game is won, 1 if ship is sunk, else 0.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/seaBattle_8c.md#function-sent">sent</a></strong>(<a href="classes/structsea.md">sea</a> ** stouches, int c1, int c2, int isShipTouched)<!-- raw HTML omitted -->Modifies the upper map according to the sent coordinates.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/seaBattle_8c.md#function-received">received</a></strong>(<a href="classes/structsea.md">sea</a> ** sships, int c1, int c2)<!-- raw HTML omitted -->Modifies the lower map according to the received coordinates.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/seaBattle_8c.md#function-freesea">freeSea</a></strong>(<a href="classes/structsea.md">sea</a> ** s)<!-- raw HTML omitted -->frees the memory of a sea.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/seaBattle_8c.md#function-loadpreconfig">loadPreConfig</a></strong>(<a href="classes/structsea.md">sea</a> ** s)<!-- raw HTML omitted -->loads a pre-configured map for testing purposes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attributes">Attributes</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int[]</td>
+<td><strong><a href="files/seaBattle_8c.md#variable-infoship">infoShip</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="defines">Defines</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong><a href="files/seaBattle_8c.md#define-size">SIZE</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-initsea">function initSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>sea <span style="color:#f92672">**</span> initSea()
+</span></span></code></pre></div><p>creates and initialises a map.</p>
+<h3 id="function-showsea">function showSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> showSea(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s1,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>prints the two maps on the standard output.</p>
+<h3 id="function-checkcoords">function checkCoords</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> checkCoords(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Verifies that the coordinates are empty and with the area.</p>
+<h3 id="function-placeship">function placeShip</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> placeShip(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> dir
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Places the specified ship in the area if the coordinates are valid.</p>
+<h3 id="function-placeships">function placeShips</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> placeShips(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> sships,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> stouches
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Asks the user where to put the ships to initiate the game.</p>
+<h3 id="function-victoire">function victoire</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> victoire(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>returns 2 if game is won, 1 if ship is sunk, else 0.</p>
+<h3 id="function-sent">function sent</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> sent(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> stouches,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> isShipTouched
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Modifies the upper map according to the sent coordinates.</p>
+<h3 id="function-received">function received</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> received(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> sships,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Modifies the lower map according to the received coordinates.</p>
+<h3 id="function-freesea">function freeSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> freeSea(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>frees the memory of a sea.</p>
+<h3 id="function-loadpreconfig">function loadPreConfig</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> loadPreConfig(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>loads a pre-configured map for testing purposes.</p>
+<h2 id="attributes-documentation">Attributes Documentation</h2>
+<h3 id="variable-infoship">variable infoShip</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span>[] infoShip <span style="color:#f92672">=</span> { <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span> };
+</span></span></code></pre></div><h2 id="macros-documentation">Macros Documentation</h2>
+<h3 id="define-size">define SIZE</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define SIZE 10
+</span></span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : seaBattle.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * author : matheo thomas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 08-11-23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdio.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdlib.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&#34;../include/seaBattle.h&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define SIZE 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 0 is sea, 1 is Carrier, 2 is Battleship, 3 is Destroyer, 4 is Submarine, 5 is Patrol boat.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> infoShip[] <span style="color:#f92672">=</span> { <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sea <span style="color:#f92672">**</span><span style="color:#a6e22e">initSea</span>(){
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span>s <span style="color:#f92672">=</span> (sea <span style="color:#f92672">**</span>)malloc(SIZE<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(sea <span style="color:#f92672">*</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> SIZE; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        s[i] <span style="color:#f92672">=</span> (sea <span style="color:#f92672">*</span>)malloc(SIZE<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(sea));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> SIZE; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            s[i][j].touched <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            s[i][j].isShip <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showSea</span>(sea <span style="color:#f92672">**</span>s1, sea <span style="color:#f92672">**</span>s2){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> SIZE; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> SIZE; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(s2[i][j].touched <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                printf(<span style="color:#e6db74">&#34;. &#34;</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(s2[i][j].touched <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>                printf(<span style="color:#e6db74">&#34;o &#34;</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                printf(<span style="color:#e6db74">&#34;x &#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;-------------------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> SIZE; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> SIZE; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(s1[i][j].isShip <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(s1[i][j].touched <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\033</span><span style="color:#e6db74">[1;7m.</span><span style="color:#ae81ff">\033</span><span style="color:#e6db74">[0m &#34;</span>);
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;. &#34;</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(s1[i][j].isShip <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(s1[i][j].touched <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\033</span><span style="color:#e6db74">[1;7mx</span><span style="color:#ae81ff">\033</span><span style="color:#e6db74">[0m &#34;</span>);
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;x &#34;</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">checkCoords</span>(sea <span style="color:#f92672">**</span>s, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(c1 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> c1 <span style="color:#f92672">&gt;=</span> SIZE <span style="color:#f92672">||</span> c2 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> c2 <span style="color:#f92672">&gt;=</span> SIZE){
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(s[c1][c2].isShip <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            res <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">placeShip</span>(sea <span style="color:#f92672">**</span>s, <span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2, <span style="color:#66d9ef">char</span> dir){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> validCoords <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    validCoords <span style="color:#f92672">+=</span> checkCoords(s, c1, c2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> infoShip[id]; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;u&#39;</span>){
+</span></span><span style="display:flex;"><span>            validCoords <span style="color:#f92672">+=</span> checkCoords(s, c1<span style="color:#f92672">-</span>j, c2);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;d&#39;</span>){
+</span></span><span style="display:flex;"><span>            validCoords <span style="color:#f92672">+=</span> checkCoords(s, c1<span style="color:#f92672">+</span>j, c2);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;l&#39;</span>){
+</span></span><span style="display:flex;"><span>            validCoords <span style="color:#f92672">+=</span> checkCoords(s, c1, c2<span style="color:#f92672">-</span>j);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;r&#39;</span>){
+</span></span><span style="display:flex;"><span>            validCoords <span style="color:#f92672">+=</span> checkCoords(s, c1, c2<span style="color:#f92672">+</span>j);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(validCoords <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        s[c1][c2].isShip <span style="color:#f92672">=</span> id;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> infoShip[id]; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;u&#39;</span>){
+</span></span><span style="display:flex;"><span>                s[c1<span style="color:#f92672">-</span>j][c2].isShip <span style="color:#f92672">=</span> id;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;d&#39;</span>){
+</span></span><span style="display:flex;"><span>                s[c1<span style="color:#f92672">+</span>j][c2].isShip <span style="color:#f92672">=</span> id;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;l&#39;</span>){
+</span></span><span style="display:flex;"><span>                s[c1][c2<span style="color:#f92672">-</span>j].isShip <span style="color:#f92672">=</span> id;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(dir <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;r&#39;</span>){
+</span></span><span style="display:flex;"><span>                s[c1][c2<span style="color:#f92672">+</span>j].isShip <span style="color:#f92672">=</span> id;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Wrong coordinates ! Retry.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> validCoords;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">placeShips</span>(sea <span style="color:#f92672">**</span>sships, sea <span style="color:#f92672">**</span>stouches){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> coord1;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> coord2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> dir;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Enter first coordinate of ship of size %d : &#34;</span>, infoShip[i]);
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%d%*c&#34;</span>, <span style="color:#f92672">&amp;</span>coord1);
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Enter second coordinate of ship of size %d : &#34;</span>, infoShip[i]);
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%d%*c&#34;</span>, <span style="color:#f92672">&amp;</span>coord2);
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Enter orientation of ship of size %d : (u, d, r, l)&#34;</span>, infoShip[i]);
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%c%*c&#34;</span>, <span style="color:#f92672">&amp;</span>dir);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(placeShip(sships, i, coord1, coord2, dir) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            i<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            showSea(sships, stouches);
+</span></span><span style="display:flex;"><span>        }   
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">victoire</span>(<span style="color:#66d9ef">int</span> id){
+</span></span><span style="display:flex;"><span>    infoShip[id] <span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> isVictoire <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> isSunk <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(infoShip[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//printf(&#34;Coulé !\n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            isSunk <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            infoShip[i] <span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(infoShip[i] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            isVictoire <span style="color:#f92672">=</span> isSunk;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> isVictoire;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sent</span>(sea <span style="color:#f92672">**</span>stouches, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2, <span style="color:#66d9ef">int</span> isShipTouched){
+</span></span><span style="display:flex;"><span>    stouches[c1][c2].touched <span style="color:#f92672">=</span> isShipTouched;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">received</span>(sea <span style="color:#f92672">**</span>sships, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> touched <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(sships[c1][c2].isShip <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        sships[c1][c2].touched <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        touched <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        sships[c1][c2].touched <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> touched;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">freeSea</span>(sea <span style="color:#f92672">**</span>s){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> SIZE; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        free(s[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    free(s);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadPreConfig</span>(sea <span style="color:#f92672">**</span>s){
+</span></span><span style="display:flex;"><span>    placeShip(s, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;d&#39;</span>);
+</span></span><span style="display:flex;"><span>    placeShip(s, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#39;r&#39;</span>);
+</span></span><span style="display:flex;"><span>    placeShip(s, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;d&#39;</span>);
+</span></span><span style="display:flex;"><span>    placeShip(s, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#e6db74">&#39;r&#39;</span>);
+</span></span><span style="display:flex;"><span>    placeShip(s, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;r&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Updated on 2024-06-15 at 00:12:33 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

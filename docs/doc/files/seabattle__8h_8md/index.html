@@ -1,0 +1,399 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/isima-project-2024/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=isima-project-2024/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>seaBattle_8h.md - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="http://localhost:1313/isima-project-2024/doc/files/seabattle__8h_8md/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="seaBattle_8h.md">
+  <meta property="og:description" content="seaBattle_8h.md Source code --- title: include/seaBattle.h --- # include/seaBattle.h ## Classes | | Name | | -------------- | -------------- | | struct | **[sea](classes/structsea.md)** | ## Types | | Name | | -------------- | -------------- | | typedef struct sea | **[sea](files/seaBattle_8h.md#typedef-sea)** | ## Functions | | Name | | -------------- | -------------- | | [sea](classes/structsea.md) ** | **[initSea](files/seaBattle_8h.md#function-initsea)**() | | void | **[showSea](files/seaBattle_8h.md#function-showsea)**([sea](classes/structsea.md) ** s1, [sea](classes/structsea.md) ** s2) | | int | **[checkCoords](files/seaBattle_8h.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="seaBattle_8h.md">
+  <meta name="twitter:description" content="seaBattle_8h.md Source code --- title: include/seaBattle.h --- # include/seaBattle.h ## Classes | | Name | | -------------- | -------------- | | struct | **[sea](classes/structsea.md)** | ## Types | | Name | | -------------- | -------------- | | typedef struct sea | **[sea](files/seaBattle_8h.md#typedef-sea)** | ## Functions | | Name | | -------------- | -------------- | | [sea](classes/structsea.md) ** | **[initSea](files/seaBattle_8h.md#function-initsea)**() | | void | **[showSea](files/seaBattle_8h.md#function-showsea)**([sea](classes/structsea.md) ** s1, [sea](classes/structsea.md) ** s2) | | int | **[checkCoords](files/seaBattle_8h.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.css" integrity="">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.js" integrity=""></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc/">Documentation</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#source-code">Source code</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-initsea">function initSea</a></li>
+        <li><a href="#function-showsea">function showSea</a></li>
+        <li><a href="#function-checkcoords">function checkCoords</a></li>
+        <li><a href="#function-placeship">function placeShip</a></li>
+        <li><a href="#function-placeships">function placeShips</a></li>
+        <li><a href="#function-victoire">function victoire</a></li>
+        <li><a href="#function-sent">function sent</a></li>
+        <li><a href="#function-received">function received</a></li>
+        <li><a href="#function-freesea">function freeSea</a></li>
+        <li><a href="#function-loadpreconfig">function loadPreConfig</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code-1">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="seabattle_8hmd">seaBattle_8h.md</h1>
+<h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: include/seaBattle.h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># include/seaBattle.h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Classes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>|                | Name           |
+</span></span><span style="display:flex;"><span>| -------------- | -------------- |
+</span></span><span style="display:flex;"><span>| struct | <span style="font-style:italic">**</span>[<span style="color:#f92672">sea</span>](<span style="color:#a6e22e">classes/structsea.md</span>)**  |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Types
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>|                | Name           |
+</span></span><span style="display:flex;"><span>| -------------- | -------------- |
+</span></span><span style="display:flex;"><span>| typedef struct sea | <span style="font-style:italic">**</span>[<span style="color:#f92672">sea</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#typedef-sea</span>)**  |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Functions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>|                | Name           |
+</span></span><span style="display:flex;"><span>| -------------- | -------------- |
+</span></span><span style="display:flex;"><span>| [<span style="color:#f92672">sea</span>](<span style="color:#a6e22e">classes/structsea.md</span>) <span style="font-style:italic">**</span> | <span style="font-style:italic">**</span>[<span style="color:#f92672">initSea</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-initsea</span>)**() |
+</span></span><span style="display:flex;"><span>| void | <span style="font-style:italic">**</span>[<span style="color:#f92672">showSea</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-showsea</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> s1, [<span style="color:#f92672">sea</span>](<span style="color:#a6e22e">classes/structsea.md</span>) <span style="font-style:italic">**</span> s2) |
+</span></span><span style="display:flex;"><span>| int | <span style="font-style:italic">**</span>[<span style="color:#f92672">checkCoords</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-checkcoords</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> s, int c1, int c2) |
+</span></span><span style="display:flex;"><span>| int | <span style="font-style:italic">**</span>[<span style="color:#f92672">placeShip</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-placeship</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> s, int id, int c1, int c2, char dir) |
+</span></span><span style="display:flex;"><span>| void | <span style="font-style:italic">**</span>[<span style="color:#f92672">placeShips</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-placeships</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> sships, [<span style="color:#f92672">sea</span>](<span style="color:#a6e22e">classes/structsea.md</span>) <span style="font-style:italic">**</span> stouches) |
+</span></span><span style="display:flex;"><span>| int | <span style="font-style:italic">**</span>[<span style="color:#f92672">victoire</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-victoire</span>)**(int id) |
+</span></span><span style="display:flex;"><span>| void | <span style="font-style:italic">**</span>[<span style="color:#f92672">sent</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-sent</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> stouches, int c1, int c2, int isShipTouched) |
+</span></span><span style="display:flex;"><span>| int | <span style="font-style:italic">**</span>[<span style="color:#f92672">received</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-received</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> sships, int c1, int c2) |
+</span></span><span style="display:flex;"><span>| void | <span style="font-style:italic">**</span>[<span style="color:#f92672">freeSea</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-freesea</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> s) |
+</span></span><span style="display:flex;"><span>| void | <span style="font-style:italic">**</span>[<span style="color:#f92672">loadPreConfig</span>](<span style="color:#a6e22e">files/seaBattle_8h.md#function-loadpreconfig</span>)**([sea](classes/structsea.md) <span style="font-style:italic">**</span> s) |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Types Documentation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### typedef sea
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>```cpp
+</span></span><span style="display:flex;"><span>typedef struct sea sea;
+</span></span></code></pre></div><h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-initsea">function initSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>sea <span style="color:#f92672">**</span> initSea()
+</span></span></code></pre></div><h3 id="function-showsea">function showSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> showSea(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s1,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-checkcoords">function checkCoords</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> checkCoords(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-placeship">function placeShip</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> placeShip(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> dir
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-placeships">function placeShips</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> placeShips(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> sships,
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> stouches
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-victoire">function victoire</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> victoire(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-sent">function sent</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> sent(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> stouches,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> isShipTouched
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-received">function received</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> received(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> sships,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-freesea">function freeSea</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> freeSea(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-loadpreconfig">function loadPreConfig</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> loadPreConfig(
+</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span> s
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="source-code-1">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : seaBattle.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * author : matheo thomas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 08-11-23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef seaBattle_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define seaBattle_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Struct definitions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sea</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> isShip;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> touched;    <span style="color:#75715e">// 0 if not aimed, 1 if aimed but empty, 2 if touched
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} sea;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Functions definitions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// creates and initialises a map.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sea <span style="color:#f92672">**</span><span style="color:#a6e22e">initSea</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// prints the two maps on the standard output.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showSea</span>(sea <span style="color:#f92672">**</span>s1, sea <span style="color:#f92672">**</span>s2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Verifies that the coordinates are empty and with the area.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">checkCoords</span>(sea <span style="color:#f92672">**</span>s, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Places the specified ship in the area if the coordinates are valid.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">placeShip</span>(sea <span style="color:#f92672">**</span>s, <span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2, <span style="color:#66d9ef">char</span> dir);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Asks the user where to put the ships to initiate the game.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">placeShips</span>(sea <span style="color:#f92672">**</span>sships, sea <span style="color:#f92672">**</span>stouches);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// returns 2 if game is won, 1 if ship is sunk, else 0.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">victoire</span>(<span style="color:#66d9ef">int</span> id);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Modifies the upper map according to the sent coordinates.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sent</span>(sea <span style="color:#f92672">**</span>stouches, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2, <span style="color:#66d9ef">int</span> isShipTouched);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Modifies the lower map according to the received coordinates.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">received</span>(sea <span style="color:#f92672">**</span>sships, <span style="color:#66d9ef">int</span> c1, <span style="color:#66d9ef">int</span> c2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// frees the memory of a sea.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">freeSea</span>(sea <span style="color:#f92672">**</span>s);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// loads a pre-configured map for testing purposes.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loadPreConfig</span>(sea <span style="color:#f92672">**</span>s);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><hr>
+<p>Updated on 2024-06-14 at 23:46:27 +0200</p>
+<pre tabindex="0"><code>
+
+-------------------------------
+
+Updated on 2024-06-15 at 00:12:33 +0200
+</code></pre>
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

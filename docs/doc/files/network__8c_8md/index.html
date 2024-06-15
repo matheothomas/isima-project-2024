@@ -1,0 +1,375 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/isima-project-2024/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=isima-project-2024/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>network_8c.md - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="http://localhost:1313/isima-project-2024/doc/files/network__8c_8md/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="network_8c.md">
+  <meta property="og:description" content="network_8c.md Source code --- title: src/network.c --- # src/network.c ## Functions | | Name | | -------------- | -------------- | | [netParams](classes/structnetParams.md) | **[mainNetworkServ](files/network_8c.md#function-mainnetworkserv)**() | | [netParams](classes/structnetParams.md) | **[mainNetworkClient](files/network_8c.md#function-mainnetworkclient)**(char IPADDR[]) | ## Defines | | Name | | -------------- | -------------- | | | **[PORT](files/network_8c.md#define-port)** | ## Functions Documentation ### function mainNetworkServ ```cpp netParams mainNetworkServ() function mainNetworkClient netParams mainNetworkClient( char IPADDR[] ) Macros Documentation define PORT #define PORT 8080 Source code /* name : network.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="network_8c.md">
+  <meta name="twitter:description" content="network_8c.md Source code --- title: src/network.c --- # src/network.c ## Functions | | Name | | -------------- | -------------- | | [netParams](classes/structnetParams.md) | **[mainNetworkServ](files/network_8c.md#function-mainnetworkserv)**() | | [netParams](classes/structnetParams.md) | **[mainNetworkClient](files/network_8c.md#function-mainnetworkclient)**(char IPADDR[]) | ## Defines | | Name | | -------------- | -------------- | | | **[PORT](files/network_8c.md#define-port)** | ## Functions Documentation ### function mainNetworkServ ```cpp netParams mainNetworkServ() function mainNetworkClient netParams mainNetworkClient( char IPADDR[] ) Macros Documentation define PORT #define PORT 8080 Source code /* name : network.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.css" integrity="">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.js" integrity=""></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc/">Documentation</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#source-code">Source code</a>
+      <ul>
+        <li><a href="#function-mainnetworkclient">function mainNetworkClient</a></li>
+      </ul>
+    </li>
+    <li><a href="#macros-documentation">Macros Documentation</a>
+      <ul>
+        <li><a href="#define-port">define PORT</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code-1">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="network_8cmd">network_8c.md</h1>
+<h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: src/network.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># src/network.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Functions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>|                | Name           |
+</span></span><span style="display:flex;"><span>| -------------- | -------------- |
+</span></span><span style="display:flex;"><span>| [<span style="color:#f92672">netParams</span>](<span style="color:#a6e22e">classes/structnetParams.md</span>) | <span style="font-style:italic">**</span>[<span style="color:#f92672">mainNetworkServ</span>](<span style="color:#a6e22e">files/network_8c.md#function-mainnetworkserv</span>)**() |
+</span></span><span style="display:flex;"><span>| [<span style="color:#f92672">netParams</span>](<span style="color:#a6e22e">classes/structnetParams.md</span>) | <span style="font-style:italic">**</span>[<span style="color:#f92672">mainNetworkClient</span>](<span style="color:#a6e22e">files/network_8c.md#function-mainnetworkclient</span>)**(char IPADDR[]) |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Defines
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>|                | Name           |
+</span></span><span style="display:flex;"><span>| -------------- | -------------- |
+</span></span><span style="display:flex;"><span>|  | <span style="font-style:italic">**</span>[<span style="color:#f92672">PORT</span>](<span style="color:#a6e22e">files/network_8c.md#define-port</span>)**  |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Functions Documentation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### function mainNetworkServ
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>```cpp
+</span></span><span style="display:flex;"><span>netParams mainNetworkServ()
+</span></span></code></pre></div><h3 id="function-mainnetworkclient">function mainNetworkClient</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>netParams mainNetworkClient(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> IPADDR[]
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="macros-documentation">Macros Documentation</h2>
+<h3 id="define-port">define PORT</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define PORT 8080
+</span></span></span></code></pre></div><h2 id="source-code-1">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : network.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * author : matheo thomas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 09-11-23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdio.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdlib.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;netinet/in.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;arpa/inet.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;string.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;sys/socket.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;unistd.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&#34;../include/network.h&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define PORT 8080
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>netParams <span style="color:#a6e22e">mainNetworkServ</span>(){
+</span></span><span style="display:flex;"><span>    netParams p;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> opt <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    socklen_t addrlen <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(p.address);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">1024</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Connected to server.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Creating socket file descriptor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>((p.server_fd <span style="color:#f92672">=</span> socket(AF_INET, SOCK_STREAM, <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;socket failed</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Forcefully attaching socket to the port 8080
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(setsockopt(p.server_fd, SOL_SOCKET, SO_REUSEADDR, <span style="color:#f92672">&amp;</span>opt, <span style="color:#66d9ef">sizeof</span>(opt))){
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;setsockopt</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    p.address.sin_family <span style="color:#f92672">=</span> AF_INET;
+</span></span><span style="display:flex;"><span>    p.address.sin_addr.s_addr <span style="color:#f92672">=</span> INADDR_ANY;
+</span></span><span style="display:flex;"><span>    p.address.sin_port <span style="color:#f92672">=</span> htons(PORT);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Forcefully attaching socket to the port 8080
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(bind(p.server_fd, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>p.address, <span style="color:#66d9ef">sizeof</span>(p.address)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;bind failed</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(listen(p.server_fd, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;listen</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>((p.new_socket <span style="color:#f92672">=</span> accept(p.server_fd, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>p.address, <span style="color:#f92672">&amp;</span>addrlen)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        perror(<span style="color:#e6db74">&#34;accept</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    p.valread <span style="color:#f92672">=</span> read(p.new_socket, buffer, <span style="color:#ae81ff">1024</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>); <span style="color:#75715e">// substract 1 for the null terminator at the end
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, buffer);
+</span></span><span style="display:flex;"><span>    send(p.new_socket, hello, strlen(hello), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>netParams <span style="color:#a6e22e">mainNetworkClient</span>(<span style="color:#66d9ef">char</span> IPADDR[]){
+</span></span><span style="display:flex;"><span>    netParams p;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Connected to client.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">1024</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>((p.client_fd <span style="color:#f92672">=</span> socket(AF_INET, SOCK_STREAM, <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Socket creation error </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    p.serv_addr.sin_family <span style="color:#f92672">=</span> AF_INET;
+</span></span><span style="display:flex;"><span>    p.serv_addr.sin_port <span style="color:#f92672">=</span> htons(PORT);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Convert IPv4 and IPv6 addresses from text to binary form
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(inet_pton(AF_INET, IPADDR, <span style="color:#f92672">&amp;</span>p.serv_addr.sin_addr) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Invalid address/Address not supported</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>((p.status <span style="color:#f92672">=</span> connect(p.client_fd, (<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">sockaddr</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>p.serv_addr, <span style="color:#66d9ef">sizeof</span>(p.serv_addr))) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Connection failed</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    send(p.client_fd, hello, strlen(hello), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    p.valread <span style="color:#f92672">=</span> read(p.client_fd, buffer, <span style="color:#ae81ff">1024</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, buffer);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Updated on 2024-06-14 at 23:46:27 +0200</p>
+<pre tabindex="0"><code>
+
+-------------------------------
+
+Updated on 2024-06-15 at 00:12:33 +0200
+</code></pre>
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>
