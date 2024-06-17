@@ -107,6 +107,11 @@ void main_scene(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* rende
 
 	int speed = 9;
 	for (int x = 0; x < window_dimensions.w - destination.w; x += speed) {
+		if(x > 500 && x < 650) {
+			state.y = 4 * offset_y;
+		} else {
+			state.y = 6 * offset_y;
+		}
 		destination.x = x;
 		state.x += offset_x;
 		state.x %= source.w;
