@@ -6,7 +6,10 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_render.h"
+#include "SDL2/SDL_timer.h"
 
 /*********************************************************************************************************************/
 /*                              Programme d'exemple de création de rendu + dessin                                    */
@@ -44,39 +47,24 @@ void end_sdl(char ok,                                               // fin norma
 
 /// Draws a rectangle at the defined coordinates, with the defined size and angle.
 void drawRect(SDL_Renderer *renderer, int x, int y, int w, int h, int angle) {
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	int x1, y1, x2, y2;
+	x1 = x + w*cos(angle*M_PI/180);
+	y1 = y + w*sin(angle*M_PI/180);
+	x2 = x + h*cos((angle+90)*M_PI/180);
+	y2 = y + h*sin((angle+90)*M_PI/180);
+	SDL_RenderDrawLine(renderer, x, y, x1, y1);
+	SDL_RenderDrawLine(renderer, x, y, x2, y2);
+	SDL_RenderDrawLine(renderer, x2, y2, x1+x2-x, y1+y2-y);
+	SDL_RenderDrawLine(renderer, x1, y1, x1+x2-x, y1+y2-y);
+	
 
 }
 
 void draw(SDL_Renderer* renderer) {
-	SDL_Rect rect;
-
-	SDL_SetRenderDrawColor(renderer,                                       
-						50, 0, 0,                             // mode Red, Green, Blue (tous dans 0..255)
-						255);                                 // 0 = transparent ; 255 = opaque
-	rect.x = 0;                                             // x haut gauche du rectangle
-	rect.y = 0;                                                  // y haut gauche du rectangle
-	rect.w = 400;                                                // sa largeur (w = width)
-	rect.h = 400;                                                // sa hauteur (h = height)
-
-	SDL_RenderFillRect(renderer, &rect);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);                   
-	SDL_RenderDrawLine(renderer,                             
-					0, 0,                                          // x,y du point de la première extrémité
-					400, 400);                                // x,y seconde extrémité
 
-
-	/* tracer un cercle n'est en fait pas trivial, voilà le résultat sans algo intelligent ... */
-	for (float angle = 0; angle < 2 * M_PI; angle += M_PI / 4000) {      
-		SDL_SetRenderDrawColor(renderer,
-						 (cos(angle * 2) + 1) * 255 / 2,          // quantité de Rouge      
-						 (cos(angle * 5) + 1) * 255 / 2,          //          de vert 
-						 (cos(angle) + 1) * 255 / 2,              //          de bleu
-		255);                                    // opacité = opaque
-		SDL_RenderDrawPoint(renderer,                  
-					  200 + 100 * cos(angle),                     // coordonnée en x
-					  200 + 150 * sin(angle));                    //            en y   
-	}
 }
 
 int main(void) {
@@ -110,12 +98,18 @@ int main(void) {
 	/*                                     On dessine dans le renderer                                                   */
 	/*********************************************************************************************************************/
 	/*             Cette partie pourrait avantageusement être remplacée par la boucle évènementielle                     */ 
-	draw(renderer);                                      // appel de la fonction qui crée l'image  
-	SDL_RenderPresent(renderer);                         // affichage
+	// draw(renderer);                                      // appel de la fonction qui crée l'image  
+	// for(int i = 0; i < 90; i+=5) {
+		// drawRect(renderer, 300, 300, 200, 80, i);
+		// SDL_RenderPresent(renderer);                         // affichage
+		// SDL_Delay(50);
+	// }
+	// SDL_RenderPresent(renderer);                         // affichage
 
 	SDL_Event event;
 
 	int running = 1;
+	int i = 0;
 
 	while(running){
 		while(SDL_PollEvent(&event)){
@@ -136,10 +130,13 @@ int main(void) {
 
 					}
 				break;
-				// case SDL_MOUSEBUTTONDOWN:
+				case SDL_MOUSEBUTTONDOWN:
 				// printf("Mouse button down.\n");
+					drawRect(renderer, 400, 400, 200, 120, i);
+					SDL_RenderPresent(renderer);
+					i++;
 
-				// break;
+				break;
 				case SDL_QUIT:
 					printf("Quit.\n");
 				running = 0;
