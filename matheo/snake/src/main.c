@@ -48,7 +48,7 @@ void end_sdl(char ok,                                               // fin norma
 	}                                                          
 }                                                        
 
-void drawRect(SDL_Renderer *renderer, rect r) {
+void drawRect(SDL_Renderer *renderer, rect_t r) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	int x1, y1, x2, y2;
 	x1 = r.x + r.w*cos(r.angle*M_PI/180);
@@ -63,8 +63,8 @@ void drawRect(SDL_Renderer *renderer, rect r) {
 
 }
 
-rect createRect(SDL_Window *window, int w, int h) {
-	rect r;
+rect_t createRect(SDL_Window *window, int w, int h) {
+	rect_t r;
 	SDL_GetWindowSize(window, &r.x, &r.y);
 	r.x = r.x/2;
 	r.y = r.y/2;
@@ -72,17 +72,21 @@ rect createRect(SDL_Window *window, int w, int h) {
 	r.h = h;
 	r.angle = 0;
 
+	r.vx = rand() % 10;
+	r.vy = rand() % 10;
+	if(rand() % 2) {
+		r.vx = -r.vx;
+	}
+	if(rand() % 2) {
+		r.vy = -r.vy;
+	}
 
 	return r;
 }
 
-// void draw(SDL_Renderer* renderer) {
-//
-	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);                   
-//
-// }
-
 int main(void) {
+	srand(time(0));
+
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 
@@ -110,33 +114,23 @@ int main(void) {
 	if (renderer == NULL) end_sdl(0, "ERROR RENDERER CREATION", window, renderer);
 
 
+	// Rectangles creation
+
+	int n = 3;		// number of rectangles
+	int m = 0;
+
+	rect_t *rect_tab = (rect_t *)malloc(n*sizeof(rect_t));
+	for(int i = 0; i < n; i++) {
+		rect_tab[i] = createRect(window, 80, 80);
+	}
+
+
 	SDL_Event event;
 
 	int running = 1;
-	int i = 0;
-	int vx, vy;
+	int j = 0;
 	int xClick, yClick;
 	int windowWidth, windowHeight;
-
-	// rect r;
-	// SDL_GetWindowSize(window, &r.x, &r.y);
-	// r.x = r.x/2;
-	// r.y = r.y/2;
-	// r.w = 80;
-	// r.h = 80;
-	// r.angle = 0;
-	
-	rect r = createRect(window, 80, 80);
-
-	srand(time(0));
-	vx = rand() % 10;
-	vy = rand() % 10;
-	if(rand() % 2) {
-		vx = -vx;
-	}
-	if(rand() % 2) {
-		vy = -vy;
-	}
 
 
 	while(running){
@@ -147,28 +141,22 @@ int main(void) {
 						case SDL_WINDOWEVENT_CLOSE:
 							printf("Window closed.\n");
 							break;
-							// case SDL_WINDOWEVENT_SIZE_CHANGED:
-							// width = event.window.data1;
-							// height = event.window.data2;
-							// printf("Size : %d%d\n", width, height);
-						break;
-						default:
-						break;
-
 					}
 				break;
 				case SDL_MOUSEBUTTONDOWN:
 					// printf("Mouse button down.\n");
 					xClick = event.button.x;
 					yClick = event.button.y;
-					if(xClick > r.x && 
-						xClick < r.x + r.w && 
-						yClick > r.y &&
-						yClick < r.y + r.h) {
-						vx = -vx;
-						vy = -vy;
-					}
+					for(int i = 0; i < m; i++) {
+						if(xClick > rect_tab[i].x && 
+							xClick < rect_tab[i].x + rect_tab[i].w && 
+							yClick > rect_tab[i].y &&
+						yClick < rect_tab[i].y + rect_tab[i].h) {
+							rect_tab[i].vx = -rect_tab[i].vx;
+							rect_tab[i].vy = -rect_tab[i].vy;
 
+						}
+					}
 				break;
 				case SDL_QUIT:
 					printf("Quit.\n");
@@ -177,18 +165,37 @@ int main(void) {
 		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
-		drawRect(renderer, r);
-		SDL_RenderPresent(renderer);
-		r.x += vx;
-		r.y += vy;
-		SDL_Delay(50);
-		SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-		if(r.x + r.w > windowWidth || 
-			r.y + r.h > windowHeight ||
-			r.x < 0 ||
-			r.y < 0) {
-			running = 0;
+		for(int i = 0; i < m; i++) {
+			drawRect(renderer, rect_tab[i]);
+			SDL_RenderPresent(renderer);
+
+			rect_tab[i].x += rect_tab[i].vx;
+			rect_tab[i].y += rect_tab[i].vy;
+			SDL_Delay(9);
+
 		}
+
+		SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+
+		for(int i = 0; i < m; i++) {
+			if(rect_tab[i].x + rect_tab[i].w > windowWidth || 
+				rect_tab[i].y + rect_tab[i].h > windowHeight ||
+				rect_tab[i].x < 0 ||
+				rect_tab[i].y < 0) {
+				running = 0;
+			}
+		}
+		SDL_Delay(50);
+
+		if(m < n) {
+			j++;
+		}
+
+		if(j >= 10 && m < n) {
+			j = 0;
+			m++;
+		}
+
 	}
 
 	/* on referme proprement la SDL */
