@@ -1,4 +1,5 @@
 .DS_Store
 *.o
 *.swp
-
+bin/*
+compile_flags.txt
