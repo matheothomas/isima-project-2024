@@ -10,5 +10,5 @@ Their direction is inverted when they are clicked on.
 ```bash
 make dir
 make
-./bin/main
+./bin/main <number of rectangles>
 ```
