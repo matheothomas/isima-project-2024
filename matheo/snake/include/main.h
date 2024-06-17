@@ -23,6 +23,9 @@ typedef struct rect {
 
 /* Functions definitions */
 
+/// Closes the necessary SDL elements and handles errors.
+void end_sdl(char ok, char const* msg, SDL_Window *window, SDL_Renderer *renderer);
+
 /// Draws a rectangle at the defined coordinates, with the defined size and angle.
 void drawRect(SDL_Renderer *renderer, rect_t r);
 
