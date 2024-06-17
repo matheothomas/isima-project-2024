@@ -63,11 +63,24 @@ void drawRect(SDL_Renderer *renderer, rect r) {
 
 }
 
-void draw(SDL_Renderer* renderer) {
+rect createRect(SDL_Window *window, int w, int h) {
+	rect r;
+	SDL_GetWindowSize(window, &r.x, &r.y);
+	r.x = r.x/2;
+	r.y = r.y/2;
+	r.w = w;
+	r.h = h;
+	r.angle = 0;
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);                   
 
+	return r;
 }
+
+// void draw(SDL_Renderer* renderer) {
+//
+	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);                   
+//
+// }
 
 int main(void) {
 	SDL_Window* window = NULL;
@@ -105,13 +118,15 @@ int main(void) {
 	int xClick, yClick;
 	int windowWidth, windowHeight;
 
-	rect r;
-	SDL_GetWindowSize(window, &r.x, &r.y);
-	r.x = r.x/2;
-	r.y = r.y/2;
-	r.w = 80;
-	r.h = 80;
-	r.angle = 0;
+	// rect r;
+	// SDL_GetWindowSize(window, &r.x, &r.y);
+	// r.x = r.x/2;
+	// r.y = r.y/2;
+	// r.w = 80;
+	// r.h = 80;
+	// r.angle = 0;
+	
+	rect r = createRect(window, 80, 80);
 
 	srand(time(0));
 	vx = rand() % 10;
