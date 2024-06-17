@@ -20,6 +20,7 @@ typedef struct Rect {
 	Point * p1;
 	Point * p2;
 	int w;
+	float length;
 	int r;
 	int g;
 	int b;

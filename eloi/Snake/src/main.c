@@ -4,9 +4,20 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <math.h>
+#include <time.h>
 #include <stdio.h>
 #include <string.h>
 #include "../include/main.h"
+
+
+float min(float a, float b) {
+	return (a > b) ? b : a;
+}
+
+float max(float a, float b) {
+	return (a < b) ? b : a;
+}
+
 
 void end_sdl(char ok, char const* msg, SDL_Window* window, SDL_Renderer* renderer) {
 	char msg_formated[255];                                            
@@ -59,7 +70,10 @@ void draw(SDL_Renderer* renderer, SDL_DisplayMode screen, Rect * rects, int nomb
 void drawRectangle(SDL_Renderer * renderer, Rect rectangle) {
 
 	float angle = atan2f((rectangle.p1 -> y - rectangle.p2 -> y), (rectangle.p2 -> x - rectangle.p1 -> x));
-	int rayon = rectangle.w / 2;
+	int dirX = rectangle.p2 -> x - rectangle.p1 -> x;
+	int dirY = rectangle.p2 -> y - rectangle.p1 -> y;
+	float norme = sqrtf((float) dirX*dirX + dirY*dirY);
+	float rayon = rectangle.w / 2 * max(0.5, min(2, rectangle.length*sqrtf(rectangle.length)/norme));
 	int x_offset = (int) (rayon * cosf(angle + M_PI/2));
 	int y_offset = - (int) (rayon * sinf(angle + M_PI/2));
 	int x1 = rectangle.p1 -> x + x_offset;
@@ -86,10 +100,10 @@ void update_speed(Point * point, float speedX, float speedY) {
 void update_speed_points(Rect * rects, int nombre) {
 	
 	float dt = 0.01;
-	float k = 3;
-	float gravity = 3;
+	float k = 2;
+	float gravity = 2;
 	int taille = 30;
-	float damping = 0.04;
+	float damping = 0.05;
 
 	for (int i = 0; i < nombre - 1; i++) {
 
@@ -99,8 +113,8 @@ void update_speed_points(Rect * rects, int nombre) {
 		float dirX_normalized = dirX / norme;
 		float dirY_normalized = dirY / norme;
 
-		float elastic_force_X = -k * (norme - taille) * dirX_normalized;
-		float elastic_force_Y = -k * (norme - taille) * dirY_normalized;
+		float elastic_force_X = -k * (norme - rects[i].length) * dirX_normalized;
+		float elastic_force_Y = -k * (norme - rects[i].length) * dirY_normalized;
 		
 		// Au cas ou on rajoute des forces supplémentaires
 		float speedX = (elastic_force_X);
@@ -125,6 +139,9 @@ void update_pos_points(Point * points, Rect * rects, int nombre) {
 }
 
 int main(int argc, char** argv) {
+
+	srand(time(NULL)); // Init random generator
+
 	(void)argc;
 	(void)argv;
 
@@ -161,7 +178,7 @@ int main(int argc, char** argv) {
 
 	SDL_GetWindowSize(window, &width, &height);
 
-	int nombre = 60;
+	int nombre = 180;
 	int size = 10;
 	int centerX = width / 2;
 	int centerY = height / 2;
@@ -181,10 +198,11 @@ int main(int argc, char** argv) {
 		rects[j].p1 = &points[j];
 		rects[j].p2 = &points[j+1];
 		rects[j].w = 10;
+		rects[j].length = 10;
 	}
 
-	int mouseX;
-	int mouseY;
+	int mouseX = rand() % width;
+	int mouseY = rand() % height;
 	int held = 0;
 
 	while (1) {
