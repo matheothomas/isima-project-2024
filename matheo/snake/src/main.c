@@ -73,8 +73,8 @@ rect_t createRect(SDL_Window *window, int w, int h) {
 	r.w = w;
 	r.h = h;
 	r.angle = 0;
-	r.vx = rand() % 10;
-	r.vy = rand() % 10;
+	r.vx = rand() % 8;
+	r.vy = rand() % 8;
 
 	if(rand() % 2) {
 		r.vx = -r.vx;
@@ -86,10 +86,8 @@ rect_t createRect(SDL_Window *window, int w, int h) {
 	return r;
 }
 
-int main(void) {
-	int n, m,
-		running,
-		j,
+int main(int argc, char **argv) {
+	int n, m, running, j, rotate,
 		xClick, yClick,
 		windowWidth, windowHeight;
 
@@ -100,10 +98,18 @@ int main(void) {
 
 	srand(time(0));
 
-	n = 3;		// number of rectangles
+	// number of rectangles
+	if(argc == 2) {
+		n = atoi(argv[1]);
+	} else {
+		printf("To choose the number of rectangles, use %s <number of rectangles>\n", argv[0]);
+		n = 3;
+	}
+
 	m = 0;
 	running = 1;
 	j = 0;
+	rotate = 1;
 
 
 	// SDL INITIALISATION
@@ -168,13 +174,13 @@ int main(void) {
 			rect_tab[i].x += rect_tab[i].vx;
 			rect_tab[i].y += rect_tab[i].vy;
 			if(rect_tab[i].angle > 20) {
-				rect_tab[i].angle -= 1;
+				rotate = -1;
+				rect_tab[i].angle += rotate;
 			} else if (rect_tab[i].angle < -20) {
-				rect_tab[i].angle += 1;
-			} else if(rand() % 2) {
-				rect_tab[i].angle -= 1;
+				rotate = 1;
+				rect_tab[i].angle += rotate;
 			} else {
-				rect_tab[i].angle += 1;
+				rect_tab[i].angle += rotate;
 			}
 		}
 
