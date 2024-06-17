@@ -20,7 +20,10 @@ void end_sdl(char ok, char const *msg, SDL_Window *window, SDL_Renderer *rendere
 SDL_Texture *load_texture_from_image( char *file_image_name, SDL_Window *window, SDL_Renderer *renderer);
 
 /// Prints a texture on the renderer
-void play_with_texture_2(SDL_Texture *my_texture, SDL_Window *window, SDL_Renderer *renderer, float i, int j);
+void texturing(SDL_Texture *my_texture, SDL_Window *window, SDL_Renderer *renderer, float i, int j);
+
+/// Prints and animates the scene with the sprite
+void main_scene(SDL_Texture *my_texture, SDL_Window *window, SDL_Renderer *renderer, SDL_Texture *mountain, SDL_Texture *city);
 
 #endif
 
