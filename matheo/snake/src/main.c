@@ -10,6 +10,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_render.h"
 #include "SDL2/SDL_timer.h"
+#include "SDL2/SDL_video.h"
+#include "../include/main.h"
 
 /*********************************************************************************************************************/
 /*                              Programme d'exemple de création de rendu + dessin                                    */
@@ -45,18 +47,17 @@ void end_sdl(char ok,                                               // fin norma
 	}                                                          
 }                                                        
 
-/// Draws a rectangle at the defined coordinates, with the defined size and angle.
-void drawRect(SDL_Renderer *renderer, int x, int y, int w, int h, int angle) {
+void drawRect(SDL_Renderer *renderer, rect r) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	int x1, y1, x2, y2;
-	x1 = x + w*cos(angle*M_PI/180);
-	y1 = y + w*sin(angle*M_PI/180);
-	x2 = x + h*cos((angle+90)*M_PI/180);
-	y2 = y + h*sin((angle+90)*M_PI/180);
-	SDL_RenderDrawLine(renderer, x, y, x1, y1);
-	SDL_RenderDrawLine(renderer, x, y, x2, y2);
-	SDL_RenderDrawLine(renderer, x2, y2, x1+x2-x, y1+y2-y);
-	SDL_RenderDrawLine(renderer, x1, y1, x1+x2-x, y1+y2-y);
+	x1 = r.x + r.w*cos(r.angle*M_PI/180);
+	y1 = r.y + r.w*sin(r.angle*M_PI/180);
+	x2 = r.x + r.h*cos((r.angle+90)*M_PI/180);
+	y2 = r.y + r.h*sin((r.angle+90)*M_PI/180);
+	SDL_RenderDrawLine(renderer, r.x, r.y, x1, y1);
+	SDL_RenderDrawLine(renderer, r.x, r.y, x2, y2);
+	SDL_RenderDrawLine(renderer, x2, y2, x1+x2-r.x, y1+y2-r.y);
+	SDL_RenderDrawLine(renderer, x1, y1, x1+x2-r.x, y1+y2-r.y);
 	
 
 }
@@ -98,18 +99,25 @@ int main(void) {
 	/*                                     On dessine dans le renderer                                                   */
 	/*********************************************************************************************************************/
 	/*             Cette partie pourrait avantageusement être remplacée par la boucle évènementielle                     */ 
-	// draw(renderer);                                      // appel de la fonction qui crée l'image  
-	// for(int i = 0; i < 90; i+=5) {
-		// drawRect(renderer, 300, 300, 200, 80, i);
-		// SDL_RenderPresent(renderer);                         // affichage
-		// SDL_Delay(50);
-	// }
-	// SDL_RenderPresent(renderer);                         // affichage
 
 	SDL_Event event;
 
 	int running = 1;
 	int i = 0;
+	int vx, vy;
+	int xClick, yClick;
+
+	rect r;
+	SDL_GetWindowSize(window, &r.x, &r.y);
+	r.x = r.x/2;
+	r.y = r.y/2;
+	r.w = 80;
+	r.h = 80;
+	r.angle = 0;
+
+	vx = 10;
+	vy = 1;
+
 
 	while(running){
 		while(SDL_PollEvent(&event)){
@@ -125,16 +133,21 @@ int main(void) {
 							// printf("Size : %d%d\n", width, height);
 						break;
 						default:
-							// showWindow(renderer, laby, SIZE);
 						break;
 
 					}
 				break;
 				case SDL_MOUSEBUTTONDOWN:
-				// printf("Mouse button down.\n");
-					drawRect(renderer, 400, 400, 200, 120, i);
-					SDL_RenderPresent(renderer);
-					i++;
+					// printf("Mouse button down.\n");
+					xClick = event.button.x;
+					yClick = event.button.y;
+					if(xClick > r.x && 
+						xClick < r.x + r.w && 
+						yClick > r.y &&
+						yClick < r.y + r.h) {
+						vx = -vx;
+						vy = -vy;
+					}
 
 				break;
 				case SDL_QUIT:
@@ -142,7 +155,15 @@ int main(void) {
 				running = 0;
 			}
 		}
-		SDL_Delay(1);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+		// r.angle = i;
+		drawRect(renderer, r);
+		SDL_RenderPresent(renderer);
+		r.x += vx;
+		r.y += vy;
+		// i++;
+		SDL_Delay(50);
 	}
 
 	/* on referme proprement la SDL */
