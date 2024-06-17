@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
@@ -57,7 +58,6 @@ void draw(SDL_Renderer* renderer, SDL_DisplayMode screen, Rect * rects, int nomb
 
 void drawRectangle(SDL_Renderer * renderer, Rect rectangle) {
 
-	SDL_RenderDrawLine(renderer, rectangle.p1 -> x, rectangle.p1 -> y, rectangle.p2 -> x, rectangle.p2 -> y);
 	float angle = atan2f((rectangle.p1 -> y - rectangle.p2 -> y), (rectangle.p2 -> x - rectangle.p1 -> x));
 	int rayon = rectangle.w / 2;
 	int x_offset = (int) (rayon * cosf(angle + M_PI/2));
@@ -86,10 +86,10 @@ void update_speed(Point * point, float speedX, float speedY) {
 void update_speed_points(Rect * rects, int nombre) {
 	
 	float dt = 0.01;
-	float k = 1.5;
+	float k = 3;
 	float gravity = 3;
-	int taille = 100;
-	float damping = 0.015;
+	int taille = 30;
+	float damping = 0.04;
 
 	for (int i = 0; i < nombre - 1; i++) {
 
@@ -108,8 +108,6 @@ void update_speed_points(Rect * rects, int nombre) {
 
 		update_speed(rects[i].p1, -elastic_force_X - damping * rects[i].p1 -> speedX, -elastic_force_Y - damping * rects[i].p1 -> speedY + gravity);
 		update_speed(rects[i].p2, elastic_force_X, elastic_force_Y + gravity);
-
-		printf("AAAA %f\n", rects[1].p2->speedY * 0.1);
 
 	}
 
@@ -145,8 +143,8 @@ int main(int argc, char** argv) {
 	/* Création de la fenêtre */
 	window = SDL_CreateWindow("Premier dessin",
 						   SDL_WINDOWPOS_CENTERED,
-						   SDL_WINDOWPOS_CENTERED, screen.w * 0.66,
-						   screen.h * 0.66,
+						   SDL_WINDOWPOS_CENTERED, screen.w * 0.90,
+						   screen.h * 0.90,
 	SDL_WINDOW_OPENGL);
 	if (window == NULL) end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
 
@@ -163,22 +161,21 @@ int main(int argc, char** argv) {
 
 	SDL_GetWindowSize(window, &width, &height);
 
-	int nombre = 10;
-	int size = 100;
+	int nombre = 60;
+	int size = 10;
 	int centerX = width / 2;
 	int centerY = height / 2;
-	Point * points = (Point *) malloc(sizeof(Point) * size);
-	Rect * rects = (Rect *) malloc(sizeof(Rect) * (size - 1));
+	Point * points = (Point *) malloc(sizeof(Point) * nombre);
+	Rect * rects = (Rect *) malloc(sizeof(Rect) * (nombre - 1));
 	for (int i = 0; i < nombre; i++) {
-		points[i].x = centerX + i * size;
-		points[i].y = 50 + i * size * 0;
+		points[i].x = centerX + 600 * cosf(2*M_PI/nombre*i) * sinf(2*M_PI/nombre * i);
+		points[i].y = centerY + 500 * sinf(2*M_PI/nombre*i);
 		points[i].speedX = 0.;
 		points[i].speedY = 0.;
 		points[i].accX = 0.;
 		points[i].accY = 0.;
-		points[i].fixed = 0;
+		points[i].fixed = !(i % 10);
 	}
-	points[0].fixed = 1;
 
 	for (int j = 0; j < nombre - 1; j++) {
 		rects[j].p1 = &points[j];
@@ -186,7 +183,9 @@ int main(int argc, char** argv) {
 		rects[j].w = 10;
 	}
 
-	time_t now = time(0);
+	int mouseX;
+	int mouseY;
+	int held = 0;
 
 	while (1) {
 
@@ -215,9 +214,21 @@ int main(int argc, char** argv) {
 					end_sdl(1, "Normal ending", window, renderer);
 					return EXIT_SUCCESS;
 					break;
+
+				case SDL_MOUSEBUTTONDOWN:
+					held = !held;
+					break;
 			}
 		}
-		SDL_Delay(1);
+
+		if (held) {
+			SDL_GetGlobalMouseState(&mouseX, &mouseY);
+			points[nombre-1].x = (float) mouseX - 0.1*screen.w/2;
+			points[nombre-1].y = (float) mouseY - 0.1*screen.h/2;
+			points[nombre-1].speedX = 0;
+			points[nombre-1].speedY = 0;
+		}
+		SDL_Delay(10);
 
 
 	}
