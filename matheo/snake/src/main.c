@@ -103,6 +103,7 @@ int main(void) {
 	int i = 0;
 	int vx, vy;
 	int xClick, yClick;
+	int windowWidth, windowHeight;
 
 	rect r;
 	SDL_GetWindowSize(window, &r.x, &r.y);
@@ -161,13 +162,18 @@ int main(void) {
 		}
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
-		// r.angle = i;
 		drawRect(renderer, r);
 		SDL_RenderPresent(renderer);
 		r.x += vx;
 		r.y += vy;
-		// i++;
 		SDL_Delay(50);
+		SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+		if(r.x + r.w > windowWidth || 
+			r.y + r.h > windowHeight ||
+			r.x < 0 ||
+			r.y < 0) {
+			running = 0;
+		}
 	}
 
 	/* on referme proprement la SDL */
