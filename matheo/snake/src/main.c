@@ -100,7 +100,7 @@ int main(void) {
 
 	srand(time(0));
 
-	n = 5;		// number of rectangles
+	n = 3;		// number of rectangles
 	m = 0;
 	running = 1;
 	j = 0;
@@ -167,6 +167,15 @@ int main(void) {
 
 			rect_tab[i].x += rect_tab[i].vx;
 			rect_tab[i].y += rect_tab[i].vy;
+			if(rect_tab[i].angle > 20) {
+				rect_tab[i].angle -= 1;
+			} else if (rect_tab[i].angle < -20) {
+				rect_tab[i].angle += 1;
+			} else if(rand() % 2) {
+				rect_tab[i].angle -= 1;
+			} else {
+				rect_tab[i].angle += 1;
+			}
 		}
 
 		SDL_RenderPresent(renderer);
