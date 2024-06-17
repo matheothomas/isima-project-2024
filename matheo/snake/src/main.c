@@ -3,10 +3,11 @@
  * date : 16-06-24
  */
 
-#include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_render.h"
 #include "SDL2/SDL_timer.h"
@@ -95,10 +96,6 @@ int main(void) {
 							   SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL) end_sdl(0, "ERROR RENDERER CREATION", window, renderer);
 
-	/*********************************************************************************************************************/
-	/*                                     On dessine dans le renderer                                                   */
-	/*********************************************************************************************************************/
-	/*             Cette partie pourrait avantageusement être remplacée par la boucle évènementielle                     */ 
 
 	SDL_Event event;
 
@@ -115,8 +112,15 @@ int main(void) {
 	r.h = 80;
 	r.angle = 0;
 
-	vx = 10;
-	vy = 1;
+	srand(time(0));
+	vx = rand() % 10;
+	vy = rand() % 10;
+	if(rand() % 2) {
+		vx = -vx;
+	}
+	if(rand() % 2) {
+		vy = -vy;
+	}
 
 
 	while(running){
