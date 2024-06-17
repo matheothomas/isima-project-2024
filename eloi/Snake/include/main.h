@@ -7,10 +7,13 @@
 //structs 
 
 typedef struct Point {
-	int x;
-	int y;
-	int speed;
-	int acc;
+	float x;
+	float y;
+	float speedX;
+	float speedY;
+	float accX;
+	float accY;
+	int fixed;
 } Point;
 
 typedef struct Rect {
@@ -24,6 +27,6 @@ typedef struct Rect {
 
 //functions
 void end_sdl(char ok, char const* msg, SDL_Window* window, SDL_Renderer* renderer);
-void draw(SDL_Renderer * renderer);
+void draw(SDL_Renderer * renderer, SDL_DisplayMode screen, Rect * rects, int nombre);
 void drawRectangle(SDL_Renderer* renderer, Rect rectangle);
 
