@@ -14,13 +14,10 @@
 #include "SDL2/SDL_video.h"
 #include "../include/main.h"
 
-/*********************************************************************************************************************/
-/*                              Programme d'exemple de création de rendu + dessin                                    */
-/*********************************************************************************************************************/
 void end_sdl(char ok,                                               // fin normale : ok = 0 ; anormale ok = 1
-			 char const* msg,                                       // message à afficher
-			 SDL_Window* window,                                    // fenêtre à fermer
-			 SDL_Renderer* renderer) {                              // renderer à fermer
+			 char const *msg,                                       // message à afficher
+			 SDL_Window *window,                                    // fenêtre à fermer
+			 SDL_Renderer *renderer) {                              // renderer à fermer
 	char msg_formated[255];                                            
 	int l;                                                     
 
@@ -59,8 +56,6 @@ void drawRect(SDL_Renderer *renderer, rect_t r) {
 	SDL_RenderDrawLine(renderer, r.x, r.y, x2, y2);
 	SDL_RenderDrawLine(renderer, x2, y2, x1+x2-r.x, y1+y2-r.y);
 	SDL_RenderDrawLine(renderer, x1, y1, x1+x2-r.x, y1+y2-r.y);
-	
-
 }
 
 rect_t createRect(SDL_Window *window, int w, int h) {
@@ -89,26 +84,26 @@ int main(void) {
 
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-
 	SDL_DisplayMode screen;
+	SDL_Event event;
 
-	/*********************************************************************************************************************/  
-	/*                         Initialisation de la SDL  + gestion de l'échec possible                                   */
+
+	// SDL INITIALISATION
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) end_sdl(0, "ERROR SDL INIT", window, renderer);
 
 	SDL_GetCurrentDisplayMode(0, &screen);
 	printf("Résolution écran\n\tw : %d\n\th : %d\n",
 		screen.w, screen.h);
 
-	/* Création de la fenêtre */
+	// Window creation
 	window = SDL_CreateWindow("Premier dessin",
 						   SDL_WINDOWPOS_CENTERED,
-						   SDL_WINDOWPOS_CENTERED, screen.w * 0.66,
-						   screen.h * 0.66,
+						   SDL_WINDOWPOS_CENTERED, screen.w * 0.76,
+						   screen.h * 0.76,
 						   SDL_WINDOW_OPENGL);
 	if (window == NULL) end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
 
-	/* Création du renderer */
+	// Renderer creation
 	renderer = SDL_CreateRenderer(window, -1,
 							   SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL) end_sdl(0, "ERROR RENDERER CREATION", window, renderer);
@@ -116,16 +111,14 @@ int main(void) {
 
 	// Rectangles creation
 
-	int n = 3;		// number of rectangles
+	int n = 5;		// number of rectangles
 	int m = 0;
 
 	rect_t *rect_tab = (rect_t *)malloc(n*sizeof(rect_t));
 	for(int i = 0; i < n; i++) {
-		rect_tab[i] = createRect(window, 80, 80);
+		rect_tab[i] = createRect(window, 50, 50);
 	}
 
-
-	SDL_Event event;
 
 	int running = 1;
 	int j = 0;
@@ -144,7 +137,6 @@ int main(void) {
 					}
 				break;
 				case SDL_MOUSEBUTTONDOWN:
-					// printf("Mouse button down.\n");
 					xClick = event.button.x;
 					yClick = event.button.y;
 					for(int i = 0; i < m; i++) {
@@ -152,8 +144,8 @@ int main(void) {
 							xClick < rect_tab[i].x + rect_tab[i].w && 
 							yClick > rect_tab[i].y &&
 						yClick < rect_tab[i].y + rect_tab[i].h) {
-							rect_tab[i].vx = -rect_tab[i].vx;
-							rect_tab[i].vy = -rect_tab[i].vy;
+							rect_tab[i].vx = -(rect_tab[i].vx + rand() % 5);
+							rect_tab[i].vy = -(rect_tab[i].vy + rand() % 5);
 
 						}
 					}
@@ -167,13 +159,11 @@ int main(void) {
 		SDL_RenderClear(renderer);
 		for(int i = 0; i < m; i++) {
 			drawRect(renderer, rect_tab[i]);
-			SDL_RenderPresent(renderer);
 
 			rect_tab[i].x += rect_tab[i].vx;
 			rect_tab[i].y += rect_tab[i].vy;
-			SDL_Delay(9);
-
 		}
+		SDL_RenderPresent(renderer);
 
 		SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
@@ -191,14 +181,14 @@ int main(void) {
 			j++;
 		}
 
-		if(j >= 10 && m < n) {
+		if(j >= 20 && m < n) {
 			j = 0;
 			m++;
 		}
 
 	}
 
-	/* on referme proprement la SDL */
+	// SDL closing
 	end_sdl(1, "Normal ending", window, renderer);
 	return EXIT_SUCCESS;
 }
