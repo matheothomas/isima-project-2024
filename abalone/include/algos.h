@@ -13,14 +13,15 @@
 
 typedef struct play {
 	cell_t *cell_tab[5];
+	state_e buffer[5];
 	int cell_tab_length;
-	int direction;
+	int movement_direction;
+	int cell_direction;
 } play_t;
 
 typedef struct tree {
-	struct tree *tree_tab;
+	struct tree *next_tree;
 	play_t *play;
-	int tab_length;
 	int value;
 	int depth;
 } tree_t;
@@ -28,17 +29,26 @@ typedef struct tree {
 
 /* Functions definitions */
 
+/// returns the max/min value of a tree node, depending on the player turn
+int max(tree_t *tree, bool player);
+
+/// return the max play of a tree node
+play_t *max_play(tree_t *tree);
+
 /// returns the best play depending on the player
-play_t *choose_play(tree_t *tree, bool is_bot);
+play_t *choose_play(board_t *board);
 
 /// returns a tree containing all available plays for a board
-tree_t *gen_plays(tree_t *tree, board_t *board);
+tree_t *gen_plays(board_t *board, int depth, bool player);
 
 /// applies a play to the board
-tree_t *apply_play(tree_t *tree, board_t *board, play_t *play, bool is_bot);
+board_t *apply_play(board_t *board, play_t *play, bool player);
+
+///
+board_t *undo_play(board_t *board, play_t *play, bool player);
 
 /// applies the min-max algorithm 
-tree_t *eval(tree_t *tree, board_t *board, int max_depth, bool is_bot);
+int eval(board_t *board, int depth, int max_depth, bool player);
 
 
 #endif
