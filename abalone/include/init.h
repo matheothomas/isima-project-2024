@@ -5,6 +5,7 @@
 
 #ifndef init_h 
 #define init_h
+#define CELL_NUMBER 61
 
 /* Struct definitions */
 typedef enum state {
@@ -14,6 +15,7 @@ typedef enum state {
 } state_e;
 
 typedef struct cell {
+	int id;
 	state_e state;
 	struct cell *neighbourg[6];
 } cell_t;
