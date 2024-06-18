@@ -15,27 +15,34 @@ bool validity_play(board_t * board, play_t * play) {
 }
 
 tree_t * create_tree(play_t * play, int value, int depth) {
+	
 	tree_t * tree = malloc(sizeof(tree_t));
 	tree -> play = play;
 	tree -> value = value;
 	tree -> depth = depth;
 	tree -> next_tree = NULL;
+	
 	return tree;
 }
 
 void append_tree(tree_t * tree, play_t * play, int value, int depth) {
+	
 	tree_t *new_tree = create_tree(play, value, depth);
 	tree_t * cours = tree;
+
 	while (cours -> next_tree != NULL) {
 		cours = cours -> next_tree;
 	}
+
 	cours -> next_tree = new_tree;
 }
 
 void fill_play_buffer(play_t * play) {
+	
 	if (play -> cell_tab_length < 5) {
 		play -> cell_tab[play -> cell_tab_length] = NULL;
 	}
+	
 	int i = 0;
 	while (i++ < play -> cell_tab_length) {
 		play -> buffer[i] = play -> cell_tab[i] -> state;
@@ -48,6 +55,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 	
 	if (play == NULL && visited[cell -> id] == false) {
 		visited[cell -> id] = true;
+		
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
 				play_t new_play;
@@ -56,6 +64,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play.cell_direction = i;
 				new_play.cell_tab[0] = cell;
 				new_play.cell_tab[1] = NULL;
+
 				traversal_rec(board, tree, &new_play, cell -> neighbourg[i], visited, player);
 			}
 		}
@@ -63,7 +72,8 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 	else if (play -> cell_tab_length < 3) {
 
 		play -> cell_tab[play -> cell_tab_length] = cell;
-		play -> cell_tab_length ++; 
+		play -> cell_tab_length ++;
+
 		if (validity_play(board, play)) {
 			fill_play_buffer(play);
 			append_tree(tree, play, 0, tree -> depth);
@@ -78,10 +88,12 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 	if (play != NULL && play -> cell_tab_length < 5) {
 		play -> cell_tab[play -> cell_tab_length] = cell;
 		play -> cell_tab_length ++;
+
 		if (validity_play(board, play)) {
 			fill_play_buffer(play);
 			append_tree(tree, play, 0, tree -> depth);
 		}
+
 		traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
 	}
 
@@ -117,14 +129,10 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 
 tree_t * gen_plays(board_t * board, int depth, bool player) {
 
-
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
 	traversal_rec(board, tree, NULL, board -> cell, visited, player);
-
-
-
 
 	return tree -> next_tree;
 }
