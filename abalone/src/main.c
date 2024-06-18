@@ -10,7 +10,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "../include/graphics.h"
-#include "../include/init.h"
+#include "../include/algos.h"
+// #include "../include/init.h"
 
 
 
@@ -53,13 +54,6 @@ int main(void){
 
 
 
-	cell_t c1 = create_cell();
-	cell_t c2 = create_cell();
-	c2.state = WHITE;
-
-	c1.neighbourg[0] = &c2;
-
-	printf("value : %d\n", c1.neighbourg[0]->state);
 
 
 	return 0;
