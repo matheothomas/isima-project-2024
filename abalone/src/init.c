@@ -5,10 +5,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/init.h"
 
 
-int main(void){
+cell_t create_cell() {
+	cell_t c;
 
-	return 0;
+	c.state = EMPTY;
+	for(int i = 0; i < 6; i++) {
+		c.neighbourg[i] = NULL;
+	}
+
+	return c;
 }
-
