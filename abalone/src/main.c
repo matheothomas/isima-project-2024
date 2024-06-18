@@ -3,14 +3,14 @@
  * date : 18-06-24
  */
 
-#include "../include/graphics.h"
-#include "../include/init.h"
-#include "SDL2/SDL_render.h"
 #include "SDL2/SDL_timer.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/algos.h"
+#include "../include/init.h"
+#include "SDL2/SDL_render.h"
 
 int main(void) {
   SDL_Window *window = NULL;
@@ -54,4 +54,5 @@ int main(void) {
   board_t b = create_clean_board();
 
   return 0;
+
 }

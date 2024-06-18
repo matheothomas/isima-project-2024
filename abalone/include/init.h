@@ -5,6 +5,10 @@
 
 #ifndef init_h 
 #define init_h
+#define CELL_NUMBER 61
+
+#define CELL_NUMBERS 61
+#define MAX_DEPTH 10
 
 /* Struct definitions */
 typedef enum state {
@@ -14,6 +18,7 @@ typedef enum state {
 } state_e;
 
 typedef struct cell {
+	int id;
 	state_e state;
 	struct cell *neighbourg[6];
 } cell_t;
@@ -23,7 +28,6 @@ typedef struct board {
 	int n_white;
 	int n_black;
 } board_t;
-
 
 
 /* Functions definitions */
