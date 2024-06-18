@@ -7,10 +7,6 @@
 #include <stdlib.h>
 #include "../include/init.h"
 
-<<<<<<< HEAD
-int main(void) { return 0; }
-=======
-
 cell_t create_cell() {
 	cell_t c;
 
@@ -21,4 +17,3 @@ cell_t create_cell() {
 
 	return c;
 }
->>>>>>> 3ab02a0a791bf455b485025c60f442752914102c
