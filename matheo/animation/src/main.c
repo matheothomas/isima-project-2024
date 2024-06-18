@@ -95,7 +95,7 @@ void main_scene(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* rende
 	offset_y = source.h / 8;				// number of columns in the tile
 
 
-	state.x = 0 ;
+	state.x = 9 * offset_x;
 	state.y = 6 * offset_y;                // 6th line to get the flying bird
 	state.w = offset_x;
 	state.h = offset_y;
@@ -107,6 +107,7 @@ void main_scene(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* rende
 
 	int speed = 9;
 	for (int x = 0; x < window_dimensions.w - destination.w; x += speed) {
+		// make the bird face us sometimes
 		if(x > 500 && x < 650) {
 			state.y = 4 * offset_y;
 		} else {
@@ -114,7 +115,10 @@ void main_scene(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* rende
 		}
 		destination.x = x;
 		state.x += offset_x;
-		state.x %= source.w;
+
+		if(state.x == source.w) {
+			state.x = 9 * offset_x;
+		}
 
 		SDL_RenderClear(renderer);
 		texturing(mountain, window, renderer, x*0.1, x*0.1);
