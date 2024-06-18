@@ -11,15 +11,15 @@
 
 typedef struct play {
 	cell_t *cell_tab[5];
+	int buffer[5];
 	int cell_tab_length;
 	int movement_direction;
 	int cell_direction;
 } play_t;
 
 typedef struct tree {
-	struct tree *tree_tab;
+	struct tree *next_tree;
 	play_t *play;
-	int tab_length;
 	int value;
 	int depth;
 } tree_t;
