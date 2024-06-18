@@ -29,7 +29,8 @@ typedef struct board {
 /* Functions definitions */
 
 /// creates a cell of the board
-cell_t create_cell();
+cell_t *create_cell();
+board_t create_clean_board();
 
 #endif
 
