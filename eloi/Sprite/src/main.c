@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
@@ -104,8 +105,7 @@ void play_with_texture_2(SDL_Texture* my_texture,
 	destination.y = y;
 	SDL_RenderCopy(renderer, my_texture,     // Préparation de l'affichage  
 				&source,
-				&destination);            
-	SDL_RenderPresent(renderer); 
+				&destination);
 }
 
 void play_with_texture_3(SDL_Texture* my_texture,
@@ -151,6 +151,48 @@ void play_with_texture_3(SDL_Texture* my_texture,
 
 void play_with_texture_4(SDL_Texture* my_texture,
 						 SDL_Window* window,
+						 SDL_Renderer* renderer,
+						 int number_frame,
+						 int x,
+						 int y) {
+	SDL_Rect 
+	source = {0},                    // Rectangle définissant la zone totale de la planche
+	window_dimensions = {0},         // Rectangle définissant la fenêtre, on n'utilisera que largeur et hauteur
+	destination = {0},               // Rectangle définissant où la zone_source doit être déposée dans le renderer
+	state = {0};                     // Rectangle de la vignette en cours dans la planche 
+
+	SDL_GetWindowSize(window,              // Récupération des dimensions de la fenêtre
+				   &window_dimensions.w,
+				   &window_dimensions.h);
+	SDL_QueryTexture(my_texture,           // Récupération des dimensions de l'image
+				  NULL, NULL,
+				  &source.w, &source.h);
+
+	/* Mais pourquoi prendre la totalité de l'image, on peut n'en afficher qu'un morceau, et changer de morceau :-) */
+
+	int nb_images = 5;                     // Il y a 8 vignette dans la ligne de l'image qui nous intéresse
+	float zoom = 1;                        // zoom, car ces images sont un peu petites
+	int offset_x = source.w / nb_images,   // La largeur d'une vignette de l'image, marche car la planche est bien réglée
+	offset_y = source.h / 5;           // La hauteur d'une vignette de l'image, marche car la planche est bien réglée
+
+
+	state.x = offset_x * number_frame;                          // La première vignette est en début de ligne
+	state.y = offset_y;                // On s'intéresse à la 4ème ligne, le bonhomme qui court
+	state.w = offset_x;                    // Largeur de la vignette
+	state.h = offset_y;                    // Hauteur de la vignette
+
+	destination.w = offset_x * zoom;       // Largeur du sprite à l'écran
+	destination.h = offset_y * zoom;       // Hauteur du sprite à l'écran
+
+	destination.y = y;
+	SDL_RenderCopy(renderer, my_texture, // Préparation de l'affichage
+				 &state,
+				 &destination);
+}
+
+
+void play_with_texture_42(SDL_Texture* my_texture,
+						 SDL_Window* window,
 						 SDL_Renderer* renderer) {
 	SDL_Rect 
 	source = {0},                    // Rectangle définissant la zone totale de la planche
@@ -167,7 +209,7 @@ void play_with_texture_4(SDL_Texture* my_texture,
 
 	/* Mais pourquoi prendre la totalité de l'image, on peut n'en afficher qu'un morceau, et changer de morceau :-) */
 
-	int nb_images = 8;                     // Il y a 8 vignette dans la ligne de l'image qui nous intéresse
+	int nb_images = 5;                     // Il y a 8 vignette dans la ligne de l'image qui nous intéresse
 	float zoom = 2;                        // zoom, car ces images sont un peu petites
 	int offset_x = source.w / nb_images,   // La largeur d'une vignette de l'image, marche car la planche est bien réglée
 	offset_y = source.h / 4;           // La hauteur d'une vignette de l'image, marche car la planche est bien réglée
@@ -295,18 +337,27 @@ int main(int argc, char** argv) {
 	// création du logo
 
 	char logo_path[] = "res/logo.png";
+	char horse_path[] = "res/horse.png";
 	SDL_Texture * logo = load_texture_from_image(logo_path, window, renderer);
-
+	SDL_Texture * horse = load_texture_from_image(horse_path, window, renderer);
 
 	int height;
 	int width;
 
 	SDL_GetWindowSize(window, &width, &height);
 
-	int logo_x = rand() % width;
-	int logo_y = rand() % height;
+	int logo_x = width/2;
+	int logo_y = height/2;
 	int dir_x = (rand() % 10 - 5) * 2;
 	int dir_y = (rand() % 10 - 5) * 2;
+
+	int horse_x = width/4;
+	int horse_y = width/4;
+	int horse_dir_x = 0;
+	int horse_dir_y = 0;
+
+	int global_count_time = 0;
+	int number_frame = 0;
 
 	while (1) {
 
@@ -348,7 +399,16 @@ int main(int argc, char** argv) {
 		logo_y += dir_y;
 		SDL_RenderClear(renderer);
 		play_with_texture_2(logo, window, renderer, logo_x, logo_y);
+		
+		if (!(global_count_time % 3)) {
+			number_frame++;
+			number_frame = number_frame % 5;
+		}
+		play_with_texture_4(horse, window, renderer, number_frame, horse_x, horse_y);
+		
+		global_count_time++;
 
+		SDL_RenderPresent(renderer);
 		SDL_Delay(1);
 
 
