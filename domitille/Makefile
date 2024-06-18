@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall -Wextra
 SDLFLAGS=-lSDL2 -lSDL2_image -lSDL2_ttf -I/opt/local/include -L/opt/local/lib
+FLAG=-lm
 
 all: exo1 exo2
 
