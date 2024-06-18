@@ -8,8 +8,8 @@ all: exo1 exo2
 exo1: ./X_fenetre/exo1.c
 	${CC} ${CFLAGS} ./X_fenetre/exo1.c -o exo1 ${SDLFLAGS}
 
-exo2: ./Snake/exo2.c
-	${CC} ${CFLAGS} ./Snake/exo2.c -o exo2 ${SDLFLAGS}
+exo2: ./Snake/exo2bis.c
+	${CC} ${CFLAGS} ./Snake/exo2bis.c -o exo2 ${SDLFLAGS}
 
 clean:
 	rm -f *.o *.gch
