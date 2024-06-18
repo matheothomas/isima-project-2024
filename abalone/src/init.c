@@ -3,22 +3,124 @@
  * date : 18-06-24
  */
 
+#include "../include/init.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/init.h"
 
-<<<<<<< HEAD
-int main(void) { return 0; }
-=======
+cell_t *create_cell() {
+  cell_t *c;
+  c->state = EMPTY;
 
-cell_t create_cell() {
-	cell_t c;
+  for (int i = 0; i < 6; i++) {
+    c->neighbourg[i] = NULL;
+  }
 
-	c.state = EMPTY;
-	for(int i = 0; i < 6; i++) {
-		c.neighbourg[i] = NULL;
-	}
-
-	return c;
+  return c;
 }
->>>>>>> 3ab02a0a791bf455b485025c60f442752914102c
+
+board_t create_clean_board() {
+  board_t b;
+  cell_t *first_cell = create_cell();
+  b.cell = first_cell;
+  b.n_black = 0;
+  b.n_white = 0;
+
+  cell_t *cur_cell = b.cell;
+  int j = 0;
+  int c = 0;
+
+  // initialisation of the first cell, the one in the center.
+
+  cur_cell->state = EMPTY;
+  for (int i = 0; i < 6; i++) {
+    cur_cell->neighbourg[i] = create_cell();
+    cur_cell->neighbourg[i]->neighbourg[(i + 3) % 6] = cur_cell;
+  }
+
+  // creation of other cells
+
+  for (int i = 0; i < 6; i++) {
+    cur_cell = b.cell->neighbourg[i];
+
+    while (c < 3) {
+      for (int n = 0; n < 6; n++) {
+        if (n != 3 && ((c != 0) || (c == 0 && n != 4))) {
+          if (c == 0 && n == 2) {
+            cur_cell->neighbourg[i + n] =
+                cur_cell->neighbourg[(i + 3) % 6]->neighbourg[(i + 1) % 6];
+            cur_cell->neighbourg[i + n]->neighbourg[(i + n + 3) % 6] = cur_cell;
+          } else if (n == 4) {
+            cur_cell->neighbourg[i + n] =
+                cur_cell->neighbourg[(i + 3) % 6]->neighbourg[(i + 5) % 6];
+            cur_cell->neighbourg[i + n]->neighbourg[(i + n + 3) % 6] = cur_cell;
+          } else {
+            cur_cell->neighbourg[i + n] = create_cell();
+            cur_cell->neighbourg[i + n]->neighbourg[(i + n + 3) % 6] = cur_cell;
+          }
+        }
+      }
+      cur_cell = cur_cell->neighbourg[i];
+      c += 1;
+    }
+
+    c = 0;
+    j = 2;
+
+    cur_cell->neighbourg[i] = NULL;
+    cur_cell->neighbourg[(i + 1) % 6] = NULL;
+    cur_cell->neighbourg[(i + 5) % 6] = NULL;
+    for (int n = 2; n < 5; n += 2) {
+      cur_cell->neighbourg[i] = create_cell();
+      cur_cell->neighbourg[i]->neighbourg[(i + 3) % 6] = cur_cell;
+    }
+
+    while (c < 2) {
+      cur_cell = cur_cell->neighbourg[i + j];
+      cur_cell->neighbourg[i] = NULL;
+      cur_cell->neighbourg[(i + 1) % 6] = NULL;
+      cur_cell->neighbourg[i + 2] = create_cell();
+      cur_cell->neighbourg[i + 2]->neighbourg[(i + 2 + 3) % 6] = cur_cell;
+
+      if (c == 0) {
+        cur_cell->neighbourg[i + 3] =
+            cur_cell->neighbourg[(i + 4) % 6]->neighbourg[(i + 2) % 6];
+        cur_cell->neighbourg[i + 3]->neighbourg[(i + 3 + 3) % 6] = cur_cell;
+      } else {
+        cur_cell->neighbourg[i + 3] = create_cell();
+        cur_cell->neighbourg[i + 3]->neighbourg[(i + 3 + 3) % 6] = cur_cell;
+        cur_cell->neighbourg[i + 4] =
+            cur_cell->neighbourg[(i + 5) % 6]->neighbourg[(i + 3) % 6];
+        cur_cell->neighbourg[i + 4]->neighbourg[(i + 4 + 3) % 6] = cur_cell;
+      }
+      c += 1;
+    }
+
+    c = 0;
+    j = 3;
+
+    cur_cell = cur_cell->neighbourg[i + j];
+
+    cur_cell->neighbourg[i + 1] =
+        cur_cell->neighbourg[(i + 0) % 6]->neighbourg[(i + 2) % 6];
+    cur_cell->neighbourg[i + 1]->neighbourg[(i + 1 + 3) % 6] = cur_cell;
+
+    cur_cell->neighbourg[i + 5] =
+        cur_cell->neighbourg[(i + 0) % 6]->neighbourg[(i + 4) % 6];
+    cur_cell->neighbourg[i + 5]->neighbourg[(i + 5 + 3) % 6] = cur_cell;
+
+    cur_cell->neighbourg[i + 4] = cur_cell->neighbourg[(i + 5) % 6]
+                                      ->neighbourg[(i + 4) % 6]
+                                      ->neighbourg[(i + 2) % 6];
+    cur_cell->neighbourg[i + 4]->neighbourg[(i + 4 + 3) % 6] = cur_cell;
+
+    j = 4;
+
+    cur_cell = cur_cell->neighbourg[i + j];
+
+    cur_cell->neighbourg[i + 0] =
+        cur_cell->neighbourg[(i + 1) % 6]->neighbourg[(i + 5) % 6];
+    cur_cell->neighbourg[i + 0]->neighbourg[(i + 0 + 3) % 6] = cur_cell;
+  }
+
+  return b;
+}
