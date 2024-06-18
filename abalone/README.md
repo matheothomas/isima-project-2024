@@ -4,6 +4,11 @@ This first project uses the game **Abalone** to implement the **min-max** algori
 
 Testing conflicts again 
 and again
+Testing conflicts | 
+| Column2    | Column3    |
+|---------------- | --------------- | --------------- |
+| Item1.1    | Item2.1    | Item3.1    |
+
 
 ## Roadmap
 - [ ] Create the structure of the game.
