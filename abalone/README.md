@@ -2,7 +2,8 @@
 
 This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning.
 
-Testing conflicts
+Testing conflicts again 
+and again
 
 ## Roadmap
 - [ ] Create the structure of the game.
