@@ -2,6 +2,8 @@
 
 This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning.
 
+Testing conflicts
+
 ## Roadmap
 - [ ] Create the structure of the game.
 - [ ] Create a graphical interface in SDL2.
