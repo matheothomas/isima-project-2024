@@ -6,6 +6,7 @@
 #ifndef init_h 
 #define init_h
 
+#define CELL_NUMBERS 61
 /* Struct definitions */
 typedef enum state {
 	EMPTY,
