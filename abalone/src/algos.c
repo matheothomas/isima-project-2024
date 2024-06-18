@@ -1,5 +1,5 @@
 /* name : algos.c
- * author : matheo thomas
+ * author : matheo thomas, domitille vale, eloi petit
  * date : 18-06-24
  */
 
@@ -8,13 +8,10 @@
 #include <time.h>
 #include "../include/algos.h"
 
-#define MAX_DEPTH 10
-
 
 int max(tree_t *tree, bool player) {
 	int is_max = player ? 1 : -1;
 
-	// tree_t *tree_max = tree;
 	tree_t *temp = tree;
 	int val_max = tree->value;
 
@@ -24,7 +21,7 @@ int max(tree_t *tree, bool player) {
 			val_max = temp->value;
 		}
 	}
-	// return tree_max->play;
+
 	return val_max;
 }
 
@@ -89,6 +86,7 @@ board_t *undo_play(board_t *board, play_t *play, bool player) {
 			play->cell_tab[i]->neighbourg[play->movement_direction]->state = EMPTY;
 		}
 	}
+
 	return board;
 }
 
