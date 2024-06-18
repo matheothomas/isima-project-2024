@@ -179,3 +179,33 @@ board_t create_clean_board() {
   }
   return b;
 }
+
+board_t start_config() {
+  board_t b = create_clean_board();
+
+  cell_t *cur_cell;
+  state_e coulour = WHITE;
+
+  for (int n = 0; n < 4; n += 3) {
+    cur_cell =
+        b.cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
+    for (int i = 0; i < 4; i++) {
+      cur_cell->state = coulour;
+      cur_cell = cur_cell->neighbourg[(n + 2) % 6];
+    }
+    cur_cell->state = coulour;
+    cur_cell = cur_cell->neighbourg[(n + 3) % 6];
+    for (int i = 0; i < 5; i++) {
+      cur_cell->state = coulour;
+      cur_cell = cur_cell->neighbourg[(n + 5) % 6];
+    }
+    cur_cell->state = coulour;
+    cur_cell = cur_cell->neighbourg[(n + 2) % 6]->neighbourg[(n + 3) % 6];
+    for (int i = 0; i < 3; i++) {
+      cur_cell->state = coulour;
+      cur_cell = cur_cell->neighbourg[(n + 2) % 6];
+    }
+    coulour = BLACK;
+  }
+  return b;
+}
