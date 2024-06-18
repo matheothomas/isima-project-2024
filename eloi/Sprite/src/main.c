@@ -12,6 +12,25 @@
 #include <string.h>
 #include "../include/main.h"
 
+int min(int a, int b) {
+	return (a > b) ? b : a;
+}
+
+int max(int a, int b) {
+	return (a < b) ? b : a;
+}
+
+int abs(int a) {
+	return (a < 0) ? -a : a;
+}
+
+int boxed(int lower, int upper, int a) {
+	int returned = a;
+	if (lower > a) { returned = lower; }
+	if (upper < a) { returned = upper; }
+	return returned;
+}
+
 void end_sdl(char ok, char const* msg, SDL_Window* window, SDL_Renderer* renderer) {
 	char msg_formated[255];                                            
 	int l;                                                     
@@ -86,7 +105,8 @@ void play_with_texture_2(SDL_Texture* my_texture,
 						 SDL_Window* window,
 						 SDL_Renderer* renderer,
 						 int x,
-						 int y) {
+						 int y,
+						 float zoom) {
 	SDL_Rect 
 	source = {0},                      // Rectangle définissant la zone de la texture à récupérer
 	window_dimensions = {0},           // Rectangle définissant la fenêtre, on n'utilisera que largeur et hauteur
@@ -98,7 +118,6 @@ void play_with_texture_2(SDL_Texture* my_texture,
 	SDL_QueryTexture(my_texture, NULL, NULL,
 				  &source.w, &source.h);  // Récupération des dimensions de l'image
 
-	float zoom = 0.1;                        // Facteur de zoom à appliquer    
 	destination.w = source.w * zoom;         // La destination est un zoom de la source
 	destination.h = source.h * zoom;         // La destination est un zoom de la source
 	destination.x = x;
@@ -185,6 +204,7 @@ void play_with_texture_4(SDL_Texture* my_texture,
 	destination.h = offset_y * zoom;       // Hauteur du sprite à l'écran
 
 	destination.y = y;
+	destination.x = x;
 	SDL_RenderCopy(renderer, my_texture, // Préparation de l'affichage
 				 &state,
 				 &destination);
@@ -337,9 +357,14 @@ int main(int argc, char** argv) {
 	// création du logo
 
 	char logo_path[] = "res/logo.png";
-	char horse_path[] = "res/horse.png";
+	char horse_path[] = "res/horse.jpeg";
+	char parallax_1_path[] = "res/skyline.png";
+	char parallax_2_path[] = "res/city.png";
 	SDL_Texture * logo = load_texture_from_image(logo_path, window, renderer);
 	SDL_Texture * horse = load_texture_from_image(horse_path, window, renderer);
+	SDL_Texture * parallax_1 = load_texture_from_image(parallax_1_path, window, renderer);
+	SDL_Texture * parallax_2 = load_texture_from_image(parallax_2_path, window, renderer);
+
 
 	int height;
 	int width;
@@ -350,9 +375,13 @@ int main(int argc, char** argv) {
 	int logo_y = height/2;
 	int dir_x = (rand() % 10 - 5) * 2;
 	int dir_y = (rand() % 10 - 5) * 2;
+	int parallax_1_x = 0;
+	int parallax_1_y = 300;
+	int parallax_2_x = 0;
+	int parallax_2_y = -600;
 
-	int horse_x = width/4;
-	int horse_y = width/4;
+	int horse_x = width/4 + 100;
+	int horse_y = width/4 + 100;
 	int horse_dir_x = 0;
 	int horse_dir_y = 0;
 
@@ -394,11 +423,29 @@ int main(int argc, char** argv) {
 			dir_y = -dir_y;
 		}
 
+		horse_dir_x = boxed(-abs(dir_x), abs(dir_x), (logo_x - horse_x) / 4);
+		horse_dir_y = boxed(-abs(dir_y), abs(dir_y), (logo_y - horse_y) / 4);
+		printf("%d\n", (logo_x - horse_x) / 2);
 
 		logo_x += dir_x;
 		logo_y += dir_y;
+
+		horse_x += horse_dir_x;
+		horse_y += horse_dir_y;
+
+		parallax_1_x -= 2;
+		parallax_2_x -= 1;
+
+		printf("%d %d\n", horse_x, horse_dir_x);
+
+		
+		
 		SDL_RenderClear(renderer);
-		play_with_texture_2(logo, window, renderer, logo_x, logo_y);
+
+		play_with_texture_2(parallax_2, window, renderer, parallax_2_x, parallax_2_y, 1);
+
+		play_with_texture_2(parallax_1, window, renderer, parallax_1_x, parallax_1_y, 5);
+		play_with_texture_2(logo, window, renderer, logo_x, logo_y, 0.1);
 		
 		if (!(global_count_time % 3)) {
 			number_frame++;
