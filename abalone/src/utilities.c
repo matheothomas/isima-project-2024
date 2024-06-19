@@ -7,23 +7,26 @@
 
 
 bool validity_play(board_t * board, play_t * play, bool player) {
-	
-	state_e switch_player_color[2] = {BLACK, WHITE};
-	bool changed_to_non_player_color = false;
 
-	// TODO edge case not taken into account : 3 player cells then 2 non player cells then a player cell
+	state_e switch_player_color[2] = {BLACK, WHITE};
+
 	// Check if the play line is well ordered
-	for (int i = 0; i < play -> cell_tab_length; i++) {
-		if (play -> cell_tab[i] -> state == switch_player_color[!player]) {
+	bool changed_to_non_player_color = false;
+	cell_t * cell = play -> cell_tab[0];
+	int i = 0;
+	while (cell != NULL && i++ < 6 && cell -> state != EMPTY) {
+		// TODO raccourcir condition et consequence
+		if (cell -> state == switch_player_color[!player]) {
 			changed_to_non_player_color = true;
 		}
 		// If we find a cell belonging to player after a non player cell then the play is invalid
-		else if (play -> cell_tab[i] -> state == switch_player_color[player] && changed_to_non_player_color) {
+		else if (cell -> state == switch_player_color[player] && changed_to_non_player_color) {
 			printf("a\n");
 			return false;
 		}
+		cell = cell -> neighbourg[play -> cell_direction];
 	}
-
+	
 	// Check if movemement is valid when movement_direction and cell_direction are colinear
 	if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
 		// We go further than the play length because of case 3 player cells then 3 non player cells -> last non player cell not accounted for in play structure
@@ -145,6 +148,14 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
+	if (cell == NULL) {
+		printf("oui bah c'est nul j'y peut rien\n");
+		return;
+	}
+	else {
+		printf("c pas nul\n");
+	}
+
 	switch (cell -> state) {
 		case EMPTY:
 			if (play == NULL) {
@@ -176,6 +187,7 @@ tree_t * gen_plays(board_t * board, int depth, bool player) {
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
+	printf("%p\n", (board) -> cell);
 	traversal_rec(board, tree, NULL, board -> cell, visited, player);
 
 	return tree -> next_tree;

@@ -11,8 +11,8 @@ TESTS_DIR = tests
 BIN_DIR = bin
 
 CC = gcc
-CFLAGS = -I$(INC_DIR) -Wall -Wextra -I /usr/include/SDL2
-LIBS= -lm -lSDL2_image -lSDL2_ttf -lSDL2
+CFLAGS = -I$(INC_DIR) -Wall -Wextra -I /usr/include/SDL2 -g -fsanitize=address,undefined
+LDFLAGS= -lm -lSDL2_image -lSDL2_ttf -lSDL2 -g -fsanitize=address,undefined
 
 # Linking and compiling
 
@@ -28,7 +28,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(BIN_DIR)/$(NAME): $(OBJ)
 	$(info Linking...)
-	@$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+	@$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean dir
 
