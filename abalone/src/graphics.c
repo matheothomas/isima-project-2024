@@ -61,9 +61,9 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
 	SDL_QueryTexture(my_texture, NULL, NULL, &source.w, &source.h);
 
-	float zoom = 0.4;
-	destination.w = source.w * zoom;         // the destination is a source's zoom
-	destination.h = source.h * zoom;
+	float zoom = 0.8;
+	destination.w = window_dimensions.w * zoom;						// the destination is a source's zoom
+	destination.h = window_dimensions.h * zoom;
 	destination.x = (window_dimensions.w - destination.w) / 2;
 	destination.y = (window_dimensions.h - destination.h) / 2;
 
