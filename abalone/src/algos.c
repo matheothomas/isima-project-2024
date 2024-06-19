@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include "../include/algos.h"
+#include "../include/utilities.h"
 
 
 int max(tree_t *tree, bool player) {
