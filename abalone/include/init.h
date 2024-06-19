@@ -1,5 +1,5 @@
 /* name : init.h
- * author : matheo thomas
+ * author : matheo thomas, domitille vale, eloi petit
  * date : 18-06-24
  */
 
