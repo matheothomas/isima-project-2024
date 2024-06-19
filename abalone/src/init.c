@@ -21,12 +21,14 @@ cell_t *create_cell() {
 
 board_t* create_clean_board() {
 
+	// initialisation of the board
 	board_t b;
-	board_t*ptb=&b;
 	cell_t *first_cell = create_cell();
 	b.cell = first_cell;
 	b.n_black = 0;
 	b.n_white = 0;
+
+	board_t*ptb=&b;
 
 	cell_t *cur_cell = b.cell;
 	int j = 0;
@@ -186,6 +188,44 @@ board_t* start_config(board_t* b) {
 	state_e coulour = WHITE;
 
 	for (int n = 0; n < 4; n += 3) {
+
+		cur_cell = b->cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
+		for (int i = 0; i < 4; i++) {
+			cur_cell->state = coulour;
+			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
+		}
+		cur_cell->state = coulour;
+
+		cur_cell = cur_cell->neighbourg[(n + 4) % 6];
+		for (int i = 0; i < 3; i++) {
+			cur_cell->state = coulour;
+			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
+		}
+		cur_cell->state = coulour;
+
+		cur_cell = cur_cell->neighbourg[(n + 3) % 6];
+		for (int i = 0; i < 2; i++) {
+			cur_cell->state = coulour;
+			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
+		}
+		cur_cell->state = coulour;
+
+		cur_cell = cur_cell->neighbourg[(n + 4) % 6];
+		for (int i = 0; i < 2; i++) {
+			cur_cell->state = coulour;
+			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
+		}
+		coulour = BLACK;
+	}
+	return b;
+}
+
+board_t* start_config_2(board_t* b) {
+	cell_t *cur_cell;
+	state_e coulour = WHITE;
+
+	for (int n = 0; n < 4; n += 3) {
+
 		cur_cell = b->cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
 		for (int i = 0; i < 4; i++) {
 			cur_cell->state = coulour;
@@ -193,6 +233,7 @@ board_t* start_config(board_t* b) {
 		}
 		cur_cell->state = coulour;
 		cur_cell = cur_cell->neighbourg[(n + 3) % 6];
+
 		for (int i = 0; i < 5; i++) {
 			cur_cell->state = coulour;
 			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
@@ -209,7 +250,7 @@ board_t* start_config(board_t* b) {
 }
 
 cell_t ** create_table(board_t* b) {
-	cell_t **table;
+	cell_t **table=(cell_t**)malloc(61 * sizeof(cell_t*));
 	cell_t* cur_cell;
 	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[0];
 	for (int i = 0; i < 5; i++) {
