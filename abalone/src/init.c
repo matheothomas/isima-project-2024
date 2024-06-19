@@ -245,14 +245,14 @@ board_t* start_config_2(board_t* b) {
 		cur_cell = cur_cell->neighbourg[(n + 3) % 6];
 		for (i = 0; i < 2; i++) {
 			cur_cell->state = coulour;
-			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
+			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
 		}
 		cur_cell->state = coulour;
 
 		cur_cell = cur_cell->neighbourg[(n + 4) % 6];
 		for (i = 0; i < 2; i++) {
 			cur_cell->state = coulour;
-			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
+			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
 		}
 		coulour = BLACK;
 	}

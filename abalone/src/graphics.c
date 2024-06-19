@@ -5,9 +5,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
 // #include "../include/init.h"
 #include "../include/algos.h"
 #include "SDL2/SDL_render.h"
+#include <SDL2/SDL_ttf.h>
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
@@ -51,6 +53,14 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 	SDL_FreeSurface(my_image);
 	if (my_texture == NULL) end_sdl(0, "Echec de la transformation de la surface en texture", window, renderer);
 
+	return my_texture;
+}
+
+SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window *window, SDL_Renderer *renderer ){
+	SDL_Color yellow = {255,250,0,0};        
+	SDL_Surface * my_text = TTF_RenderText_Blended(font, text, yellow);
+	SDL_Texture * my_texture = SDL_CreateTextureFromSurface(renderer, my_text);
+	SDL_FreeSurface(my_text);
 	return my_texture;
 }
 
@@ -141,6 +151,47 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 			display_cell(black, window, renderer, i);
 		}
 	}
+
+	//SDL_RenderPresent(renderer);
+}
+
+SDL_Rect* crea_rect(int x, int y, int width, int height){
+	SDL_Rect* rect=(SDL_Rect*)malloc(sizeof(SDL_Rect));
+	rect->x = x;
+	rect->y = y;
+	rect->w = width;
+	rect->h = height;
+	return rect;
+}
+
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2){
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	 SDL_RenderFillRect(renderer, text_box);
+	SDL_SetRenderDrawColor(renderer, r1, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_1);
+	SDL_SetRenderDrawColor(renderer, r2, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_2);
+
+	SDL_RenderCopy(renderer, text, NULL, text_box);
+
+	SDL_RenderPresent(renderer);
+}
+
+void display_game(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,TTF_Font * font,SDL_Texture * text, int r, SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, cell_t **cell_tab){
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	
+	display_board(board, white,black,window, renderer, cell_tab);
+	
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	 SDL_RenderFillRect(renderer, text_box);
+	SDL_SetRenderDrawColor(renderer, r, 200, 200, 255);
+	SDL_RenderFillRect(renderer, confirm);
+	SDL_RenderDrawRect(renderer, button);
+
+	SDL_RenderCopy(renderer, text, NULL, text_box);
 
 	SDL_RenderPresent(renderer);
 }
