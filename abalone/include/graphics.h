@@ -4,11 +4,21 @@
  */
 
 #include <SDL2/SDL.h>
+#include "SDL2/SDL_render.h"
+#include "SDL2/SDL_video.h"
 #include "init.h"
 
 #ifndef graphics_h 
 #define graphics_h
 
+/* Struct definitions */
+typedef struct graphics {
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	SDL_Texture *board;
+	SDL_Texture *white;
+	SDL_Texture *black;
+} graphics_t;
 
 
 /* Functions definitions */
