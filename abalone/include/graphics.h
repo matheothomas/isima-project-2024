@@ -21,6 +21,9 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 /// displays the textures on the renderer
 void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* renderer);
 
+/// displays a cell on the board given an id
+void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id);
 
 
 #endif
+
