@@ -27,8 +27,8 @@ int main(void) {
 
 	// Window creation
 	window = SDL_CreateWindow("Premier dessin", SDL_WINDOWPOS_CENTERED,
-						   SDL_WINDOWPOS_CENTERED, screen.w * 0.76,
-						   screen.h * 0.76, SDL_WINDOW_OPENGL);
+						   SDL_WINDOWPOS_CENTERED, screen.h * 0.9,
+						   screen.h * 0.9, SDL_WINDOW_OPENGL);
 	if (window == NULL)
 		end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
 
@@ -44,7 +44,7 @@ int main(void) {
 
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(2000);
+	SDL_Delay(3000);
 
 	SDL_RenderClear(renderer);
 
