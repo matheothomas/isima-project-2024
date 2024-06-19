@@ -38,9 +38,9 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 			total_cells++;
 			cours = cours -> neighbourg[play -> cell_direction];
 		}
-		printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
+		// printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
 		if (2 * player_cells <= total_cells) {
-			printf("player_cells false\n");
+			// printf("player_cells false\n");
 			return false;
 		}
 	}
@@ -51,7 +51,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 				return false;
 			}
 			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
-				printf("c\n");
+				// printf("c\n");
 				return false;
 			}
 		}
@@ -112,7 +112,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> cell_direction = i;
 				new_play -> cell_tab[0] = cell;
 				new_play -> cell_tab[1] = NULL;
-				printf("direction %d\n", new_play -> movement_direction);
+				// printf("direction %d\n", new_play -> movement_direction);
 
 				traversal_rec(board, tree, new_play, cell -> neighbourg[i], visited, player);
 			}
@@ -191,7 +191,7 @@ tree_t * gen_plays(board_t * board, int depth, bool player) {
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
-	printf("%p\n", (board) -> cell);
+	// printf("%p\n", (board) -> cell);
 	traversal_rec(board, tree, NULL, board -> cell, visited, player);
 
 	return tree -> next_tree;
