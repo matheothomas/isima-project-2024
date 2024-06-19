@@ -46,68 +46,79 @@ int main(void) {
 
 
 	// TEST FUNCTIONS
+	
+	graphics_t *g = malloc(sizeof(graphics_t));
+	g->window = window;
+	g->renderer = renderer;
+	g->board = board;
+	g->white = white;
+	g->black = black;
 
 	board_t * b = create_clean_board();
 	cell_t **cell_tab = create_table(*b);
 	b = start_config(b);
 
-	/*
-	for(int i=0;i<61;i++){
-		printf("%d : %d \n",i,table[i]->state);
+	// algos.c tests
+	
+	display_board(board, white, black, window, renderer, cell_tab);
+	SDL_Delay(1000);
+
+	play_t *p = malloc(sizeof(play_t));
+
+	tree_t *t = malloc(sizeof(tree_t));
+
+	for(int i = 0; i < CELL_NUMBER; i++) {
+		cell_tab[i]->id = i;
 	}
 
-	b -> cell -> state = BLACK;
-	b -> cell -> neighbourg[0] -> state = BLACK;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
-
-	play_t play;
-	play.cell_tab[0] = b -> cell;
-	play.cell_tab[1] = b -> cell -> neighbourg[0];
-	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[4] = NULL;
-	play.cell_direction = 0;
-	play.movement_direction = 0;
-	play.cell_tab_length = 4;
-	bool player = 0;
-
-	printf("Validity play result : %d\n", validity_play(b, &play, player));
-	*/ 
-
-	// algos.c tests
-
-	// play_t *p = malloc(sizeof(play_t));
-
 	/*
-	p->cell_tab[0] = cell_tab[13];
-	p->cell_tab[1] = cell_tab[14];
-	p->cell_tab[2] = cell_tab[15];
-	p->buffer[0] = WHITE;
-	p->buffer[1] = WHITE;
-	p->buffer[2] = WHITE;
-	p->cell_tab_length = 3;
-	p->cell_direction = 2;
-	p->movement_direction = 4;
-	
-	
-	display_board(board, white, black, window, renderer, cell_tab);
+	t = gen_plays(b, 1, 1);
+	while(t->next_tree != NULL) {
+		if(validity_play(b, t->play, 1)) {
 
-	SDL_Delay(1000);
-	b = apply_play(b, p);
-	display_board(board, white, black, window, renderer, cell_tab);
-	
-	SDL_Delay(1000);
-	b = undo_play(b, p);
-	display_board(board, white, black, window, renderer, cell_tab);
+			printf("ids : ");
+			for(int i = 0; i < t->play->cell_tab_length; i++) {
+				printf("%d ", t->play->cell_tab[i]->id);
+			}
+			printf("\n buffer : ");
+			for(int i = 0; i < t->play->cell_tab_length; i++) {
+				printf("%d ", t->play->buffer[i]);
+			}
+			printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", t->play->cell_tab_length, t->play->movement_direction, t->play->cell_direction);
+			printf("validity : %d\n", validity_play(b, t->play, 1));
+
+			apply_play(b, t->play);
+			display_board(board, white, black, window, renderer, cell_tab);
+			SDL_Delay(500);
+			undo_play(b, t->play);
+			display_board(board, white, black, window, renderer, cell_tab);
+			SDL_Delay(500);
+			// b = create_clean_board();
+			for(int i = 0; i < CELL_NUMBER; i++) {
+				cell_tab[i]->state = EMPTY;
+			}
+			b = start_config(b);
+		}
+		display_board(board, white, black, window, renderer, cell_tab);
+		SDL_Delay(500);
+		t = t->next_tree;
+	}
 	*/
 
-	// p = choose_play(b);
-	
-	// b = apply_play(b, p);
+	cell_tab[16]->state = BLACK;
 	display_board(board, white, black, window, renderer, cell_tab);
-
 	SDL_Delay(2000);
+
+	p = choose_play(b);
+
+	b = apply_play(b, p);
+
+	display_board(board, white, black, window, renderer, cell_tab);
+	SDL_Delay(4000);
+
+
+
+
 
 	SDL_RenderClear(renderer);
 
