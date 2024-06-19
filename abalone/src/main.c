@@ -45,22 +45,36 @@ int main(void) {
 	black = load_texture_from_image("res/black.png", window, renderer);
 	texturing(board, window, renderer);
 
-	SDL_RenderPresent(renderer);
-
-	SDL_Delay(1);
-
-	SDL_RenderClear(renderer);
-
-	IMG_Quit();
-
-	end_sdl(1, "Normal ending", window, renderer);
-
+	SDL_bool program_on = SDL_TRUE;
+	SDL_Event event;
+	while (program_on) {
+		if (SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_QUIT:
+				program_on = SDL_FALSE;
+				SDL_RenderClear(renderer);
+				IMG_Quit();
+				end_sdl(1, "Normal ending", window, renderer);
+				break;
+				case SDL_MOUSEBUTTONDOWN:
+				break;
+				case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+					default:
+					break;
+				}
+				default:
+				break;
+			}
+			SDL_Delay(1);
+		}
+	}
 
 	// TEST FUNCTIONS
 
 	board_t * b = create_clean_board();
 	cell_t **table=create_table(*b);
-	
+
 	b=start_config(b);
 
 	for(int i=0;i<61;i++){
@@ -87,6 +101,6 @@ int main(void) {
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
 	*/
 
-	return 0;
+return 0;
 
 }
