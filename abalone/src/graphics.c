@@ -62,9 +62,9 @@ void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer)
 	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 
 	float zoom = 0.9;
-	destination.w = window_dimensions.w * zoom;						// the destination is a source's zoom
+	destination.w = window_dimensions.h * zoom;						// the destination is a source's zoom
 	destination.h = window_dimensions.h * zoom;
-	destination.x = (window_dimensions.w - destination.w) / 2;
+	destination.x = (window_dimensions.h - destination.w) / 2;
 	destination.y = (window_dimensions.h - destination.h) / 2;
 
 
@@ -82,7 +82,7 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 
 	float zoom = 10;
-	destination.w = window_dimensions.w / (zoom + 1.6);
+	destination.w = window_dimensions.h / (zoom + 1.6);
 	destination.h = window_dimensions.h / (zoom + 3.2);
 	
 	if(id < 5) {

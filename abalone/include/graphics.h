@@ -25,6 +25,9 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 /// displays a cell on the board given an id
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id);
 
+/// returns a cell id corresponding to the mouse position
+int get_cell_position(int x, int y);
+
 /// displays current state of the board
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab);
 

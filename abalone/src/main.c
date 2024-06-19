@@ -28,7 +28,7 @@ int main(void) {
 
 	// Window creation
 	window = SDL_CreateWindow("Premier dessin", SDL_WINDOWPOS_CENTERED,
-						   SDL_WINDOWPOS_CENTERED, screen.h * 0.9,
+						   SDL_WINDOWPOS_CENTERED, screen.h * 0.9 * 1.5,
 						   screen.h * 0.9, SDL_WINDOW_OPENGL);
 	if (window == NULL)
 		end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
@@ -77,8 +77,9 @@ int main(void) {
 
 	// algos.c tests
 
-	play_t *p = malloc(sizeof(play_t));
+	// play_t *p = malloc(sizeof(play_t));
 
+	/*
 	p->cell_tab[0] = cell_tab[13];
 	p->cell_tab[1] = cell_tab[14];
 	p->cell_tab[2] = cell_tab[15];
@@ -99,9 +100,12 @@ int main(void) {
 	SDL_Delay(1000);
 	b = undo_play(b, p);
 	display_board(board, white, black, window, renderer, cell_tab);
+	*/
 
-
-
+	// p = choose_play(b);
+	
+	// b = apply_play(b, p);
+	display_board(board, white, black, window, renderer, cell_tab);
 
 	SDL_Delay(2000);
 
