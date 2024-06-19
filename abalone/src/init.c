@@ -261,63 +261,54 @@ cell_t ** create_table(board_t b) {
 	int i=0;
 
 	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[0];
-	printf("%d : %d \n",0,cur_cell->state);
 	for (i = 0; i < 5; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
-	printf("%d : %d \n",5,cur_cell->state);
 	for (i = 5; i < 11; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[5]->neighbourg[5];
-	printf("%d : %d \n",11,cur_cell->state);
 	for (i = 11; i < 18; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[0]->neighbourg[5]->neighbourg[5]->neighbourg[5];
-	printf("%d : %d \n",18,cur_cell->state);
 	for (i = 18; i < 26; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[5]->neighbourg[5]->neighbourg[5]->neighbourg[5];
-	printf("%d : %d \n",26,cur_cell->state);
 	for (i = 26; i < 35; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[4]->neighbourg[5]->neighbourg[5]->neighbourg[5];
-	printf("%d : %d \n",35,cur_cell->state);
 	for (i = 35; i < 43; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[5]->neighbourg[5];
-	printf("%d : %d \n",43,cur_cell->state);
 	for (i = 43; i < 50; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 
 	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[5];
-	printf("%d : %d \n",50,cur_cell->state);
 	for (i = 50; i < 56; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
 	
 	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[4];
-	printf("%d : %d \n",46,cur_cell->state);
 	for (i = 56; i < 61; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
