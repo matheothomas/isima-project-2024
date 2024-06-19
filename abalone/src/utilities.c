@@ -98,7 +98,6 @@ void fill_play_buffer(play_t * play) {
 
 void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
-	// TODO Si cell_direction différente de mouvemment_direction, il ne faut pas rajouter les billes de couleur différente du joueur
 	if (play == NULL && visited[cell -> id] == true) {
 		return;
 	}
@@ -157,7 +156,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 
 	switch (cell -> state) {
 		case EMPTY:
-			if (visited[cell -> id]) {
+			if (!visited[cell -> id]) {
 				visited[cell -> id] = true;
 				if (play == NULL) {
 					for (int i = 0; i < 6; i++) {
