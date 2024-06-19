@@ -38,10 +38,17 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 			total_cells++;
 			cours = cours -> neighbourg[play -> cell_direction];
 		}
-		// printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
+		//printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
 		if (2 * player_cells <= total_cells) {
-			// printf("player_cells false\n");
+			//printf("player_cells false\n");
 			return false;
+		}
+
+		// Handle cells being thrown off board
+		for (int i = 0; i < play -> cell_tab_length; i++) {
+			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] == NULL && play -> cell_tab[i] -> state == switch_player_color[player]) {
+				return false;
+			}
 		}
 	}
 	// Check if movement is valid otherwise
@@ -51,7 +58,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 				return false;
 			}
 			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
-				// printf("c\n");
+				//printf("c\n");
 				return false;
 			}
 		}
@@ -112,7 +119,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> cell_direction = i;
 				new_play -> cell_tab[0] = cell;
 				new_play -> cell_tab[1] = NULL;
-				// printf("direction %d\n", new_play -> movement_direction);
+				//printf("direction %d\n", new_play -> movement_direction);
 
 				traversal_rec(board, tree, new_play, cell -> neighbourg[i], visited, player);
 			}
