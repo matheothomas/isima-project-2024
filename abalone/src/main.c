@@ -66,11 +66,12 @@ int main(void) {
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
-
+	b -> cell -> state = WHITE;
 
 	play_t play;
 	play.cell_tab[0] = b -> cell -> neighbourg[3];
 	play.cell_tab[1] = b -> cell;
+	b -> cell -> state = BLACK;
 	play.cell_tab[2] = b -> cell -> neighbourg[0];
 	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0];
 	play.cell_tab[4] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
@@ -78,11 +79,15 @@ int main(void) {
 	play.movement_direction = 0;
 	play.cell_tab_length = 5;
 	bool player = 0;
+	b -> cell -> state = WHITE;
+
+	printf("%p\n", b -> cell);
 
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
+	//b -> cell -> state = BLACK;
 	
-	printf("%p %d\n", b -> cell, b -> cell -> state);
-	tree_t * tree = gen_plays(&b, 10, 1);
+	printf("%p\n", b -> cell);
+	tree_t * tree = gen_plays(b, 10, 1);
 
 	while (tree != NULL) {
 		printf("mv_dir %d\n", tree -> play -> movement_direction);

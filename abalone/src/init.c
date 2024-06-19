@@ -28,7 +28,7 @@ board_t* create_clean_board() {
 	b.n_black = 0;
 	b.n_white = 0;
 
-	board_t*ptb=(board_t*)malloc(sizeof(board_t));
+	board_t*ptb=malloc(sizeof(board_t));
 	ptb=&b;
 
 	cell_t *cur_cell = b.cell;

@@ -7,7 +7,7 @@
 
 
 bool validity_play(board_t * board, play_t * play, bool player) {
-	
+
 	state_e switch_player_color[2] = {BLACK, WHITE};
 
 	// Check if the play line is well ordered
@@ -26,8 +26,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 		}
 		cell = cell -> neighbourg[play -> cell_direction];
 	}
-
-
+	
 	// Check if movemement is valid when movement_direction and cell_direction are colinear
 	if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
 		// We go further than the play length because of case 3 player cells then 3 non player cells -> last non player cell not accounted for in play structure
@@ -183,13 +182,13 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 
 }
 
-tree_t * gen_plays(board_t ** board, int depth, bool player) {
+tree_t * gen_plays(board_t * board, int depth, bool player) {
 
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
-	printf("%p\n", (*board) -> cell);
-	traversal_rec(*board, tree, NULL, (*board) -> cell, visited, player);
+	printf("%p\n", (board) -> cell);
+	traversal_rec(board, tree, NULL, board -> cell, visited, player);
 
 	return tree -> next_tree;
 }
