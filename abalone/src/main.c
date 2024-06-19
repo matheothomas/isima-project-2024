@@ -43,9 +43,6 @@ int main(void) {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
-	
-
-
 
 
 	// TEST FUNCTIONS
