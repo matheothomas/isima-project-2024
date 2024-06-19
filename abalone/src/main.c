@@ -44,10 +44,33 @@ int main(void) {
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
 	texturing(board, window, renderer);
+	
+
+	board_t * b = create_clean_board();
+	cell_t **cell_tab = create_table(*b);
+	b = start_config(b);
+
+	play_t *p = malloc(sizeof(play_t));
+	p->cell_tab[0] = cell_tab[21];
+	// p->cell_tab[1] = cell_tab[14];
+	p->cell_tab_length = 1;
+	p->cell_direction = 0;
+	p->movement_direction = 4;
+	b = apply_play(b, p, 0);
+	// p = choose_play(b);
+
+
+	for(int i = 0; i < 61; i++) {
+		if(cell_tab[i]->state == WHITE) {
+			display_cell(white, window, renderer, i);
+		} else if (cell_tab[i]->state == BLACK) {
+			display_cell(black, window, renderer, i);
+		}
+	}
 
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(1);
+	SDL_Delay(4000);
 
 	SDL_RenderClear(renderer);
 
@@ -58,8 +81,8 @@ int main(void) {
 
 	// TEST FUNCTIONS
 
-	board_t * b = create_clean_board();
-
+	// utilities.c tests
+	/*
 	b -> cell -> state = BLACK;
 	b -> cell -> neighbourg[0] -> state = BLACK;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
@@ -77,6 +100,10 @@ int main(void) {
 	bool player = 0;
 
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
+	*/
+
+	// algos.c tests
+
 
 	return 0;
 
