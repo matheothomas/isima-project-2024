@@ -58,25 +58,25 @@ int main(void) {
 
 	// TEST FUNCTIONS
 
-	board_t b = create_clean_board();
+	board_t * b = create_clean_board();
 
-	b.cell -> state = BLACK;
-	b.cell -> neighbourg[0] -> state = BLACK;
-	b.cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b.cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
+	b -> cell -> state = BLACK;
+	b -> cell -> neighbourg[0] -> state = BLACK;
+	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
+	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
 
 	play_t play;
-	play.cell_tab[0] = b.cell;
-	play.cell_tab[1] = b.cell -> neighbourg[0];
-	play.cell_tab[2] = b.cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b. cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[0] = b -> cell;
+	play.cell_tab[1] = b -> cell -> neighbourg[0];
+	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
 	play.cell_tab[4] = NULL;
 	play.cell_direction = 0;
 	play.movement_direction = 0;
 	play.cell_tab_length = 4;
 	bool player = 0;
 
-	printf("Validity play result : %d\n", validity_play(&b, &play, player));
+	printf("Validity play result : %d\n", validity_play(b, &play, player));
 
 	return 0;
 
