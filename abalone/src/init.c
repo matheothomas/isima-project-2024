@@ -8,10 +8,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-cell_t *create_cell() {
+cell_t *create_cell(int id) {
 	cell_t *c = malloc(sizeof(cell_t));
 	c->state = EMPTY;
-	c->id=0;
+	c->id=id;
 
 	for (int i = 0; i < 6; i++) {
 		c->neighbourg[i] = NULL;
@@ -24,7 +24,7 @@ board_t* create_clean_board() {
 
 	// initialisation of the board
 	board_t*ptb=(board_t*)malloc(sizeof(board_t));
-	cell_t *first_cell = create_cell();
+	cell_t *first_cell = create_cell(0);
 	ptb->cell = first_cell;
 	ptb->n_black = 0;
 	ptb->n_white = 0;
@@ -36,9 +36,11 @@ board_t* create_clean_board() {
 
 	// initialisation of the first cell, the one in the center.
 
+	int id = 0;
 	cur_cell->state = EMPTY;
 	for (i = 0; i < 6; i++) {
-		cur_cell->neighbourg[i] = create_cell();
+		id++;
+		cur_cell->neighbourg[i] = create_cell(id);
 		cur_cell->neighbourg[i]->neighbourg[(i + 3) % 6] = cur_cell;
 	}
 
@@ -82,7 +84,8 @@ board_t* create_clean_board() {
 								cur_cell->neighbourg[(i + n) % 6]->neighbourg[(i + n + 3) % 6] =
 								cur_cell;
 							} else {
-								cur_cell->neighbourg[(i + n) % 6] = create_cell();
+								id++;
+								cur_cell->neighbourg[(i + n) % 6] = create_cell(id);
 								cur_cell->neighbourg[(i + n) % 6]->neighbourg[(i + n + 3) % 6] =
 								cur_cell;
 							}
@@ -131,7 +134,8 @@ board_t* create_clean_board() {
 				cur_cell;
 
 			} else {
-				cur_cell->neighbourg[(i + 2) % 6] = create_cell();
+				id ++;
+				cur_cell->neighbourg[(i + 2) % 6] = create_cell(id);
 				cur_cell->neighbourg[(i + 2) % 6]->neighbourg[(i + 2 + 3) % 6] =
 				cur_cell;
 
@@ -141,7 +145,8 @@ board_t* create_clean_board() {
 					cur_cell->neighbourg[(i + 3) % 6]->neighbourg[(i + 3 + 3) % 6] =
 					cur_cell;
 				} else {
-					cur_cell->neighbourg[(i + 3) % 6] = create_cell();
+					id++;
+					cur_cell->neighbourg[(i + 3) % 6] = create_cell(id);
 					cur_cell->neighbourg[(i + 3) % 6]->neighbourg[(i + 3 + 3) % 6] =
 					cur_cell;
 					cur_cell->neighbourg[(i + 4) % 6] =
@@ -180,6 +185,7 @@ board_t* create_clean_board() {
 			cur_cell->neighbourg[(i + 1) % 6]->neighbourg[(i + 5) % 6];
 		cur_cell->neighbourg[i]->neighbourg[(i + 3) % 6] = cur_cell;
 	}
+
 	return ptb;
 }
 

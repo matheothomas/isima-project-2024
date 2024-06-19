@@ -11,7 +11,7 @@ TESTS_DIR = tests
 BIN_DIR = bin
 
 CC = gcc
-CFLAGS = -I$(INC_DIR) -Wall -Wextra -I /usr/include/SDL2
+CFLAGS = -I$(INC_DIR) -Wall -Wextra -I /usr/include/SDL2 -g
 LDFLAGS= -lm -lSDL2_image -lSDL2_ttf -lSDL2 -g
 
 # Linking and compiling
