@@ -209,3 +209,7 @@ board_t start_config() {
   }
   return b;
 }
+cell_t *create_table(board_t b) {
+  cell_t *table[61];
+  table[0] = b.cell->neighbourg[0];
+}

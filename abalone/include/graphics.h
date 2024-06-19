@@ -24,4 +24,3 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 
 
 #endif
-
