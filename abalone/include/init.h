@@ -44,7 +44,7 @@ board_t *start_config(board_t* b);
 board_t* start_config_2(board_t* b);
 
 /// creates a table with all cells of the board 
-cell_t ** create_table(board_t* b);
+cell_t ** create_table(board_t b);
 
 #endif
 
