@@ -23,7 +23,6 @@ cell_t *create_cell() {
 board_t* create_clean_board() {
 
 	// initialisation of the board
-	board_t b;
 	board_t*ptb=(board_t*)malloc(sizeof(board_t));
 	cell_t *first_cell = create_cell();
 	ptb->cell = first_cell;
