@@ -56,8 +56,8 @@ int main(void) {
 	// First Event Loop
 	int h;
 	int w;
-	int x;
-	int y;
+	int x=0;
+	int y=0;
 	int r1=0;
 	int r2=0;
 	int r=0;
@@ -85,11 +85,9 @@ int main(void) {
 			switch (event.type) {
 				case SDL_QUIT:
 				program_on = SDL_FALSE;
-				SDL_RenderClear(renderer);
-				IMG_Quit();
-				end_sdl(1, "Normal ending", window, renderer);
 				break;
 				case SDL_MOUSEBUTTONDOWN:
+				/*
 				x=event.button.x;
 				y=event.button.y;
 				if(x>2*w/15 && x<2*w/15+w/3){
@@ -108,34 +106,37 @@ int main(void) {
 					r1=0;
 					r2=0;
 				}
+				*/
 				break;
 				case SDL_MOUSEBUTTONUP:
 				x=event.button.x;
 				y=event.button.y;
-				if(x>2*w/15 && x<2*w/15+w/3){
-					if(y>5*h/9 && y<5*h/9+h/4){
-						b=start_config(b);
-						program_on = SDL_FALSE;
-						program_on_2 = SDL_TRUE;
-						SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-						SDL_RenderClear(renderer);
-					}
-				}
-				else if (x>8*w/15 && x<8*w/15+w/3){
-					if(y>5*h/9 && y<5*h/9+h/4){
-						b=start_config_2(b);
-						program_on = SDL_FALSE;
-						program_on_2 = SDL_TRUE;
-						SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-						SDL_RenderClear(renderer);
-					}
-				}
 				break;
 				default:
-				home_menu(window, renderer, text_box, button_1, button_2,font,text,r1,r2);
 				break;
 			}
-		SDL_Delay(1);
+			if(x>2*w/15 && x<2*w/15+w/3){
+				if(y>5*h/9 && y<5*h/9+h/4){
+					b=start_config(b);
+					program_on = SDL_FALSE;
+					program_on_2 = SDL_TRUE;
+					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+					SDL_RenderClear(renderer);
+				}
+			}
+			else if (x>8*w/15 && x<8*w/15+w/3){
+				if(y>5*h/9 && y<5*h/9+h/4){
+					b=start_config_2(b);
+					program_on = SDL_FALSE;
+					program_on_2 = SDL_TRUE;
+					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+					SDL_RenderClear(renderer);
+				}
+			}
+			else{
+				home_menu(window, renderer, text_box, button_1, button_2,font,text,r1,r2);
+				SDL_Delay(1);
+			}
 		}
 	}
 
@@ -146,11 +147,8 @@ int main(void) {
 			switch (event.type) {
 				case SDL_QUIT:
 				program_on_2 = SDL_FALSE;
-				SDL_RenderClear(renderer);
-				IMG_Quit();
-				end_sdl(1, "Normal ending", window, renderer);
 				break;
-
+/*
 				case SDL_MOUSEBUTTONDOWN:
 				x=event.button.x;
 				y=event.button.y;
@@ -162,33 +160,27 @@ int main(void) {
 				else{
 					r=0;
 				}
+				*/
 				break;
 				case SDL_MOUSEBUTTONUP:
 				x=event.button.x;
 				y=event.button.y;
-				if(x>7*w/9 && 7*w/9+w/9){
-					if(4*h/11 && 4*h/11+h/11){
-						b=start_config(b);
-						program_on_2 = SDL_FALSE;
-						SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-						SDL_RenderClear(renderer);
-					}
-				}
-				else if (x>8*w/15 && x<8*w/15+w/3){
-					if(y>5*h/9 && y<5*h/9+h/4){
-						b=start_config_2(b);
-						program_on_2 = SDL_FALSE;
-						SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-						SDL_RenderClear(renderer);
-					}
-				}
 				break;
 
 				default:
-				display_game(window, renderer, text_box_2, confirm, button, font, text, r, board, white, black, cell_tab);
 				break;
 			}
-			SDL_Delay(1);
+			if(x>7*w/9 && 7*w/9+w/9){
+				if(4*h/11 && 4*h/11+h/11){
+					program_on_2 = SDL_FALSE;
+					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+					SDL_RenderClear(renderer);
+				}
+			}
+			else{
+				display_game(window, renderer, text_box_2, confirm, button, font, text, r, board, white, black, cell_tab);
+				SDL_Delay(1);
+			}
 		}
 	}
 
