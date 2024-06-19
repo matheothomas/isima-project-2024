@@ -114,7 +114,6 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	destination.y = destination.h * j;
 
 
-	// SDL_RenderCopyEx(renderer, my_texture, &source, &destination, j*0.1, &point, SDL_FLIP_NONE);
 	SDL_RenderCopy(renderer, texture, &source, &destination);
 	
 }
