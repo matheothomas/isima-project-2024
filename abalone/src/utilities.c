@@ -19,6 +19,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 		}
 		// If we find a cell belonging to player after a non player cell then the play is invalid
 		else if (play -> cell_tab[i] -> state == switch_player_color[player] && changed_to_non_player_color) {
+			printf("a\n");
 			return false;
 		}
 	}
@@ -35,7 +36,9 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 			total_cells++;
 			cours = cours -> neighbourg[play -> cell_direction];
 		}
-		if (player_cells > total_cells - player_cells) {
+		printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
+		if (2 * player_cells <= total_cells) {
+			printf("player_cells false\n");
 			return false;
 		}
 	}
@@ -43,6 +46,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 	else {
 		for (int i = 0; i < play -> cell_tab_length; i++) {
 			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
+				printf("c\n");
 				return false;
 			}
 		}
