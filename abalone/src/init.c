@@ -24,15 +24,13 @@ board_t* create_clean_board() {
 
 	// initialisation of the board
 	board_t b;
-	cell_t *first_cell = create_cell();
-	b.cell = first_cell;
-	b.n_black = 0;
-	b.n_white = 0;
-
 	board_t*ptb=(board_t*)malloc(sizeof(board_t));
-	ptb=&b;
+	cell_t *first_cell = create_cell();
+	ptb->cell = first_cell;
+	ptb->n_black = 0;
+	ptb->n_white = 0;
 
-	cell_t *cur_cell = b.cell;
+	cell_t *cur_cell = ptb->cell;
 	int j = 0;
 	int c = 0;
 	int i=0;
@@ -50,7 +48,7 @@ board_t* create_clean_board() {
 	for (i = 0; i < 6; i++) {
 		c = 0;
 		j = 0;
-		cur_cell = b.cell->neighbourg[i];
+		cur_cell = ptb->cell->neighbourg[i];
 
 		while (c < 3) {
 
@@ -119,12 +117,12 @@ board_t* create_clean_board() {
 			cur_cell->neighbourg[(i + 1) % 6] = NULL;
 			if (c == 1 && i == 5) {
 				cur_cell->neighbourg[(i + 2) % 6] =
-					b.cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
+					ptb->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
 				cur_cell->neighbourg[(i + 2) % 6]->neighbourg[(i + 2 + 3) % 6] =
 				cur_cell;
 
 				cur_cell->neighbourg[(i + 3) % 6] =
-					b.cell->neighbourg[0]->neighbourg[0]->neighbourg[5];
+					ptb->cell->neighbourg[0]->neighbourg[0]->neighbourg[5];
 				cur_cell->neighbourg[(i + 3) % 6]->neighbourg[(i + 3 + 3) % 6] =
 				cur_cell;
 
