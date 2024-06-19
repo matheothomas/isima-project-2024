@@ -41,10 +41,10 @@ play_t *choose_play(board_t *board);
 /// returns a tree containing all available plays for a board
 
 /// applies a play to the board
-board_t *apply_play(board_t *board, play_t *play, bool player);
+board_t *apply_play(board_t *board, play_t *play);
 
 ///
-board_t *undo_play(board_t *board, play_t *play, bool player);
+board_t *undo_play(board_t *board, play_t *play);
 
 /// applies the min-max algorithm 
 int eval(board_t *board, int depth, int max_depth, bool player);

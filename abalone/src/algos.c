@@ -45,19 +45,18 @@ play_t *max_play(tree_t *tree) {
 play_t *choose_play(board_t *board) {
 	bool player = true;
 	tree_t *tree = gen_plays(board, 0, player);
-	printf("test 1\n");
 	tree_t *temp = tree;
 
 	while (temp->next_tree != NULL) {
-		temp->value = eval(apply_play(board, temp->play, player), 0, MAX_DEPTH, !player);
+		temp->value = eval(apply_play(board, temp->play), 0, MAX_DEPTH, !player);
 	}
 
 	return max_play(tree);
 }
 
-board_t *apply_play(board_t *board, play_t *play, bool player) {
+board_t *apply_play(board_t *board, play_t *play) {
 	// duplicates the balls
-	for(int i = play->cell_tab_length - 1; i > 0; i--) {
+	for(int i = play->cell_tab_length - 1; i >= 0; i--) {
 		play->cell_tab[i]->neighbourg[play->movement_direction]->state = play->cell_tab[i]->state;
 	}
 
@@ -66,14 +65,15 @@ board_t *apply_play(board_t *board, play_t *play, bool player) {
 		play->cell_tab[0]->state = EMPTY;
 	} else {
 		for(int i = 0; i < play->cell_tab_length; i++) {
-			play->cell_tab[i]->neighbourg[(play->movement_direction + 3) % 6]->state = EMPTY;
+			// play->cell_tab[i]->neighbourg[(play->movement_direction + 3) % 6]->state = EMPTY;
+			play->cell_tab[i]->state = EMPTY;
 		}
 	}
 
 	return board;
 }
 
-board_t *undo_play(board_t *board, play_t *play, bool player) {
+board_t *undo_play(board_t *board, play_t *play) {
 	// duplicates the balls
 	for(int i = 0; i < play->cell_tab_length; i++) {
 		play->cell_tab[i]->state = play->buffer[i];
@@ -103,9 +103,9 @@ int eval(board_t *board, int depth, int max_depth, bool player) {
 	tree_t *temp = tree;
 
 	while(temp->next_tree != NULL) {
-		temp->value = eval(apply_play(board, temp->play, player), depth + 1, max_depth, !player);
+		temp->value = eval(apply_play(board, temp->play), depth + 1, max_depth, !player);
 
-		undo_play(board, temp->play, player);
+		undo_play(board, temp->play);
 		temp = temp->next_tree;
 	}
 
