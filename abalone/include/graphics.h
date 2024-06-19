@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 #include "init.h"
+#include <SDL2/SDL_ttf.h>
 
 #ifndef graphics_h 
 #define graphics_h
@@ -28,6 +29,10 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 /// displays current state of the board
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab);
 
+/// create a pointer to a rect
+SDL_Rect* crea_rect(int x, int y, int width, int height);
+
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text, int r1,int r2);
 
 #endif
 

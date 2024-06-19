@@ -5,9 +5,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
 // #include "../include/init.h"
 #include "../include/algos.h"
 #include "SDL2/SDL_render.h"
+#include <SDL2/SDL_ttf.h>
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
@@ -142,5 +144,27 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 		}
 	}
 
+	SDL_RenderPresent(renderer);
+}
+
+SDL_Rect* crea_rect(int x, int y, int width, int height){
+	SDL_Rect* rect=(SDL_Rect*)malloc(sizeof(SDL_Rect));
+	rect->x = x;
+	rect->y = y;
+	rect->w = width;
+	rect->h = height;
+	return rect;
+}
+
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2){
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(renderer, text_box);
+	SDL_SetRenderDrawColor(renderer, r1, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_1);
+	SDL_SetRenderDrawColor(renderer, r2, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_2);
+	SDL_RenderCopy(renderer, text, NULL, text_box);
 	SDL_RenderPresent(renderer);
 }
