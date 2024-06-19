@@ -4,6 +4,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
 #include "../include/algos.h"
@@ -43,6 +44,7 @@ play_t *max_play(tree_t *tree) {
 play_t *choose_play(board_t *board) {
 	bool player = true;
 	tree_t *tree = gen_plays(board, 0, player);
+	printf("test 1\n");
 	tree_t *temp = tree;
 
 	while (temp->next_tree != NULL) {

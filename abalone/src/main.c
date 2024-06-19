@@ -101,6 +101,9 @@ int main(void) {
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
 	*/
 
-return 0;
+	// algos.c tests
+
+
+	return 0;
 
 }
