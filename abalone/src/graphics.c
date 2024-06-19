@@ -5,6 +5,9 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+// #include "../include/init.h"
+#include "../include/algos.h"
+#include "SDL2/SDL_render.h"
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
@@ -125,4 +128,19 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 
 	SDL_RenderCopy(renderer, texture, &source, &destination);
 	
+}
+
+void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
+	SDL_RenderClear(renderer);
+	texturing(board, window, renderer);
+
+	for(int i = 0; i < 61; i++) {
+		if(cell_tab[i]->state == WHITE) {
+			display_cell(white, window, renderer, i);
+		} else if (cell_tab[i]->state == BLACK) {
+			display_cell(black, window, renderer, i);
+		}
+	}
+
+	SDL_RenderPresent(renderer);
 }
