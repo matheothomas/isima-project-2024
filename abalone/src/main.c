@@ -11,13 +11,14 @@
 #include "../include/algos.h"
 #include "../include/init.h"
 #include "../include/graphics.h"
+#include "../include/utilities.h"
 #include "SDL2/SDL_render.h"
 
 int main(void) {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, white, black;
+	SDL_Texture *board, *white, *black;
 
 	// SDL INITIALISATION
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -46,7 +47,7 @@ int main(void) {
 
 	SDL_RenderPresent(renderer);
 
-	SDL_Delay(3000);
+	SDL_Delay(1);
 
 	SDL_RenderClear(renderer);
 
@@ -57,7 +58,25 @@ int main(void) {
 
 	// TEST FUNCTIONS
 
-	board_t b = create_clean_board();
+	board_t * b = create_clean_board();
+
+	b -> cell -> state = BLACK;
+	b -> cell -> neighbourg[0] -> state = BLACK;
+	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
+	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
+
+	play_t play;
+	play.cell_tab[0] = b -> cell;
+	play.cell_tab[1] = b -> cell -> neighbourg[0];
+	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[4] = NULL;
+	play.cell_direction = 0;
+	play.movement_direction = 0;
+	play.cell_tab_length = 4;
+	bool player = 0;
+
+	printf("Validity play result : %d\n", validity_play(b, &play, player));
 
 	return 0;
 

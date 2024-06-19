@@ -34,10 +34,15 @@ typedef struct board {
 
 /// creates a cell of the board
 cell_t *create_cell();
+
 /// creates an empty board
-board_t create_clean_board();
-/// creates a starting board 
-board_t start_config();
+board_t *create_clean_board();
+
+/// puts balls on the board into a start configuration
+board_t *start_config(board_t* b);
+
+/// creates a table with all cells of the board 
+cell_t ** create_table(board_t* b);
 
 #endif
 
