@@ -38,6 +38,8 @@ cell_t *create_cell();
 board_t create_clean_board();
 /// creates a starting board 
 board_t start_config();
+/// creates a table with all cells of the board 
+cell_t ** create_table(board_t b);
 
 #endif
 
