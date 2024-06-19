@@ -81,8 +81,16 @@ int main(void) {
 
 	// TEST FUNCTIONS
 
-	// utilities.c tests
-	/*
+	board_t * b = create_clean_board();
+	cell_t **table=create_table(*b);
+	
+	b=start_config(b);
+
+	for(int i=0;i<61;i++){
+		printf("%d : %d \n",i,table[i]->state);
+	}
+
+    /*
 	b -> cell -> state = BLACK;
 	b -> cell -> neighbourg[0] -> state = BLACK;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
