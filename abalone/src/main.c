@@ -43,33 +43,19 @@ int main(void) {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
-	texturing(board, window, renderer);
-
-	SDL_RenderPresent(renderer);
-
-	SDL_Delay(1);
-
-	SDL_RenderClear(renderer);
-
-	IMG_Quit();
-
-	end_sdl(1, "Normal ending", window, renderer);
 
 
 	// TEST FUNCTIONS
-	printf("tst\n");
-	board_t * ptb = create_clean_board();
-	printf("tst\n");
-	cell_t **table=create_table(*ptb);
-	printf("tst\n");
-	
-	ptb=start_config(ptb);
 
+	board_t * b = create_clean_board();
+	cell_t **cell_tab = create_table(*b);
+	b = start_config(b);
+
+	/*
 	for(int i=0;i<61;i++){
 		printf("%d : %d \n",i,table[i]->state);
 	}
 
-    /*
 	b -> cell -> state = BLACK;
 	b -> cell -> neighbourg[0] -> state = BLACK;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
@@ -87,7 +73,43 @@ int main(void) {
 	bool player = 0;
 
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
-	*/
+	*/ 
+
+	// algos.c tests
+
+	play_t *p = malloc(sizeof(play_t));
+
+	p->cell_tab[0] = cell_tab[13];
+	p->cell_tab[1] = cell_tab[14];
+	p->cell_tab[2] = cell_tab[15];
+	p->buffer[0] = WHITE;
+	p->buffer[1] = WHITE;
+	p->buffer[2] = WHITE;
+	p->cell_tab_length = 3;
+	p->cell_direction = 2;
+	p->movement_direction = 4;
+	
+	
+	display_board(board, white, black, window, renderer, cell_tab);
+
+	SDL_Delay(1000);
+	b = apply_play(b, p);
+	display_board(board, white, black, window, renderer, cell_tab);
+	
+	SDL_Delay(1000);
+	b = undo_play(b, p);
+	display_board(board, white, black, window, renderer, cell_tab);
+
+
+
+
+	SDL_Delay(2000);
+
+	SDL_RenderClear(renderer);
+
+	IMG_Quit();
+
+	end_sdl(1, "Normal ending", window, renderer);
 
 	return 0;
 

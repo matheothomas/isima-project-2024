@@ -55,7 +55,7 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 }
 
 void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
 
 	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
@@ -73,7 +73,7 @@ void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer)
 }
 
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id) {
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
 	int i, j;
 	float k;
