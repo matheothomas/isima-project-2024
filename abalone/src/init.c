@@ -19,9 +19,10 @@ cell_t *create_cell() {
 	return c;
 }
 
-board_t create_clean_board() {
+board_t* create_clean_board() {
 
 	board_t b;
+	board_t*ptb=&b;
 	cell_t *first_cell = create_cell();
 	b.cell = first_cell;
 	b.n_black = 0;
@@ -177,17 +178,15 @@ board_t create_clean_board() {
 			cur_cell->neighbourg[(i + 1) % 6]->neighbourg[(i + 5) % 6];
 		cur_cell->neighbourg[i]->neighbourg[(i + 3) % 6] = cur_cell;
 	}
-	return b;
+	return ptb;
 }
 
-board_t start_config() {
-	board_t b = create_clean_board();
-
+board_t* start_config(board_t* b) {
 	cell_t *cur_cell;
 	state_e coulour = WHITE;
 
 	for (int n = 0; n < 4; n += 3) {
-		cur_cell = b.cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
+		cur_cell = b->cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
 		for (int i = 0; i < 4; i++) {
 			cur_cell->state = coulour;
 			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
@@ -209,50 +208,50 @@ board_t start_config() {
 	return b;
 }
 
-cell_t ** create_table(board_t b) {
+cell_t ** create_table(board_t* b) {
 	cell_t **table;
 	cell_t* cur_cell;
-	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[0];
+	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[0];
 	for (int i = 0; i < 5; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
 	for (int i = 5; i < 11; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[0]->neighbourg[0]->neighbourg[5]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[5]->neighbourg[5];
 	for (int i = 11; i < 18; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[0]->neighbourg[5]->neighbourg[5]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[0]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 18; i < 26; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[5]->neighbourg[5]->neighbourg[5]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[5]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 26; i < 35; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[4]->neighbourg[5]->neighbourg[5]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[4]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 35; i < 43; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[5]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[5]->neighbourg[5];
 	for (int i = 43; i < 50; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[5];
+	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[5];
 	for (int i = 50; i < 56; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
-	cur_cell = b.cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[4];
+	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[4];
 	for (int i = 56; i < 61; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
