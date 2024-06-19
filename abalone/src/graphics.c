@@ -183,17 +183,30 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
-void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2){
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2,SDL_Texture *config1,SDL_Texture *config2){
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderClear(renderer);
+
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	 SDL_RenderFillRect(renderer, text_box);
+	SDL_RenderFillRect(renderer, text_box);
+
 	SDL_SetRenderDrawColor(renderer, r1, 200, 200, 255);
 	SDL_RenderFillRect(renderer, button_1);
+
 	SDL_SetRenderDrawColor(renderer, r2, 200, 200, 255);
 	SDL_RenderFillRect(renderer, button_2);
 
+
+	SDL_Rect source = {0};
+
+	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(renderer, config1, &source, button_1);
+
+	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(renderer, config1, &source, button_2);
+
 	SDL_RenderCopy(renderer, text, NULL, text_box);
+
 
 	SDL_RenderPresent(renderer);
 }

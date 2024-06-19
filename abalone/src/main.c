@@ -145,15 +145,18 @@ int main(void) {
 	// Second Event Loop
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	while (program_on_2) {
+		
 		if (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_QUIT:
 				program_on_2 = SDL_FALSE;
 				break;
-/*
+
 				case SDL_MOUSEBUTTONDOWN:
 				x=event.button.x;
 				y=event.button.y;
+
+
 				if(x>7*w/9 && 7*w/9+w/9){
 					if(4*h/11 && 4*h/11+h/11){
 						r=255;
@@ -162,7 +165,6 @@ int main(void) {
 				else{
 					r=0;
 				}
-				*/
 				break;
 				case SDL_MOUSEBUTTONUP:
 				x=event.button.x;
