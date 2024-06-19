@@ -21,7 +21,6 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 		}
 		// If we find a cell belonging to player after a non player cell then the play is invalid
 		else if (cell -> state == switch_player_color[player] && changed_to_non_player_color) {
-			printf("a\n");
 			return false;
 		}
 		cell = cell -> neighbourg[play -> cell_direction];
@@ -48,6 +47,9 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 	// Check if movement is valid otherwise
 	else {
 		for (int i = 0; i < play -> cell_tab_length; i++) {
+			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] == NULL) {
+				return false;
+			}
 			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
 				printf("c\n");
 				return false;
@@ -88,28 +90,32 @@ void fill_play_buffer(play_t * play) {
 	}
 	
 	int i = 0;
-	while (i++ < play -> cell_tab_length) {
+	while (i < play -> cell_tab_length) {
 		play -> buffer[i] = play -> cell_tab[i] -> state;
+		i++;
 	}
 }
 
 void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
 	// TODO Si cell_direction différente de mouvemment_direction, il ne faut pas rajouter les billes de couleur différente du joueur
-	
-	if (play == NULL && visited[cell -> id] == false) {
+	if (play == NULL && visited[cell -> id] == true) {
+		return;
+	}
+	else if (visited[cell -> id] == false) {
 		visited[cell -> id] = true;
 		
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
-				play_t new_play;
-				new_play.cell_tab_length = 1;
-				new_play.movement_direction = j;
-				new_play.cell_direction = i;
-				new_play.cell_tab[0] = cell;
-				new_play.cell_tab[1] = NULL;
+				play_t * new_play = malloc(sizeof(play_t));
+				new_play -> cell_tab_length = 1;
+				new_play -> movement_direction = j;
+				new_play -> cell_direction = i;
+				new_play -> cell_tab[0] = cell;
+				new_play -> cell_tab[1] = NULL;
+				printf("direction %d\n", new_play -> movement_direction);
 
-				traversal_rec(board, tree, &new_play, cell -> neighbourg[i], visited, player);
+				traversal_rec(board, tree, new_play, cell -> neighbourg[i], visited, player);
 			}
 		}
 	}
@@ -143,29 +149,28 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 			traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
 		}
 	}
-
 }
 
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
-	if (cell == NULL) {
-		printf("oui bah c'est nul j'y peut rien\n");
-		return;
-	}
-	else {
-		printf("c pas nul\n");
-	}
+	if (cell == NULL) { return; }
 
 	switch (cell -> state) {
 		case EMPTY:
-			if (play == NULL) {
-				for (int i = 0; i < 6; i++) {
-					traversal_rec(board, tree, NULL, cell -> neighbourg[i], visited, player);
+			if (visited[cell -> id]) {
+				visited[cell -> id] = true;
+				if (play == NULL) {
+					for (int i = 0; i < 6; i++) {
+						traversal_rec(board, tree, NULL, cell -> neighbourg[i], visited, player);
+					}
 				}
-			}
-			else {
-				if (validity_play(board, play, player)) {
-					append_tree(tree, play, 0, tree -> depth);
+				else {
+					if (validity_play(board, play, player)) {
+						append_tree(tree, play, 0, tree -> depth);
+						for (int i = 0; i < 6; i++) {
+							traversal_rec(board, tree, NULL, cell -> neighbourg[i], visited, player);
+						}
+					}
 				}
 			}
 		break;
