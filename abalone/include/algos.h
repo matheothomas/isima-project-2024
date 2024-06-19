@@ -39,7 +39,6 @@ play_t *max_play(tree_t *tree);
 play_t *choose_play(board_t *board);
 
 /// returns a tree containing all available plays for a board
-tree_t *gen_plays(board_t *board, int depth, bool player);
 
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play, bool player);

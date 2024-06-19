@@ -149,8 +149,15 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
+	if (cell == NULL) {
+		printf("oui bah c'est nul j'y peut rien\n");
+		return;
+	}
+	else {
+		printf("c pas nul\n");
+	}
+
 	switch (cell -> state) {
-		printf("cell id %d\n", cell -> id);
 		case EMPTY:
 			if (play == NULL) {
 				for (int i = 0; i < 6; i++) {
@@ -176,12 +183,13 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 
 }
 
-tree_t * gen_plays(board_t * board, int depth, bool player) {
+tree_t * gen_plays(board_t ** board, int depth, bool player) {
 
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
-	traversal_rec(board, tree, NULL, board -> cell, visited, player);
+	printf("%p\n", (*board) -> cell);
+	traversal_rec(*board, tree, NULL, (*board) -> cell, visited, player);
 
 	return tree -> next_tree;
 }
