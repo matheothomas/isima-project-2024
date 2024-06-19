@@ -73,46 +73,55 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
 	int i, j;
+	float k;
 
 	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
 	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 
-	float zoom = 9;
-	destination.w = window_dimensions.w / zoom;
-	destination.h = window_dimensions.h / zoom;
+	float zoom = 10;
+	destination.w = window_dimensions.w / (zoom + 1.6);
+	destination.h = window_dimensions.h / (zoom + 3.2);
 	
 	if(id < 5) {
 		i = 1;
 		j = id;
+		k = 2;
 	} else if (id < 11) {
 		i = 2;
 		j = id - 5;
+		k = 1.5;
 	} else if (id < 18) {
 		i = 3;
 		j = id - 11;
+		k = 1;
 	} else if (id < 26) {
 		i = 4;
 		j = id - 18;
+		k = 0.5;
 	} else if (id < 35) {
 		i = 5;
 		j = id - 26;
+		k = 0;
 	} else if (id < 43) {
 		i = 6;
 		j = id - 35;
+		k = 0.5;
 	} else if (id < 50) {
 		i = 7;
 		j = id - 43;
+		k = 1;
 	} else if (id < 56) {
 		i = 8;
 		j = id - 50;
+		k = 1.5;
 	} else if (id < 61) {
 		i = 9;
 		j = id - 56;
+		k = 2;
 	}
 
-	destination.x = destination.w * i;
-	destination.y = destination.h * j;
-
+	destination.x = destination.w * (j+k+1.3);
+	destination.y = destination.h * (i+1.2);
 
 	SDL_RenderCopy(renderer, texture, &source, &destination);
 	
