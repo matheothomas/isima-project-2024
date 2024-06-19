@@ -28,7 +28,8 @@ board_t* create_clean_board() {
 	b.n_black = 0;
 	b.n_white = 0;
 
-	board_t*ptb=&b;
+	board_t*ptb=(board_t*)malloc(sizeof(board_t));
+	ptb=&b;
 
 	cell_t *cur_cell = b.cell;
 	int j = 0;
@@ -252,46 +253,55 @@ board_t* start_config_2(board_t* b) {
 cell_t ** create_table(board_t* b) {
 	cell_t **table=(cell_t**)malloc(61 * sizeof(cell_t*));
 	cell_t* cur_cell;
+
 	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[0];
 	for (int i = 0; i < 5; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[0]->neighbourg[5];
 	for (int i = 5; i < 11; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[0]->neighbourg[0]->neighbourg[5]->neighbourg[5];
 	for (int i = 11; i < 18; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[0]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 18; i < 26; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[5]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 26; i < 35; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[4]->neighbourg[5]->neighbourg[5]->neighbourg[5];
 	for (int i = 35; i < 43; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[5]->neighbourg[5];
 	for (int i = 43; i < 50; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+
 	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[5];
 	for (int i = 50; i < 56; i++) {
 		table[i] = cur_cell;
 		cur_cell = cur_cell->neighbourg[2];
 	}
+	
 	cur_cell = b->cell->neighbourg[4]->neighbourg[4]->neighbourg[4]->neighbourg[4];
 	for (int i = 56; i < 61; i++) {
 		table[i] = cur_cell;
