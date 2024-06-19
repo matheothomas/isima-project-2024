@@ -17,7 +17,7 @@ int main(void) {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board;
+	SDL_Texture *board, white, black;
 
 	// SDL INITIALISATION
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -40,6 +40,8 @@ int main(void) {
 
 	// Textures creation
 	board = load_texture_from_image("res/board.png", window, renderer);
+	white = load_texture_from_image("res/white.png", window, renderer);
+	black = load_texture_from_image("res/black.png", window, renderer);
 	texturing(board, window, renderer);
 
 	SDL_RenderPresent(renderer);

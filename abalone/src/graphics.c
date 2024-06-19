@@ -51,7 +51,7 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 	return my_texture;
 }
 
-void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* renderer) {
+void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect 
 	source = {0},
@@ -59,9 +59,9 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 	destination = {0};
 
 	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
-	SDL_QueryTexture(my_texture, NULL, NULL, &source.w, &source.h);
+	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 
-	float zoom = 0.8;
+	float zoom = 0.9;
 	destination.w = window_dimensions.w * zoom;						// the destination is a source's zoom
 	destination.h = window_dimensions.h * zoom;
 	destination.x = (window_dimensions.w - destination.w) / 2;
@@ -69,5 +69,9 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 
 
 	// SDL_RenderCopyEx(renderer, my_texture, &source, &destination, j*0.1, &point, SDL_FLIP_NONE);
-	SDL_RenderCopy(renderer, my_texture, &source, &destination);
+	SDL_RenderCopy(renderer, texture, &source, &destination);
+}
+
+void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer) {
+
 }
