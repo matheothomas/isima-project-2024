@@ -43,54 +43,22 @@ int main(void) {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
-	texturing(board, window, renderer);
 	
 
-	board_t * b = create_clean_board();
-	cell_t **cell_tab = create_table(*b);
-	b = start_config(b);
 
-	play_t *p = malloc(sizeof(play_t));
-	p->cell_tab[0] = cell_tab[21];
-	// p->cell_tab[1] = cell_tab[14];
-	p->cell_tab_length = 1;
-	p->cell_direction = 0;
-	p->movement_direction = 4;
-	b = apply_play(b, p, 0);
-	// p = choose_play(b);
-
-
-	for(int i = 0; i < 61; i++) {
-		if(cell_tab[i]->state == WHITE) {
-			display_cell(white, window, renderer, i);
-		} else if (cell_tab[i]->state == BLACK) {
-			display_cell(black, window, renderer, i);
-		}
-	}
-
-	SDL_RenderPresent(renderer);
-
-	SDL_Delay(4000);
-
-	SDL_RenderClear(renderer);
-
-	IMG_Quit();
-
-	end_sdl(1, "Normal ending", window, renderer);
 
 
 	// TEST FUNCTIONS
 
 	board_t * b = create_clean_board();
-	cell_t **table=create_table(*b);
-	
-	b=start_config(b);
+	cell_t **cell_tab = create_table(*b);
+	b = start_config(b);
 
+	/*
 	for(int i=0;i<61;i++){
 		printf("%d : %d \n",i,table[i]->state);
 	}
 
-    /*
 	b -> cell -> state = BLACK;
 	b -> cell -> neighbourg[0] -> state = BLACK;
 	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
@@ -108,10 +76,43 @@ int main(void) {
 	bool player = 0;
 
 	printf("Validity play result : %d\n", validity_play(b, &play, player));
-	*/
+	*/ 
 
 	// algos.c tests
 
+	play_t *p = malloc(sizeof(play_t));
+
+	p->cell_tab[0] = cell_tab[13];
+	p->cell_tab[1] = cell_tab[14];
+	p->cell_tab[2] = cell_tab[15];
+	p->buffer[0] = WHITE;
+	p->buffer[1] = WHITE;
+	p->buffer[2] = WHITE;
+	p->cell_tab_length = 3;
+	p->cell_direction = 2;
+	p->movement_direction = 4;
+	
+	
+	display_board(board, white, black, window, renderer, cell_tab);
+
+	SDL_Delay(1000);
+	b = apply_play(b, p);
+	display_board(board, white, black, window, renderer, cell_tab);
+	
+	SDL_Delay(1000);
+	b = undo_play(b, p);
+	display_board(board, white, black, window, renderer, cell_tab);
+
+
+
+
+	SDL_Delay(2000);
+
+	SDL_RenderClear(renderer);
+
+	IMG_Quit();
+
+	end_sdl(1, "Normal ending", window, renderer);
 
 	return 0;
 
