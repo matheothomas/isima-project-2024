@@ -85,6 +85,7 @@ void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer)
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id) {
 	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
+
 	int i, j;
 	float k;
 
@@ -140,6 +141,14 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	
 }
 
+int get_cell_position(int x, int y){
+	int id;
+	int i, j;
+	i=y-1.2;
+	j=x-1.3;
+	return id;
+}
+
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
 	SDL_RenderClear(renderer);
 	texturing(board, window, renderer);
@@ -162,6 +171,16 @@ SDL_Rect* crea_rect(int x, int y, int width, int height){
 	rect->w = width;
 	rect->h = height;
 	return rect;
+}
+
+int is_in (SDL_Rect* button,int x,int y){
+	int is_in=0;
+	if(x>button->x && x<button->x+button->w){
+		if(y>button->y && y<button->y+button->h){
+			is_in=1;
+		}
+	}
+	return is_in;
 }
 
 void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2){

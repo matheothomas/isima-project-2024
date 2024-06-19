@@ -61,6 +61,7 @@ int main(void) {
 	int r1=0;
 	int r2=0;
 	int r=0;
+	int mouse_state=0;
 	SDL_GetWindowSize(window, &w, &h);
 
 	// Rect creation
@@ -81,65 +82,66 @@ int main(void) {
 	SDL_bool program_on_2 = SDL_FALSE;
 	SDL_Event event;
 	while (program_on) {
-		if (SDL_PollEvent(&event)) {
+		// process event
+		mouse_state=0;
+		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_QUIT:
 				program_on = SDL_FALSE;
 				break;
 				case SDL_MOUSEBUTTONDOWN:
-				/*
 				x=event.button.x;
 				y=event.button.y;
-				if(x>2*w/15 && x<2*w/15+w/3){
-					if(y>5*h/9 && y<5*h/9+h/4){
-						r1=255;
-						r2=0;
-					}
-				}
-				else if (x>8*w/15 && x<8*w/15+w/3){
-					if(y>5*h/9 && y<5*h/9+h/4){
-						r1=0;
-						r2=255;
-					}
-				}
-				else{
-					r1=0;
-					r2=0;
-				}
-				*/
+				mouse_state=1;
 				break;
 				case SDL_MOUSEBUTTONUP:
+				mouse_state=2;
 				x=event.button.x;
 				y=event.button.y;
 				break;
 				default:
 				break;
 			}
-			if(x>2*w/15 && x<2*w/15+w/3){
-				if(y>5*h/9 && y<5*h/9+h/4){
-					b=start_config(b);
-					program_on = SDL_FALSE;
-					program_on_2 = SDL_TRUE;
-					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-					SDL_RenderClear(renderer);
-				}
+		}
+
+		// update
+		if(mouse_state==1){
+			if(is_in(button_1, x, y)){
+				r1=255;
+				r2=0;
 			}
-			else if (x>8*w/15 && x<8*w/15+w/3){
-				if(y>5*h/9 && y<5*h/9+h/4){
-					b=start_config_2(b);
-					program_on = SDL_FALSE;
-					program_on_2 = SDL_TRUE;
-					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-					SDL_RenderClear(renderer);
-				}
-			}
-			else{
-				home_menu(window, renderer, text_box, button_1, button_2,font,text,r1,r2);
-				SDL_Delay(1);
+			else if (is_in(button_2, x, y)){
+				r1=0;
+				r2=255;
 			}
 		}
-	}
+			
+		if(mouse_state==2){
+			r1=0;
+			r2=0;
+		}
 
+		if(mouse_state==2){
+			if(is_in(button_1, x, y)){
+				b=start_config(b);
+				program_on = SDL_FALSE;
+				program_on_2 = SDL_TRUE;
+			}
+			else if (is_in(button_2, x, y)){
+				b=start_config_2(b);
+				program_on = SDL_FALSE;
+				program_on_2 = SDL_TRUE;
+			}
+		}
+		
+		// render
+		home_menu(window, renderer, text_box, button_1, button_2, font, text, r1, r2);
+		SDL_Delay(1);
+	}
+	
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+			
 	// Second Event Loop
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	while (program_on_2) {
