@@ -9,20 +9,24 @@
 bool validity_play(board_t * board, play_t * play, bool player) {
 	
 	state_e switch_player_color[2] = {BLACK, WHITE};
-	bool changed_to_non_player_color = false;
 
-	// TODO edge case not taken into account : 3 player cells then 2 non player cells then a player cell
 	// Check if the play line is well ordered
-	for (int i = 0; i < play -> cell_tab_length; i++) {
-		if (play -> cell_tab[i] -> state == switch_player_color[!player]) {
+	bool changed_to_non_player_color = false;
+	cell_t * cell = play -> cell_tab[0];
+	int i = 0;
+	while (cell != NULL && i++ < 6 && cell -> state != EMPTY) {
+		// TODO raccourcir condition et consequence
+		if (cell -> state == switch_player_color[!player]) {
 			changed_to_non_player_color = true;
 		}
 		// If we find a cell belonging to player after a non player cell then the play is invalid
-		else if (play -> cell_tab[i] -> state == switch_player_color[player] && changed_to_non_player_color) {
+		else if (cell -> state == switch_player_color[player] && changed_to_non_player_color) {
 			printf("a\n");
 			return false;
 		}
+		cell = cell -> neighbourg[play -> cell_direction];
 	}
+
 
 	// Check if movemement is valid when movement_direction and cell_direction are colinear
 	if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
@@ -146,6 +150,7 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
 	switch (cell -> state) {
+		printf("cell id %d\n", cell -> id);
 		case EMPTY:
 			if (play == NULL) {
 				for (int i = 0; i < 6; i++) {
