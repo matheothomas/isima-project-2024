@@ -6,12 +6,49 @@
 #include "../include/utilities.h"
 
 
-bool validity_play(board_t * board, play_t * play) {
-	bool valid = true;
+bool validity_play(board_t * board, play_t * play, bool player) {
+	
+	state_e switch_player_color[2] = {BLACK, WHITE};
+	bool changed_to_non_player_color = false;
 
+	// TODO edge case not taken into account : 3 player cells then 2 non player cells then a player cell
+	// Check if the play line is well ordered
+	for (int i = 0; i < play -> cell_tab_length; i++) {
+		if (play -> cell_tab[i] -> state == switch_player_color[!player]) {
+			changed_to_non_player_color = true;
+		}
+		// If we find a cell belonging to player after a non player cell then the play is invalid
+		else if (play -> cell_tab[i] -> state == switch_player_color[player] && changed_to_non_player_color) {
+			return false;
+		}
+	}
 
+	// Check if movemement is valid when movement_direction and cell_direction are colinear
+	if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
+		// We go further than the play length because of case 3 player cells then 3 non player cells -> last non player cell not accounted for in play structure
+		cell_t * cours = play -> cell_tab[0];
+		int player_cells = 0;
+		int total_cells = 0;
+		while (cours != NULL && total_cells < 6 && cours -> state != EMPTY) {
+			
+			player_cells += (switch_player_color[player] == cours -> state) ? 1 : 0;
+			total_cells++;
+			cours = cours -> neighbourg[play -> cell_direction];
+		}
+		if (player_cells > total_cells - player_cells) {
+			return false;
+		}
+	}
+	// Check if movement is valid otherwise
+	else {
+		for (int i = 0; i < play -> cell_tab_length; i++) {
+			if (play -> cell_tab[i] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
+				return false;
+			}
+		}
+	}
 
-	return valid;
+	return true;
 }
 
 tree_t * create_tree(play_t * play, int value, int depth) {
@@ -74,7 +111,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 		play -> cell_tab[play -> cell_tab_length] = cell;
 		play -> cell_tab_length ++;
 
-		if (validity_play(board, play)) {
+		if (validity_play(board, play, player)) {
 			fill_play_buffer(play);
 			append_tree(tree, play, 0, tree -> depth);
 		}
@@ -86,15 +123,18 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 	if (play != NULL && play -> cell_tab_length < 5) {
-		play -> cell_tab[play -> cell_tab_length] = cell;
-		play -> cell_tab_length ++;
+		// If momvement direction is not colinear to cell direction then we should not add the cell of the other player
+		if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
+			play -> cell_tab[play -> cell_tab_length] = cell;
+			play -> cell_tab_length ++;
 
-		if (validity_play(board, play)) {
-			fill_play_buffer(play);
-			append_tree(tree, play, 0, tree -> depth);
+			if (validity_play(board, play, player)) {
+				fill_play_buffer(play);
+				append_tree(tree, play, 0, tree -> depth);
+			}
+
+			traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
 		}
-
-		traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
 	}
 
 }
@@ -109,7 +149,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 				}
 			}
 			else {
-				if (validity_play(board, play)) {
+				if (validity_play(board, play, player)) {
 					append_tree(tree, play, 0, tree -> depth);
 				}
 			}
