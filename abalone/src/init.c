@@ -79,7 +79,7 @@ board_t* create_clean_board() {
 						} else {
 							if (i == 5 && n == 1 && c == 0) {
 								cur_cell->neighbourg[(i + n) % 6] =
-									b.cell->neighbourg[0]->neighbourg[5];
+									ptb->cell->neighbourg[0]->neighbourg[5];
 								cur_cell->neighbourg[(i + n) % 6]->neighbourg[(i + n + 3) % 6] =
 								cur_cell;
 							} else {
