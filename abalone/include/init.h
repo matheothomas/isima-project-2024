@@ -1,5 +1,5 @@
 /* name : init.h
- * author : matheo thomas
+ * author : matheo thomas, domitille vale, eloi petit
  * date : 18-06-24
  */
 
@@ -24,7 +24,7 @@ typedef struct cell {
 } cell_t;
 
 typedef struct board {
-	cell_t *cell;			// pointer to the first cell of the board
+	cell_t *cell;			// pointer to the first cell of the board, the one in the middle
 	int n_white;
 	int n_black;
 } board_t;
@@ -34,7 +34,10 @@ typedef struct board {
 
 /// creates a cell of the board
 cell_t *create_cell();
+/// creates an empty board
 board_t create_clean_board();
+/// creates a starting board 
+board_t start_config();
 
 #endif
 
