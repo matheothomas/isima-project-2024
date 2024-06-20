@@ -17,9 +17,15 @@ typedef enum state {
 	BLACK,
 } state_e;
 
+typedef enum selection {
+	UNSELECT,
+	SELECT,
+} selection_e;
+
 typedef struct cell {
 	int id;
 	state_e state;
+	selection_e selection;
 	struct cell *neighbourg[6];
 } cell_t;
 
@@ -33,7 +39,7 @@ typedef struct board {
 /* Functions definitions */
 
 /// creates a cell of the board
-cell_t *create_cell();
+cell_t *create_cell(int id);
 
 /// creates an empty board
 board_t *create_clean_board();

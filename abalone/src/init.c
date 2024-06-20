@@ -13,6 +13,7 @@ cell_t *create_cell(int id) {
 	cell_t *c = malloc(sizeof(cell_t));
 	c->state = EMPTY;
 	c->id=id;
+	c->selection=UNSELECT;
 
 	for (int i = 0; i < 6; i++) {
 		c->neighbourg[i] = NULL;
