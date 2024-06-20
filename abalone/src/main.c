@@ -3,6 +3,7 @@
  * date : 18-06-24
  */
 
+#include <SDL2/SDL_keycode.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,6 +26,11 @@ int main(void) {
 	board_t *b = create_clean_board();
 	cell_t **cell_tab=create_table(*b);
 
+	play_t *play=malloc(sizeof(play_t));
+	play->cell_direction=0;
+	play->cell_tab_length=0;
+	play->movement_direction=0;
+
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
@@ -40,6 +46,10 @@ int main(void) {
 	int r=0;
 	int mouse_state=0;
 	int mouse_state_prec=0;
+	int id_mouse_cell;
+	int nb_selected_cells=0;
+	cell_t *cur_cell;
+	
 	SDL_GetWindowSize(g->window, &w, &h);
 
 	// Rect creation
@@ -55,6 +65,7 @@ int main(void) {
 	texturing(text_home_menu,g->window, g->renderer);
 	SDL_RenderPresent(g->renderer);
 	SDL_Delay(200);
+	
 
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
@@ -158,6 +169,43 @@ int main(void) {
 				mouse_state=2;
 				break;
 
+				case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+
+					case SDLK_0:
+					case SDLK_KP_0:
+					play->movement_direction=0;
+					break;
+
+					case SDLK_1:
+					case SDLK_KP_1:
+					play->movement_direction=1;
+					break;
+
+					case SDLK_2:
+					case SDLK_KP_2:
+					play->movement_direction=2;
+					break;
+
+					case SDLK_3:
+					case SDLK_KP_3:
+					play->movement_direction=3;
+					break;
+
+					case SDLK_4:
+					case SDLK_KP_4:
+					play->movement_direction=4;
+					break;
+
+					case SDLK_5:
+					case SDLK_KP_5:
+					play->movement_direction=5;
+					break;
+
+					default:
+					break;
+				}
+
 				default:
 				break;
 			}
@@ -174,13 +222,54 @@ int main(void) {
 			else{
 				r=0;
 			}
+			if(1){
+				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+			}
 		}
 
 		if(mouse_state==2){
 			r=0;
 			if(is_in(confirm, x, y)){
-				//valider
-				program_on_2 = SDL_FALSE;
+				cur_cell= play->cell_tab[play->cell_tab_length-1];
+				while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
+					cur_cell=cur_cell->neighbourg[play->cell_direction];
+					if(cur_cell && cur_cell->state && play->cell_tab_length<6){
+						nb_selected_cells+=1;
+						play->cell_tab[nb_selected_cells] = cur_cell;
+						play->cell_tab_length+=1;
+					}
+				}
+				fill_play_buffer(play);
+				print_play(b, play);
+				b=apply_play(b, play);
+				for(int k=0;k<play->cell_tab_length;k++){
+					play->cell_tab[k]->selection=UNSELECT;
+				}
+				nb_selected_cells=0;
+				play->cell_tab_length=0;
+			}
+			else if(1){
+				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+				if(cell_tab[id_mouse_cell]->selection==SELECT){
+					//cell_tab[id_mouse_cell]->selection=UNSELECT;
+					//nb_selected_cells-=1;
+					//printf("%d %d\n",nb_selected_cells, play->movement_direction);
+				}
+				else{
+					play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
+					play->cell_tab_length+=1;
+					cell_tab[id_mouse_cell]->selection=SELECT;
+					nb_selected_cells+=1;
+					if (nb_selected_cells==2){
+						for(int k=0;k<6;k++){
+							if(play->cell_tab[nb_selected_cells-2]->neighbourg[k]==cell_tab[id_mouse_cell]){
+								play->cell_direction=k;
+								k=6;
+							}
+						}
+					}
+					printf("%d %d %d\n",nb_selected_cells, play->movement_direction, play->cell_direction);
+				}
 			}
 		}
 

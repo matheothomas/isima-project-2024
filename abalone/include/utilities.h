@@ -20,6 +20,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player);
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player);
 tree_t * gen_plays(board_t * board, int depth, bool player);
+void fill_play_buffer(play_t * play);
 
 /// creates a cell of the board
 
