@@ -73,7 +73,9 @@ bool validity_play(play_t * play, bool player) {
 	if (play == NULL) {
 		return false;
 	}
-
+	
+	// cell_direction is meaningless when play is of size 1 
+	// and creates a lot of duplicates that we can remove early
 	if (play -> cell_tab_length == 1 && play -> cell_direction != play -> movement_direction) {
 		return false;
 	}
@@ -85,7 +87,6 @@ bool validity_play(play_t * play, bool player) {
 	cell_t * cell = play -> cell_tab[0];
 	int i = 0;
 	while (cell != NULL && i++ < 6 && cell -> state != EMPTY) {
-		// TODO raccourcir condition et consequence
 		if (cell -> state == switch_player_color[!player]) {
 			changed_to_non_player_color = true;
 		}
@@ -99,11 +100,12 @@ bool validity_play(play_t * play, bool player) {
 
 	// Check if movemement is valid when movement_direction and cell_direction are positively colinear
 	if (play -> cell_direction == play -> movement_direction) {
-		// We go further than the play length because of case 3 player cells
-		// then 3 non player cells -> last non player cell not accounted for in play structure
 		cell_t * cours = play -> cell_tab[0];
 		int player_cells = 0;
 		int total_cells = 0;
+		
+		// We go further than the play length because of case 3 player cells
+		// then 3 non player cells -> last non player cell is possibly not accounted for in cell_tab
 		while (cours != NULL && total_cells < 6 && cours -> state != EMPTY) {
 
 			player_cells += (switch_player_color[player] == cours -> state) ? 1 : 0;
@@ -261,7 +263,7 @@ void cell_does_not_belongs_to_player(board_t * board,
 									 bool player) {
 
 	if (play != NULL && play -> cell_tab_length < 5) {
-		// If momvement direction is not colinear to cell direction then we should
+		// If movement direction is not colinear to cell direction then we should
 		// not add the cell of the other player
 		if (play -> cell_direction == play -> movement_direction || 
 			play -> cell_direction == (play -> movement_direction + 3) % 6) {
