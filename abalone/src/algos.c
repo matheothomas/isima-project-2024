@@ -56,7 +56,7 @@ play_t *choose_play(board_t *board) {
 		// display_board(g->board, g->white, g->white, g->window, g->renderer, cell_tab);
 		// SDL_Delay(1000);
 		// printf("play : %d\n", temp->play->cell_tab_length);
-		if(validity_play(board, temp->play, player)) {
+		if(validity_play(temp->play, player)) {
 			temp->value = eval(apply_play(board, temp->play), 0, MAX_DEPTH, !player);
 			undo_play(board, temp->play);
 		}
@@ -132,7 +132,7 @@ int eval(board_t *board, int depth, int max_depth, bool player) {
 
 		int i = 0;
 		while(temp->next_tree != NULL) {
-			if(validity_play(board, temp->play, player)) {
+			if(validity_play(temp->play, player)) {
 				temp->value = eval(apply_play(board, temp->play), depth + 1, max_depth, !player);
 
 				undo_play(board, temp->play);
