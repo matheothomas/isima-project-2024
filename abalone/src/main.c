@@ -22,10 +22,9 @@
 int main(void) {
 	graphics_t *g = init_sdl();
 
-	// TTF_Font * font=TTF_OpenFont("res/Unique.ttf", 72 );
-
 	board_t *b = create_clean_board();
-	b = start_config(b);
+	// b = start_config(b);
+	// b = start_config_2(b);
 	cell_t **cell_tab=create_table(*b);
 
 	/////////////////////////////
@@ -46,14 +45,14 @@ int main(void) {
 
 	// Rect creation
 	SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4);
-	SDL_Rect* button_1 = crea_rect(2*w/15, 5*h/9, w/3, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15, 5*h/9, w/3, h/4);
+	SDL_Rect* button_1 = crea_rect(2*w/15, 5*h/9, h/4, h/4);
+	SDL_Rect* button_2 = crea_rect(8*w/15, 5*h/9, h/4, h/4);
 
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
 	SDL_Rect* button = crea_rect(13*w/18, 6*h/11, 2*w/9, 2*w/9);
 	
-	SDL_Texture*text=create_texture_for_text("choose your\nstarting line !", font, g->window, g->renderer);
+	SDL_Texture*text=create_texture_for_text("choose your\nstarting line !", g->font, g->window, g->renderer);
 	texturing(text,g->window, g->renderer);
 	SDL_RenderPresent(g->renderer);
 	SDL_Delay(200);
@@ -115,13 +114,15 @@ int main(void) {
 		}
 		
 		// render
-		// home_menu(g->window, g->renderer, text_box, button_1, button_2, font, text, r1, r2);
+		home_menu(g, text_box, button_1, button_2, text, r1, r2);
 		SDL_Delay(1);
 	}
 	
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 			
+/*
+
 	// Second Event Loop
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
@@ -162,7 +163,7 @@ int main(void) {
 				}
 			}
 			else{
-				// display_game(g->window, g->renderer, text_box_2, confirm, button, font, text, r, board, g->white, g->black, cell_tab);
+				display_game(g, text_box_2, confirm, button, text, r, cell_tab);
 				SDL_Delay(1);
 			}
 		}
@@ -172,96 +173,68 @@ int main(void) {
 
 	// TEST FUNCTIONS
 
-	/*
-	for(int i=0;i<61;i++){
-		printf("%d : %d \n",i,table[i]->state);
-	}
-
-	b -> cell -> state = BLACK;
-	b -> cell -> neighbourg[0] -> state = BLACK;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
-
-	play_t play;
-	play.cell_tab[0] = b -> cell;
-	play.cell_tab[1] = b -> cell -> neighbourg[0];
-	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[4] = NULL;
-	play.cell_direction = 0;
-	play.movement_direction = 0;
-	play.cell_tab_length = 4;
-	bool player = 0;
-
-	printf("Validity play result : %d\n", validity_play(b, &play, player));
-	*/ 
-
 	// algos.c tests
+	// /*
 	
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
 
 	play_t *p = malloc(sizeof(play_t));
 
-	tree_t *t = malloc(sizeof(tree_t));
 
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		cell_tab[i]->id = i;
 	}
+	// */
 
 	/*
+	tree_t *t = malloc(sizeof(tree_t));
 	t = gen_plays(b, 1, 1);
 	while(t->next_tree != NULL) {
 		if(validity_play(b, t->play, 1)) {
-
-			printf("ids : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->cell_tab[i]->id);
-			}
-			printf("\n buffer : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->buffer[i]);
-			}
-			printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", t->play->cell_tab_length, t->play->movement_direction, t->play->cell_direction);
-			printf("validity : %d\n", validity_play(b, t->play, 1));
+			print_play(b, t->play);
 
 			apply_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
 			undo_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
-			// b = create_clean_board();
+			b = create_clean_board();
 			for(int i = 0; i < CELL_NUMBER; i++) {
 				cell_tab[i]->state = EMPTY;
 			}
-			b = start_config(b);
+			// b = start_config(b);
+			b = start_config_2(b);
 		}
-		display_board(board, white, black, window, renderer, cell_tab);
-		SDL_Delay(500);
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+		SDL_Delay(100);
 		t = t->next_tree;
 	}
 	*/
 
-	// cell_tab[16]->state = BLACK;
-	// display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	// SDL_Delay(2000);
+	int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
+	int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
+	for (int k = 0; k < 9; k++) {
+		cell_tab[black_ids[k]] -> state = BLACK;
+	}
+	for (int k = 0; k < 14; k++) {
+		cell_tab[white_ids[k]] -> state = WHITE;
+	}
 
+	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	SDL_Delay(1000);
 	p = choose_play(b);
 
 	b = apply_play(b, p);
+	print_play(b, p);
 
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	SDL_Delay(4000);
-
-
-
+	SDL_Delay(2000);
 
 
 	SDL_RenderClear(g->renderer);
-
 	IMG_Quit();
-
 	end_sdl(1, "Normal ending", g->window, g->renderer);
 
 	return 0;

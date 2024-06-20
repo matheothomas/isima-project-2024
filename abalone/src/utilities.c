@@ -14,7 +14,6 @@
 
 void print_play(board_t *b, play_t *play) {
 	if(validity_play(b, play, 1)) {
-
 		printf("ids: ");
 		for(int i = 0; i < play->cell_tab_length; i++) {
 			printf("%d ", play->cell_tab[i]->id);

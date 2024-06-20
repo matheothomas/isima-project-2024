@@ -20,6 +20,9 @@ typedef struct graphics {
 	SDL_Texture *board;
 	SDL_Texture *white;
 	SDL_Texture *black;
+	SDL_Texture *config_1;
+	SDL_Texture *config_2;
+	TTF_Font * font;
 } graphics_t;
 
 
@@ -43,6 +46,9 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 /// displays a cell on the board given an id
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id);
 
+///
+int get_cell_id_from_mouse_position(graphics_t *g, int x, int y);
+
 /// returns a cell id corresponding to the mouse position
 int get_cell_position(int x, int y);
 
@@ -57,10 +63,10 @@ int is_in (SDL_Rect* button,int x,int y);
 
 /// shows the home menu
 // void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text, int r1,int r2);
-void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2,SDL_Texture *config1,SDL_Texture *config2);
+void home_menu(graphics_t *g, SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,SDL_Texture * text,int r1,int r2);
 
 /// display user interface during the game
-void display_game(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,TTF_Font * font,SDL_Texture * text, int r, SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, cell_t **cell_tab);
+void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,SDL_Texture * text, int r, cell_t **cell_tab);
 
 #endif
 

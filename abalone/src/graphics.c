@@ -11,7 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "SDL2/SDL_video.h"
 #include "algos.h"
+#include "graphics.h"
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
@@ -48,7 +50,8 @@ graphics_t *init_sdl() {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, *white, *black;
+	SDL_Texture *board, *white, *black, *config_1, *config_2;
+	TTF_Font * font;
 
 	// SDL INITIALISATION
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -74,6 +77,10 @@ graphics_t *init_sdl() {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
+	//config_1 = load_texture_from_image("res/config_1.png", window, renderer);
+	//config_2 = load_texture_from_image("res/config_2.png", window, renderer);
+
+	font=TTF_OpenFont("res/Unique.ttf", 72 );
 	
 	graphics_t *graphics = malloc(sizeof(graphics_t));
 	graphics->window = window;
@@ -81,6 +88,9 @@ graphics_t *init_sdl() {
 	graphics->board = board;
 	graphics->white = white;
 	graphics->black = black;
+	graphics->config_1 = board;
+	graphics->config_2 = board;
+	graphics->font = font;
 
 	return graphics;
 }
@@ -180,8 +190,87 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	destination.x = destination.w * (j+k+1.3);
 	destination.y = destination.h * (i+1.2);
 
-	SDL_RenderCopy(renderer, texture, &source, &destination);
+	//SDL_RenderCopy(renderer, texture, &source, &destination);
 	
+}
+
+int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
+	SDL_Rect window_dimensions;
+
+	int i, j, w, h, x2, y2;
+	float k;
+	int id; // TO BE CHANGED
+
+	SDL_GetWindowSize(g->window, &window_dimensions.w, &window_dimensions.h);
+	
+	float zoom = 10;
+	w = window_dimensions.h / (zoom + 1.6);
+	h = window_dimensions.h / (zoom + 3.2);
+
+	i = 1;
+	k = 2;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 0 - k - 1.3;
+	}
+
+	i = 2;
+	k = 1.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 5 - k - 1.3;
+	}
+
+	i = 3;
+	k = 1;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 11 - k - 1.3;
+	}
+
+	i = 4;
+	k = 0.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 18 - k - 1.3;
+	}
+
+	i = 5;
+	k = 0;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 26 - k - 1.3;
+	}
+
+	i = 6;
+	k = 0.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 35 - k - 1.3;
+	}
+
+	i = 7;
+	k = 1;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 43 - k - 1.3;
+	}
+	
+	i = 8;
+	k = 1.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 50 - k - 1.3;
+	}
+	
+	i = 9;
+	k = 2;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 56 - k - 1.3;
+	}
+
+	return id;
 }
 
 int get_cell_position(int x, int y){
@@ -226,47 +315,47 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
-void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2,SDL_Texture *config1,SDL_Texture *config2){
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderClear(renderer);
+void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,SDL_Texture * text,int r1,int r2){
+	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	SDL_RenderClear(g->renderer);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(renderer, text_box);
+	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, text_box);
 
-	SDL_SetRenderDrawColor(renderer, r1, 200, 200, 255);
-	SDL_RenderFillRect(renderer, button_1);
+	SDL_SetRenderDrawColor(g->renderer, r1, 200, 200, 255);
+	SDL_RenderFillRect(g->renderer, button_1);
 
-	SDL_SetRenderDrawColor(renderer, r2, 200, 200, 255);
-	SDL_RenderFillRect(renderer, button_2);
+	SDL_SetRenderDrawColor(g->renderer, r2, 200, 200, 255);
+	SDL_RenderFillRect(g->renderer, button_2);
 
 
 	SDL_Rect source = {0};
 
-	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(renderer, config1, &source, button_1);
+	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->config_1, &source, button_1);
 
-	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(renderer, config1, &source, button_2);
+	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->config_1, &source, button_2);
 
-	SDL_RenderCopy(renderer, text, NULL, text_box);
+	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(g->renderer);
 }
 
-void display_game(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,TTF_Font * font,SDL_Texture * text, int r, SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, cell_t **cell_tab){
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderClear(renderer);
-	
-	display_board(board, white,black,window, renderer, cell_tab);
-	
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	 SDL_RenderFillRect(renderer, text_box);
-	SDL_SetRenderDrawColor(renderer, r, 200, 200, 255);
-	SDL_RenderFillRect(renderer, confirm);
-	SDL_RenderDrawRect(renderer, button);
+void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,SDL_Texture * text, int r, cell_t **cell_tab){
+	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	SDL_RenderClear(g->renderer);
 
-	SDL_RenderCopy(renderer, text, NULL, text_box);
+	display_board(g->board, g->white,g->black,g->window, g->renderer, cell_tab);
 
-	SDL_RenderPresent(renderer);
+	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, text_box);
+	SDL_SetRenderDrawColor(g->renderer, r, 200, 200, 255);
+	SDL_RenderFillRect(g->renderer, confirm);
+	SDL_RenderDrawRect(g->renderer, button);
+
+	SDL_RenderCopy(g->renderer, text, NULL, text_box);
+
+	SDL_RenderPresent(g->renderer);
 }
