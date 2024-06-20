@@ -104,7 +104,7 @@ bool validity_play(play_t * play, bool player) {
 			// puts("a");
 			return false;
 		}
-		cell = cell -> neighbourg[play -> cell_direction];
+		cell = cell -> neighbor[play -> cell_direction];
 	}
 
 	// Check if movemement is valid when movement_direction and cell_direction are positively colinear
@@ -119,7 +119,7 @@ bool validity_play(play_t * play, bool player) {
 
 			player_cells += (switch_player_color[player] == cours -> state) ? 1 : 0;
 			total_cells++;
-			cours = cours -> neighbourg[play -> cell_direction];
+			cours = cours -> neighbor[play -> cell_direction];
 		}
 		//printf("player_cells : %d total_cells : %d\n", player_cells, total_cells);
 		if (2 * player_cells <= total_cells) {
@@ -130,7 +130,7 @@ bool validity_play(play_t * play, bool player) {
 
 		// Handle cells being thrown off board
 		for (int j = 0; j < play -> cell_tab_length; j++) {
-			if (play -> cell_tab[j] -> neighbourg[play -> movement_direction] == NULL) {
+			if (play -> cell_tab[j] -> neighbor[play -> movement_direction] == NULL) {
 
 				if(play -> cell_tab[j] -> state == switch_player_color[player]) {
 					// puts("c");
@@ -138,8 +138,8 @@ bool validity_play(play_t * play, bool player) {
 				}
 			}
 		}
-		if (play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction] != NULL && 
-			play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction]->state == 
+		if (play -> cell_tab[play -> cell_tab_length - 1] -> neighbor[play -> movement_direction] != NULL && 
+			play -> cell_tab[play -> cell_tab_length - 1] -> neighbor[play -> movement_direction]->state == 
 			switch_player_color[player]) {
 			// puts("la mort");
 			return false;
@@ -148,11 +148,11 @@ bool validity_play(play_t * play, bool player) {
 	// Check if movement is valid otherwise
 	else {
 		for (int k = 0; k < play -> cell_tab_length; k++) {
-			if (play -> cell_tab[k] -> neighbourg[play -> movement_direction] == NULL) {
+			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] == NULL) {
 				// puts("d");
 				return false;
 			}
-			if (play -> cell_tab[k] -> neighbourg[play -> movement_direction] -> state != EMPTY) {
+			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] -> state != EMPTY) {
 				//printf("c\n");
 				// puts("e");
 				return false;
@@ -161,7 +161,7 @@ bool validity_play(play_t * play, bool player) {
 	}
 
 	if (play->cell_tab_length > 1 && 
-		play->cell_tab[0]->neighbourg[play->cell_direction] != play->cell_tab[1]) {
+		play->cell_tab[0]->neighbor[play->cell_direction] != play->cell_tab[1]) {
 		// puts("f");
 		return false;
 	}
@@ -241,7 +241,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> cell_tab[1] = NULL;
 				//printf("direction %d\n", new_play -> movement_direction);
 
-				traversal_rec(board, tree, new_play, cell -> neighbourg[i], visited, player);
+				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
 			}
 		}
 	}
@@ -257,7 +257,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 			}
 			append_tree(tree, play, 0, tree -> depth);
 		}	
-		traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
+		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 	}
 
 }
@@ -280,7 +280,7 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 				}
 				append_tree(tree, play, 0, tree -> depth);
 			}
-			traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
+			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 		}
 	}
 }
@@ -296,7 +296,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 				visited[cell -> id] = true;
 				if (play == NULL) {
 					for (int i = 0; i < 6; i++) {
-						traversal_rec(board, tree, NULL, cell -> neighbourg[i], visited, player);
+						traversal_rec(board, tree, NULL, cell -> neighbor[i], visited, player);
 					}
 				}
 				else {
@@ -307,7 +307,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 						}
 						append_tree(tree, play, 0, tree -> depth);
 						for (int i = 0; i < 6; i++) {
-							traversal_rec(board, tree, NULL, cell -> neighbourg[i], visited, player);
+							traversal_rec(board, tree, NULL, cell -> neighbor[i], visited, player);
 						}
 					}
 				}
