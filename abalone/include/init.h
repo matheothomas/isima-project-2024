@@ -8,7 +8,7 @@
 #define CELL_NUMBER 61
 
 #define CELL_NUMBERS 61
-#define MAX_DEPTH 4
+#define MAX_DEPTH 6
 
 /* Struct definitions */
 typedef enum state {
