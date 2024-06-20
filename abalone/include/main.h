@@ -1,5 +1,5 @@
 /* name : main.h
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 

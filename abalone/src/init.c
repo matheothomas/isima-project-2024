@@ -1,12 +1,13 @@
 /* name : init.c
- * author : matheo thomas, domitille vale, eloi petit
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
-#include "../include/init.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include "init.h"
 
 cell_t *create_cell(int id) {
 	cell_t *c = malloc(sizeof(cell_t));
@@ -23,7 +24,6 @@ cell_t *create_cell(int id) {
 board_t* create_clean_board() {
 
 	// initialisation of the board
-	board_t b;
 	board_t*ptb=(board_t*)malloc(sizeof(board_t));
 	cell_t *first_cell = create_cell(0);
 	ptb->cell = first_cell;

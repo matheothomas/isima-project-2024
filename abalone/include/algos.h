@@ -1,10 +1,12 @@
 /* name : algos.h
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
 #include <stdbool.h>
+
 #include "init.h"
+#include "graphics.h"
 
 #ifndef algos_h 
 #define algos_h
@@ -36,9 +38,8 @@ int max(tree_t *tree, bool player);
 play_t *max_play(tree_t *tree);
 
 /// returns the best play depending on the player
+// play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab);
 play_t *choose_play(board_t *board);
-
-/// returns a tree containing all available plays for a board
 
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play);

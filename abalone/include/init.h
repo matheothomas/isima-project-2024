@@ -1,5 +1,5 @@
 /* name : init.h
- * author : matheo thomas, domitille vale, eloi petit
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
@@ -8,7 +8,7 @@
 #define CELL_NUMBER 61
 
 #define CELL_NUMBERS 61
-#define MAX_DEPTH 10
+#define MAX_DEPTH 3
 
 /* Struct definitions */
 typedef enum state {
@@ -33,7 +33,7 @@ typedef struct board {
 /* Functions definitions */
 
 /// creates a cell of the board
-cell_t *create_cell(int id);
+cell_t *create_cell();
 
 /// creates an empty board
 board_t *create_clean_board();
