@@ -39,7 +39,7 @@ play_t *max_play(tree_t *tree);
 
 /// returns the best play depending on the player
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab);
-play_t *choose_play(board_t *board);
+play_t *choose_play(board_t *board, bool player);
 
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play);
