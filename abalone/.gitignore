@@ -3,3 +3,4 @@
 *.swp
 bin/*
 compile_flags.txt
+Doxyfile
