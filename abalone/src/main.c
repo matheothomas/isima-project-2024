@@ -24,15 +24,15 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
-	// b = start_config(b);
+	// b = start_config_2(b);
 	cell_t **cell_tab=create_table(*b);
 
 
 	// TEST FUNCTIONS
 
 	// /*
-	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	SDL_Delay(1000);
+	// display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	// SDL_Delay(1000);
 
 	play_t *p = malloc(sizeof(play_t));
 
@@ -41,6 +41,7 @@ int main(void) {
 	}
 	// */
 
+	/*
 	int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
 	int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
 	for (int k = 0; k < 9; k++) {
@@ -51,6 +52,7 @@ int main(void) {
 	}
 	b->n_white = 14;
 	b->n_black = 9;
+	*/
 
 	/*
 	tree_t *t = malloc(sizeof(tree_t));
@@ -78,15 +80,35 @@ int main(void) {
 	}
 	*/
 
+	// cell_tab[4]->state = WHITE;
+	cell_tab[30]->state = BLACK;
+	// cell_tab[30]->state = WHITE;
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
 
-	p = choose_play(b, 1);
-
+	p = choose_play(b, cell_tab, 0);
 	b = apply_play(b, p);
 
-	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	// /*
+	while(true) {
+		printf("white : \n");
+		p = choose_play(b, cell_tab, 1);
+		b = apply_play(b, p);
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+		SDL_Delay(50);
 
+		printf("black : \n");
+		p = choose_play(b, cell_tab, 0);
+		b = apply_play(b, p);
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+		SDL_Delay(50);
+	}
+	// */
+
+	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	SDL_Delay(1000);
+
+	/*
 	SDL_bool program_on = SDL_TRUE, event_utile = SDL_FALSE;
 
 	SDL_Event event;
@@ -95,7 +117,6 @@ int main(void) {
 	bool is_empty = true;
 	i = 0;
 
-	// /*
 	while(program_on) {
 		event_utile = SDL_FALSE;
 		while(!event_utile && SDL_PollEvent(&event)) {
@@ -138,7 +159,7 @@ int main(void) {
 			i = 0;
 			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 
-			p = choose_play(b, 1);
+			p = choose_play(b, cell_tab, 1);
 			b = apply_play(b, p);
 		}
 
@@ -147,7 +168,7 @@ int main(void) {
 
 		SDL_Delay(500);
 	}
-	// */
+	*/
 
 
 	SDL_RenderClear(g->renderer);
