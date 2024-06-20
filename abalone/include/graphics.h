@@ -24,7 +24,23 @@ typedef struct graphics {
 	SDL_Texture *config_2;
 	SDL_Texture *commands;
 	TTF_Font * font;
+	struct commands_panel* commands_panel;
 } graphics_t;
+
+typedef struct coordinates {
+	int x;
+	int y;
+} coordinates_t;
+
+typedef struct commands_panel {
+	SDL_Rect* button;
+	SDL_Rect* dir_0;
+	SDL_Rect* dir_1;
+	SDL_Rect* dir_2;
+	SDL_Rect* dir_3;
+	SDL_Rect* dir_4;
+	SDL_Rect* dir_5;
+} commands_panel_t;
 
 
 /* Functions definitions */
@@ -65,6 +81,8 @@ void home_menu(graphics_t *g, SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* bu
 
 /// display user interface during the game
 void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,SDL_Texture * text, int r, cell_t **cell_tab);
+
+SDL_Rect* crea_rect_in_rect(SDL_Rect *button, int i, int j);
 
 #endif
 

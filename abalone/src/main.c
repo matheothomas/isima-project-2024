@@ -49,10 +49,10 @@ int main(void) {
 
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
-	SDL_Rect* button = crea_rect(13*w/18, 6*h/11, 2*w/9, 2*w/9);
 	
-	SDL_Texture*text=create_texture_for_text("choose your\nstarting line !", g->font, g->window, g->renderer);
-	texturing(text,g->window, g->renderer);
+	
+	SDL_Texture *text_home_menu = create_texture_for_text("choose your\nstarting line !", g->font, g->window, g->renderer);
+	texturing(text_home_menu,g->window, g->renderer);
 	SDL_RenderPresent(g->renderer);
 	SDL_Delay(200);
 
@@ -124,13 +124,9 @@ int main(void) {
 		}
 
 		// render
-		home_menu(g, text_box, button_1, button_2, text, r1, r2);
+		home_menu(g, text_box, button_1, button_2, text_home_menu, r1, r2);
 		SDL_Delay(1);
 	}
-	
-	//SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
-	//SDL_RenderClear(g->renderer);
-	//program_on_2 = SDL_TRUE;
 
 
 	// Second Event Loop
@@ -189,7 +185,7 @@ int main(void) {
 		}
 
 		// render
-		display_game(g, text_box_2, confirm, button, text, r, cell_tab);
+		display_game(g, text_box_2, confirm, g->commands_panel->button, text_home_menu, r, cell_tab);
 		SDL_Delay(1);
 	}
 	

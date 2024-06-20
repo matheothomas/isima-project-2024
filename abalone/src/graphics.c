@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
@@ -81,6 +82,26 @@ graphics_t *init_sdl() {
 	commands = load_texture_from_image("res/commands.png", window, renderer);
 
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
+
+	commands_panel_t* c=malloc(sizeof(commands_panel_t));
+	int h;
+	int w;
+	SDL_GetWindowSize(window, &w, &h);
+	SDL_Rect* button = crea_rect(13*w/18, 6*h/11, 2*w/9, 2*w/9);
+	SDL_Rect* dir_0 = crea_rect_in_rect(button, 1/3, 2/9);
+	SDL_Rect* dir_1 = crea_rect_in_rect(button, 2/3, 2/9);
+	SDL_Rect* dir_2 = crea_rect_in_rect(button, 5/6, 1/2);
+	SDL_Rect* dir_3 = crea_rect_in_rect(button, 2/3, 7/9);
+	SDL_Rect* dir_4 = crea_rect_in_rect(button, 1/3, 7/9);
+	SDL_Rect* dir_5 = crea_rect_in_rect(button, 1/6, 1/2);
+
+	c->button=button;
+	c->dir_0=dir_0;
+	c->dir_1=dir_1;
+	c->dir_2=dir_2;
+	c->dir_3=dir_3;
+	c->dir_4=dir_4;
+	c->dir_5=dir_5;
 	
 	graphics_t *graphics = malloc(sizeof(graphics_t));
 	graphics->window = window;
@@ -92,6 +113,7 @@ graphics_t *init_sdl() {
 	graphics->config_2 = board;
 	graphics->commands = commands;
 	graphics->font = font;
+	graphics->commands_panel=c;
 
 	return graphics;
 }
@@ -282,4 +304,13 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* b
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
 	SDL_RenderPresent(g->renderer);
+}
+
+SDL_Rect* crea_rect_in_rect(SDL_Rect *button, int i, int j){
+	SDL_Rect* dir=(SDL_Rect*)malloc(sizeof(SDL_Rect));
+	dir->x = button->x+i*(button->x+button->w);;
+	dir->y = button->y+i*(button->y+button->h);;
+	dir->w = button->w/9;
+	dir->h = button->h/9;
+	return dir;
 }
