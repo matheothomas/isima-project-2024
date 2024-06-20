@@ -320,14 +320,6 @@ int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
 	return id;
 }
 
-int get_cell_position(int x, int y){
-	int id;
-	int i, j;
-	i=y-1.2;
-	j=x-1.3;
-	return id;
-}
-
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
 	SDL_RenderClear(renderer);
 	texturing(board, window, renderer);

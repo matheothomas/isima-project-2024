@@ -75,9 +75,6 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 ///
 int get_cell_id_from_mouse_position(graphics_t *g, int x, int y);
 
-/// returns a cell id corresponding to the mouse position
-int get_cell_position(int x, int y);
-
 /// displays current state of the board
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab);
 
