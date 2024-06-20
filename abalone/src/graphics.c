@@ -8,6 +8,8 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "algos.h"
 
@@ -40,6 +42,47 @@ void end_sdl(char ok,                               // normal end : ok = 0 ; abn
 	if (!ok) {
 		exit(EXIT_FAILURE);                                                  
 	}            
+}
+
+graphics_t *init_sdl() {
+	SDL_Window *window = NULL;
+	SDL_Renderer *renderer = NULL;
+	SDL_DisplayMode screen;
+	SDL_Texture *board, *white, *black;
+
+	// SDL INITIALISATION
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+		end_sdl(0, "ERROR SDL INIT", window, renderer);
+
+	SDL_GetCurrentDisplayMode(0, &screen);
+
+	// Window creation
+	window = SDL_CreateWindow("Premier dessin", SDL_WINDOWPOS_CENTERED,
+						   SDL_WINDOWPOS_CENTERED, screen.h * 0.9 * 1.5,
+						   screen.h * 0.9, SDL_WINDOW_OPENGL);
+
+	if (window == NULL)
+		end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
+
+	// Renderer creation
+	renderer = SDL_CreateRenderer(
+		window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (renderer == NULL)
+		end_sdl(0, "ERROR RENDERER CREATION", window, renderer);
+
+	// Textures creation
+	board = load_texture_from_image("res/board.png", window, renderer);
+	white = load_texture_from_image("res/white.png", window, renderer);
+	black = load_texture_from_image("res/black.png", window, renderer);
+	
+	graphics_t *graphics = malloc(sizeof(graphics_t));
+	graphics->window = window;
+	graphics->renderer = renderer;
+	graphics->board = board;
+	graphics->white = white;
+	graphics->black = black;
+
+	return graphics;
 }
 
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer ){
@@ -161,7 +204,7 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 		}
 	}
 
-	//SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer);
 }
 
 SDL_Rect* crea_rect(int x, int y, int width, int height){
