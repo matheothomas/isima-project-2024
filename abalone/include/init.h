@@ -20,6 +20,7 @@ typedef enum state {
 typedef enum selection {
 	UNSELECT,
 	SELECT,
+	MOUSE,
 } selection_e;
 
 typedef struct cell {
