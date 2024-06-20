@@ -35,12 +35,7 @@ typedef struct coordinates {
 
 typedef struct commands_panel {
 	SDL_Rect *button;
-	SDL_Rect *dir_0;
-	SDL_Rect *dir_1;
-	SDL_Rect *dir_2;
-	SDL_Rect *dir_3;
-	SDL_Rect *dir_4;
-	SDL_Rect *dir_5;
+	SDL_Rect *tab_dir[6];
 } commands_panel_t;
 
 
@@ -86,7 +81,7 @@ int is_in (SDL_Rect* button,int x,int y);
 void home_menu(graphics_t *g, SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,SDL_Texture * text,int r1,int r2);
 
 /// display user interface during the game
-void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab);
+void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab, int direction_state);
 
 #endif
 

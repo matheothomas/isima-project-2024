@@ -112,29 +112,14 @@ commands_panel_t *init_commands_panel(int w, int h){
 	
 	SDL_Rect *button = crea_rect(13*(w)/18, 6*(h)/11, 2*(w)/9, 2*(w)/9);
 
-	SDL_Rect *dir_0 = crea_rect_in_rect(button, (float)1/3, (float)2/9);
-	SDL_Rect *dir_1 = crea_rect_in_rect(button, (float)2/3, (float)2/9);
-	SDL_Rect *dir_2 = crea_rect_in_rect(button, (float)5/6, (float)1/2);
-	SDL_Rect *dir_3 = crea_rect_in_rect(button, (float)2/3, (float)7/9);
-	SDL_Rect *dir_4 = crea_rect_in_rect(button, (float)1/3, (float)7/9);
-	SDL_Rect *dir_5 = crea_rect_in_rect(button, (float)1/6, (float)1/2);
-
-	printf("%d %d\n",button->x, button->y);
-	printf("%d %d\n",dir_0->x, dir_0->y);
-	printf("%d %d\n",dir_1->x, dir_1->y);
-	printf("%d %d\n",dir_2->x, dir_2->y);
-	printf("%d %d\n",dir_3->x, dir_3->y);
-	printf("%d %d\n",dir_4->x, dir_4->y);
-	printf("%d %d\n",dir_5->x, dir_5->y);
+	commands_panel->tab_dir[0] = crea_rect_in_rect(button, (float)1/3, (float)2/9);
+	commands_panel->tab_dir[1] = crea_rect_in_rect(button, (float)2/3, (float)2/9);
+	commands_panel->tab_dir[2] = crea_rect_in_rect(button, (float)5/6, (float)1/2);
+	commands_panel->tab_dir[3] = crea_rect_in_rect(button, (float)2/3, (float)7/9);
+	commands_panel->tab_dir[4] = crea_rect_in_rect(button, (float)1/3, (float)7/9);
+	commands_panel->tab_dir[5] = crea_rect_in_rect(button, (float)1/6, (float)1/2);
 	
-
 	commands_panel->button=button;
-	commands_panel->dir_0=dir_0;
-	commands_panel->dir_1=dir_1;
-	commands_panel->dir_2=dir_2;
-	commands_panel->dir_3=dir_3;
-	commands_panel->dir_4=dir_4;
-	commands_panel->dir_5=dir_5;
 
 	return commands_panel;
 }
@@ -380,13 +365,14 @@ void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* but
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->config_2, &source, button_2);
 
+	SDL_QueryTexture(text, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
 
 	SDL_RenderPresent(g->renderer);
 }
 
-void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab){
+void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab, int direction_state){
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 
@@ -403,19 +389,15 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture
 	SDL_QueryTexture(g->commands, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->commands, &source, g->commands_panel->button);
 
-	SDL_SetRenderDrawColor(g->renderer, 50, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_0);
-	SDL_SetRenderDrawColor(g->renderer, 75, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_1);
-	SDL_SetRenderDrawColor(g->renderer, 100, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_2);
-	SDL_SetRenderDrawColor(g->renderer, 125, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_3);
-	SDL_SetRenderDrawColor(g->renderer, 150, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_4);
-	SDL_SetRenderDrawColor(g->renderer, 175, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_5);
 
+	for(int i=0;i<6;i++){
+		if(i==direction_state){
+			SDL_QueryTexture(g->red, NULL, NULL, &source.w, &source.h);
+			SDL_RenderCopy(g->renderer, g->red, &source, g->commands_panel->tab_dir[i]);
+		}
+	}
+
+	SDL_QueryTexture(text, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
 	SDL_RenderPresent(g->renderer);

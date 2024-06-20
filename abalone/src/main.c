@@ -45,7 +45,6 @@ int main(void) {
 	int r2=0;
 	int r=0;
 	int mouse_state=0;
-	int mouse_state_prec=0;
 	int id_mouse_cell;
 	int nb_selected_cells=0;
 	cell_t *cur_cell;
@@ -54,8 +53,8 @@ int main(void) {
 
 	// Rect creation
 	SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4);
-	SDL_Rect* button_1 = crea_rect(2*w/15, 5*h/9, h/4, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15, 5*h/9, h/4, h/4);
+	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
+	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
 
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
@@ -148,7 +147,6 @@ int main(void) {
 // check if mouse position on the board
 // make the selection prettier
 
-// Boutons pour la direction
 // Les textes
 
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
@@ -227,7 +225,7 @@ int main(void) {
 			//cell_tab[id_mouse_cell]->selection=MOUSE;
 		}
 
-		if(mouse_state==1){
+		else if(mouse_state==1){
 			if(is_in(confirm, x, y)){
 				r=255;
 			}
@@ -236,8 +234,10 @@ int main(void) {
 			}
 		}
 
-		if(mouse_state==2){
+		else if(mouse_state==2){
 			r=0;
+
+			// Confirm the play
 			if(is_in(confirm, x, y)){
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
@@ -265,24 +265,18 @@ int main(void) {
 				nb_selected_cells=0;
 				play->cell_tab_length=0;
 			}
-			else if (is_in(g->commands_panel->dir_0, x, y)) {
-				play->movement_direction=0;
+
+			// Choose in which direction to push the balls
+			else if(is_in(g->commands_panel->button, x, y)){
+				for(int i=0;i<6;i++){
+					if (is_in(g->commands_panel->tab_dir[i], x, y)) {
+						play->movement_direction=i;
+						i=6;
+					}
+				}
 			}
-			else if (is_in(g->commands_panel->dir_1, x, y)) {
-				play->movement_direction=1;
-			}
-			else if (is_in(g->commands_panel->dir_2, x, y)) {
-				play->movement_direction=2;
-			}
-			else if (is_in(g->commands_panel->dir_3, x, y)) {
-				play->movement_direction=3;
-			}
-			else if (is_in(g->commands_panel->dir_4, x, y)) {
-				play->movement_direction=4;
-			}
-			else if (is_in(g->commands_panel->dir_5, x, y)) {
-				play->movement_direction=5;
-			}
+
+			// Select the balls to move
 			else if(1){ // TO DO check if mouse position on the board
 				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 				if(cell_tab[id_mouse_cell]->state==BLACK){
@@ -312,7 +306,7 @@ int main(void) {
 		}
 
 		// render
-		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab);
+		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play->movement_direction);
 		/*
 		if(cell_tab[id_mouse_cell]->selection==MOUSE){
 			cell_tab[id_mouse_cell]->selection=UNSELECT;
