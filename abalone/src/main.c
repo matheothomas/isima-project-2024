@@ -22,8 +22,6 @@
 int main(void) {
 	graphics_t *g = init_sdl();
 
-	// TTF_Font * font=TTF_OpenFont("res/Unique.ttf", 72 );
-
 	board_t *b = create_clean_board();
 	// b = start_config(b);
 	// b = start_config_2(b);
@@ -47,14 +45,14 @@ int main(void) {
 
 	// Rect creation
 	SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4);
-	SDL_Rect* button_1 = crea_rect(2*w/15, 5*h/9, w/3, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15, 5*h/9, w/3, h/4);
+	SDL_Rect* button_1 = crea_rect(2*w/15, 5*h/9, h/4, h/4);
+	SDL_Rect* button_2 = crea_rect(8*w/15, 5*h/9, h/4, h/4);
 
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
 	SDL_Rect* button = crea_rect(13*w/18, 6*h/11, 2*w/9, 2*w/9);
 	
-	SDL_Texture*text=create_texture_for_text("choose your\nstarting line !", font, g->window, g->renderer);
+	SDL_Texture*text=create_texture_for_text("choose your\nstarting line !", g->font, g->window, g->renderer);
 	texturing(text,g->window, g->renderer);
 	SDL_RenderPresent(g->renderer);
 	SDL_Delay(200);
@@ -116,13 +114,15 @@ int main(void) {
 		}
 		
 		// render
-		// home_menu(g->window, g->renderer, text_box, button_1, button_2, font, text, r1, r2);
+		home_menu(g, text_box, button_1, button_2, text, r1, r2);
 		SDL_Delay(1);
 	}
 	
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 			
+/*
+
 	// Second Event Loop
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
@@ -163,7 +163,7 @@ int main(void) {
 				}
 			}
 			else{
-				// display_game(g->window, g->renderer, text_box_2, confirm, button, font, text, r, board, g->white, g->black, cell_tab);
+				display_game(g, text_box_2, confirm, button, text, r, cell_tab);
 				SDL_Delay(1);
 			}
 		}
@@ -174,19 +174,21 @@ int main(void) {
 	// TEST FUNCTIONS
 
 	// algos.c tests
+	// /*
 	
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
 
 	play_t *p = malloc(sizeof(play_t));
 
-	tree_t *t = malloc(sizeof(tree_t));
 
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		cell_tab[i]->id = i;
 	}
+	// */
 
 	/*
+	tree_t *t = malloc(sizeof(tree_t));
 	t = gen_plays(b, 1, 1);
 	while(t->next_tree != NULL) {
 		if(validity_play(b, t->play, 1)) {
