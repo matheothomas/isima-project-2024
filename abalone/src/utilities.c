@@ -13,10 +13,21 @@
 
 
 void print_play(play_t *play) {
-	printf("print_play\n");
-	printf("ids: ");
-	for(int i = 0; i < play->cell_tab_length; i++) {
-		printf("%d ", play->cell_tab[i]->id);
+	if(validity_play(play, 1)) {
+		printf("ids: ");
+		for(int i = 0; i < play->cell_tab_length; i++) {
+			printf("%d ", play->cell_tab[i]->id);
+		}
+		printf("\n buffer : ");
+		for(int i = 0; i < play->cell_tab_length; i++) {
+			printf("%d ", play->buffer[i]);
+		}
+		printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", 
+		 play->cell_tab_length, 
+		 play->movement_direction, 
+		 play->cell_direction);
+		printf("validity : %d\n", validity_play(play, 1));
+
 	}
 	printf("\n buffer : ");
 	for(int i = 0; i < play->cell_tab_length; i++) {
@@ -32,17 +43,26 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 
 	if (play1 != NULL && play2 != NULL) {
 
-		// Can be a duplicate only if both have the same number of cells and movement_direction are equal
-		if (play1 -> cell_tab_length == play2 -> cell_tab_length && play1 -> movement_direction == play2 -> movement_direction) {
+		// Can be a duplicate only if both have the same number of cells 
+		// and movement_direction are equal
+		if (play1 -> cell_tab_length == play2 -> cell_tab_length &&
+			play1 -> movement_direction == play2 -> movement_direction) {
 			int length = play1 -> cell_tab_length;
+
 			// If cell_direction and movement_direction are not colinear
-			if (play1 -> cell_direction != play1 -> movement_direction && play1 -> cell_direction != (play1 -> movement_direction + 3) % 6) {
+			if (play1 -> cell_direction != play1 -> movement_direction && 
+				play1 -> cell_direction != (play1 -> movement_direction + 3) % 6) {
+
 				// Can be a duplicate only if extremums of cell_tabs are equals (invered or not)
-				if ((play1 -> cell_tab[0] -> id == play2 -> cell_tab[length - 1] -> id && play2 -> cell_tab[0] -> id == play1 -> cell_tab[length - 1] -> id) || (play1 -> cell_tab[0] -> id == play2 -> cell_tab[0] -> id && play2 -> cell_tab[length - 1] -> id == play1 -> cell_tab[length - 1] -> id))
+				if ((play1 -> cell_tab[0] -> id == play2 -> cell_tab[length - 1] -> id &&
+					play2 -> cell_tab[0] -> id == play1 -> cell_tab[length - 1] -> id) || 
+					(play1 -> cell_tab[0] -> id == play2 -> cell_tab[0] -> id && 
+					play2 -> cell_tab[length - 1] -> id == play1 -> cell_tab[length - 1] -> id))
 					return true;
 			}
 			else {
-				// We only need to check the buffer and ids in that case (both cell_directions are positively colinear)
+				// We only need to check the buffer and ids in that case 
+				// (both cell_directions are positively colinear)
 				for (int i = 0; i < length; i++) {
 					if (play1 -> cell_tab[i] -> id != play2 -> cell_tab[i] -> id)
 						return false;
@@ -62,7 +82,9 @@ bool validity_play(play_t * play, bool player) {
 	if (play == NULL) {
 		return false;
 	}
-
+	
+	// cell_direction is meaningless when play is of size 1 
+	// and creates a lot of duplicates that we can remove early
 	if (play -> cell_tab_length == 1 && play -> cell_direction != play -> movement_direction) {
 		return false;
 	}
@@ -74,7 +96,6 @@ bool validity_play(play_t * play, bool player) {
 	cell_t * cell = play -> cell_tab[0];
 	int i = 0;
 	while (cell != NULL && i++ < 6 && cell -> state != EMPTY) {
-		// TODO raccourcir condition et consequence
 		if (cell -> state == switch_player_color[!player]) {
 			changed_to_non_player_color = true;
 		}
@@ -88,10 +109,12 @@ bool validity_play(play_t * play, bool player) {
 
 	// Check if movemement is valid when movement_direction and cell_direction are positively colinear
 	if (play -> cell_direction == play -> movement_direction) {
-		// We go further than the play length because of case 3 player cells then 3 non player cells -> last non player cell not accounted for in play structure
 		cell_t * cours = play -> cell_tab[0];
 		int player_cells = 0;
 		int total_cells = 0;
+		
+		// We go further than the play length because of case 3 player cells
+		// then 3 non player cells -> last non player cell is possibly not accounted for in cell_tab
 		while (cours != NULL && total_cells < 6 && cours -> state != EMPTY) {
 
 			player_cells += (switch_player_color[player] == cours -> state) ? 1 : 0;
@@ -115,8 +138,9 @@ bool validity_play(play_t * play, bool player) {
 				}
 			}
 		}
-		if(play -> cell_tab[play->cell_tab_length -1] -> neighbourg[play -> movement_direction] != NULL && play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->movement_direction]->state == switch_player_color[player]) {
-			// TODO YA UNE SEGFAULT QUAND ON ACCEDE AU VOISIN
+		if (play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction] != NULL && 
+			play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction]->state == 
+			switch_player_color[player]) {
 			// puts("la mort");
 			return false;
 		}
@@ -136,11 +160,22 @@ bool validity_play(play_t * play, bool player) {
 		}
 	}
 
-	if (play->cell_tab_length > 1 && play->cell_tab[0]->neighbourg[play->cell_direction] != play->cell_tab[1]) {
+	if (play->cell_tab_length > 1 && 
+		play->cell_tab[0]->neighbourg[play->cell_direction] != play->cell_tab[1]) {
 		// puts("f");
 		return false;
 	}
 	return true;
+}
+
+void free_tree(tree_t * tree) {
+	
+	while (tree != NULL) {
+		tree_t * previous = tree;
+		tree = tree -> next_tree;
+		free(previous -> play);
+		free(previous);
+	}
 }
 
 tree_t * create_tree(play_t * play, int value, int depth) {
@@ -230,8 +265,11 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 	printf("cell_does_not_belongs_to_player\n");
 	if (play != NULL && play -> cell_tab_length < 5) {
-		// If momvement direction is not colinear to cell direction then we should not add the cell of the other player
-		if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
+		// If movement direction is not colinear to cell direction then we should
+		// not add the cell of the other player
+		if (play -> cell_direction == play -> movement_direction || 
+			play -> cell_direction == (play -> movement_direction + 3) % 6) {
+
 			play -> cell_tab[play -> cell_tab_length] = cell;
 			play -> cell_tab_length ++;
 
@@ -286,11 +324,15 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 		break;
 
 		case WHITE:
-			(player) ? cell_belongs_to_player(board, tree, play, cell, visited, player) : cell_does_not_belongs_to_player(board, tree, play, cell, visited, player);
+			(player) ? 
+				cell_belongs_to_player(board, tree, play, cell, visited, player) :
+				cell_does_not_belongs_to_player(board, tree, play, cell, visited, player);
 		break;
 
 		case BLACK:
-			(!player) ? cell_belongs_to_player(board, tree, play, cell, visited, player) : cell_does_not_belongs_to_player(board, tree, play, cell, visited, player);
+			(!player) ? 
+				cell_belongs_to_player(board, tree, play, cell, visited, player) : 
+				cell_does_not_belongs_to_player(board, tree, play, cell, visited, player);
 
 		break;
 	}
