@@ -42,7 +42,7 @@ SDL_Rect* crea_rect(int x, int y, int width, int height);
 int is_in (SDL_Rect* button,int x,int y);
 
 /// shows the home menu
-void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text, int r1,int r2);
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text, int r1,int r2,SDL_Texture *config1,SDL_Texture *config2);
 
 /// display user interface during the game
 void display_game(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,TTF_Font * font,SDL_Texture * text, int r, SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, cell_t **cell_tab);

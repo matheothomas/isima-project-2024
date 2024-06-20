@@ -135,7 +135,7 @@ int main(void) {
 		}
 		
 		// render
-		home_menu(window, renderer, text_box, button_1, button_2, font, text, r1, r2);
+		home_menu(window, renderer, text_box, button_1, button_2, font, text, r1, r2,board,board);
 		SDL_Delay(1);
 	}
 	
