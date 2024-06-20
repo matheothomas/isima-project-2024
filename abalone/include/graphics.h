@@ -34,13 +34,13 @@ typedef struct coordinates {
 } coordinates_t;
 
 typedef struct commands_panel {
-	SDL_Rect* button;
-	SDL_Rect* dir_0;
-	SDL_Rect* dir_1;
-	SDL_Rect* dir_2;
-	SDL_Rect* dir_3;
-	SDL_Rect* dir_4;
-	SDL_Rect* dir_5;
+	SDL_Rect *button;
+	SDL_Rect *dir_0;
+	SDL_Rect *dir_1;
+	SDL_Rect *dir_2;
+	SDL_Rect *dir_3;
+	SDL_Rect *dir_4;
+	SDL_Rect *dir_5;
 } commands_panel_t;
 
 
@@ -53,7 +53,7 @@ void end_sdl(char ok, char const *msg, SDL_Window *window, SDL_Renderer *rendere
 graphics_t *init_sdl();
 
 /// initialises the commands_panel structure
-commands_panel_t *init_commands_panel(SDL_Window *window);
+commands_panel_t *init_commands_panel(int w, int h);
 
 /// loads a texture from an image
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer );
@@ -65,7 +65,7 @@ SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window 
 SDL_Rect* crea_rect(int x, int y, int width, int height);
 
 /// create a pointer to a rect inside another rect
-SDL_Rect* crea_rect_in_rect(SDL_Rect *button, int i, int j);
+SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j);
 
 /// displays the textures on the renderer
 void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* renderer);
