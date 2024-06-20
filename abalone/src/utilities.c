@@ -29,6 +29,13 @@ void print_play(play_t *play) {
 		printf("validity : %d\n", validity_play(play, 1));
 
 	}
+	printf("\n buffer : ");
+	for(int i = 0; i < play->cell_tab_length; i++) {
+		printf("%d ", play->buffer[i]);
+	}
+	printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", play->cell_tab_length, play->movement_direction, play->cell_direction);
+	printf("validity : %d\n", validity_play(play, 1));
+
 }
 
 bool is_duplicate(play_t * play1, play_t * play2) {
