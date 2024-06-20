@@ -51,9 +51,25 @@ play_t *max_play(tree_t *tree) {
 	return tree_max->play;
 }
 
+int basic_heuristic(cell_t **cell_tab) {
+	int score;
+	int nb_white = 0;
+	int nb_black = 0;
+	for(int i = 0; i < CELL_NUMBER; i++) {
+		if(cell_tab[i]->state == WHITE) {
+			nb_white++;
+		}
+		if(cell_tab[i]->state == BLACK) {
+			nb_black++;
+		}
+	}
+	score = nb_white - nb_black;
+
+	return score;
+}
+
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
-play_t *choose_play(board_t *board, bool player) {
-	// bool player = true;
+play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
@@ -62,7 +78,7 @@ play_t *choose_play(board_t *board, bool player) {
 		// SDL_Delay(1000);
 		// printf("play : %d\n", temp->play->cell_tab_length);
 		if(validity_play(temp->play, player)) {
-			temp->value = eval(apply_play(board, temp->play), 0, MAX_DEPTH, !player);
+			temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player);
 			// printf("temp->value : %d\n", temp->value);
 			undo_play(board, temp->play);
 		}
@@ -137,22 +153,10 @@ board_t *undo_play(board_t *board, play_t *play) {
 	return board;
 }
 
-int eval(board_t *board, int depth, int max_depth, bool player) {
+int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player) {
 
 	// int score = board->n_white - board->n_black;
-	int score;
-	int nb_white = 0;
-	int nb_black = 0;
-	cell_t **cell_tab = create_table(*board);
-	for(int i = 0; i < CELL_NUMBER; i++) {
-		if(cell_tab[i]->state == WHITE) {
-			nb_white++;
-		}
-		if(cell_tab[i]->state == BLACK) {
-			nb_black++;
-		}
-	}
-	score = nb_white - nb_black;
+	int score = basic_heuristic(cell_tab);
 	
 	if (max_depth == depth || score == 28 || score == -28) {
 		return score;
@@ -167,7 +171,7 @@ int eval(board_t *board, int depth, int max_depth, bool player) {
 
 		while(temp->next_tree != NULL) {
 			if(validity_play(temp->play, player)) {
-				temp->value = eval(apply_play(board, temp->play), depth + 1, max_depth, !player);
+				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player);
 
 				undo_play(board, temp->play);
 
