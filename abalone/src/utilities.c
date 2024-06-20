@@ -13,6 +13,7 @@
 
 
 void print_play(play_t *play) {
+	printf("print_play\n");
 	printf("ids: ");
 	for(int i = 0; i < play->cell_tab_length; i++) {
 		printf("%d ", play->cell_tab[i]->id);
@@ -27,6 +28,7 @@ void print_play(play_t *play) {
 }
 
 bool is_duplicate(play_t * play1, play_t * play2) {
+	printf("is_duplicate\n");
 
 	if (play1 != NULL && play2 != NULL) {
 
@@ -55,6 +57,7 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 }
 
 bool validity_play(play_t * play, bool player) {
+	printf("validity_play\n");
 
 	if (play == NULL) {
 		return false;
@@ -141,6 +144,7 @@ bool validity_play(play_t * play, bool player) {
 }
 
 tree_t * create_tree(play_t * play, int value, int depth) {
+	printf("create_tree\n");
 
 	tree_t * tree = malloc(sizeof(tree_t));
 	tree -> play = play;
@@ -152,6 +156,7 @@ tree_t * create_tree(play_t * play, int value, int depth) {
 }
 
 void append_tree(tree_t * tree, play_t * play, int value, int depth) {
+	printf("append_tree\n");
 	if(validity_play(play, 1)) {
 		tree_t *new_tree = create_tree(play, value, depth);
 		tree_t * cours = tree;
@@ -169,6 +174,7 @@ void append_tree(tree_t * tree, play_t * play, int value, int depth) {
 }
 
 void fill_play_buffer(play_t * play) {
+	printf("fill_play_buffer\n");
 
 	if (play -> cell_tab_length < 5) {
 		play -> cell_tab[play -> cell_tab_length] = NULL;
@@ -182,6 +188,7 @@ void fill_play_buffer(play_t * play) {
 }
 
 void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
+	printf("cell_belongs_to_player\n");
 
 	if (play == NULL && visited[cell -> id] == true) {
 		return;
@@ -221,6 +228,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 }
 
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
+	printf("cell_does_not_belongs_to_player\n");
 	if (play != NULL && play -> cell_tab_length < 5) {
 		// If momvement direction is not colinear to cell direction then we should not add the cell of the other player
 		if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
@@ -240,6 +248,7 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 }
 
 void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
+	printf("traversal_rec\n");
 
 	if (cell == NULL) { return; }
 
@@ -289,6 +298,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 }
 
 tree_t * gen_plays(board_t * board, int depth, bool player) {
+	printf("gen_plays\n");
 
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
