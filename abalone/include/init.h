@@ -30,7 +30,7 @@ typedef struct cell {
 	int id;
 	state_e state;
 	selection_e selection;
-	struct cell *neighbourg[6];
+	struct cell *neighbor[6];
 } cell_t;
 
 /// board containing the number of cells for each player, and a pointer to the middle cell
