@@ -14,6 +14,7 @@
 #include<SDL2/SDL_ttf.h>
 #include <SDL2/SDL_timer.h>
 
+#include "SDL2/SDL_video.h"
 #include "algos.h"
 #include "init.h"
 #include "graphics.h"
@@ -23,7 +24,7 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
-	// b = start_config(b);
+	b = start_config(b);
 	// b = start_config_2(b);
 	cell_t **cell_tab=create_table(*b);
 
@@ -121,7 +122,6 @@ int main(void) {
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 			
-/*
 
 	// Second Event Loop
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
@@ -213,24 +213,72 @@ int main(void) {
 	}
 	*/
 
-	int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
-	int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
-	for (int k = 0; k < 9; k++) {
-		cell_tab[black_ids[k]] -> state = BLACK;
-	}
-	for (int k = 0; k < 14; k++) {
-		cell_tab[white_ids[k]] -> state = WHITE;
-	}
+	// int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
+	// int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
+	// for (int k = 0; k < 9; k++) {
+		// cell_tab[black_ids[k]] -> state = BLACK;
+	// }
+	// for (int k = 0; k < 14; k++) {
+		// cell_tab[white_ids[k]] -> state = WHITE;
+	// }
 
-	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	SDL_Delay(1000);
 	p = choose_play(b);
 
 	b = apply_play(b, p);
 	print_play(b, p);
 
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	SDL_Delay(2000);
+	SDL_Delay(1000);
+
+
+	SDL_bool program_on = SDL_TRUE, event_utile = SDL_FALSE;
+	
+	SDL_Event event;
+
+	int x, y, i, j;
+	bool is_empty = true;
+
+
+	/*
+	while(program_on) {
+		event_utile = SDL_FALSE;
+		while(!event_utile && SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_QUIT:
+					program_on = SDL_FALSE;
+					event_utile = SDL_TRUE;
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					x = event.button.x;
+					y = event.button.y;
+					p->cell_tab[i] = cell_tab[get_cell_id_from_mouse_position(g, x, y)];
+					i++;
+					printf("id : %d, x = %d, y = %d\n", get_cell_id_from_mouse_position(g, x, y), x, y);
+					break;
+				default:
+					break;
+			}
+		}
+		if(is_empty) {
+		printf("Enter direction of cells : ");
+		scanf("%d\n", &p->cell_direction);
+		printf("Enter number of cells : ");
+		scanf("%d\n", &p->cell_tab_length);
+			is_empty = false;
+		}
+
+		if(i == p->cell_tab_length) {
+			apply_play(b, p);
+			is_empty = true;
+		}
+
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+
+
+		SDL_Delay(500);
+	}
+	*/
+
 
 
 	SDL_RenderClear(g->renderer);
