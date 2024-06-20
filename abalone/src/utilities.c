@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "init.h"
 #include "algos.h"
@@ -80,7 +81,9 @@ bool validity_play(play_t * play, bool player) {
 	if (play == NULL) {
 		return false;
 	}
-	
+	if (play -> cell_tab_length == 3 && play -> buffer[0] == 2 && play -> buffer[1] == 2 && play -> buffer[2] == 0) {
+		printf("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
+	}
 	// cell_direction is meaningless when play is of size 1 
 	// and creates a lot of duplicates that we can remove early
 	if (play -> cell_tab_length == 1 && play -> cell_direction != play -> movement_direction) {
@@ -246,9 +249,6 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 
 		if (validity_play(play, player)) {
 			fill_play_buffer(play);
-			if(play->cell_tab[0]->id == 5) {
-				// printf("oulala %d\n", play->cell_tab_length);
-			}
 			append_tree(tree, play, 0, tree -> depth);
 		}	
 		traversal_rec(board, tree, play, cell -> neighbourg[play -> cell_direction], visited, player);
