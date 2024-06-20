@@ -6,17 +6,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "SDL2/SDL_video.h"
 #include "algos.h"
-#include "init.h"
 #include "graphics.h"
+#include "init.h"
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
