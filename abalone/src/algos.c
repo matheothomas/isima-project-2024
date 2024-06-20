@@ -19,14 +19,17 @@ int play_count = 0;
 int undo_count = 0;
 
 int max_value(int a, int b) {
+	printf("max_value\n");
 	return a < b ? b : a;
 }
 
 int min_value(int a, int b) {
+	printf("min_value\n");
 	return a < b ? a : b;
 }
 
 int max(tree_t *tree, bool player) {
+	printf("max\n");
 	int is_max = player ? 1 : -1;
 
 	tree_t *temp = tree;
@@ -34,7 +37,6 @@ int max(tree_t *tree, bool player) {
 
 	while(temp->next_tree != NULL) {
 		if (temp->value * is_max > val_max * is_max) {
-			// tree_max = temp;
 			val_max = temp->value;
 		}
 		temp = temp->next_tree;
@@ -44,6 +46,7 @@ int max(tree_t *tree, bool player) {
 }
 
 play_t *max_play(tree_t *tree) {
+	printf("max_play\n");
 	tree_t *tree_max = tree;
 	tree_t *temp = tree;
 	int val_max = tree->value;
@@ -61,6 +64,7 @@ play_t *max_play(tree_t *tree) {
 }
 
 int basic_heuristic(cell_t **cell_tab) {
+	printf("basic_heuristic\n");
 	int score;
 	int nb_white = 0;
 	int nb_black = 0;
@@ -79,6 +83,9 @@ int basic_heuristic(cell_t **cell_tab) {
 
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
+	printf("choose_play\n");
+	play_count = 0;
+	undo_count = 0;
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
@@ -105,11 +112,11 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 }
 
 board_t *apply_play(board_t *board, play_t *play) {
+	printf("apply_play\n");
 	play_count++;
+
 	// duplicates the balls
 	for(int i = play->cell_tab_length - 1; i >= 0; i--) {
-		// printf("test 3\n");
-
 		if(play->cell_tab[i]->neighbourg[play->movement_direction] != NULL) {
 			play->cell_tab[i]->neighbourg[play->movement_direction]->state = play->cell_tab[i]->state;
 		} else {
@@ -126,7 +133,6 @@ board_t *apply_play(board_t *board, play_t *play) {
 		play->cell_tab[0]->state = EMPTY;
 	} else {
 		for(int i = 0; i < play->cell_tab_length; i++) {
-			// play->cell_tab[i]->neighbourg[(play->movement_direction + 3) % 6]->state = EMPTY;
 			play->cell_tab[i]->state = EMPTY;
 		}
 	}
@@ -135,7 +141,9 @@ board_t *apply_play(board_t *board, play_t *play) {
 }
 
 board_t *undo_play(board_t *board, play_t *play) {
+	printf("undo_play\n");
 	undo_count++;
+
 	// duplicates the balls
 	if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->cell_direction] == NULL) {
 		if (play->buffer[play->cell_tab_length - 1] == WHITE) {
@@ -143,8 +151,8 @@ board_t *undo_play(board_t *board, play_t *play) {
 		} else if (play->buffer[play->cell_tab_length - 1] == BLACK) {
 			board->n_black += 1;
 		}
-
 	}
+
 	for(int i = 0; i < play->cell_tab_length; i++) {
 		play->cell_tab[i]->state = play->buffer[i];
 	}
@@ -166,10 +174,11 @@ board_t *undo_play(board_t *board, play_t *play) {
 }
 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {
+	printf("eval\n");
 
 	int score = basic_heuristic(cell_tab);
 	
-	if (max_depth == depth || score == 28 || score == -28) {
+	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
 	}
 	tree_t *tree = gen_plays(board, depth, player);
@@ -177,14 +186,13 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 	if(tree == NULL) {
 		return score;
 	} else {
-
 		tree_t *temp = tree;
 
 		while(temp->next_tree != NULL) {
 			if(validity_play(temp->play, player)) {
 				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
-
 				undo_play(board, temp->play);
+
 				if(player) {
 					alpha = max_value(alpha, temp->value);
 					if(beta <= alpha) {
@@ -196,7 +204,6 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 						break;
 					}
 				}
-
 			}
 			temp = temp->next_tree;
 		}
