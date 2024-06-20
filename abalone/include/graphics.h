@@ -58,7 +58,7 @@ commands_panel_t *init_commands_panel(int w, int h);
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer );
 
 /// creates a texture for a text
-SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window *window, SDL_Renderer *renderer );
+SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Renderer *renderer );
 
 /// create a pointer to a rectangle
 SDL_Rect* crea_rect(int x, int y, int width, int height);
