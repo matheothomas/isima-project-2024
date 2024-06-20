@@ -56,7 +56,7 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 	return false;
 }
 
-bool validity_play(board_t * board, play_t * play, bool player) {
+bool validity_play(play_t * play, bool player) {
 
 	if (play == NULL) {
 		return false;

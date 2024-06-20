@@ -14,7 +14,7 @@
 /* Functions definitions */
 void print_play(board_t *b, play_t *play);
 bool is_duplicate(play_t * play1, play_t * play2);
-bool validity_play(board_t * board, play_t * play, bool player);
+bool validity_play(play_t * play, bool player);
 tree_t * create_tree(play_t * play, int value, int depth);
 void append_tree(tree_t * tree, play_t * play, int value, int depth);
 void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player);
