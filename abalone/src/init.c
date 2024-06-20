@@ -193,7 +193,7 @@ board_t* create_clean_board() {
 
 board_t* start_config(board_t* b) {
 	cell_t *cur_cell;
-	state_e coulour = WHITE;
+	state_e colour = WHITE;
 	b->n_black = 14;
 	b->n_white = 14;
 
@@ -201,32 +201,32 @@ board_t* start_config(board_t* b) {
 
 		cur_cell = b->cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
 		for (int i = 0; i < 4; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
 		}
-		cur_cell->state = coulour;
+		cur_cell->state = colour;
 
 		cur_cell = cur_cell->neighbourg[(n + 3) % 6];
 		for (int i = 0; i < 5; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
 		}
-		cur_cell->state = coulour;
+		cur_cell->state = colour;
 
 		cur_cell = cur_cell->neighbourg[(n + 3) % 6]->neighbourg[(n + 2) % 6];
 		for (int i = 0; i < 3; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
 		}
 
-		coulour = BLACK;
+		colour = BLACK;
 	}
 	return b;
 }
 
 board_t* start_config_2(board_t* b) {
 	cell_t *cur_cell;
-	state_e coulour = WHITE;
+	state_e colour = WHITE;
 	int i=0;
 	b->n_black = 14;
 	b->n_white = 14;
@@ -235,31 +235,31 @@ board_t* start_config_2(board_t* b) {
 
 		cur_cell = b->cell->neighbourg[n]->neighbourg[n]->neighbourg[n]->neighbourg[n];
 		for (i = 0; i < 4; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
 		}
-		cur_cell->state = coulour;
+		cur_cell->state = colour;
 
 		cur_cell = cur_cell->neighbourg[(n + 4) % 6];
 		for (i = 0; i < 3; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
 		}
-		cur_cell->state = coulour;
+		cur_cell->state = colour;
 
 		cur_cell = cur_cell->neighbourg[(n + 3) % 6];
 		for (i = 0; i < 2; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 2) % 6];
 		}
-		cur_cell->state = coulour;
+		cur_cell->state = colour;
 
 		cur_cell = cur_cell->neighbourg[(n + 4) % 6];
 		for (i = 0; i < 2; i++) {
-			cur_cell->state = coulour;
+			cur_cell->state = colour;
 			cur_cell = cur_cell->neighbourg[(n + 5) % 6];
 		}
-		coulour = BLACK;
+		colour = BLACK;
 	}
 	return b;
 }
