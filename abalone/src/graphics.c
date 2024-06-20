@@ -328,7 +328,7 @@ void display_board(graphics_t *g, cell_t **cell_tab) {
 	texturing(g->board, g->window, g->renderer);
 
 	for(int i = 0; i < 61; i++) {
-		if(cell_tab[i]->selection == SELECT) {
+		if(cell_tab[i]->selection != UNSELECT) {
 			display_cell(g->red, g->window, g->renderer, i);
 		} else if(cell_tab[i]->state == WHITE) {
 			display_cell(g->white, g->window, g->renderer, i);
