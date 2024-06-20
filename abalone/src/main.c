@@ -121,7 +121,6 @@ int main(void) {
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 			
-/*
 
 	// Second Event Loop
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
@@ -227,7 +226,7 @@ int main(void) {
 	p = choose_play(b);
 
 	b = apply_play(b, p);
-	print_play(b, p);
+	print_play(p);
 
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(2000);
