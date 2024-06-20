@@ -37,9 +37,12 @@ int max(tree_t *tree, bool player);
 /// return the max play of a tree node
 play_t *max_play(tree_t *tree);
 
+///
+int basic_heuristic(cell_t **cell_tab);
+
 /// returns the best play depending on the player
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab);
-play_t *choose_play(board_t *board, bool player);
+play_t *choose_play(board_t *board, cell_t **cell_tab, bool player);
 
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play);
@@ -48,7 +51,7 @@ board_t *apply_play(board_t *board, play_t *play);
 board_t *undo_play(board_t *board, play_t *play);
 
 /// applies the min-max algorithm 
-int eval(board_t *board, int depth, int max_depth, bool player);
+int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player);
 
 
 #endif
