@@ -246,7 +246,7 @@ int main(void) {
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
 					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-						cur_cell=cur_cell->neighbourg[play->cell_direction];
+						cur_cell=cur_cell->neighbor[play->cell_direction];
 						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
@@ -298,7 +298,7 @@ int main(void) {
 						nb_selected_cells++;
 						if (nb_selected_cells==2){
 							for(int k=0;k<6;k++){
-								if(play->cell_tab[nb_selected_cells-2]->neighbourg[k]==cell_tab[id_mouse_cell]){
+								if(play->cell_tab[nb_selected_cells-2]->neighbor[k]==cell_tab[id_mouse_cell]){
 									play->cell_direction=k;
 									k=6;
 								}
@@ -335,15 +335,15 @@ int main(void) {
 	}
 
 	b -> cell -> state = BLACK;
-	b -> cell -> neighbourg[0] -> state = BLACK;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
+	b -> cell -> neighbor[0] -> state = BLACK;
+	b -> cell -> neighbor[0] -> neighbor[0] -> state = WHITE;
+	b -> cell -> neighbor[0] -> neighbor[0] -> neighbor[0] -> state = BLACK;
 
 	play_t play;
 	play.cell_tab[0] = b -> cell;
-	play.cell_tab[1] = b -> cell -> neighbourg[0];
-	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[1] = b -> cell -> neighbor[0];
+	play.cell_tab[2] = b -> cell -> neighbor[0] -> neighbor[0];
+	play.cell_tab[3] = b -> cell -> neighbor[0] -> neighbor[0] -> neighbor[0];
 	play.cell_tab[4] = NULL;
 	play.cell_direction = 0;
 	play.movement_direction = 0;
