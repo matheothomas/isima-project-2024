@@ -194,6 +194,8 @@ board_t* create_clean_board() {
 board_t* start_config(board_t* b) {
 	cell_t *cur_cell;
 	state_e coulour = WHITE;
+	b->n_black = 14;
+	b->n_white = 14;
 
 	for (int n = 0; n < 4; n += 3) {
 
@@ -226,6 +228,8 @@ board_t* start_config_2(board_t* b) {
 	cell_t *cur_cell;
 	state_e coulour = WHITE;
 	int i=0;
+	b->n_black = 14;
+	b->n_white = 14;
 
 	for (int n = 0; n < 4; n += 3) {
 
