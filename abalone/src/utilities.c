@@ -139,7 +139,6 @@ bool validity_play(play_t * play, bool player) {
 		if (play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction] != NULL && 
 			play -> cell_tab[play -> cell_tab_length - 1] -> neighbourg[play -> movement_direction]->state == 
 			switch_player_color[player]) {
-			// TODO YA UNE SEGFAULT QUAND ON ACCEDE AU VOISIN
 			// puts("la mort");
 			return false;
 		}
@@ -218,12 +217,7 @@ void fill_play_buffer(play_t * play) {
 	}
 }
 
-void cell_belongs_to_player(board_t * board, 
-							tree_t * tree,
-							play_t * play,
-							cell_t * cell,
-							bool * visited,
-							bool player) {
+void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
 	if (play == NULL && visited[cell -> id] == true) {
 		return;
@@ -262,12 +256,7 @@ void cell_belongs_to_player(board_t * board,
 
 }
 
-void cell_does_not_belongs_to_player(board_t * board, 
-									 tree_t * tree, 
-									 play_t * play, 
-									 cell_t * cell, 
-									 bool * visited,
-									 bool player) {
+void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
 	if (play != NULL && play -> cell_tab_length < 5) {
 		// If movement direction is not colinear to cell direction then we should
@@ -290,12 +279,7 @@ void cell_does_not_belongs_to_player(board_t * board,
 	}
 }
 
-void traversal_rec(board_t * board, 
-				   tree_t * tree, 
-				   play_t * play, 
-				   cell_t * cell, 
-				   bool * visited,
-				   bool player) {
+void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 
 	if (cell == NULL) { return; }
 
