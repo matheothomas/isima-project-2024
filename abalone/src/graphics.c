@@ -240,9 +240,9 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
 	SDL_Rect window_dimensions;
 
-	int i, j, w, h, x2, y2;
+	int i, w, h, y2;
 	float k;
-	int id; // TO BE CHANGED
+	int id = -1; // TO BE CHANGED
 
 	SDL_GetWindowSize(g->window, &window_dimensions.w, &window_dimensions.h);
 	
@@ -254,63 +254,63 @@ int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
 	k = 2;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 0 - k - 1.3;
+		return (float)x / w + 0 - k - 1.3;
 	}
 
 	i = 2;
 	k = 1.5;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 5 - k - 1.3;
+		return (float)x / w + 5 - k - 1.3;
 	}
 
 	i = 3;
 	k = 1;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 11 - k - 1.3;
+		return (float)x / w + 11 - k - 1.3;
 	}
 
 	i = 4;
 	k = 0.5;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 18 - k - 1.3;
+		return (float)x / w + 18 - k - 1.3;
 	}
 
 	i = 5;
 	k = 0;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 26 - k - 1.3;
+		return (float)x / w + 26 - k - 1.3;
 	}
 
 	i = 6;
 	k = 0.5;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 35 - k - 1.3;
+		return (float)x / w + 35 - k - 1.3;
 	}
 
 	i = 7;
 	k = 1;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 43 - k - 1.3;
+		return (float)x / w + 43 - k - 1.3;
 	}
 	
 	i = 8;
 	k = 1.5;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 50 - k - 1.3;
+		return (float)x / w + 50 - k - 1.3;
 	}
 	
 	i = 9;
 	k = 2;
 	y2 = h * (i+1.2);
 	if(y > y2 && y < y2 + h) {
-		id = (float)x / w + 56 - k - 1.3;
+		return (float)x / w + 56 - k - 1.3;
 	}
 
 	return id;

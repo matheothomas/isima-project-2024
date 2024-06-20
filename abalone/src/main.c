@@ -15,6 +15,7 @@
 #include<SDL2/SDL_ttf.h>
 #include <SDL2/SDL_timer.h>
 
+#include "SDL2/SDL_video.h"
 #include "algos.h"
 #include "init.h"
 #include "graphics.h"
