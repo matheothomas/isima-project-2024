@@ -15,6 +15,7 @@
 
 #include "SDL2/SDL_video.h"
 #include "algos.h"
+#include "init.h"
 #include "graphics.h"
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
@@ -52,7 +53,7 @@ graphics_t *init_sdl() {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, *white, *black, *config_1, *config_2, *commands;
+	SDL_Texture *board, *white, *black, *red, *config_1, *config_2, *commands;
 	TTF_Font * font;
 
 	// SDL INITIALISATION
@@ -79,6 +80,7 @@ graphics_t *init_sdl() {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
+	red = load_texture_from_image("res/red.png", window, renderer);
 	config_1 = load_texture_from_image("res/config_1.png", window, renderer);
 	config_2 = load_texture_from_image("res/config_2.png", window, renderer);
 	commands = load_texture_from_image("res/commands.png", window, renderer);
@@ -95,6 +97,7 @@ graphics_t *init_sdl() {
 	graphics->board = board;
 	graphics->white = white;
 	graphics->black = black;
+	graphics->red = red;
 	graphics->config_1 = config_1;
 	graphics->config_2 = config_2;
 	graphics->commands = commands;
@@ -320,15 +323,17 @@ int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
 	return id;
 }
 
-void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
-	SDL_RenderClear(renderer);
-	texturing(board, window, renderer);
+void display_board(graphics_t *g, cell_t **cell_tab) {
+	SDL_RenderClear(g->renderer);
+	texturing(g->board, g->window, g->renderer);
 
 	for(int i = 0; i < 61; i++) {
-		if(cell_tab[i]->state == WHITE) {
-			display_cell(white, window, renderer, i);
+		if(cell_tab[i]->selection == SELECT) {
+			display_cell(g->red, g->window, g->renderer, i);
+		} else if(cell_tab[i]->state == WHITE) {
+			display_cell(g->white, g->window, g->renderer, i);
 		} else if (cell_tab[i]->state == BLACK) {
-			display_cell(black, window, renderer, i);
+			display_cell(g->black, g->window, g->renderer, i);
 		}
 	}
 
@@ -377,7 +382,7 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 
-	display_board(g->board, g->white,g->black,g->window, g->renderer, cell_tab);
+	display_board(g, cell_tab);
 
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
 	SDL_RenderFillRect(g->renderer, text_box);

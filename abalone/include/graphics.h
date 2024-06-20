@@ -20,6 +20,7 @@ typedef struct graphics {
 	SDL_Texture *board;
 	SDL_Texture *white;
 	SDL_Texture *black;
+	SDL_Texture *red;
 	SDL_Texture *config_1;
 	SDL_Texture *config_2;
 	SDL_Texture *commands;
@@ -76,7 +77,7 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 int get_cell_id_from_mouse_position(graphics_t *g, int x, int y);
 
 /// displays current state of the board
-void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab);
+void display_board(graphics_t *g, cell_t **cell_tab);
 
 /// check if a position (x,y) is in a rect button
 int is_in (SDL_Rect* button,int x,int y);
