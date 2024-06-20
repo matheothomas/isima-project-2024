@@ -79,8 +79,8 @@ graphics_t *init_sdl() {
 	board = load_texture_from_image("res/board.png", window, renderer);
 	white = load_texture_from_image("res/white.png", window, renderer);
 	black = load_texture_from_image("res/black.png", window, renderer);
-	//config_1 = load_texture_from_image("res/config_1.png", window, renderer);
-	//config_2 = load_texture_from_image("res/config_2.png", window, renderer);
+	config_1 = load_texture_from_image("res/config_1.png", window, renderer);
+	config_2 = load_texture_from_image("res/config_2.png", window, renderer);
 	commands = load_texture_from_image("res/commands.png", window, renderer);
 
 	// Font opening
@@ -95,8 +95,8 @@ graphics_t *init_sdl() {
 	graphics->board = board;
 	graphics->white = white;
 	graphics->black = black;
-	graphics->config_1 = board;
-	graphics->config_2 = board;
+	graphics->config_1 = config_1;
+	graphics->config_2 = config_2;
 	graphics->commands = commands;
 	graphics->font = font;
 	graphics->commands_panel=c;
@@ -373,7 +373,7 @@ void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* but
 	SDL_RenderCopy(g->renderer, g->config_1, &source, button_1);
 
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, g->config_1, &source, button_2);
+	SDL_RenderCopy(g->renderer, g->config_2, &source, button_2);
 
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 

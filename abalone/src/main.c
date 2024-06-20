@@ -23,15 +23,12 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
-	// b = start_config(b);
-	// b = start_config_2(b);
 	cell_t **cell_tab=create_table(*b);
 
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
 
-	/*
 	// First Event Loop
 	int h;
 	int w;
@@ -191,13 +188,13 @@ int main(void) {
 		SDL_Delay(1);
 	}
 	
-	*/
+	
 
 
 	// TEST FUNCTIONS
 
 	// algos.c tests
-	// /*
+	 /*
 	
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
@@ -208,7 +205,7 @@ int main(void) {
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		cell_tab[i]->id = i;
 	}
-	// */
+	 */
 
 	/*
 	tree_t *t = malloc(sizeof(tree_t));
@@ -235,7 +232,7 @@ int main(void) {
 		t = t->next_tree;
 	}
 	*/
-
+/*
 	int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
 	int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
 	for (int k = 0; k < 9; k++) {
@@ -255,6 +252,7 @@ int main(void) {
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(2000);
 
+*/
 
 	SDL_RenderClear(g->renderer);
 	IMG_Quit();
