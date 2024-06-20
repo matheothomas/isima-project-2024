@@ -3,33 +3,33 @@
  * date : 18-06-24
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
 #include <limits.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "algos.h"
+#include "graphics.h"
 #include "init.h"
 #include "utilities.h"
-#include "graphics.h"
 
 
 int play_count = 0;
 int undo_count = 0;
 
 int max_value(int a, int b) {
-	printf("max_value\n");
+	// printf("max_value\n");
 	return a < b ? b : a;
 }
 
 int min_value(int a, int b) {
-	printf("min_value\n");
+	// printf("min_value\n");
 	return a < b ? a : b;
 }
 
 int max(tree_t *tree, bool player) {
-	printf("max\n");
+	// printf("max\n");
 	int is_max = player ? 1 : -1;
 
 	tree_t *temp = tree;
@@ -46,7 +46,7 @@ int max(tree_t *tree, bool player) {
 }
 
 play_t *max_play(tree_t *tree) {
-	printf("max_play\n");
+	// printf("max_play\n");
 	tree_t *tree_max = tree;
 	tree_t *temp = tree;
 	int val_max = tree->value;
@@ -59,12 +59,12 @@ play_t *max_play(tree_t *tree) {
 		temp = temp->next_tree;
 	}
 
-	printf("max play value : %d\n", tree_max->value);
+	// printf("max play value : %d\n", tree_max->value);
 	return tree_max->play;
 }
 
 int basic_heuristic(cell_t **cell_tab) {
-	printf("basic_heuristic\n");
+	// printf("basic_heuristic\n");
 	int score;
 	int nb_white = 0;
 	int nb_black = 0;
@@ -83,14 +83,14 @@ int basic_heuristic(cell_t **cell_tab) {
 
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
-	printf("choose_play\n");
+	// printf("choose_play\n");
 	play_count = 0;
 	undo_count = 0;
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
 	if(tree == NULL) {
-		printf("something is null\n");
+		// printf("something is null\n");
 		return NULL;
 	}
 	while (temp->next_tree != NULL) {
@@ -112,7 +112,7 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 }
 
 board_t *apply_play(board_t *board, play_t *play) {
-	printf("apply_play\n");
+	// printf("apply_play\n");
 	play_count++;
 
 	// duplicates the balls
@@ -141,7 +141,7 @@ board_t *apply_play(board_t *board, play_t *play) {
 }
 
 board_t *undo_play(board_t *board, play_t *play) {
-	printf("undo_play\n");
+	// printf("undo_play\n");
 	undo_count++;
 
 	// duplicates the balls
@@ -174,7 +174,7 @@ board_t *undo_play(board_t *board, play_t *play) {
 }
 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {
-	printf("eval\n");
+	// printf("eval\n");
 
 	int score = basic_heuristic(cell_tab);
 	
