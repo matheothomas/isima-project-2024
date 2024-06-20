@@ -1,13 +1,14 @@
 /* name : graphics.h
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
 #include <SDL2/SDL.h>
-#include "SDL2/SDL_render.h"
-#include "SDL2/SDL_video.h"
-#include "init.h"
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_video.h>
 #include <SDL2/SDL_ttf.h>
+
+#include "init.h"
 
 #ifndef graphics_h 
 #define graphics_h

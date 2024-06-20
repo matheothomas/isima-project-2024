@@ -1,15 +1,15 @@
 /* name : graphics.c
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_surface.h>
-// #include "../include/init.h"
-#include "../include/algos.h"
-#include "SDL2/SDL_render.h"
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
+
+#include "algos.h"
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print

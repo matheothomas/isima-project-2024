@@ -1,3 +1,8 @@
+/* name : main.h
+ * authors : eloi petit, matheo thomas, domitille vale
+ * date : 18-06-24
+ */
+
 #ifndef UTILITIES_H
 #define UTILITIES_H
 

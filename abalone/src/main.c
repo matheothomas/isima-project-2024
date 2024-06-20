@@ -1,21 +1,23 @@
 /* name : main.c
- * author : matheo thomas, domitille vale, eloi petit
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
-#include "SDL2/SDL_timer.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_stdinc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../include/algos.h"
-#include "../include/init.h"
-#include "../include/graphics.h"
-#include "../include/utilities.h"
-#include "SDL2/SDL_render.h"
+#include <SDL2/SDL_render.h>
 #include<SDL2/SDL_ttf.h>
+#include <SDL2/SDL_timer.h>
+
+#include "algos.h"
+#include "init.h"
+#include "graphics.h"
+#include "utilities.h"
 
 int main(void) {
 	SDL_Window *window = NULL;

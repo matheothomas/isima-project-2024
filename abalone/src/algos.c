@@ -1,5 +1,5 @@
 /* name : algos.c
- * author : matheo thomas, domitille vale, eloi petit
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
@@ -7,10 +7,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
-#include "../include/algos.h"
-#include "../include/utilities.h"
-#include "../include/graphics.h"
-#include "SDL2/SDL_timer.h"
+
+#include "algos.h"
+#include "utilities.h"
+#include "graphics.h"
 
 
 int max(tree_t *tree, bool player) {

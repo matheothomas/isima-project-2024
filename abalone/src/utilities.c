@@ -1,9 +1,15 @@
+/* name : main.h
+ * authors : eloi petit, matheo thomas, domitille vale
+ * date : 18-06-24
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../include/init.h"
-#include "../include/algos.h"
-#include "../include/utilities.h"
+
+#include "init.h"
+#include "algos.h"
+#include "utilities.h"
 
 
 bool validity_play(board_t * board, play_t * play, bool player) {

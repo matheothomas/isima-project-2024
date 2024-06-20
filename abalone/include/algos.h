@@ -1,9 +1,10 @@
 /* name : algos.h
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
 
 #include <stdbool.h>
+
 #include "init.h"
 #include "graphics.h"
 
