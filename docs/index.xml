@@ -39,7 +39,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc/files/main_8h/</guid>
-      <description>include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif Updated on 2024-06-21 at 00:15:40 +0200</description>
+      <description>include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif </description>
     </item>
     
     <item>
@@ -49,15 +49,6 @@
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8h/</guid>
       <description>include/utilities.h Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid tree_t * create_tree(play_t * play, int value, int depth)creats a tree void free_tree(tree_t * tree)frees a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</description>
-    </item>
-    
-    <item>
-      <title>README.md</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/readme_8md/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/readme_8md/</guid>
-      <description>README.md Source code # abalone This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning. ## Roadmap - [ ] Create the structure of the game. - [ ] Create a graphical interface in SDL2. - [ ] Implement the min-max algorithm. - [ ] Implement the alpha-beta pruning. - [ ] Improve our heuristics. ## Principle It is a 1v1 game, it is played against our algorithm.</description>
     </item>
     
     <item>

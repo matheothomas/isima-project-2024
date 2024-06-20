@@ -31,7 +31,7 @@
         <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/">
   <meta property="og:site_name" content="Project">
   <meta property="og:title" content="doc">
-  <meta property="og:description" content="Documentation EXAMPLE DOCUMENTATION">
+  <meta property="og:description" content="Documentation ">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
@@ -56,7 +56,7 @@
         
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="doc">
-  <meta name="twitter:description" content="Documentation EXAMPLE DOCUMENTATION">
+  <meta name="twitter:description" content="Documentation ">
 
     <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
 
@@ -194,7 +194,6 @@
     
     
     <h1 id="documentation">Documentation</h1>
-<p><em>EXAMPLE DOCUMENTATION</em></p>
 
 </article>
 </div>
@@ -283,7 +282,7 @@
                     <span>include/main.h</span>
                 </div>
                 <div class="postcard-summary">
-                    <span>include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif Updated on 2024-06-21 at 00:15:40 &#43;0200</span>
+                    <span>include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif </span>
                 </div>
                 <div class="postcard-metadata">
                     <span>0001/01/01 · 
@@ -308,30 +307,6 @@
                 </div>
                 <div class="postcard-summary">
                     <span>include/utilities.h Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid tree_t * create_tree(play_t * play, int value, int depth)creats a tree void free_tree(tree_t * tree)frees a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</span>
-                </div>
-                <div class="postcard-metadata">
-                    <span>0001/01/01 · 
-    
-        
-    
-
-    
-        
-            <span>doc</span>
-        
-    
-</span>
-                </div>
-            </div>
-        </a>
-    
-        <a href="https://matheothomas.github.io/isima-project-2024/doc/files/readme_8md/">
-            <div class="postcard-item">
-                <div class="postcard-title">
-                    <span>README.md</span>
-                </div>
-                <div class="postcard-summary">
-                    <span>README.md Source code # abalone This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning. ## Roadmap - [ ] Create the structure of the game. - [ ] Create a graphical interface in SDL2. - [ ] Implement the min-max algorithm. - [ ] Implement the alpha-beta pruning. - [ ] Improve our heuristics. ## Principle It is a 1v1 game, it is played against our algorithm.</span>
                 </div>
                 <div class="postcard-metadata">
                     <span>0001/01/01 · 
@@ -445,27 +420,31 @@
             </div>
         </a>
     
+        <a href="https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/utilities.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/utilities.c Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid void free_tree(tree_t * tree)frees a tree tree_t * create_tree(play_t * play, int value, int depth)creats a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
     
-    <ul class="pagination pagination-default">
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
-      </li>
-      <li class="page-item">
-        <a href="/isima-project-2024/doc/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
-      </li>
-      <li class="page-item">
-        <a href="/isima-project-2024/doc/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/isima-project-2024/doc/page/2/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul>
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+    
 </div>
 
 
