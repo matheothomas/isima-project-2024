@@ -231,16 +231,19 @@ int main(void) {
 			r=0;
 			if(is_in(confirm, x, y)){
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
-				while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-					cur_cell=cur_cell->neighbourg[play->cell_direction];
-					if(cur_cell && cur_cell->state && play->cell_tab_length<6){
-						nb_selected_cells+=1;
-						play->cell_tab[nb_selected_cells] = cur_cell;
-						play->cell_tab_length+=1;
+				if(play->cell_direction==play->movement_direction){
+					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
+						cur_cell=cur_cell->neighbourg[play->cell_direction];
+						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
+							nb_selected_cells++;
+							play->cell_tab[nb_selected_cells-1] = cur_cell;
+							play->cell_tab_length+=1;
+							play->buffer[nb_selected_cells-1] = cur_cell->state;
+						}
 					}
 				}
-				fill_play_buffer(play);
-				print_play(b, play);
+				//fill_play_buffer(play);
+				//print_play(b, play);
 				b=apply_play(b, play);
 				for(int k=0;k<play->cell_tab_length;k++){
 					play->cell_tab[k]->selection=UNSELECT;
@@ -257,9 +260,10 @@ int main(void) {
 				}
 				else{
 					play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
-					play->cell_tab_length+=1;
+					play->cell_tab_length++;
+                	play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
 					cell_tab[id_mouse_cell]->selection=SELECT;
-					nb_selected_cells+=1;
+					nb_selected_cells++;
 					if (nb_selected_cells==2){
 						for(int k=0;k<6;k++){
 							if(play->cell_tab[nb_selected_cells-2]->neighbourg[k]==cell_tab[id_mouse_cell]){
