@@ -12,7 +12,7 @@
 #include "utilities.h"
 
 
-void print_play(board_t *b, play_t *play) {
+void print_play(play_t *play) {
 	if(validity_play(play, 1)) {
 		printf("ids: ");
 		for(int i = 0; i < play->cell_tab_length; i++) {
