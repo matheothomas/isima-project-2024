@@ -226,7 +226,6 @@ tree_t * gen_plays(board_t * board, int depth, bool player) {
 	// Player = 1 if bot is the player else 0
 	bool visited[CELL_NUMBER] = {false};
 	tree_t * tree = create_tree(NULL, 0, depth); //tête de liste
-	// printf("%p\n", (board) -> cell);
 	traversal_rec(board, tree, NULL, board -> cell, visited, player);
 
 	return tree -> next_tree;

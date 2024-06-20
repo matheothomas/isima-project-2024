@@ -5,9 +5,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
 // #include "../include/init.h"
 #include "../include/algos.h"
 #include "SDL2/SDL_render.h"
+#include <SDL2/SDL_ttf.h>
 
 void end_sdl(char ok,                               // normal end : ok = 0 ; abnormal ok = 1
 			 char const *msg,                       // message to print
@@ -54,6 +56,14 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 	return my_texture;
 }
 
+SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window *window, SDL_Renderer *renderer ){
+	SDL_Color yellow = {255,250,0,0};        
+	SDL_Surface * my_text = TTF_RenderText_Blended(font, text, yellow);
+	SDL_Texture * my_texture = SDL_CreateTextureFromSurface(renderer, my_text);
+	SDL_FreeSurface(my_text);
+	return my_texture;
+}
+
 void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
 	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
@@ -75,6 +85,7 @@ void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer)
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id) {
 	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
+
 	int i, j;
 	float k;
 
@@ -130,6 +141,14 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	
 }
 
+int get_cell_position(int x, int y){
+	int id;
+	int i, j;
+	i=y-1.2;
+	j=x-1.3;
+	return id;
+}
+
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
 	SDL_RenderClear(renderer);
 	texturing(board, window, renderer);
@@ -141,6 +160,70 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 			display_cell(black, window, renderer, i);
 		}
 	}
+
+	//SDL_RenderPresent(renderer);
+}
+
+SDL_Rect* crea_rect(int x, int y, int width, int height){
+	SDL_Rect* rect=(SDL_Rect*)malloc(sizeof(SDL_Rect));
+	rect->x = x;
+	rect->y = y;
+	rect->w = width;
+	rect->h = height;
+	return rect;
+}
+
+int is_in (SDL_Rect* button,int x,int y){
+	int is_in=0;
+	if(x>button->x && x<button->x+button->w){
+		if(y>button->y && y<button->y+button->h){
+			is_in=1;
+		}
+	}
+	return is_in;
+}
+
+void home_menu(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,TTF_Font * font,SDL_Texture * text,int r1,int r2,SDL_Texture *config1,SDL_Texture *config2){
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(renderer, text_box);
+
+	SDL_SetRenderDrawColor(renderer, r1, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_1);
+
+	SDL_SetRenderDrawColor(renderer, r2, 200, 200, 255);
+	SDL_RenderFillRect(renderer, button_2);
+
+
+	SDL_Rect source = {0};
+
+	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(renderer, config1, &source, button_1);
+
+	SDL_QueryTexture(config1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(renderer, config1, &source, button_2);
+
+	SDL_RenderCopy(renderer, text, NULL, text_box);
+
+
+	SDL_RenderPresent(renderer);
+}
+
+void display_game(SDL_Window *window, SDL_Renderer *renderer,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,TTF_Font * font,SDL_Texture * text, int r, SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, cell_t **cell_tab){
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	
+	display_board(board, white,black,window, renderer, cell_tab);
+	
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	 SDL_RenderFillRect(renderer, text_box);
+	SDL_SetRenderDrawColor(renderer, r, 200, 200, 255);
+	SDL_RenderFillRect(renderer, confirm);
+	SDL_RenderDrawRect(renderer, button);
+
+	SDL_RenderCopy(renderer, text, NULL, text_box);
 
 	SDL_RenderPresent(renderer);
 }
