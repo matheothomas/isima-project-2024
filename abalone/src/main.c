@@ -141,6 +141,13 @@ int main(void) {
 
 
 	// Second Event Loop
+
+// TO DO
+// Boutons pour la direction
+// Les textes
+// bot joue
+// rendre jolie la selection
+
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
 		// process event
@@ -229,6 +236,7 @@ int main(void) {
 
 		if(mouse_state==2){
 			r=0;
+			id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 			if(is_in(confirm, x, y)){
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
@@ -237,22 +245,26 @@ int main(void) {
 						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
-							play->cell_tab_length+=1;
+							play->cell_tab_length++;
 							play->buffer[nb_selected_cells-1] = cur_cell->state;
 						}
 					}
 				}
 				//fill_play_buffer(play);
 				//print_play(b, play);
-				b=apply_play(b, play);
+				if (validity_play(b, play, 0)){
+					b=apply_play(b, play);
+				}
+				else{
+					printf("coup non valide, réinitialitation du coup\n");
+				}
 				for(int k=0;k<play->cell_tab_length;k++){
 					play->cell_tab[k]->selection=UNSELECT;
 				}
 				nb_selected_cells=0;
 				play->cell_tab_length=0;
 			}
-			else if(1){
-				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+			else if(cell_tab[id_mouse_cell]->state==BLACK){
 				if(cell_tab[id_mouse_cell]->selection==SELECT){
 					//cell_tab[id_mouse_cell]->selection=UNSELECT;
 					//nb_selected_cells-=1;
