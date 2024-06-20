@@ -31,7 +31,7 @@
         <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/main_8c/">
   <meta property="og:site_name" content="Project">
   <meta property="og:title" content="src/main.c">
-  <meta property="og:description" content="src/main.c Functions Name int main(int argc, char * argv[]) Functions Documentation function main int main( int argc, char * argv[] ) Source code /* name : main.c * author : matheo thomas * date : 10-11-23 */ #include&lt;stdio.h&gt; #include&lt;stdlib.h&gt; #include&lt;unistd.h&gt; #include&lt;netinet/in.h&gt; #include&lt;arpa/inet.h&gt; #include&lt;string.h&gt; #include&lt;sys/socket.h&gt; #include&lt;unistd.h&gt; #include&lt;SDL2/SDL.h&gt; #include&lt;SDL2/SDL_image.h&gt; #include&lt;SDL2/SDL_ttf.h&gt; #include&#34;network.h&#34; #include&#34;../include/seaBattle.h&#34; #include&#34;../include/graphics.h&#34; int main(int argc, char *argv[]){ sea **s1ships = initSea(); sea **s1touches = initSea(); sea **s2ships = initSea(); sea **s2touches = initSea(); int infoShip[] = { -1, 5, 4, 3, 3, 2 }; // Graphical interface initialisation if(SDL_Init(SDL_INIT_VIDEO) &lt;0){ fprintf(stderr, &#34;Erreur d&#39;initialisation de la SDL : %s\n&#34;, SDL_GetError()); return EXIT_FAILURE; } int width = 800; int height = 860; SDL_Window *window; window = SDL_CreateWindow(&#34;SDL2 Programme 0.">
+  <meta property="og:description" content="src/main.c Functions Name int main(void ) Functions Documentation function main int main( void ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #include &lt;SDL2/SDL.h&gt; #include &lt;SDL2/SDL_events.h&gt; #include &lt;SDL2/SDL_image.h&gt; #include &lt;SDL2/SDL_keycode.h&gt; #include &lt;SDL2/SDL_render.h&gt; #include &lt;SDL2/SDL_stdinc.h&gt; #include &lt;SDL2/SDL_ttf.h&gt; #include &lt;SDL2/SDL_timer.h&gt; #include &lt;SDL2/SDL_video.h&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &#34;algos.h&#34; #include &#34;graphics.h&#34; #include &#34;init.h&#34; #include &#34;utilities.h&#34; int main(void) { graphics_t *g = init_sdl(); board_t *b = create_clean_board(); cell_t **cell_tab=create_table(*b); play_t *play=malloc(sizeof(play_t)); play-&gt;cell_direction=0; play-&gt;cell_tab_length=0; play-&gt;movement_direction=0; // SDL MAIN LOOP FUNCTIONS // // First Event Loop int h; int w; int x = 0; int y = 0; int r1 = 0; int r2 = 0; int r = 0; int mouse_state = 0; int id_mouse_cell; int nb_selected_cells = 0; cell_t *cur_cell; SDL_GetWindowSize(g-&gt;window, &amp;w, &amp;h); // Rect creation SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4); SDL_Rect* button_1 = crea_rect(2*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* button_2 = crea_rect(8*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11); SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11); SDL_Texture *text_home_menu = create_texture_for_text(&#34;choose your\nstarting line !">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="doc">
@@ -57,7 +57,7 @@
         
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="src/main.c">
-  <meta name="twitter:description" content="src/main.c Functions Name int main(int argc, char * argv[]) Functions Documentation function main int main( int argc, char * argv[] ) Source code /* name : main.c * author : matheo thomas * date : 10-11-23 */ #include&lt;stdio.h&gt; #include&lt;stdlib.h&gt; #include&lt;unistd.h&gt; #include&lt;netinet/in.h&gt; #include&lt;arpa/inet.h&gt; #include&lt;string.h&gt; #include&lt;sys/socket.h&gt; #include&lt;unistd.h&gt; #include&lt;SDL2/SDL.h&gt; #include&lt;SDL2/SDL_image.h&gt; #include&lt;SDL2/SDL_ttf.h&gt; #include&#34;network.h&#34; #include&#34;../include/seaBattle.h&#34; #include&#34;../include/graphics.h&#34; int main(int argc, char *argv[]){ sea **s1ships = initSea(); sea **s1touches = initSea(); sea **s2ships = initSea(); sea **s2touches = initSea(); int infoShip[] = { -1, 5, 4, 3, 3, 2 }; // Graphical interface initialisation if(SDL_Init(SDL_INIT_VIDEO) &lt;0){ fprintf(stderr, &#34;Erreur d&#39;initialisation de la SDL : %s\n&#34;, SDL_GetError()); return EXIT_FAILURE; } int width = 800; int height = 860; SDL_Window *window; window = SDL_CreateWindow(&#34;SDL2 Programme 0.">
+  <meta name="twitter:description" content="src/main.c Functions Name int main(void ) Functions Documentation function main int main( void ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #include &lt;SDL2/SDL.h&gt; #include &lt;SDL2/SDL_events.h&gt; #include &lt;SDL2/SDL_image.h&gt; #include &lt;SDL2/SDL_keycode.h&gt; #include &lt;SDL2/SDL_render.h&gt; #include &lt;SDL2/SDL_stdinc.h&gt; #include &lt;SDL2/SDL_ttf.h&gt; #include &lt;SDL2/SDL_timer.h&gt; #include &lt;SDL2/SDL_video.h&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &#34;algos.h&#34; #include &#34;graphics.h&#34; #include &#34;init.h&#34; #include &#34;utilities.h&#34; int main(void) { graphics_t *g = init_sdl(); board_t *b = create_clean_board(); cell_t **cell_tab=create_table(*b); play_t *play=malloc(sizeof(play_t)); play-&gt;cell_direction=0; play-&gt;cell_tab_length=0; play-&gt;movement_direction=0; // SDL MAIN LOOP FUNCTIONS // // First Event Loop int h; int w; int x = 0; int y = 0; int r1 = 0; int r2 = 0; int r = 0; int mouse_state = 0; int id_mouse_cell; int nb_selected_cells = 0; cell_t *cur_cell; SDL_GetWindowSize(g-&gt;window, &amp;w, &amp;h); // Rect creation SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4); SDL_Rect* button_1 = crea_rect(2*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* button_2 = crea_rect(8*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11); SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11); SDL_Texture *text_home_menu = create_texture_for_text(&#34;choose your\nstarting line !">
 
     <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
 
@@ -230,543 +230,452 @@
 <tbody>
 <tr>
 <td>int</td>
-<td><strong><a href="files/main_8c.md#function-main">main</a></strong>(int argc, char * argv[])</td>
+<td><strong><a href="files/main_8c.md#function-main">main</a></strong>(void )</td>
 </tr>
 </tbody>
 </table>
 <h2 id="functions-documentation">Functions Documentation</h2>
 <h3 id="function-main">function main</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> main(
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> argc,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> argv[]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> 
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><h2 id="source-code">Source code</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : main.c
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * author : matheo thomas
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 10-11-23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdio.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;stdlib.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;unistd.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;netinet/in.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;arpa/inet.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;string.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;sys/socket.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;unistd.h&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_events.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_image.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_keycode.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_render.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_stdinc.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_ttf.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_timer.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_video.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;SDL2/SDL.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;SDL2/SDL_image.h&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&lt;SDL2/SDL_ttf.h&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;graphics.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;utilities.h&#34;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include&#34;network.h&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&#34;../include/seaBattle.h&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include&#34;../include/graphics.h&#34;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span>g <span style="color:#f92672">=</span> init_sdl();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> create_clean_board();
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span>cell_tab<span style="color:#f92672">=</span>create_table(<span style="color:#f92672">*</span>b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>play<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(play_t));
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// SDL MAIN LOOP FUNCTIONS //
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]){
-</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span>s1ships   <span style="color:#f92672">=</span> initSea();
-</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span>s1touches <span style="color:#f92672">=</span> initSea();
-</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span>s2ships   <span style="color:#f92672">=</span> initSea();
-</span></span><span style="display:flex;"><span>    sea <span style="color:#f92672">**</span>s2touches <span style="color:#f92672">=</span> initSea();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> infoShip[] <span style="color:#f92672">=</span> { <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span> };
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// First Event Loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> h;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> w;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mouse_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id_mouse_cell;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> nb_selected_cells <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span>cur_cell;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_GetWindowSize(g<span style="color:#f92672">-&gt;</span>window, <span style="color:#f92672">&amp;</span>w, <span style="color:#f92672">&amp;</span>h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Rect creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_Rect<span style="color:#f92672">*</span> text_box <span style="color:#f92672">=</span> crea_rect(w<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, w<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> button_1 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span><span style="color:#f92672">+</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> button_2 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span><span style="color:#f92672">+</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> text_box_2 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">13</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">18</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> confirm <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">7</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>, w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Graphical interface initialisation
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(SDL_Init(SDL_INIT_VIDEO) <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        fprintf(stderr, <span style="color:#e6db74">&#34;Erreur d&#39;initialisation de la SDL : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, SDL_GetError());
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> EXIT_FAILURE;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> width <span style="color:#f92672">=</span> <span style="color:#ae81ff">800</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> height <span style="color:#f92672">=</span> <span style="color:#ae81ff">860</span>;
-</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span>window;
-</span></span><span style="display:flex;"><span>    window <span style="color:#f92672">=</span> SDL_CreateWindow(<span style="color:#e6db74">&#34;SDL2 Programme 0.1&#34;</span>, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-</span></span><span style="display:flex;"><span>            width, height,
-</span></span><span style="display:flex;"><span>            SDL_WINDOW_RESIZABLE);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(window <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        fprintf(stderr, <span style="color:#e6db74">&#34;Erreur d&#39;initialisation de la SDL : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, SDL_GetError());
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span>renderer;
-</span></span><span style="display:flex;"><span>    renderer <span style="color:#f92672">=</span> SDL_CreateRenderer(window, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, SDL_RENDERER_ACCELERATED);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(renderer <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        fprintf(stderr, <span style="color:#e6db74">&#34;Erreur d&#39;initialisation de la SDL : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, SDL_GetError());
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (TTF_Init() <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        fprintf(stderr, <span style="color:#e6db74">&#34;Erreur d&#39;initialisation TTF : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, TTF_GetError()); 
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> flags<span style="color:#f92672">=</span>IMG_INIT_JPG<span style="color:#f92672">|</span>IMG_INIT_PNG;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> initted<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    initted<span style="color:#f92672">=</span>IMG_Init(flags);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>((initted<span style="color:#f92672">&amp;</span>flags) <span style="color:#f92672">!=</span> flags){
-</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;IMG_Init : Impossible d&#39;initialiser le support des formats JPG et PNG requis.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;&#34;</span>);
-</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;IMG_Init : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, IMG_GetError());
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>text_home_menu <span style="color:#f92672">=</span> create_texture_for_text(<span style="color:#e6db74">&#34;choose your</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">starting line !&#34;</span>, g<span style="color:#f92672">-&gt;</span>font, g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    texturing(text_home_menu,g<span style="color:#f92672">-&gt;</span>window, g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    SDL_RenderPresent(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    SDL_Delay(<span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_bool program_on <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>    SDL_bool program_on_2 <span style="color:#f92672">=</span> SDL_FALSE;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    SDL_Event event;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (program_on) {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Main loop    
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(strcmp(argv[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;server&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>            netParams p <span style="color:#f92672">=</span> mainNetworkServ();
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> isConfig <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(strcmp(argv[<span style="color:#ae81ff">2</span>], <span style="color:#e6db74">&#34;preconfig&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                    loadPreConfig(s1ships);
-</span></span><span style="display:flex;"><span>                    isConfig <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// process event
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">switch</span> (event.type) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_QUIT:
+</span></span><span style="display:flex;"><span>                    program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEMOTION:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONUP:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
 </span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> buffer1[<span style="color:#ae81ff">1024</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> s1[<span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> posSent1[<span style="color:#ae81ff">2</span>];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> c1, c2, c3, c4;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> isShipTouched;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> gameStatus;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x, y;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(isConfig <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">char</span> c;
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                        width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                        height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                        afficherFenetre(renderer, s1ships, s1touches, <span style="color:#ae81ff">0</span>, infoShip[i]);
-</span></span><span style="display:flex;"><span>                                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                }
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">if</span>(toggle <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                                    y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">440</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">13</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;l&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">15</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;u&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">15</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">16</span><span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">17</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;r&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Choose a direction</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                    y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">440</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>(placeShip(s1ships, i, x, y, c) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                                        i<span style="color:#f92672">--</span>;
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>){
-</span></span><span style="display:flex;"><span>                                        running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                        i<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s1ships, s1touches, <span style="color:#ae81ff">0</span>, infoShip[i]);
-</span></span><span style="display:flex;"><span>                                    toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                        }
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                    SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;Launching game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:  
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>); 
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                    width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                    height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s1ships, s1touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                            x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Wrong coordinates ! Retry.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                            } 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
-</span></span><span style="display:flex;"><span>                            afficherFenetre(renderer, s1ships, s1touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            memset(buffer1, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(buffer1));
-</span></span><span style="display:flex;"><span>                            memset(s1, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(s1));
-</span></span><span style="display:flex;"><span>                            memset(posSent1, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(posSent1));
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            s1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            s1[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> y <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            send(p.new_socket, s1, strlen(s1), <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Receiving coordinates
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            p.valread <span style="color:#f92672">=</span> read(p.new_socket, buffer1, <span style="color:#ae81ff">1024</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>                            buffer1[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            c1 <span style="color:#f92672">=</span> atoi(buffer1)<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c2 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer1[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            memset(buffer1, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(buffer1));
-</span></span><span style="display:flex;"><span>                            isShipTouched <span style="color:#f92672">=</span> received(s1ships, c1, c2);
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(isShipTouched <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                gameStatus <span style="color:#f92672">=</span> victoire(s1ships[c1][c2].isShip);
-</span></span><span style="display:flex;"><span>                            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                gameStatus <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Sending results
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            posSent1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> isShipTouched <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            posSent1[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> gameStatus <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">//sleep(1); 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            usleep(<span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>                            send(p.new_socket, posSent1, strlen(posSent1), <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(gameStatus <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Perdu...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            }   
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Applying results
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            p.valread <span style="color:#f92672">=</span> read(p.new_socket, buffer1, <span style="color:#ae81ff">1024</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>                            s1[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            c1 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>s1[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c2 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>s1[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            c3 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer1[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c4 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer1[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            sent(s1touches, c1, c2, c3); <span style="color:#75715e">//Filling the upper map
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            <span style="color:#66d9ef">if</span>(c4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Gagné !</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(c4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Coulé !</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                            }   
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            afficherFenetre(renderer, s1ships, s1touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                            printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>                SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                    width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                    height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s1ships, s1touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                            printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>                SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// closing the connected socket
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            close(p.new_socket);
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// closing the listening socket
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            close(p.server_fd);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(strcmp(argv[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;client&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>IPADDR <span style="color:#f92672">=</span> argv[<span style="color:#ae81ff">2</span>];
-</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;ip address : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, IPADDR);
-</span></span><span style="display:flex;"><span>            netParams p <span style="color:#f92672">=</span> mainNetworkClient(IPADDR);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> isConfig <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(strcmp(argv[<span style="color:#ae81ff">3</span>], <span style="color:#e6db74">&#34;preconfig&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                    loadPreConfig(s2ships);
-</span></span><span style="display:flex;"><span>                    isConfig <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> buffer2[<span style="color:#ae81ff">1024</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> s2[<span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> posSent2[<span style="color:#ae81ff">2</span>];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> c1, c2, c3, c4;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> isShipTouched;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> gameStatus;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x, y;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(isConfig <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">char</span> c;
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                        width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                        height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                        afficherFenetre(renderer, s2ships, s2touches, <span style="color:#ae81ff">0</span>, infoShip[i]);
-</span></span><span style="display:flex;"><span>                                }
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">if</span>(toggle <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                                    y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">440</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">13</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;l&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">15</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;u&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">15</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>((x <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&amp;&amp;</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">17</span>)){
-</span></span><span style="display:flex;"><span>                                        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;r&#39;</span>;
-</span></span><span style="display:flex;"><span>                                        toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                        printf(<span style="color:#e6db74">&#34;Choose a direction</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                    y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                                    x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">440</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>(placeShip(s2ships, i, x, y, c) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>                                        i<span style="color:#f92672">--</span>;
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>){
-</span></span><span style="display:flex;"><span>                                        running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                        i<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>                                    }
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s2ships, s2touches, <span style="color:#ae81ff">0</span>, infoShip[i]);
-</span></span><span style="display:flex;"><span>                                    toggle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                        }
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                    SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;Launching game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:  
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>); 
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                    width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                    height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s2ships, s2touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            y <span style="color:#f92672">=</span> (event.button.x<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>                            x <span style="color:#f92672">=</span> (event.button.y<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> y <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Wrong coordinates ! Retry.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
-</span></span><span style="display:flex;"><span>                            afficherFenetre(renderer, s2ships, s2touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            memset(buffer2, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(buffer2));
-</span></span><span style="display:flex;"><span>                            memset(s2, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(s2));
-</span></span><span style="display:flex;"><span>                            memset(posSent2, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(posSent2));
-</span></span><span style="display:flex;"><span>                            status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            s2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            s2[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> y <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            send(p.client_fd, s2, strlen(s2), <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Receiving coordinates
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            p.valread <span style="color:#f92672">=</span> read(p.client_fd, buffer2, <span style="color:#ae81ff">1024</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>                            buffer2[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            c1 <span style="color:#f92672">=</span> atoi(buffer2)<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c2 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer2[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            memset(buffer2, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(buffer2));
-</span></span><span style="display:flex;"><span>                            isShipTouched <span style="color:#f92672">=</span> received(s2ships, c1, c2);
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(isShipTouched <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                gameStatus <span style="color:#f92672">=</span> victoire(s2ships[c1][c2].isShip);
-</span></span><span style="display:flex;"><span>                            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                                gameStatus <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Sending results
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            posSent2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> isShipTouched <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            posSent2[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> gameStatus <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">//sleep(1); 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            usleep(<span style="color:#ae81ff">1000</span>);
-</span></span><span style="display:flex;"><span>                            send(p.client_fd, posSent2, strlen(posSent2), <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(gameStatus <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Perdu...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            }   
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#75715e">// Applying results
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                            p.valread <span style="color:#f92672">=</span> read(p.client_fd, buffer2, <span style="color:#ae81ff">1024</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>                            s2[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-</span></span><span style="display:flex;"><span>                            c1 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>s2[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c2 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>s2[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            c3 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer2[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span>                            c4 <span style="color:#f92672">=</span> atoi(<span style="color:#f92672">&amp;</span>buffer2[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>                            sent(s2touches, c1, c2, c3);
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(c4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Gagné !</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span>                                running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(c4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
-</span></span><span style="display:flex;"><span>                                printf(<span style="color:#e6db74">&#34;Coulé !</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                status <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>                            }   
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            afficherFenetre(renderer, s2ships, s2touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                            printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>                SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(running){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span>(SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)){
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span>(event.type){
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">switch</span> (event.window.event){
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_CLOSE:
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Window closed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">case</span> SDL_WINDOWEVENT_SIZE_CHANGED:
-</span></span><span style="display:flex;"><span>                                    width <span style="color:#f92672">=</span> event.window.data1;
-</span></span><span style="display:flex;"><span>                                    height <span style="color:#f92672">=</span> event.window.data2;
-</span></span><span style="display:flex;"><span>                                    printf(<span style="color:#e6db74">&#34;Size : %d%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, width, height);
-</span></span><span style="display:flex;"><span>                                    <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                                    afficherFenetre(renderer, s1ships, s1touches, status, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>                            }
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
-</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDL_QUIT : 
-</span></span><span style="display:flex;"><span>                            printf(<span style="color:#e6db74">&#34;Quit game.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);    
-</span></span><span style="display:flex;"><span>                            running <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>                SDL_Delay(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//  delai minimal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Closing the connected socket
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            close(p.client_fd); 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;Wrong parameter entered, enter server or client.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;Type </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">./bin/seaBattle server</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> or </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">./bin/seaBattle client SERVER_IP_ADDRESS</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// update
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(button_1, x, y)){
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (is_in(button_2, x, y)){
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(button_1, x, y)){
+</span></span><span style="display:flex;"><span>                b<span style="color:#f92672">=</span>start_config(b);
+</span></span><span style="display:flex;"><span>                program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                program_on_2 <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (is_in(button_2, x, y)){
+</span></span><span style="display:flex;"><span>                b<span style="color:#f92672">=</span>start_config_2(b);
+</span></span><span style="display:flex;"><span>                program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                program_on_2 <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// render
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        home_menu(g, text_box, button_1, button_2, text_home_menu, r1, r2);
+</span></span><span style="display:flex;"><span>        SDL_Delay(<span style="color:#ae81ff">1</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    freeSea(s1ships);
-</span></span><span style="display:flex;"><span>    freeSea(s1touches);
-</span></span><span style="display:flex;"><span>    freeSea(s2ships);
-</span></span><span style="display:flex;"><span>    freeSea(s2touches);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Second Event Loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TO DO
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// let the bot play
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// add the possibility to unselect a ball
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// check if mouse position on the board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// make the selection prettier
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Texts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot_turn <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (program_on_2) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// process event
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">switch</span> (event.type) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_QUIT:
+</span></span><span style="display:flex;"><span>                    program_on_2 <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEMOTION:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONUP:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_KEYDOWN:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span> (event.key.keysym.sym) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_0:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_0:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_1:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_1:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_2:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_2:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_3:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_3:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_4:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_4:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_5:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_5:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// update
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//cell_tab[id_mouse_cell]-&gt;selection=MOUSE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(confirm, x, y)){
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Confirm the play
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(is_in(confirm, x, y)){
+</span></span><span style="display:flex;"><span>                cur_cell<span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>cell_tab[play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">==</span>play<span style="color:#f92672">-&gt;</span>movement_direction){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> (cur_cell <span style="color:#f92672">&amp;&amp;</span> cur_cell<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">&amp;&amp;</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>) {
+</span></span><span style="display:flex;"><span>                        cur_cell<span style="color:#f92672">=</span>cur_cell<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>cell_direction];
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(cur_cell <span style="color:#f92672">||</span> cur_cell<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">||</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>){
+</span></span><span style="display:flex;"><span>                            nb_selected_cells<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> cur_cell;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>buffer[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> cur_cell<span style="color:#f92672">-&gt;</span>state;
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//fill_play_buffer(play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">//print_play(b, play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (validity_play(play, <span style="color:#ae81ff">0</span>)){
+</span></span><span style="display:flex;"><span>                    b<span style="color:#f92672">=</span>apply_play(b, play);
+</span></span><span style="display:flex;"><span>                    is_bot_turn <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;coup non valide, réinitialitation du coup</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span>play<span style="color:#f92672">-&gt;</span>cell_tab_length;k<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                    play<span style="color:#f92672">-&gt;</span>cell_tab[k]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">=</span>UNSELECT;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                nb_selected_cells<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Choose in which direction to push the balls
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(is_in(g<span style="color:#f92672">-&gt;</span>commands_panel<span style="color:#f92672">-&gt;</span>button, x, y)){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (is_in(g<span style="color:#f92672">-&gt;</span>commands_panel<span style="color:#f92672">-&gt;</span>tab_dir[i], x, y)) {
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>                        i<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Select the balls to move
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">1</span>){ <span style="color:#75715e">// TO DO check if mouse position on the board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                id_mouse_cell<span style="color:#f92672">=</span>get_cell_id_from_mouse_position(g, x, y);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>state<span style="color:#f92672">==</span>BLACK){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>SELECT){ <span style="color:#75715e">// TO DO add the possibility to unselect a ball
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//cell_tab[id_mouse_cell]-&gt;selection=UNSELECT;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//nb_selected_cells-=1;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//printf(&#34;%d %d\n&#34;,nb_selected_cells, play-&gt;movement_direction);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells] <span style="color:#f92672">=</span> cell_tab[id_mouse_cell];
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>buffer[nb_selected_cells] <span style="color:#f92672">=</span> cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>state;
+</span></span><span style="display:flex;"><span>                        cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">=</span>SELECT;
+</span></span><span style="display:flex;"><span>                        nb_selected_cells<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (nb_selected_cells<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>;k<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]<span style="color:#f92672">-&gt;</span>neighbor[k]<span style="color:#f92672">==</span>cell_tab[id_mouse_cell]){
+</span></span><span style="display:flex;"><span>                                    play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">=</span>k;
+</span></span><span style="display:flex;"><span>                                    k<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>                                }
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        printf(<span style="color:#e6db74">&#34;%d %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,nb_selected_cells, play<span style="color:#f92672">-&gt;</span>movement_direction, play<span style="color:#f92672">-&gt;</span>cell_direction);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(is_bot_turn) {
+</span></span><span style="display:flex;"><span>            play <span style="color:#f92672">=</span> choose_play(b, cell_tab, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            apply_play(b, play);
+</span></span><span style="display:flex;"><span>            is_bot_turn <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// render
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play<span style="color:#f92672">-&gt;</span>movement_direction);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(cell_tab[id_mouse_cell]-&gt;selection==MOUSE){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            cell_tab[id_mouse_cell]-&gt;selection=UNSELECT;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        SDL_Delay(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TEST FUNCTIONS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i=0;i&lt;61;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;%d : %d \n&#34;,i,table[i]-&gt;state);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; neighbor[0] -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t play;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[0] = b -&gt; cell;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[1] = b -&gt; cell -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[2] = b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[3] = b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[4] = NULL;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_direction = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.movement_direction = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab_length = 4;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    bool player = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    printf(&#34;Validity play result : %d\n&#34;, validity_play(b, &amp;play, player));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// algos.c tests
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(1000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t *p = malloc(sizeof(play_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    tree_t *t = malloc(sizeof(tree_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i = 0; i &lt; CELL_NUMBER; i++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        cell_tab[i]-&gt;id = i;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    t = gen_plays(b, 1, 1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    while(t-&gt;next_tree != NULL) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(validity_play(t-&gt;play, 1)) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            print_play(t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            apply_play(b, t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            SDL_Delay(500);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            undo_play(b, t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            SDL_Delay(500);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            // b = create_clean_board();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            for(int i = 0; i &lt; CELL_NUMBER; i++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cell_tab[i]-&gt;state = EMPTY;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            b = start_config(b);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(100);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        t = t-&gt;next_tree;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t *p = malloc(sizeof(play_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // cell_tab[4]-&gt;state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    cell_tab[30]-&gt;state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // cell_tab[30]-&gt;state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(1000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    p = choose_play(b, cell_tab, 0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    while(true) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;white : \n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        p = choose_play(b, cell_tab, 1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(50);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;black : \n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        p = choose_play(b, cell_tab, 0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(50);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(4000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_RenderClear(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    IMG_Quit();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    end_sdl(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;Normal ending&#34;</span>, g<span style="color:#f92672">-&gt;</span>window, g<span style="color:#f92672">-&gt;</span>renderer);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<p>Updated on 2024-06-15 at 00:12:33 +0200</p>
+<p>Updated on 2024-06-21 at 00:15:40 +0200</p>
 
 </article>
 </div>

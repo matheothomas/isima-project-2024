@@ -1,0 +1,517 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>include/init.h - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/init_8h/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="include/init.h">
+  <meta property="og:description" content="include/init.h Classes Name struct cell cell of the board struct board board containing the number of cells for each player, and a pointer to the middle cell Types Name enum state { EMPTY, WHITE, BLACK}state of a cell on the board enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell on the board typedef enum state state_e state of a cell on the board typedef enum selection selection_e state of selection of a cell on the board typedef struct cell cell_t cell of the board typedef struct board board_t board containing the number of cells for each player, and a pointer to the middle cell Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Defines Name CELL_NUMBER MAX_DEPTH Types Documentation enum state Enumerator Value Description EMPTY WHITE BLACK state of a cell on the board">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="include/init.h">
+  <meta name="twitter:description" content="include/init.h Classes Name struct cell cell of the board struct board board containing the number of cells for each player, and a pointer to the middle cell Types Name enum state { EMPTY, WHITE, BLACK}state of a cell on the board enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell on the board typedef enum state state_e state of a cell on the board typedef enum selection selection_e state of selection of a cell on the board typedef struct cell cell_t cell of the board typedef struct board board_t board containing the number of cells for each player, and a pointer to the middle cell Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Defines Name CELL_NUMBER MAX_DEPTH Types Documentation enum state Enumerator Value Description EMPTY WHITE BLACK state of a cell on the board">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc/">Documentation</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#types">Types</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#defines">Defines</a></li>
+    <li><a href="#types-documentation">Types Documentation</a>
+      <ul>
+        <li><a href="#enum-state">enum state</a></li>
+        <li><a href="#enum-selection">enum selection</a></li>
+        <li><a href="#typedef-state_e">typedef state_e</a></li>
+        <li><a href="#typedef-selection_e">typedef selection_e</a></li>
+        <li><a href="#typedef-cell_t">typedef cell_t</a></li>
+        <li><a href="#typedef-board_t">typedef board_t</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-create_cell">function create_cell</a></li>
+        <li><a href="#function-create_clean_board">function create_clean_board</a></li>
+        <li><a href="#function-start_config">function start_config</a></li>
+        <li><a href="#function-start_config_2">function start_config_2</a></li>
+        <li><a href="#function-create_table">function create_table</a></li>
+      </ul>
+    </li>
+    <li><a href="#macros-documentation">Macros Documentation</a>
+      <ul>
+        <li><a href="#define-cell_number">define CELL_NUMBER</a></li>
+        <li><a href="#define-max_depth">define MAX_DEPTH</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="includeinith">include/init.h</h1>
+<h2 id="classes">Classes</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structcell.md">cell</a></strong> <!-- raw HTML omitted -->cell of the board</td>
+</tr>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structboard.md">board</a></strong> <!-- raw HTML omitted -->board containing the number of cells for each player, and a pointer to the middle cell</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enum</td>
+<td><strong><a href="files/init_8h.md#enum-state">state</a></strong> { EMPTY, WHITE, BLACK}<!-- raw HTML omitted -->state of a cell on the board</td>
+</tr>
+<tr>
+<td>enum</td>
+<td><strong><a href="files/init_8h.md#enum-selection">selection</a></strong> { UNSELECT, SELECT, MOUSE}<!-- raw HTML omitted -->state of selection of a cell on the board</td>
+</tr>
+<tr>
+<td>typedef enum <a href="files/init_8h.md#enum-state">state</a></td>
+<td><strong><a href="files/init_8h.md#typedef-state-e">state_e</a></strong> <!-- raw HTML omitted -->state of a cell on the board</td>
+</tr>
+<tr>
+<td>typedef enum <a href="files/init_8h.md#enum-selection">selection</a></td>
+<td><strong><a href="files/init_8h.md#typedef-selection-e">selection_e</a></strong> <!-- raw HTML omitted -->state of selection of a cell on the board</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structcell.md">cell</a></td>
+<td><strong><a href="files/init_8h.md#typedef-cell-t">cell_t</a></strong> <!-- raw HTML omitted -->cell of the board</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structboard.md">board</a></td>
+<td><strong><a href="files/init_8h.md#typedef-board-t">board_t</a></strong> <!-- raw HTML omitted -->board containing the number of cells for each player, and a pointer to the middle cell</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/init_8h.md#typedef-cell-t">cell_t</a> *</td>
+<td><strong><a href="files/init_8h.md#function-create-cell">create_cell</a></strong>(int id)<!-- raw HTML omitted -->creates a cell of the board</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
+<td><strong><a href="files/init_8h.md#function-create-clean-board">create_clean_board</a></strong>()<!-- raw HTML omitted -->creates an empty board</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
+<td><strong><a href="files/init_8h.md#function-start-config">start_config</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * b)<!-- raw HTML omitted -->puts balls on the board into a start configuration</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
+<td><strong><a href="files/init_8h.md#function-start-config-2">start_config_2</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * b)<!-- raw HTML omitted -->puts balls on the board into another start configuration</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-cell-t">cell_t</a> **</td>
+<td><strong><a href="files/init_8h.md#function-create-table">create_table</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> b)<!-- raw HTML omitted -->creates an array with all the cells of the board</td>
+</tr>
+</tbody>
+</table>
+<h2 id="defines">Defines</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong><a href="files/init_8h.md#define-cell-number">CELL_NUMBER</a></strong></td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="files/init_8h.md#define-max-depth">MAX_DEPTH</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-documentation">Types Documentation</h2>
+<h3 id="enum-state">enum state</h3>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Enumerator</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EMPTY</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WHITE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BLACK</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>state of a cell on the board</p>
+<h3 id="enum-selection">enum selection</h3>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Enumerator</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNSELECT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MOUSE</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>state of selection of a cell on the board</p>
+<h3 id="typedef-state_e">typedef state_e</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">state</span> state_e;
+</span></span></code></pre></div><p>state of a cell on the board</p>
+<h3 id="typedef-selection_e">typedef selection_e</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">selection</span> selection_e;
+</span></span></code></pre></div><p>state of selection of a cell on the board</p>
+<h3 id="typedef-cell_t">typedef cell_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">cell</span> cell_t;
+</span></span></code></pre></div><p>cell of the board</p>
+<h3 id="typedef-board_t">typedef board_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">board</span> board_t;
+</span></span></code></pre></div><p>board containing the number of cells for each player, and a pointer to the middle cell</p>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-create_cell">function create_cell</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>cell_t <span style="color:#f92672">*</span> create_cell(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>creates a cell of the board</p>
+<h3 id="function-create_clean_board">function create_clean_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> create_clean_board()
+</span></span></code></pre></div><p>creates an empty board</p>
+<h3 id="function-start_config">function start_config</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> start_config(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> b
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>puts balls on the board into a start configuration</p>
+<h3 id="function-start_config_2">function start_config_2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> start_config_2(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> b
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>puts balls on the board into another start configuration</p>
+<h3 id="function-create_table">function create_table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>cell_t <span style="color:#f92672">**</span> create_table(
+</span></span><span style="display:flex;"><span>    board_t b
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>creates an array with all the cells of the board</p>
+<h2 id="macros-documentation">Macros Documentation</h2>
+<h3 id="define-cell_number">define CELL_NUMBER</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define CELL_NUMBER 61
+</span></span></span></code></pre></div><h3 id="define-max_depth">define MAX_DEPTH</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define MAX_DEPTH 2
+</span></span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : init.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef init_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define init_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define CELL_NUMBER 61
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_DEPTH 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Struct definitions */</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">state</span> {
+</span></span><span style="display:flex;"><span>    EMPTY,
+</span></span><span style="display:flex;"><span>    WHITE,
+</span></span><span style="display:flex;"><span>    BLACK,
+</span></span><span style="display:flex;"><span>} state_e;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">selection</span> {
+</span></span><span style="display:flex;"><span>    UNSELECT,
+</span></span><span style="display:flex;"><span>    SELECT,
+</span></span><span style="display:flex;"><span>    MOUSE,
+</span></span><span style="display:flex;"><span>} selection_e;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">cell</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id;
+</span></span><span style="display:flex;"><span>    state_e state;
+</span></span><span style="display:flex;"><span>    selection_e selection;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">cell</span> <span style="color:#f92672">*</span>neighbor[<span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>} cell_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">board</span> {
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span>cell;           <span style="color:#75715e">// pointer to the first cell of the board, the one in the middle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n_white;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n_black;
+</span></span><span style="display:flex;"><span>} board_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Functions definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cell_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_cell</span>(<span style="color:#66d9ef">int</span> id);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_clean_board</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span><span style="color:#a6e22e">start_config</span>(board_t<span style="color:#f92672">*</span> b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>board_t<span style="color:#f92672">*</span> <span style="color:#a6e22e">start_config_2</span>(board_t<span style="color:#f92672">*</span> b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cell_t <span style="color:#f92672">**</span> <span style="color:#a6e22e">create_table</span>(board_t b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><hr>
+<p>Updated on 2024-06-21 at 00:15:40 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>
