@@ -23,7 +23,6 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
-	b = start_config(b);
 	cell_t **cell_tab=create_table(*b);
 
 	/////////////////////////////
@@ -40,6 +39,7 @@ int main(void) {
 	int r2=0;
 	int r=0;
 	int mouse_state=0;
+	int mouse_state_prec=0;
 	SDL_GetWindowSize(g->window, &w, &h);
 
 	// Rect creation
@@ -58,25 +58,35 @@ int main(void) {
 
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
+
 	SDL_Event event;
 	while (program_on) {
 		// process event
 		mouse_state=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
+
 				case SDL_QUIT:
 				program_on = SDL_FALSE;
 				break;
+
+				case SDL_MOUSEMOTION:
+				x=event.button.x;
+				y=event.button.y;
+				break;
+
 				case SDL_MOUSEBUTTONDOWN:
 				x=event.button.x;
 				y=event.button.y;
 				mouse_state=1;
 				break;
+
 				case SDL_MOUSEBUTTONUP:
-				mouse_state=2;
 				x=event.button.x;
 				y=event.button.y;
+				mouse_state=2;
 				break;
+
 				default:
 				break;
 			}
@@ -92,14 +102,15 @@ int main(void) {
 				r1=0;
 				r2=255;
 			}
-		}
-			
-		if(mouse_state==2){
-			r1=0;
-			r2=0;
+			else{
+				r1=0;
+				r2=0;
+			}
 		}
 
 		if(mouse_state==2){
+			r1=0;
+			r2=0;
 			if(is_in(button_1, x, y)){
 				b=start_config(b);
 				program_on = SDL_FALSE;
@@ -111,64 +122,78 @@ int main(void) {
 				program_on_2 = SDL_TRUE;
 			}
 		}
-		
+
 		// render
 		home_menu(g, text_box, button_1, button_2, text, r1, r2);
 		SDL_Delay(1);
 	}
 	
-	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
-	SDL_RenderClear(g->renderer);
-			
-/*
+	//SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	//SDL_RenderClear(g->renderer);
+	//program_on_2 = SDL_TRUE;
+
 
 	// Second Event Loop
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
-		
-		if (SDL_PollEvent(&event)) {
+		// process event
+		mouse_state=0;
+		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
+
 				case SDL_QUIT:
 				program_on_2 = SDL_FALSE;
+				break;
+
+				case SDL_MOUSEMOTION:
+				x=event.button.x;
+				y=event.button.y;
 				break;
 
 				case SDL_MOUSEBUTTONDOWN:
 				x=event.button.x;
 				y=event.button.y;
-
-
-				if(x>7*w/9 && 7*w/9+w/9){
-					if(4*h/11 && 4*h/11+h/11){
-						r=255;
-					}
-				}
-				else{
-					r=0;
-				}
+				mouse_state=1;
 				break;
+
 				case SDL_MOUSEBUTTONUP:
 				x=event.button.x;
 				y=event.button.y;
+				mouse_state=2;
 				break;
 
 				default:
 				break;
 			}
-			if(x>7*w/9 && 7*w/9+w/9){
-				if(4*h/11 && 4*h/11+h/11){
-					program_on_2 = SDL_FALSE;
-					SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
-					SDL_RenderClear(g->renderer);
-				}
+		}
+
+		// update
+		if(mouse_state==0){
+		}
+
+		if(mouse_state==1){
+			if(is_in(confirm, x, y)){
+				r=255;
 			}
 			else{
-				display_game(g, text_box_2, confirm, button, text, r, cell_tab);
-				SDL_Delay(1);
+				r=0;
 			}
 		}
+
+		if(mouse_state==2){
+			r=0;
+			if(is_in(confirm, x, y)){
+				//valider
+				program_on_2 = SDL_FALSE;
+			}
+		}
+
+		// render
+		display_game(g, text_box_2, confirm, button, text, r, cell_tab);
+		SDL_Delay(1);
 	}
 	
-*/
+
 
 	// TEST FUNCTIONS
 

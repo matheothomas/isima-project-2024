@@ -49,7 +49,7 @@ graphics_t *init_sdl() {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, *white, *black, *config_1, *config_2;
+	SDL_Texture *board, *white, *black, *config_1, *config_2, *commands;
 	TTF_Font * font;
 
 	// SDL INITIALISATION
@@ -78,6 +78,7 @@ graphics_t *init_sdl() {
 	black = load_texture_from_image("res/black.png", window, renderer);
 	//config_1 = load_texture_from_image("res/config_1.png", window, renderer);
 	//config_2 = load_texture_from_image("res/config_2.png", window, renderer);
+	commands = load_texture_from_image("res/commands.png", window, renderer);
 
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
 	
@@ -89,6 +90,7 @@ graphics_t *init_sdl() {
 	graphics->black = black;
 	graphics->config_1 = board;
 	graphics->config_2 = board;
+	graphics->commands = commands;
 	graphics->font = font;
 
 	return graphics;
@@ -189,7 +191,7 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	destination.x = destination.w * (j+k+1.3);
 	destination.y = destination.h * (i+1.2);
 
-	//SDL_RenderCopy(renderer, texture, &source, &destination);
+	SDL_RenderCopy(renderer, texture, &source, &destination);
 	
 }
 
@@ -213,7 +215,7 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 		}
 	}
 
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 SDL_Rect* crea_rect(int x, int y, int width, int height){
@@ -270,9 +272,11 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* b
 	display_board(g->board, g->white,g->black,g->window, g->renderer, cell_tab);
 	
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	 SDL_RenderFillRect(g->renderer, text_box);
+	SDL_RenderFillRect(g->renderer, text_box);
+
 	SDL_SetRenderDrawColor(g->renderer, r, 200, 200, 255);
 	SDL_RenderFillRect(g->renderer, confirm);
+
 	SDL_RenderDrawRect(g->renderer, button);
 
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);

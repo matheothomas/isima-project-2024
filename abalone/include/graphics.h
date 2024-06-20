@@ -22,6 +22,7 @@ typedef struct graphics {
 	SDL_Texture *black;
 	SDL_Texture *config_1;
 	SDL_Texture *config_2;
+	SDL_Texture *commands;
 	TTF_Font * font;
 } graphics_t;
 
