@@ -31,6 +31,12 @@ typedef struct tree {
 
 /* Functions definitions */
 
+/// return the max value of a and b
+int max_value(int a, int b);
+
+/// return the min value of a and b
+int min_value(int a, int b);
+
 /// returns the max/min value of a tree node, depending on the player turn
 int max(tree_t *tree, bool player);
 
@@ -51,7 +57,7 @@ board_t *apply_play(board_t *board, play_t *play);
 board_t *undo_play(board_t *board, play_t *play);
 
 /// applies the min-max algorithm 
-int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player);
+int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta);
 
 
 #endif
