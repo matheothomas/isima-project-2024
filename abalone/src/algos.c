@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <limits.h>
 #include <time.h>
 
 #include "algos.h"
@@ -16,6 +17,14 @@
 
 int play_count = 0;
 int undo_count = 0;
+
+int max_value(int a, int b) {
+	return a < b ? b : a;
+}
+
+int min_value(int a, int b) {
+	return a < b ? a : b;
+}
 
 int max(tree_t *tree, bool player) {
 	int is_max = player ? 1 : -1;
@@ -73,16 +82,19 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
+	if(tree == NULL) {
+		printf("something is null\n");
+		return NULL;
+	}
 	while (temp->next_tree != NULL) {
 		// display_board(g->board, g->white, g->white, g->window, g->renderer, cell_tab);
 		// SDL_Delay(1000);
 		// printf("play : %d\n", temp->play->cell_tab_length);
 		if(validity_play(temp->play, player)) {
-			temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player);
+			temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
 			// printf("temp->value : %d\n", temp->value);
 			undo_play(board, temp->play);
 		}
-
 
 		temp = temp->next_tree;
 	}
@@ -153,9 +165,8 @@ board_t *undo_play(board_t *board, play_t *play) {
 	return board;
 }
 
-int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player) {
+int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {
 
-	// int score = board->n_white - board->n_black;
 	int score = basic_heuristic(cell_tab);
 	
 	if (max_depth == depth || score == 28 || score == -28) {
@@ -171,9 +182,20 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 
 		while(temp->next_tree != NULL) {
 			if(validity_play(temp->play, player)) {
-				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player);
+				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
 
 				undo_play(board, temp->play);
+				if(player) {
+					alpha = max_value(alpha, temp->value);
+					if(beta <= alpha) {
+						break;
+					}
+				} else {
+					beta = min_value(beta, temp->value);
+					if(beta <= alpha) {
+						break;
+					}
+				}
 
 			}
 			temp = temp->next_tree;
