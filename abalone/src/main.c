@@ -185,7 +185,7 @@ int main(void) {
 		}
 
 		// render
-		display_game(g, text_box_2, confirm, g->commands_panel->button, text_home_menu, r, cell_tab);
+		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab);
 		SDL_Delay(1);
 	}
 	

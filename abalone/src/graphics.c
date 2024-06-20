@@ -9,6 +9,7 @@
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_video.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -81,27 +82,11 @@ graphics_t *init_sdl() {
 	//config_2 = load_texture_from_image("res/config_2.png", window, renderer);
 	commands = load_texture_from_image("res/commands.png", window, renderer);
 
+	// Font opening
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
 
-	commands_panel_t* c=malloc(sizeof(commands_panel_t));
-	int h;
-	int w;
-	SDL_GetWindowSize(window, &w, &h);
-	SDL_Rect* button = crea_rect(13*w/18, 6*h/11, 2*w/9, 2*w/9);
-	SDL_Rect* dir_0 = crea_rect_in_rect(button, 1/3, 2/9);
-	SDL_Rect* dir_1 = crea_rect_in_rect(button, 2/3, 2/9);
-	SDL_Rect* dir_2 = crea_rect_in_rect(button, 5/6, 1/2);
-	SDL_Rect* dir_3 = crea_rect_in_rect(button, 2/3, 7/9);
-	SDL_Rect* dir_4 = crea_rect_in_rect(button, 1/3, 7/9);
-	SDL_Rect* dir_5 = crea_rect_in_rect(button, 1/6, 1/2);
-
-	c->button=button;
-	c->dir_0=dir_0;
-	c->dir_1=dir_1;
-	c->dir_2=dir_2;
-	c->dir_3=dir_3;
-	c->dir_4=dir_4;
-	c->dir_5=dir_5;
+	// Commands_panel creation
+	commands_panel_t *c= init_commands_panel(window);
 	
 	graphics_t *graphics = malloc(sizeof(graphics_t));
 	graphics->window = window;
@@ -116,6 +101,30 @@ graphics_t *init_sdl() {
 	graphics->commands_panel=c;
 
 	return graphics;
+}
+
+commands_panel_t *init_commands_panel(SDL_Window *window){
+	commands_panel_t* commands_panel=malloc(sizeof(commands_panel_t));
+	int *h=malloc(sizeof(int));
+	int *w=malloc(sizeof(int));
+	SDL_GetWindowSize(window, w, h);
+	SDL_Rect* button = crea_rect(13*(*w)/18, 6*(*h)/11, 2*(*w)/9, 2*(*w)/9);
+	SDL_Rect* dir_0 = crea_rect_in_rect(button, 1/3, 2/9);
+	SDL_Rect* dir_1 = crea_rect_in_rect(button, 2/3, 2/9);
+	SDL_Rect* dir_2 = crea_rect_in_rect(button, 5/6, 1/2);
+	SDL_Rect* dir_3 = crea_rect_in_rect(button, 2/3, 7/9);
+	SDL_Rect* dir_4 = crea_rect_in_rect(button, 1/3, 7/9);
+	SDL_Rect* dir_5 = crea_rect_in_rect(button, 1/6, 1/2);
+
+	commands_panel->button=button;
+	commands_panel->dir_0=dir_0;
+	commands_panel->dir_1=dir_1;
+	commands_panel->dir_2=dir_2;
+	commands_panel->dir_3=dir_3;
+	commands_panel->dir_4=dir_4;
+	commands_panel->dir_5=dir_5;
+
+	return commands_panel;
 }
 
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer ){
@@ -138,6 +147,20 @@ SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window 
 	SDL_Texture * my_texture = SDL_CreateTextureFromSurface(renderer, my_text);
 	SDL_FreeSurface(my_text);
 	return my_texture;
+}
+
+SDL_Rect* crea_rect(int x, int y, int width, int height){
+	SDL_Rect* rect=(SDL_Rect*)malloc(sizeof(SDL_Rect));
+	rect->x = x;
+	rect->y = y;
+	rect->w = width;
+	rect->h = height;
+	return rect;
+}
+
+SDL_Rect* crea_rect_in_rect(SDL_Rect *button, int i, int j){
+	SDL_Rect* dir=crea_rect(button->x+(i)*(button->w), button->y+(j)*(button->h), 2*(button->w)/9, 2*(button->h)/9);
+	return dir;
 }
 
 void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
@@ -217,14 +240,6 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	
 }
 
-int get_cell_position(int x, int y){
-	int id;
-	int i, j;
-	i=y-1.2;
-	j=x-1.3;
-	return id;
-}
-
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
 	SDL_RenderClear(renderer);
 	texturing(board, window, renderer);
@@ -238,15 +253,6 @@ void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, S
 	}
 
 	//SDL_RenderPresent(renderer);
-}
-
-SDL_Rect* crea_rect(int x, int y, int width, int height){
-	SDL_Rect* rect=(SDL_Rect*)malloc(sizeof(SDL_Rect));
-	rect->x = x;
-	rect->y = y;
-	rect->w = width;
-	rect->h = height;
-	return rect;
 }
 
 int is_in (SDL_Rect* button,int x,int y){
@@ -287,7 +293,7 @@ void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* but
 	SDL_RenderPresent(g->renderer);
 }
 
-void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* button,SDL_Texture * text, int r, cell_t **cell_tab){
+void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab){
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 	
@@ -299,18 +305,20 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Rect* b
 	SDL_SetRenderDrawColor(g->renderer, r, 200, 200, 255);
 	SDL_RenderFillRect(g->renderer, confirm);
 
-	SDL_RenderDrawRect(g->renderer, button);
+	SDL_RenderDrawRect(g->renderer, g->commands_panel->button);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_0);
+	SDL_SetRenderDrawColor(g->renderer, 50, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_1);
+	SDL_SetRenderDrawColor(g->renderer, 100, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_2);
+	SDL_SetRenderDrawColor(g->renderer, 150, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_3);
+	SDL_SetRenderDrawColor(g->renderer, 200, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_4);
+	SDL_SetRenderDrawColor(g->renderer, 250, 0, 0, 255);
+	SDL_RenderFillRect(g->renderer, g->commands_panel->dir_5);
 
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
 	SDL_RenderPresent(g->renderer);
-}
-
-SDL_Rect* crea_rect_in_rect(SDL_Rect *button, int i, int j){
-	SDL_Rect* dir=(SDL_Rect*)malloc(sizeof(SDL_Rect));
-	dir->x = button->x+i*(button->x+button->w);;
-	dir->y = button->y+i*(button->y+button->h);;
-	dir->w = button->w/9;
-	dir->h = button->h/9;
-	return dir;
 }
