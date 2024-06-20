@@ -13,7 +13,7 @@
 
 
 void print_play(board_t *b, play_t *play) {
-	if(validity_play(b, play, 1)) {
+	if(validity_play(play, 1)) {
 		printf("ids: ");
 		for(int i = 0; i < play->cell_tab_length; i++) {
 			printf("%d ", play->cell_tab[i]->id);
@@ -23,7 +23,7 @@ void print_play(board_t *b, play_t *play) {
 			printf("%d ", play->buffer[i]);
 		}
 		printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", play->cell_tab_length, play->movement_direction, play->cell_direction);
-		printf("validity : %d\n", validity_play(b, play, 1));
+		printf("validity : %d\n", validity_play(play, 1));
 
 	}
 }
@@ -154,7 +154,7 @@ tree_t * create_tree(play_t * play, int value, int depth) {
 }
 
 void append_tree(tree_t * tree, play_t * play, int value, int depth) {
-	if(validity_play(NULL, play, 1)) {
+	if(validity_play(play, 1)) {
 		tree_t *new_tree = create_tree(play, value, depth);
 		tree_t * cours = tree;
 
@@ -210,7 +210,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 		play -> cell_tab[play -> cell_tab_length] = cell;
 		play -> cell_tab_length ++;
 
-		if (validity_play(board, play, player)) {
+		if (validity_play(play, player)) {
 			fill_play_buffer(play);
 			if(play->cell_tab[0]->id == 5) {
 				// printf("oulala %d\n", play->cell_tab_length);
@@ -229,7 +229,7 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 			play -> cell_tab[play -> cell_tab_length] = cell;
 			play -> cell_tab_length ++;
 
-			if (validity_play(board, play, player)) {
+			if (validity_play(play, player)) {
 				fill_play_buffer(play);
 				if(play->cell_tab[0]->id == 5) {
 					// printf("putput\n");
@@ -255,7 +255,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 					}
 				}
 				else {
-					if (validity_play(board, play, player)) {
+					if (validity_play(play, player)) {
 						fill_play_buffer(play);
 						if(play->cell_tab[0]->id == 5) {
 							// printf("putputput\n");
@@ -268,7 +268,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 				}
 			}
 			else {
-				if (validity_play(board, play, player)) {
+				if (validity_play(play, player)) {
 					fill_play_buffer(play);
 					if(play->cell_tab[0]->id == 5) {
 						// printf("putputput\n");
