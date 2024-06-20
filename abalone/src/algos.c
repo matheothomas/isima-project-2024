@@ -117,8 +117,8 @@ board_t *apply_play(board_t *board, play_t *play) {
 
 	// duplicates the balls
 	for(int i = play->cell_tab_length - 1; i >= 0; i--) {
-		if(play->cell_tab[i]->neighbourg[play->movement_direction] != NULL) {
-			play->cell_tab[i]->neighbourg[play->movement_direction]->state = play->cell_tab[i]->state;
+		if(play->cell_tab[i]->neighbor[play->movement_direction] != NULL) {
+			play->cell_tab[i]->neighbor[play->movement_direction]->state = play->cell_tab[i]->state;
 		} else {
 			if (play->cell_tab[i]->state == WHITE) {
 				board->n_white -= 1;
@@ -145,7 +145,7 @@ board_t *undo_play(board_t *board, play_t *play) {
 	undo_count++;
 
 	// duplicates the balls
-	if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->cell_direction] == NULL) {
+	if(play->cell_tab[play->cell_tab_length - 1]->neighbor[play->cell_direction] == NULL) {
 		if (play->buffer[play->cell_tab_length - 1] == WHITE) {
 			board->n_white += 1;
 		} else if (play->buffer[play->cell_tab_length - 1] == BLACK) {
@@ -159,13 +159,13 @@ board_t *undo_play(board_t *board, play_t *play) {
 
 	// removes the old balls that have been duplicated
 	if(play->cell_direction == play->movement_direction) {
-		if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->cell_direction] != NULL) {
-			play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->cell_direction]->state = EMPTY;
+		if(play->cell_tab[play->cell_tab_length - 1]->neighbor[play->cell_direction] != NULL) {
+			play->cell_tab[play->cell_tab_length - 1]->neighbor[play->cell_direction]->state = EMPTY;
 		}
 	} else {
 		for(int i = 0; i < play->cell_tab_length; i++) {
-			if(play->cell_tab[i]->neighbourg[play->movement_direction] != NULL) {
-				play->cell_tab[i]->neighbourg[play->movement_direction]->state = EMPTY;
+			if(play->cell_tab[i]->neighbor[play->movement_direction] != NULL) {
+				play->cell_tab[i]->neighbor[play->movement_direction]->state = EMPTY;
 			}
 		}
 	}
