@@ -238,36 +238,54 @@ int main(void) {
 
 		if(mouse_state==2){
 			r=0;
-			if(1){ // TO DO check if mouse position on the board
-				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-				if(is_in(confirm, x, y)){
-					cur_cell= play->cell_tab[play->cell_tab_length-1];
-					if(play->cell_direction==play->movement_direction){
-						while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-							cur_cell=cur_cell->neighbourg[play->cell_direction];
-							if(cur_cell || cur_cell->state || play->cell_tab_length<6){
-								nb_selected_cells++;
-								play->cell_tab[nb_selected_cells-1] = cur_cell;
-								play->cell_tab_length++;
-								play->buffer[nb_selected_cells-1] = cur_cell->state;
-							}
+			if(is_in(confirm, x, y)){
+				cur_cell= play->cell_tab[play->cell_tab_length-1];
+				if(play->cell_direction==play->movement_direction){
+					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
+						cur_cell=cur_cell->neighbourg[play->cell_direction];
+						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
+							nb_selected_cells++;
+							play->cell_tab[nb_selected_cells-1] = cur_cell;
+							play->cell_tab_length++;
+							play->buffer[nb_selected_cells-1] = cur_cell->state;
 						}
 					}
-					//fill_play_buffer(play);
-					//print_play(b, play);
-					if (validity_play(b, play, 0)){
-						b=apply_play(b, play);
-					}
-					else{
-						printf("coup non valide, réinitialitation du coup\n");
-					}
-					for(int k=0;k<play->cell_tab_length;k++){
-						play->cell_tab[k]->selection=UNSELECT;
-					}
-					nb_selected_cells=0;
-					play->cell_tab_length=0;
 				}
-				else if(cell_tab[id_mouse_cell]->state==BLACK){
+				//fill_play_buffer(play);
+				//print_play(b, play);
+				if (validity_play(b, play, 0)){
+					b=apply_play(b, play);
+				}
+				else{
+					printf("coup non valide, réinitialitation du coup\n");
+				}
+				for(int k=0;k<play->cell_tab_length;k++){
+					play->cell_tab[k]->selection=UNSELECT;
+				}
+				nb_selected_cells=0;
+				play->cell_tab_length=0;
+			}
+			else if (is_in(g->commands_panel->dir_0, x, y)) {
+				play->movement_direction=0;
+			}
+			else if (is_in(g->commands_panel->dir_1, x, y)) {
+				play->movement_direction=1;
+			}
+			else if (is_in(g->commands_panel->dir_2, x, y)) {
+				play->movement_direction=2;
+			}
+			else if (is_in(g->commands_panel->dir_3, x, y)) {
+				play->movement_direction=3;
+			}
+			else if (is_in(g->commands_panel->dir_4, x, y)) {
+				play->movement_direction=4;
+			}
+			else if (is_in(g->commands_panel->dir_5, x, y)) {
+				play->movement_direction=5;
+			}
+			else if(1){ // TO DO check if mouse position on the board
+				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+				if(cell_tab[id_mouse_cell]->state==BLACK){
 					if(cell_tab[id_mouse_cell]->selection==SELECT){ // TO DO add the possibility to unselect a ball
 						//cell_tab[id_mouse_cell]->selection=UNSELECT;
 						//nb_selected_cells-=1;
