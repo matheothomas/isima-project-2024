@@ -137,7 +137,7 @@ SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *windo
 	return my_texture;
 }
 
-SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window *window, SDL_Renderer *renderer ){
+SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Renderer *renderer ){
 	SDL_Color yellow = {255,250,0,0};        
 	SDL_Surface * my_text = TTF_RenderText_Blended(font, text, yellow);
 	SDL_Texture * my_texture = SDL_CreateTextureFromSurface(renderer, my_text);
