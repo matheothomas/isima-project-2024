@@ -23,13 +23,15 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
+	// b = start_config(b);
+	// b = start_config_2(b);
 	cell_t **cell_tab=create_table(*b);
 
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
 
-	
+	/*
 	// First Event Loop
 	int h;
 	int w;
@@ -189,104 +191,73 @@ int main(void) {
 		SDL_Delay(1);
 	}
 	
+	*/
 
 
 	// TEST FUNCTIONS
 
-	/*
-	for(int i=0;i<61;i++){
-		printf("%d : %d \n",i,table[i]->state);
-	}
-
-	b -> cell -> state = BLACK;
-	b -> cell -> neighbourg[0] -> state = BLACK;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
-
-	play_t play;
-	play.cell_tab[0] = b -> cell;
-	play.cell_tab[1] = b -> cell -> neighbourg[0];
-	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[4] = NULL;
-	play.cell_direction = 0;
-	play.movement_direction = 0;
-	play.cell_tab_length = 4;
-	bool player = 0;
-
-	printf("Validity play result : %d\n", validity_play(b, &play, player));
-	*/ 
-
 	// algos.c tests
-	/*
+	// /*
 	
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
 
 	play_t *p = malloc(sizeof(play_t));
 
-	tree_t *t = malloc(sizeof(tree_t));
 
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		cell_tab[i]->id = i;
 	}
-	*/
+	// */
 
 	/*
+	tree_t *t = malloc(sizeof(tree_t));
 	t = gen_plays(b, 1, 1);
 	while(t->next_tree != NULL) {
 		if(validity_play(b, t->play, 1)) {
-
-			printf("ids : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->cell_tab[i]->id);
-			}
-			printf("\n buffer : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->buffer[i]);
-			}
-			printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", t->play->cell_tab_length, t->play->movement_direction, t->play->cell_direction);
-			printf("validity : %d\n", validity_play(b, t->play, 1));
+			print_play(b, t->play);
 
 			apply_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
 			undo_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
-			// b = create_clean_board();
+			b = create_clean_board();
 			for(int i = 0; i < CELL_NUMBER; i++) {
 				cell_tab[i]->state = EMPTY;
 			}
-			b = start_config(b);
+			// b = start_config(b);
+			b = start_config_2(b);
 		}
-		display_board(board, white, black, window, renderer, cell_tab);
-		SDL_Delay(500);
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+		SDL_Delay(100);
 		t = t->next_tree;
 	}
 	*/
 
-	// cell_tab[16]->state = BLACK;
-	// display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	// SDL_Delay(2000);
+	int black_ids[9] = {0, 1, 3, 5, 6, 7, 12, 19, 28};
+	int white_ids[14] = {9, 10, 13, 14, 16, 20, 21, 22, 23, 29, 30, 31, 37, 38};
+	for (int k = 0; k < 9; k++) {
+		cell_tab[black_ids[k]] -> state = BLACK;
+	}
+	for (int k = 0; k < 14; k++) {
+		cell_tab[white_ids[k]] -> state = WHITE;
+	}
 
-	/*
-
+	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	SDL_Delay(1000);
 	p = choose_play(b);
 
 	b = apply_play(b, p);
+	print_play(b, p);
 
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	SDL_Delay(4000);
-
-*/
-
+	SDL_Delay(2000);
 
 
 	SDL_RenderClear(g->renderer);
-
 	IMG_Quit();
-
 	end_sdl(1, "Normal ending", g->window, g->renderer);
 
 	return 0;

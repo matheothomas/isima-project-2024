@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "SDL2/SDL_video.h"
 #include "algos.h"
 #include "graphics.h"
 
@@ -240,6 +241,93 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	
 }
 
+int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
+	SDL_Rect window_dimensions;
+
+	int i, j, w, h, x2, y2;
+	float k;
+	int id; // TO BE CHANGED
+
+	SDL_GetWindowSize(g->window, &window_dimensions.w, &window_dimensions.h);
+	
+	float zoom = 10;
+	w = window_dimensions.h / (zoom + 1.6);
+	h = window_dimensions.h / (zoom + 3.2);
+
+	i = 1;
+	k = 2;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 0 - k - 1.3;
+	}
+
+	i = 2;
+	k = 1.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 5 - k - 1.3;
+	}
+
+	i = 3;
+	k = 1;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 11 - k - 1.3;
+	}
+
+	i = 4;
+	k = 0.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 18 - k - 1.3;
+	}
+
+	i = 5;
+	k = 0;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 26 - k - 1.3;
+	}
+
+	i = 6;
+	k = 0.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 35 - k - 1.3;
+	}
+
+	i = 7;
+	k = 1;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 43 - k - 1.3;
+	}
+	
+	i = 8;
+	k = 1.5;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 50 - k - 1.3;
+	}
+	
+	i = 9;
+	k = 2;
+	y2 = h * (i+1.2);
+	if(y > y2 && y < y2 + h) {
+		id = (float)x / w + 56 - k - 1.3;
+	}
+
+	return id;
+}
+
+int get_cell_position(int x, int y){
+	int id;
+	int i, j;
+	i=y-1.2;
+	j=x-1.3;
+	return id;
+}
+
 void display_board(SDL_Texture *board, SDL_Texture *white, SDL_Texture *black, SDL_Window *window, SDL_Renderer *renderer, cell_t **cell_tab) {
 	SDL_RenderClear(renderer);
 	texturing(board, window, renderer);
@@ -296,9 +384,9 @@ void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* but
 void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab){
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
-	
+
 	display_board(g->board, g->white,g->black,g->window, g->renderer, cell_tab);
-	
+
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
 	SDL_RenderFillRect(g->renderer, text_box);
 

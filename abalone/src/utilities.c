@@ -12,6 +12,20 @@
 #include "utilities.h"
 
 
+void print_play(board_t *b, play_t *play) {
+	printf("ids : ");
+	for(int i = 0; i < play->cell_tab_length; i++) {
+		printf("%d ", play->cell_tab[i]->id);
+	}
+	printf("\n buffer : ");
+	for(int i = 0; i < play->cell_tab_length; i++) {
+		printf("%d ", play->buffer[i]);
+	}
+	printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", play->cell_tab_length, play->movement_direction, play->cell_direction);
+	printf("validity : %d\n", validity_play(b, play, 1));
+}
+
+
 bool validity_play(board_t * board, play_t * play, bool player) {
 
 	state_e switch_player_color[2] = {BLACK, WHITE};
@@ -34,7 +48,7 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 	}
 
 	// Check if movemement is valid when movement_direction and cell_direction are colinear
-	if (play -> cell_direction == play -> movement_direction || (play -> cell_direction + 3) % 6 == play -> movement_direction) {
+	if (play -> cell_direction == play -> movement_direction) {
 		// We go further than the play length because of case 3 player cells then 3 non player cells -> last non player cell not accounted for in play structure
 		cell_t * cours = play -> cell_tab[0];
 		int player_cells = 0;
@@ -62,10 +76,12 @@ bool validity_play(board_t * board, play_t * play, bool player) {
 				}
 			}
 		}
-		if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->movement_direction]->state == switch_player_color[player]) {
-			// TODO YA UNE SEGFAULT QUAND ON ACCEDE AU VOISIN
-			// puts("la mort");
-			return false;
+		if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->movement_direction] != NULL) {
+			if(play->cell_tab[play->cell_tab_length - 1]->neighbourg[play->movement_direction]->state == switch_player_color[player]) {
+				// TODO YA UNE SEGFAULT QUAND ON ACCEDE AU VOISIN
+				// puts("la mort");
+				return false;
+			}
 		}
 	}
 	// Check if movement is valid otherwise
