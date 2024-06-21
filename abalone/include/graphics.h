@@ -5,8 +5,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
-#include <SDL2/SDL_video.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_video.h>
 
 #include "init.h"
 
@@ -14,6 +14,8 @@
 #define graphics_h
 
 /* Struct definitions */
+
+/// contains all the graphics elements
 typedef struct graphics {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
@@ -28,11 +30,13 @@ typedef struct graphics {
 	struct commands_panel* commands_panel;
 } graphics_t;
 
+/// coordinates of a point in space
 typedef struct coordinates {
 	int x;
 	int y;
 } coordinates_t;
 
+/// contains an SDL button a an array of SDL rectangles to handle the command panel
 typedef struct commands_panel {
 	SDL_Rect *button;
 	SDL_Rect *tab_dir[6];
@@ -54,12 +58,12 @@ commands_panel_t *init_commands_panel(int w, int h);
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer );
 
 /// creates a texture for a text
-SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Window *window, SDL_Renderer *renderer );
+SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Renderer *renderer );
 
-/// create a pointer to a rect
+/// create a pointer to a rectangle
 SDL_Rect* crea_rect(int x, int y, int width, int height);
 
-/// create a pointer to a rect inside another rect
+/// create a pointer to a rectangle inside another rectangle
 SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j);
 
 /// displays the textures on the renderer
@@ -68,19 +72,19 @@ void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* render
 /// displays a cell on the board given an id
 void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *renderer, int id);
 
-///
+/// returns the id of the cell clicked on with the mouse
 int get_cell_id_from_mouse_position(graphics_t *g, int x, int y);
 
 /// displays current state of the board
 void display_board(graphics_t *g, cell_t **cell_tab);
 
-/// check if a position (x,y) is in a rect button
+/// checks if a position (x, y) is in a rectangle button
 int is_in (SDL_Rect* button,int x,int y);
 
 /// shows the home menu
 void home_menu(graphics_t *g, SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,SDL_Texture * text,int r1,int r2);
 
-/// display user interface during the game
+/// displays the user interface during the game
 void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab, int direction_state);
 
 #endif

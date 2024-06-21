@@ -3,22 +3,21 @@
  * date : 18-06-24
  */
 
-#include <SDL2/SDL_keycode.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
-#include<SDL2/SDL_ttf.h>
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_video.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "SDL2/SDL_video.h"
 #include "algos.h"
-#include "init.h"
 #include "graphics.h"
+#include "init.h"
 #include "utilities.h"
 
 int main(void) {
@@ -32,24 +31,25 @@ int main(void) {
 	play->cell_tab_length=0;
 	play->movement_direction=0;
 
+
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
 
-	
+
 	// First Event Loop
 	int h;
 	int w;
-	int x=0;
-	int y=0;
-	int r1=0;
-	int r2=0;
-	int r=0;
-	int mouse_state=0;
+	int x = 0;
+	int y = 0;
+	int r1 = 0;
+	int r2 = 0;
+	int r = 0;
+	int mouse_state = 0;
 	int id_mouse_cell;
-	int nb_selected_cells=0;
+	int nb_selected_cells = 0;
 	cell_t *cur_cell;
-	
+
 	SDL_GetWindowSize(g->window, &w, &h);
 
 	// Rect creation
@@ -59,43 +59,44 @@ int main(void) {
 
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
-	
-	
-	SDL_Texture *text_home_menu = create_texture_for_text("choose your\nstarting line !", g->font, g->window, g->renderer);
+
+
+	SDL_Texture *text_home_menu = create_texture_for_text("choose your\nstarting line !", g->font, g->renderer);
 	texturing(text_home_menu,g->window, g->renderer);
 	SDL_RenderPresent(g->renderer);
 	SDL_Delay(200);
-	
+
 
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
 
 	SDL_Event event;
 	while (program_on) {
+
 		// process event
 		mouse_state=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 
 				case SDL_QUIT:
-				program_on = SDL_FALSE;
+					program_on = SDL_FALSE;
 				break;
 
 				case SDL_MOUSEMOTION:
-				x=event.button.x;
-				y=event.button.y;
+					x=event.button.x;
+					y=event.button.y;
 				break;
 
 				case SDL_MOUSEBUTTONDOWN:
-				x=event.button.x;
-				y=event.button.y;
-				mouse_state=1;
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=1;
 				break;
 
 				case SDL_MOUSEBUTTONUP:
-				x=event.button.x;
-				y=event.button.y;
-				mouse_state=2;
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=2;
 				break;
 
 				default:
@@ -142,13 +143,15 @@ int main(void) {
 
 	// Second Event Loop
 
-// TO DO
-// let the bot play
-// add the possibility to unselect a ball
-// check if mouse position on the board
-// make the selection prettier
+	// TO DO
+	// let the bot play
+	// add the possibility to unselect a ball
+	// check if mouse position on the board
+	// make the selection prettier
 
-// Les textes
+	// Texts
+	
+	bool is_bot_turn = false;
 
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
@@ -158,61 +161,61 @@ int main(void) {
 			switch (event.type) {
 
 				case SDL_QUIT:
-				program_on_2 = SDL_FALSE;
+					program_on_2 = SDL_FALSE;
 				break;
 
 				case SDL_MOUSEMOTION:
-				x=event.button.x;
-				y=event.button.y;
+					x=event.button.x;
+					y=event.button.y;
 				break;
 
 				case SDL_MOUSEBUTTONDOWN:
-				x=event.button.x;
-				y=event.button.y;
-				mouse_state=1;
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=1;
 				break;
 
 				case SDL_MOUSEBUTTONUP:
-				x=event.button.x;
-				y=event.button.y;
-				mouse_state=2;
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=2;
 				break;
 
 				case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
+					switch (event.key.keysym.sym) {
 
-					case SDLK_0:
-					case SDLK_KP_0:
-					play->movement_direction=0;
-					break;
+						case SDLK_0:
+						case SDLK_KP_0:
+							play->movement_direction=0;
+						break;
 
-					case SDLK_1:
-					case SDLK_KP_1:
-					play->movement_direction=1;
-					break;
+						case SDLK_1:
+						case SDLK_KP_1:
+							play->movement_direction=1;
+						break;
 
-					case SDLK_2:
-					case SDLK_KP_2:
-					play->movement_direction=2;
-					break;
+						case SDLK_2:
+						case SDLK_KP_2:
+							play->movement_direction=2;
+						break;
 
-					case SDLK_3:
-					case SDLK_KP_3:
-					play->movement_direction=3;
-					break;
+						case SDLK_3:
+						case SDLK_KP_3:
+							play->movement_direction=3;
+						break;
 
-					case SDLK_4:
-					case SDLK_KP_4:
-					play->movement_direction=4;
-					break;
+						case SDLK_4:
+						case SDLK_KP_4:
+							play->movement_direction=4;
+						break;
 
-					case SDLK_5:
-					case SDLK_KP_5:
-					play->movement_direction=5;
-					break;
+						case SDLK_5:
+						case SDLK_KP_5:
+							play->movement_direction=5;
+						break;
 
-					default:
-					break;
+						default:
+						break;
 				}
 
 				default:
@@ -243,7 +246,7 @@ int main(void) {
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
 					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-						cur_cell=cur_cell->neighbourg[play->cell_direction];
+						cur_cell=cur_cell->neighbor[play->cell_direction];
 						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
@@ -256,6 +259,7 @@ int main(void) {
 				//print_play(b, play);
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
+					is_bot_turn = true;
 				}
 				else{
 					printf("coup non valide, réinitialitation du coup\n");
@@ -294,7 +298,7 @@ int main(void) {
 						nb_selected_cells++;
 						if (nb_selected_cells==2){
 							for(int k=0;k<6;k++){
-								if(play->cell_tab[nb_selected_cells-2]->neighbourg[k]==cell_tab[id_mouse_cell]){
+								if(play->cell_tab[nb_selected_cells-2]->neighbor[k]==cell_tab[id_mouse_cell]){
 									play->cell_direction=k;
 									k=6;
 								}
@@ -306,6 +310,11 @@ int main(void) {
 			}
 		}
 
+		if(is_bot_turn) {
+			play = choose_play(b, cell_tab, 1);
+			apply_play(b, play);
+			is_bot_turn = false;
+		}
 		// render
 		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play->movement_direction);
 		/*
@@ -315,7 +324,7 @@ int main(void) {
 		*/
 		SDL_Delay(1);
 	}
-	
+
 
 
 	// TEST FUNCTIONS
@@ -326,15 +335,15 @@ int main(void) {
 	}
 
 	b -> cell -> state = BLACK;
-	b -> cell -> neighbourg[0] -> state = BLACK;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> state = WHITE;
-	b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0] -> state = BLACK;
+	b -> cell -> neighbor[0] -> state = BLACK;
+	b -> cell -> neighbor[0] -> neighbor[0] -> state = WHITE;
+	b -> cell -> neighbor[0] -> neighbor[0] -> neighbor[0] -> state = BLACK;
 
 	play_t play;
 	play.cell_tab[0] = b -> cell;
-	play.cell_tab[1] = b -> cell -> neighbourg[0];
-	play.cell_tab[2] = b -> cell -> neighbourg[0] -> neighbourg[0];
-	play.cell_tab[3] = b -> cell -> neighbourg[0] -> neighbourg[0] -> neighbourg[0];
+	play.cell_tab[1] = b -> cell -> neighbor[0];
+	play.cell_tab[2] = b -> cell -> neighbor[0] -> neighbor[0];
+	play.cell_tab[3] = b -> cell -> neighbor[0] -> neighbor[0] -> neighbor[0];
 	play.cell_tab[4] = NULL;
 	play.cell_direction = 0;
 	play.movement_direction = 0;
@@ -346,7 +355,7 @@ int main(void) {
 
 	// algos.c tests
 	/*
-	
+
 	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 	SDL_Delay(1000);
 
@@ -362,24 +371,14 @@ int main(void) {
 	/*
 	t = gen_plays(b, 1, 1);
 	while(t->next_tree != NULL) {
-		if(validity_play(b, t->play, 1)) {
-
-			printf("ids : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->cell_tab[i]->id);
-			}
-			printf("\n buffer : ");
-			for(int i = 0; i < t->play->cell_tab_length; i++) {
-				printf("%d ", t->play->buffer[i]);
-			}
-			printf("\ncell_tab_length : %d\n movement_direction : %d\n cell_direction %d\n", t->play->cell_tab_length, t->play->movement_direction, t->play->cell_direction);
-			printf("validity : %d\n", validity_play(b, t->play, 1));
+		if(validity_play(t->play, 1)) {
+			print_play(t->play);
 
 			apply_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
 			undo_play(b, t->play);
-			display_board(board, white, black, window, renderer, cell_tab);
+			display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
 			SDL_Delay(500);
 			// b = create_clean_board();
 			for(int i = 0; i < CELL_NUMBER; i++) {
@@ -387,26 +386,42 @@ int main(void) {
 			}
 			b = start_config(b);
 		}
-		display_board(board, white, black, window, renderer, cell_tab);
-		SDL_Delay(500);
+		display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+		SDL_Delay(100);
 		t = t->next_tree;
 	}
 	*/
 
-	// cell_tab[16]->state = BLACK;
-	// display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
-	// SDL_Delay(2000);
-
 	/*
+	play_t *p = malloc(sizeof(play_t));
 
-	p = choose_play(b);
+	// cell_tab[4]->state = WHITE;
+	cell_tab[30]->state = BLACK;
+	// cell_tab[30]->state = WHITE;
+	display_board(g, cell_tab);
+	SDL_Delay(1000);
 
+	p = choose_play(b, cell_tab, 0);
 	b = apply_play(b, p);
 
-	display_board(g->board, g->white, g->black, g->window, g->renderer, cell_tab);
+	while(true) {
+		printf("white : \n");
+		p = choose_play(b, cell_tab, 1);
+		b = apply_play(b, p);
+		display_board(g, cell_tab);
+		SDL_Delay(50);
+
+		printf("black : \n");
+		p = choose_play(b, cell_tab, 0);
+		b = apply_play(b, p);
+		display_board(g, cell_tab);
+		SDL_Delay(50);
+	}
+
+	display_board(g, cell_tab);
 	SDL_Delay(4000);
 
-*/
+	*/
 
 
 
