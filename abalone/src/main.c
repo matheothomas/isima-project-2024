@@ -40,8 +40,7 @@ int main(void) {
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
 
-
-	// First Event Loop
+	// initialisation of variables
 	int h;
 	int w;
 	int x = 0;
@@ -56,25 +55,23 @@ int main(void) {
 
 	SDL_GetWindowSize(g->window, &w, &h);
 
-	// Rect creation
-	SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4);
-	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
+	// Initialisation of the textures for the score display
+	char *Text_Panel_Black= malloc(10*sizeof(char));
+	char *Text_Panel_White= malloc(10*sizeof(char));
 
-	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
-	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
+	sprintf(Text_Panel_Black, "Black : %d",b->n_black);
+	sprintf(Text_Panel_White, "White : %d",b->n_white);
 
-
-	SDL_Texture *text_home_menu = create_texture_for_text("choose your\nstarting line !", g->font, g->renderer);
-	texturing(text_home_menu,g->window, g->renderer);
-	SDL_RenderPresent(g->renderer);
-	SDL_Delay(200);
+	SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->black);
+	SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->black);
 
 
+	// Initialisation for the event loop
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
-
 	SDL_Event event;
+
+	// First Event Loop
 	while (program_on) {
 
 		// process event
@@ -110,11 +107,11 @@ int main(void) {
 
 		// update
 		if(mouse_state==1){
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				r1=255;
 				r2=0;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				r1=0;
 				r2=255;
 			}
@@ -127,12 +124,12 @@ int main(void) {
 		if(mouse_state==2){
 			r1=0;
 			r2=0;
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				b=start_config(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				b=start_config_2(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
@@ -140,7 +137,7 @@ int main(void) {
 		}
 
 		// render
-		home_menu(g, text_box, button_1, button_2, text_home_menu, r1, r2);
+		home_menu(g, r1, r2);
 		SDL_Delay(1);
 	}
 
@@ -148,13 +145,9 @@ int main(void) {
 	// Second Event Loop
 
 	// TO DO
-	// let the bot play
-	// add the possibility to unselect a ball
 	// check if mouse position on the board
-	// make the selection prettier
-
-	// Texts
-
+	// display unvalid play
+	
 	bool is_bot_turn = false;
 
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
@@ -234,7 +227,7 @@ int main(void) {
 		}
 
 		else if(mouse_state==1){
-			if(is_in(confirm, x, y)){
+			if(is_in(g->confirm, x, y)){
 				r=255;
 			}
 			else{
@@ -246,23 +239,23 @@ int main(void) {
 			r=0;
 
 			// Confirm the play
-			if(is_in(confirm, x, y)){
-				cur_cell = play->cell_tab[play->cell_tab_length - 1];
-				if(play->cell_direction == play->movement_direction){
-					while (cur_cell && cur_cell->state && play->cell_tab_length < 6) {
-						cur_cell = cur_cell->neighbor[play->cell_direction];
-						if(cur_cell || cur_cell->state || play->cell_tab_length < 6){
+			if(is_in(g->confirm, x, y)){
+				cur_cell= play->cell_tab[play->cell_tab_length-1];
+				if(play->cell_direction==play->movement_direction){
+					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
+						cur_cell=cur_cell->neighbor[play->cell_direction];
+						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
 							play->cell_tab_length++;
-							play->buffer[nb_selected_cells-1] = cur_cell->state;
+							//play->buffer[nb_selected_cells-1] = cur_cell->state;
 						}
 					}
 				}
-				//fill_play_buffer(play);
+				fill_play_buffer(play);
 				//print_play(b, play);
-				if(play->cell_tab_length == 1) {
-					play->cell_direction = play->movement_direction;
+				if(play->cell_tab_length==1){
+					play->cell_direction=play->movement_direction;
 				}
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
@@ -292,18 +285,23 @@ int main(void) {
 			}
 
 			// Select the balls to move
-			else if(1){ // TO DO check if mouse position on the board
-				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
-				if(cell_tab[id_mouse_cell]->state == BLACK){
-					if(cell_tab[id_mouse_cell]->selection == SELECT){ // TO DO add the possibility to unselect a ball
-						//cell_tab[id_mouse_cell]->selection=UNSELECT;
-						//nb_selected_cells-=1;
-						//printf("%d %d\n",nb_selected_cells, play->movement_direction);
+			else { // TO DO check if mouse position on the board
+				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+				if(cell_tab[id_mouse_cell]->state==BLACK){
+					// unselect
+					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[nb_selected_cells-1])){
+						cell_tab[id_mouse_cell]->selection=UNSELECT;
+						play->cell_tab[nb_selected_cells] = NULL;
+						nb_selected_cells--;
+						play->cell_tab_length--;
 					}
+					// select
 					else{
 						play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
 						play->cell_tab_length++;
-						play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+
+						//play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+
 						cell_tab[id_mouse_cell]->selection=SELECT;
 						nb_selected_cells++;
 						if (nb_selected_cells == 2){
@@ -314,7 +312,6 @@ int main(void) {
 								}
 							}
 						}
-						// printf("%d %d %d\n",nb_selected_cells, play->movement_direction, play->cell_direction);
 					}
 				}
 			}
@@ -328,9 +325,28 @@ int main(void) {
 			nb_selected_cells = 0;
 			play->cell_tab_length=0;
 			is_bot_turn = false;
+			play->cell_tab_length=0;
 		}
 		// render
-		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play->movement_direction);
+		// à modif ?
+		///*
+		b->n_black=0;
+		b->n_white=0;
+		for(int i=0;i<61;i++){
+			if(cell_tab[i]->state==BLACK){
+				b->n_black+=1;
+			}
+			else if(cell_tab[i]->state==WHITE){
+				b->n_white+=1;
+			}
+		}
+		//*/
+		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
+		sprintf(Text_Panel_White, "White : %d",b->n_white);
+		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
+		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
+		
+		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
 		/*
 		if(cell_tab[id_mouse_cell]->selection==MOUSE){
 			cell_tab[id_mouse_cell]->selection=UNSELECT;

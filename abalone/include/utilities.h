@@ -28,7 +28,7 @@ tree_t * create_tree(play_t * play, int value, int depth);
 void free_tree(tree_t * tree);
 
 /// adds a node to the linked list tree
-void append_tree(tree_t * tree, play_t * play, int value, int depth);
+void append_tree(tree_t * tree, play_t * play, int value, int depth, bool player);
 
 /// fills the buffer of a play
 void fill_play_buffer(play_t * play);
