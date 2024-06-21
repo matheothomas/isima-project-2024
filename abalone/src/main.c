@@ -20,12 +20,7 @@
 #include "init.h"
 #include "utilities.h"
 
-int main(void) {
-	graphics_t *g = init_sdl();
-
-	board_t *b = create_clean_board();
-	cell_t **cell_tab=create_table(*b);
-
+play_t *create_play(){
 	play_t *play=malloc(sizeof(play_t));
 	play->cell_direction=0;
 	play->cell_tab_length=0;
@@ -34,6 +29,25 @@ int main(void) {
 		play->buffer[i] = 0;
 		play->cell_tab[i] = NULL;
 	}
+	return play;
+}
+
+void init_play(play_t *play){
+	play->cell_direction=0;
+	play->cell_tab_length=0;
+	play->movement_direction=0;
+	for(int i = 0; i < 5; i++) {
+		play->buffer[i] = 0;
+		play->cell_tab[i] = NULL;
+	}
+}
+
+int main(void) {
+	graphics_t *g = init_sdl();
+
+	board_t *b = create_clean_board();
+	cell_t **cell_tab=create_table(*b);
+	play_t *play=create_play();
 
 
 	/////////////////////////////
@@ -49,9 +63,8 @@ int main(void) {
 	int r2 = 0;
 	int r = 0;
 	int mouse_state = 0;
-	int id_mouse_cell;
-	int id_mouse_cell_bis=0;
-	int nb_selected_cells = 0;
+	int id_mouse_cell=0;
+	//int nb_selected_cells = 0;
 	bool is_play_selected_valid = 1;
 
 	SDL_GetWindowSize(g->window, &w, &h);
@@ -146,7 +159,6 @@ int main(void) {
 	// Second Event Loop
 
 	// TO DO
-	// check if mouse position on the board
 	// display unvalid play
 	
 	bool is_bot_turn = false;
@@ -222,20 +234,21 @@ int main(void) {
 		}
 
 		// update
-		id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-		if(id_mouse_cell_bis>0 && id_mouse_cell_bis<61){
-			if(cell_tab[id_mouse_cell_bis]->selection==MOUSE){
-				cell_tab[id_mouse_cell_bis]->selection=UNSELECT;
+		if(id_mouse_cell>0 && id_mouse_cell<61){
+			if(cell_tab[id_mouse_cell]->selection==MOUSE){
+				cell_tab[id_mouse_cell]->selection=UNSELECT;
 			}
 		}
 
+		id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+
 		if(mouse_state==0){
 			if(!(is_in(g->panel, x, y))){
-				id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
-				if(id_mouse_cell_bis>0 && id_mouse_cell_bis<61){
-					if(cell_tab[id_mouse_cell_bis]->selection==UNSELECT && cell_tab[id_mouse_cell_bis]->state==BLACK){
-						id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
-						cell_tab[id_mouse_cell_bis]->selection=MOUSE;
+				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+				if(id_mouse_cell>0 && id_mouse_cell<61){
+					if(cell_tab[id_mouse_cell]->selection==UNSELECT && cell_tab[id_mouse_cell]->state==BLACK){
+						id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+						cell_tab[id_mouse_cell]->selection=MOUSE;
 					}
 				}
 			}
@@ -292,8 +305,9 @@ int main(void) {
 				for(int k=0;k<play->cell_tab_length;k++){
 					play->cell_tab[k]->selection=UNSELECT;
 				}
-				nb_selected_cells=0;
-				play->cell_tab_length=0;
+				//nb_selected_cells=0;
+				//play->cell_tab_length=0;
+				init_play(play);
 			}
 
 			// Choose in which direction to push the balls
@@ -307,28 +321,27 @@ int main(void) {
 			}
 
 			// Select/unselect the balls to move
-			else if(id_mouse_cell>0 && id_mouse_cell<61){ // TO DO check if mouse position on the board
-
+			else if(id_mouse_cell>0 && id_mouse_cell<61){
 				if(cell_tab[id_mouse_cell]->state==BLACK){
 					// unselect
-					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[nb_selected_cells-1])){
+					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
 						cell_tab[id_mouse_cell]->selection=UNSELECT;
-						play->cell_tab[nb_selected_cells] = NULL;
-						nb_selected_cells--;
+						play->cell_tab[play->cell_tab_length] = NULL;
+						//nb_selected_cells--;
 						play->cell_tab_length--;
 					}
 					// select
 					else{
-						play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
+						play->cell_tab[play->cell_tab_length] = cell_tab[id_mouse_cell];
 						play->cell_tab_length++;
 
-						play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+						play->buffer[play->cell_tab_length] = cell_tab[id_mouse_cell]->state;
 
 						cell_tab[id_mouse_cell]->selection=SELECT;
-						nb_selected_cells++;
-						if (nb_selected_cells == 2){
+						//nb_selected_cells++;
+						if (play->cell_tab_length == 2){
 							for(int k = 0; k < 6; k++){
-								if(play->cell_tab[nb_selected_cells-2]->neighbor[k] == cell_tab[id_mouse_cell]){
+								if(play->cell_tab[play->cell_tab_length-2]->neighbor[k] == cell_tab[id_mouse_cell]){
 									play->cell_direction = k;
 									k = 6;
 								}
@@ -339,18 +352,20 @@ int main(void) {
 			}
 		}
 
+		// the bot turn to play
 		if(is_bot_turn) {
 			play = choose_play(b, cell_tab, 1);
 			apply_play(b, play);
 			printf("bot :\n");
 			print_play(play);
-			nb_selected_cells = 0;
-			play->cell_tab_length=0;
+			init_play(play);
+			//nb_selected_cells = 0;
+			//play->cell_tab_length=0;
 			is_bot_turn = false;
-			play->cell_tab_length=0;
 		}
 
-		// à modif ?
+		// update score
+		// à mettre dans une fonction ?
 		///*
 		b->n_black=0;
 		b->n_white=0;
