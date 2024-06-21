@@ -52,7 +52,8 @@ int main(void) {
 	SDL_GetWindowSize(g->window, &w, &h);
 
 	// Rect creation for the second event loop
-	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
+	//SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
+	//SDL_Texture * text_confirm=create_texture_for_text("Confirm", g->font, g->renderer );
 
 	// Initialisation of the textures for the score display
 	char *Text_Panel_Black= malloc(10*sizeof(char));
@@ -61,8 +62,8 @@ int main(void) {
 	sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 	sprintf(Text_Panel_White, "White : %d",b->n_white);
 
-	SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer );
-	SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer );
+	SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->black);
+	SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->black);
 
 
 	// Initialisation for the event loop
@@ -227,7 +228,7 @@ int main(void) {
 		}
 
 		else if(mouse_state==1){
-			if(is_in(confirm, x, y)){
+			if(is_in(g->confirm, x, y)){
 				r=255;
 			}
 			else{
@@ -239,7 +240,7 @@ int main(void) {
 			r=0;
 
 			// Confirm the play
-			if(is_in(confirm, x, y)){
+			if(is_in(g->confirm, x, y)){
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
 					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
@@ -326,10 +327,10 @@ int main(void) {
 		}
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
-		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer );
-		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer );
+		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
+		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
 		
-		display_game(g, confirm, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
+		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
 		/*
 		if(cell_tab[id_mouse_cell]->selection==MOUSE){
 			cell_tab[id_mouse_cell]->selection=UNSELECT;
