@@ -251,6 +251,9 @@ int main(void) {
 				}
 				fill_play_buffer(play);
 				//print_play(b, play);
+				if(play->cell_tab_length==1){
+					play->cell_direction=play->movement_direction;
+				}
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
 					is_bot_turn = true;
@@ -279,12 +282,14 @@ int main(void) {
 			else if(1){ // TO DO check if mouse position on the board
 				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 				if(cell_tab[id_mouse_cell]->state==BLACK){
+					// unselect
 					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[nb_selected_cells-1])){
 						cell_tab[id_mouse_cell]->selection=UNSELECT;
 						play->cell_tab[nb_selected_cells] = NULL;
 						nb_selected_cells--;
 						play->cell_tab_length--;
 					}
+					// select
 					else{
 						play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
 						play->cell_tab_length++;
@@ -301,7 +306,6 @@ int main(void) {
 								}
 							}
 						}
-						printf("%d %d %d\n",nb_selected_cells, play->movement_direction, play->cell_direction);
 					}
 				}
 			}
@@ -313,7 +317,7 @@ int main(void) {
 			is_bot_turn = false;
 		}
 		// render
-		// à modif
+		// à modif ?
 		b->n_black=0;
 		b->n_white=0;
 		for(int i=0;i<61;i++){
