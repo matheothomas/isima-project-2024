@@ -49,6 +49,7 @@ void end_sdl(char ok,                               // normal end : ok = 0 ; abn
 }
 
 graphics_t *init_sdl() {
+	TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
@@ -103,6 +104,10 @@ graphics_t *init_sdl() {
 	graphics->font = font;
 	graphics->commands_panel=c;
 
+	home_menu_t *home_menu=init_home_menu(graphics, screen.h * 0.9 * 1.5, screen.h * 0.9);
+
+	graphics->home_menu=home_menu;
+
 	return graphics;
 }
 
@@ -121,6 +126,22 @@ commands_panel_t *init_commands_panel(int w, int h){
 	commands_panel->button=button;
 
 	return commands_panel;
+}
+
+home_menu_t *init_home_menu(graphics_t *g, int w, int h){
+	home_menu_t *home_menu=malloc(sizeof(home_menu_t));
+
+	SDL_Rect* text_box = crea_rect(2*w/15, h/4, 11*w/15, h/4);
+	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
+	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
+	SDL_Texture *text_home_menu = create_texture_for_text(" choose your starting line ! ", g->font, g->renderer);
+
+	home_menu->text_box=text_box;
+	home_menu->button_1=button_1;
+	home_menu->button_2=button_2;
+	home_menu->text_home_menu=text_home_menu;
+
+	return home_menu;
 }
 
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer ){
@@ -342,30 +363,30 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
-void home_menu(graphics_t* g,SDL_Rect* text_box,SDL_Rect* button_1,SDL_Rect* button_2,SDL_Texture * text,int r1,int r2){
+void home_menu(graphics_t* g, int r1,int r2){
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, text_box);
+	SDL_RenderFillRect(g->renderer, g->home_menu->text_box);
 
 	SDL_SetRenderDrawColor(g->renderer, r1, 200, 200, 255);
-	SDL_RenderFillRect(g->renderer, button_1);
+	SDL_RenderFillRect(g->renderer, g->home_menu->button_1);
 
 	SDL_SetRenderDrawColor(g->renderer, r2, 200, 200, 255);
-	SDL_RenderFillRect(g->renderer, button_2);
+	SDL_RenderFillRect(g->renderer, g->home_menu->button_2);
 
 
 	SDL_Rect source = {0};
 
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, g->config_1, &source, button_1);
+	SDL_RenderCopy(g->renderer, g->config_1, &source, g->home_menu->button_1);
 
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, g->config_2, &source, button_2);
+	SDL_RenderCopy(g->renderer, g->config_2, &source, g->home_menu->button_2);
 
-	SDL_QueryTexture(text, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, text, NULL, text_box);
+	SDL_QueryTexture(g->home_menu->text_home_menu, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->home_menu->text_home_menu, NULL, g->home_menu->text_box);
 
 
 	SDL_RenderPresent(g->renderer);

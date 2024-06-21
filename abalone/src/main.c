@@ -31,13 +31,6 @@ int main(void) {
 	play->cell_tab_length=0;
 	play->movement_direction=0;
 
-
-	/////////////////////////////
-	// SDL MAIN LOOP FUNCTIONS //
-	/////////////////////////////
-
-
-	// First Event Loop
 	int h;
 	int w;
 	int x = 0;
@@ -50,27 +43,22 @@ int main(void) {
 	int nb_selected_cells = 0;
 	cell_t *cur_cell;
 
+	/////////////////////////////
+	// SDL MAIN LOOP FUNCTIONS //
+	/////////////////////////////
+
 	SDL_GetWindowSize(g->window, &w, &h);
 
-	// Rect creation
-	SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4);
-	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
-
+	// Rect and texture creation for the second event loop
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
 
 
-	SDL_Texture *text_home_menu = create_texture_for_text("choose your\nstarting line !", g->font, g->renderer);
-	texturing(text_home_menu,g->window, g->renderer);
-	SDL_RenderPresent(g->renderer);
-	SDL_Delay(200);
-
-
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
-
 	SDL_Event event;
+
+	// First Event Loop
 	while (program_on) {
 
 		// process event
@@ -106,11 +94,11 @@ int main(void) {
 
 		// update
 		if(mouse_state==1){
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				r1=255;
 				r2=0;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				r1=0;
 				r2=255;
 			}
@@ -123,12 +111,12 @@ int main(void) {
 		if(mouse_state==2){
 			r1=0;
 			r2=0;
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				b=start_config(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				b=start_config_2(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
@@ -136,7 +124,7 @@ int main(void) {
 		}
 
 		// render
-		home_menu(g, text_box, button_1, button_2, text_home_menu, r1, r2);
+		home_menu(g, r1, r2);
 		SDL_Delay(1);
 	}
 
@@ -316,7 +304,7 @@ int main(void) {
 			is_bot_turn = false;
 		}
 		// render
-		display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play->movement_direction);
+		display_game(g, text_box_2, confirm, g->home_menu->text_home_menu, r, cell_tab, play->movement_direction);
 		/*
 		if(cell_tab[id_mouse_cell]->selection==MOUSE){
 			cell_tab[id_mouse_cell]->selection=UNSELECT;
