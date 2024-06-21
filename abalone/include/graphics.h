@@ -30,7 +30,9 @@ typedef struct graphics {
 	SDL_Texture *background;
 	TTF_Font * font;
 	struct commands_panel *commands_panel;
-	SDL_Rect * panel;
+	SDL_Rect *panel;
+	SDL_Rect *text_box_black;
+	SDL_Rect *text_box_white;
 	struct home_menu *home_menu;
 } graphics_t;
 
@@ -78,7 +80,7 @@ SDL_Texture* create_texture_for_text(char  *  text, TTF_Font * font, SDL_Rendere
 SDL_Rect* crea_rect(int x, int y, int width, int height);
 
 /// create a pointer to a rectangle inside another rectangle
-SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j);
+SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l);
 
 /// displays the textures on the renderer
 void texturing(SDL_Texture* my_texture, SDL_Window* window, SDL_Renderer* renderer);
@@ -99,7 +101,7 @@ int is_in (SDL_Rect* button,int x,int y);
 void home_menu(graphics_t* g, int r1,int r2);
 
 /// displays the user interface during the game
-void display_game(graphics_t *g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab, int direction_state);
+void display_game(graphics_t *g,SDL_Rect* confirm,SDL_Texture * text_panel_black, SDL_Texture * text_panel_white, int r, cell_t **cell_tab, int direction_state);
 
 #endif
 

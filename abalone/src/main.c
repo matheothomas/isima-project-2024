@@ -36,6 +36,7 @@ int main(void) {
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
 
+	// initialisation of variables
 	int h;
 	int w;
 	int x = 0;
@@ -50,16 +51,21 @@ int main(void) {
 
 	SDL_GetWindowSize(g->window, &w, &h);
 
-	// Rect and texture creation for the first event loop
-	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
-	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
-
-
-	// Rect and texture creation for the first event loop
-	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
+	// Rect creation for the second event loop
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
 
+	// Initialisation of the textures for the score display
+	char *Text_Panel_Black= malloc(10*sizeof(char));
+	char *Text_Panel_White= malloc(10*sizeof(char));
 
+	sprintf(Text_Panel_Black, "Black : %d",b->n_black);
+	sprintf(Text_Panel_White, "White : %d",b->n_white);
+
+	SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer );
+	SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer );
+
+
+	// Initialisation for the event loop
 	SDL_bool program_on = SDL_TRUE;
 	SDL_bool program_on_2 = SDL_FALSE;
 	SDL_Event event;
@@ -100,11 +106,11 @@ int main(void) {
 
 		// update
 		if(mouse_state==1){
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				r1=255;
 				r2=0;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				r1=0;
 				r2=255;
 			}
@@ -117,12 +123,12 @@ int main(void) {
 		if(mouse_state==2){
 			r1=0;
 			r2=0;
-			if(is_in(button_1, x, y)){
+			if(is_in(g->home_menu->button_1, x, y)){
 				b=start_config(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
 			}
-			else if (is_in(button_2, x, y)){
+			else if (is_in(g->home_menu->button_2, x, y)){
 				b=start_config_2(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
@@ -307,7 +313,23 @@ int main(void) {
 			is_bot_turn = false;
 		}
 		// render
-		display_game(g, text_box_2, confirm, g->home_menu->text_home_menu, r, cell_tab, play->movement_direction);
+		// à modif
+		b->n_black=0;
+		b->n_white=0;
+		for(int i=0;i<61;i++){
+			if(cell_tab[i]->state==BLACK){
+				b->n_black+=1;
+			}
+			else if(cell_tab[i]->state==WHITE){
+				b->n_white+=1;
+			}
+		}
+		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
+		sprintf(Text_Panel_White, "White : %d",b->n_white);
+		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer );
+		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer );
+		
+		display_game(g, confirm, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
 		/*
 		if(cell_tab[id_mouse_cell]->selection==MOUSE){
 			cell_tab[id_mouse_cell]->selection=UNSELECT;
