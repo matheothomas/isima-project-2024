@@ -51,6 +51,7 @@ int main(void) {
 	int mouse_state = 0;
 	int id_mouse_cell;
 	int nb_selected_cells = 0;
+	bool is_play_selected_valid = 1;
 	cell_t *cur_cell;
 
 	SDL_GetWindowSize(g->window, &w, &h);
@@ -240,16 +241,32 @@ int main(void) {
 
 			// Confirm the play
 			if(is_in(g->confirm, x, y)){
-				cur_cell= play->cell_tab[play->cell_tab_length-1];
+				// cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
+					/*
 					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
 						cur_cell=cur_cell->neighbor[play->cell_direction];
 						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
 							play->cell_tab_length++;
-							//play->buffer[nb_selected_cells-1] = cur_cell->state;
+							play->buffer[nb_selected_cells-1] = cur_cell->state;
 						}
+					}
+					*/
+					int input_length = play->cell_tab_length - 1;
+					while(input_length < 5) {
+						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
+							is_play_selected_valid = 0;
+							break;
+						}
+						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == EMPTY) {
+							break;
+						}
+						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
+							input_length++;
+						}
+
 					}
 				}
 				fill_play_buffer(play);
@@ -257,7 +274,7 @@ int main(void) {
 				if(play->cell_tab_length==1){
 					play->cell_direction=play->movement_direction;
 				}
-				if (validity_play(play, 0)){
+				if (validity_play(play, 0) && is_play_selected_valid){
 					b=apply_play(b, play);
 					printf("player :\n");
 					print_play(play);
@@ -265,6 +282,7 @@ int main(void) {
 					display_board(g, cell_tab);
 				}
 				else{
+					is_play_selected_valid = 1;
 					printf("coup non valide, réinitialisation du coup\n");
 				}
 				for(int k=0;k<play->cell_tab_length;k++){
@@ -300,7 +318,7 @@ int main(void) {
 						play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
 						play->cell_tab_length++;
 
-						//play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+						play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
 
 						cell_tab[id_mouse_cell]->selection=SELECT;
 						nb_selected_cells++;
