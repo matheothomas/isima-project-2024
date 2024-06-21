@@ -217,6 +217,9 @@ void fill_play_buffer(play_t * play) {
 
 	int i = 0;
 	while (i < play -> cell_tab_length) {
+		if (play -> cell_tab[i] -> state != BLACK && play -> cell_tab[i] -> state != WHITE) {
+			printf("the buffer for %d will be %d\n", i, play -> cell_tab[i] -> state);
+		}
 		play -> buffer[i] = play -> cell_tab[i] -> state;
 		i++;
 	}
@@ -239,6 +242,14 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> cell_direction = i;
 				new_play -> cell_tab[0] = cell;
 				new_play -> cell_tab[1] = NULL;
+				new_play -> cell_tab[2] = NULL;
+				new_play -> cell_tab[3] = NULL;
+				new_play -> cell_tab[4] = NULL;
+
+				new_play -> buffer[0] = cell -> state;
+				for (int k = 1; k < 5; k++) {
+					new_play -> buffer[k] = EMPTY;
+				}
 				//printf("direction %d\n", new_play -> movement_direction);
 
 				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
@@ -264,23 +275,33 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 	// printf("cell_does_not_belongs_to_player\n");
-	if (play != NULL && play -> cell_tab_length < 5) {
+	if (play != NULL) {
 		// If movement direction is not colinear to cell direction then we should
 		// not add the cell of the other player
-		if (play -> cell_direction == play -> movement_direction || 
-			play -> cell_direction == (play -> movement_direction + 3) % 6) {
+		if (play -> cell_tab_length < 5) {
+			if (play -> cell_direction == play -> movement_direction || 
+				play -> cell_direction == (play -> movement_direction + 3) % 6) {
 
-			play -> cell_tab[play -> cell_tab_length] = cell;
-			play -> cell_tab_length ++;
+				play -> cell_tab[play -> cell_tab_length] = cell;
+				play -> cell_tab_length ++;
 
-			if (validity_play(play, player)) {
-				fill_play_buffer(play);
-				if(play->cell_tab[0]->id == 5) {
-					// printf("putput\n");
+				if (validity_play(play, player)) {
+					fill_play_buffer(play);
+					if(play->cell_tab[0]->id == 5) {
+						// printf("putput\n");
+					}
+					append_tree(tree, play, 0, tree -> depth, player);
 				}
-				append_tree(tree, play, 0, tree -> depth, player);
+				traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 			}
-			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
+		}
+	}
+	else {
+		if (!visited[cell -> id]) {
+			visited[cell -> id] = true;
+			for (int i = 0; i < 6; i++) {
+				traversal_rec(board, tree, play, cell -> neighbor[i], visited, player);
+			}
 		}
 	}
 }
