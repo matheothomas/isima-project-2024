@@ -329,7 +329,7 @@ void display_board(graphics_t *g, cell_t **cell_tab) {
 		}
 	}
 
-	// SDL_RenderPresent(g->renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 int is_in (SDL_Rect* button,int x,int y){

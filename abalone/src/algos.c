@@ -15,8 +15,6 @@
 #include "utilities.h"
 
 
-// extern bool global_player;
-
 int play_count = 0;
 int undo_count = 0;
 
@@ -65,9 +63,8 @@ play_t *max_play(tree_t *tree) {
 	return tree_max->play;
 }
 
-int basic_heuristic(cell_t **cell_tab, bool player) {
+int basic_heuristic(cell_t **cell_tab) {
 	// printf("basic_heuristic\n");
-	(void)player;
 	int score;
 	int nb_white = 0;
 	int nb_black = 0;
@@ -84,36 +81,8 @@ int basic_heuristic(cell_t **cell_tab, bool player) {
 	return score;
 }
 
-int center_heuristic(cell_t **cell_tab, bool player) {
-	int score = basic_heuristic(cell_tab, player);
-	int white_count = 0;
-	int black_count = 0;
-	int white_sum = 0;
-	int black_sum = 0;
-
-	for(int i = 0; i < CELL_NUMBER; i++) {
-		if(cell_tab[i]->state == WHITE) {
-			white_count++;
-			white_sum += i;
-		} else if (cell_tab[i]->state == BLACK) {
-			black_count++;
-			black_sum += i;
-		}
-	}
-
-	int white_avg = white_sum / white_count;
-	int black_avg = black_sum / black_count;
-
-	if(player) {
-		return score * 10000 + (float)1000/(white_avg - CELL_NUMBER / 2);
-	} else {
-		return -(score * 10000 + (float)1000/(black_avg - CELL_NUMBER / 2));
-	}
-}
-
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
-	// global_player = player;
 	// printf("choose_play\n");
 	play_count = 0;
 	undo_count = 0;
@@ -143,10 +112,6 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 }
 
 board_t *apply_play(board_t *board, play_t *play) {
-	if(play == NULL) {
-		printf("PLAY NULL\n");
-		return board;
-	}
 	// printf("apply_play\n");
 	play_count++;
 
@@ -211,12 +176,8 @@ board_t *undo_play(board_t *board, play_t *play) {
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {
 	// printf("eval\n");
 
-	int score = basic_heuristic(cell_tab, player);
-	// int score = center_heuristic(cell_tab, player);
-	// if(score != 0) {
-		// printf("score : %d\n", score);
-	// }
-
+	int score = basic_heuristic(cell_tab);
+	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
 	}

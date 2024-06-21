@@ -24,15 +24,12 @@ int main(void) {
 	graphics_t *g = init_sdl();
 
 	board_t *b = create_clean_board();
-	cell_t **cell_tab = create_table(*b);
+	cell_t **cell_tab=create_table(*b);
 
-	play_t *play = malloc(sizeof(play_t));
-	play->cell_direction = 0;
-	play->cell_tab_length = 0;
-	play->movement_direction = 0;
-	for(int i = 0; i < 5; i++) {
-		play->buffer[i] = 0;
-	}
+	play_t *play=malloc(sizeof(play_t));
+	play->cell_direction=0;
+	play->cell_tab_length=0;
+	play->movement_direction=0;
 
 
 	/////////////////////////////
@@ -77,7 +74,7 @@ int main(void) {
 	while (program_on) {
 
 		// process event
-		mouse_state = 0;
+		mouse_state=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 
@@ -108,7 +105,7 @@ int main(void) {
 		}
 
 		// update
-		if(mouse_state == 1){
+		if(mouse_state==1){
 			if(is_in(button_1, x, y)){
 				r1=255;
 				r2=0;
@@ -123,7 +120,7 @@ int main(void) {
 			}
 		}
 
-		if(mouse_state == 2){
+		if(mouse_state==2){
 			r1=0;
 			r2=0;
 			if(is_in(button_1, x, y)){
