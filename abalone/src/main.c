@@ -30,6 +30,10 @@ int main(void) {
 	play->cell_direction=0;
 	play->cell_tab_length=0;
 	play->movement_direction=0;
+	for(int i = 0; i < 5; i++) {
+		play->buffer[i] = 0;
+		play->cell_tab[i] = NULL;
+	}
 
 
 	/////////////////////////////
@@ -255,6 +259,8 @@ int main(void) {
 				}
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
+					printf("player :\n");
+				print_play(play);
 					is_bot_turn = true;
 				}
 				else{
@@ -313,6 +319,10 @@ int main(void) {
 		if(is_bot_turn) {
 			play = choose_play(b, cell_tab, 1);
 			apply_play(b, play);
+			printf("bot :\n");
+			print_play(play);
+			nb_selected_cells = 0;
+			play->cell_tab_length=0;
 			is_bot_turn = false;
 			play->cell_tab_length=0;
 		}
