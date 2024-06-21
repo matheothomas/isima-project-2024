@@ -285,7 +285,6 @@ void cell_does_not_belongs_to_player(tree_t * tree, play_t * play, cell_t * cell
 			for (int i = 0; i < 6; i++) {
 				traversal_rec(tree, NULL, cell -> neighbor[i], visited, player);
 			}
-			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 		}
 	}
 }
