@@ -34,7 +34,7 @@ board_t* create_clean_board() {
 	cell_t *cur_cell = ptb->cell;
 	int j = 0;
 	int c = 0;
-	int i=0;
+	int i = 0;
 
 	// initialisation of the first cell, the one in the center.
 
@@ -58,38 +58,26 @@ board_t* create_clean_board() {
 			for (int n = 0; n < 6; n++) {
 				if (n != 3 && ((c != 0) || (c == 0 && n != 4))) {
 					if (n == 2) {
-						cur_cell->neighbor[(i + n) % 6] =
-							cur_cell->neighbor[(i + 3) % 6]->neighbor[(i + 1) % 6];
-						cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-						cur_cell;
+						cur_cell->neighbor[(i + n) % 6] = cur_cell->neighbor[(i + 3) % 6]->neighbor[(i + 1) % 6];
+						cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 					} else if (n == 4 && i == 0) {
-						cur_cell->neighbor[(i + n) % 6] =
-							cur_cell->neighbor[(i + 3) % 6]->neighbor[(i + 5) % 6];
-						cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-						cur_cell;
+						cur_cell->neighbor[(i + n) % 6] = cur_cell->neighbor[(i + 3) % 6]->neighbor[(i + 5) % 6];
+						cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 					} else {
 						if (n == 5 && i != 0) {
-							cur_cell->neighbor[(i + n) % 6] =
-								cur_cell->neighbor[(i + n + 5) % 6]->neighbor[i];
-							cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-							cur_cell;
+							cur_cell->neighbor[(i + n) % 6] = cur_cell->neighbor[(i + n + 5) % 6]->neighbor[i];
+							cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 						} else if (n == 4 && i != 0) {
-							cur_cell->neighbor[(i + n) % 6] =
-								cur_cell->neighbor[(i + n + 5) % 6]
-								->neighbor[(i + 5) % 6];
-							cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-							cur_cell;
+							cur_cell->neighbor[(i + n) % 6] = cur_cell->neighbor[(i + n + 5) % 6]->neighbor[(i + 5) % 6];
+							cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 						} else {
 							if (i == 5 && n == 1 && c == 0) {
-								cur_cell->neighbor[(i + n) % 6] =
-									ptb->cell->neighbor[0]->neighbor[5];
-								cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-								cur_cell;
+								cur_cell->neighbor[(i + n) % 6] = ptb->cell->neighbor[0]->neighbor[5];
+								cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 							} else {
 								id++;
 								cur_cell->neighbor[(i + n) % 6] = create_cell(id);
-								cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] =
-								cur_cell;
+								cur_cell->neighbor[(i + n) % 6]->neighbor[(i + n + 3) % 6] = cur_cell;
 							}
 						}
 					}
