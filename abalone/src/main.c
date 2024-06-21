@@ -52,7 +52,6 @@ int main(void) {
 	int id_mouse_cell;
 	int nb_selected_cells = 0;
 	bool is_play_selected_valid = 1;
-	cell_t *cur_cell;
 
 	SDL_GetWindowSize(g->window, &w, &h);
 
@@ -241,21 +240,12 @@ int main(void) {
 
 			// Confirm the play
 			if(is_in(g->confirm, x, y)){
-				// cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
-					/*
-					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-						cur_cell=cur_cell->neighbor[play->cell_direction];
-						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
-							nb_selected_cells++;
-							play->cell_tab[nb_selected_cells-1] = cur_cell;
-							play->cell_tab_length++;
-							play->buffer[nb_selected_cells-1] = cur_cell->state;
-						}
-					}
-					*/
 					int input_length = play->cell_tab_length - 1;
 					while(input_length < 5) {
+						if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
+							break;
+						}
 						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
 							is_play_selected_valid = 0;
 							break;
@@ -270,7 +260,6 @@ int main(void) {
 					}
 				}
 				fill_play_buffer(play);
-				//print_play(b, play);
 				if(play->cell_tab_length==1){
 					play->cell_direction=play->movement_direction;
 				}
