@@ -89,10 +89,10 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
-	if(tree == NULL) {
-		// printf("something is null\n");
+	if (tree == NULL) {
 		return NULL;
 	}
+
 	while (temp->next_tree != NULL) {
 		// display_board(g->board, g->white, g->white, g->window, g->renderer, cell_tab);
 		// SDL_Delay(1000);
@@ -116,6 +116,9 @@ board_t *apply_play(board_t *board, play_t *play) {
 	play_count++;
 
 	// duplicates the balls
+	if (play == NULL) {
+		return board;
+	}
 	for(int i = play->cell_tab_length - 1; i >= 0; i--) {
 		if(play->cell_tab[i]->neighbor[play->movement_direction] != NULL) {
 			play->cell_tab[i]->neighbor[play->movement_direction]->state = play->cell_tab[i]->state;
@@ -182,6 +185,17 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		return score;
 	}
 	tree_t *tree = gen_plays(board, depth, player);
+	while (tree != NULL) {
+		if (tree -> play != NULL) {
+			for (int k = 0; k < tree -> play -> cell_tab_length; k++) {
+				if (tree -> play -> buffer[k] != 1 &&
+					tree -> play -> buffer[k] != 2) {
+					printf("gen_play deconne %d %d\n", tree -> play -> buffer[k], tree -> play -> cell_tab[k] -> state);
+				}
+			}
+		}
+		tree = tree -> next_tree;
+	}
 
 	if(tree == NULL) {
 		return score;

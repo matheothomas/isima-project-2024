@@ -77,7 +77,6 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 }
 
 bool validity_play(play_t * play, bool player) {
-	// printf("validity_play\n");
 
 	if (play == NULL) {
 		return false;
@@ -149,7 +148,6 @@ bool validity_play(play_t * play, bool player) {
 	else {
 		for (int k = 0; k < play -> cell_tab_length; k++) {
 			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] == NULL) {
-				// puts("d");
 				return false;
 			}
 			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] -> state != EMPTY) {
@@ -162,7 +160,6 @@ bool validity_play(play_t * play, bool player) {
 
 	if (play->cell_tab_length > 1 && 
 		play->cell_tab[0]->neighbor[play->cell_direction] != play->cell_tab[1]) {
-		// puts("f");
 		return false;
 	}
 	return true;
@@ -239,6 +236,13 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> cell_direction = i;
 				new_play -> cell_tab[0] = cell;
 				new_play -> cell_tab[1] = NULL;
+				new_play -> cell_tab[2] = NULL;
+				new_play -> cell_tab[3] = NULL;
+				new_play -> cell_tab[4] = NULL;
+				for (int k = 0; k < 5; k++) {
+					new_play -> buffer[k] = 0;
+				}
+				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
 				//printf("direction %d\n", new_play -> movement_direction);
 
 				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
@@ -252,9 +256,6 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 
 		if (validity_play(play, player)) {
 			fill_play_buffer(play);
-			if(play->cell_tab[0]->id == 5) {
-				// printf("oulala %d\n", play->cell_tab_length);
-			}
 			append_tree(tree, play, 0, tree -> depth);
 		}	
 		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);

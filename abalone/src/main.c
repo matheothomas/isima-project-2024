@@ -265,12 +265,15 @@ int main(void) {
 					play->cell_direction = play->movement_direction;
 				}
 				if (validity_play(play, 0)){
+					print_play(play);
 					b=apply_play(b, play);
 					printf("player :\n");
 				print_play(play);
 					is_bot_turn = true;
 				}
 				else{
+										print_play(play);
+
 					printf("coup non valide, réinitialitation du coup\n");
 				}
 				for(int k=0;k<play->cell_tab_length;k++){
