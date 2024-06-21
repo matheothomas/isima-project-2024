@@ -49,7 +49,6 @@ int main(void) {
 	int r2 = 0;
 	int r = 0;
 	int mouse_state = 0;
-	int space = 0;
 	int id_mouse_cell;
 	int id_mouse_cell_bis=0;
 	int nb_selected_cells = 0;
@@ -156,7 +155,6 @@ int main(void) {
 	while (program_on_2) {
 		// process event
 		mouse_state=0;
-		space=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 
@@ -214,10 +212,6 @@ int main(void) {
 							play->movement_direction=5;
 						break;
 
-						case SDLK_SPACE:
-							space=1;
-						break;
-
 						default:
 						break;
 				}
@@ -236,10 +230,8 @@ int main(void) {
 		}
 
 		if(mouse_state==0){
-			// segfault because
 			if(!(is_in(g->panel, x, y))){
 				id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
-				printf("%d\n",id_mouse_cell_bis);
 				if(id_mouse_cell_bis>0 && id_mouse_cell_bis<61){
 					if(cell_tab[id_mouse_cell_bis]->selection==UNSELECT && cell_tab[id_mouse_cell_bis]->state==BLACK){
 						id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
@@ -258,7 +250,7 @@ int main(void) {
 			}
 		}
 
-		else if(mouse_state==2 || space==1){
+		else if(mouse_state==2){
 			r=0;
 
 			// Confirm the play
