@@ -30,6 +30,10 @@ int main(void) {
 	play->cell_direction=0;
 	play->cell_tab_length=0;
 	play->movement_direction=0;
+	for(int i = 0; i < 5; i++) {
+		play->buffer[i] = 0;
+		play->cell_tab[i] = NULL;
+	}
 
 
 	/////////////////////////////
@@ -150,7 +154,7 @@ int main(void) {
 	// make the selection prettier
 
 	// Texts
-	
+
 	bool is_bot_turn = false;
 
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
@@ -263,7 +267,7 @@ int main(void) {
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
 					printf("player :\n");
-					print_play(play);
+				print_play(play);
 					is_bot_turn = true;
 				}
 				else{
@@ -287,7 +291,7 @@ int main(void) {
 			}
 
 			// Select the balls to move
-			else if(1){ // TO DO check if mouse position on the board
+		else if(1){ // TO DO check if mouse position on the board
 				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 				if(cell_tab[id_mouse_cell]->state==BLACK){
 					if(cell_tab[id_mouse_cell]->selection==SELECT){ // TO DO add the possibility to unselect a ball
