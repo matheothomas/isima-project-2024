@@ -254,7 +254,7 @@ int main(void) {
 				}
 				//fill_play_buffer(play);
 				//print_play(b, play);
-				if (validity_play(b, play, 0)){
+				if (validity_play(play, 0)){
 					b=apply_play(b, play);
 				}
 				else{
