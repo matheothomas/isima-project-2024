@@ -51,10 +51,6 @@ int main(void) {
 
 	SDL_GetWindowSize(g->window, &w, &h);
 
-	// Rect creation for the second event loop
-	//SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
-	//SDL_Texture * text_confirm=create_texture_for_text("Confirm", g->font, g->renderer );
-
 	// Initialisation of the textures for the score display
 	char *Text_Panel_Black= malloc(10*sizeof(char));
 	char *Text_Panel_White= malloc(10*sizeof(char));
@@ -147,7 +143,7 @@ int main(void) {
 	// TO DO
 	// add the possibility to unselect a ball
 	// check if mouse position on the board
-	// Texts
+	// display unvalid play
 	
 	bool is_bot_turn = false;
 
@@ -249,11 +245,11 @@ int main(void) {
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
 							play->cell_tab_length++;
-							play->buffer[nb_selected_cells-1] = cur_cell->state;
+							//play->buffer[nb_selected_cells-1] = cur_cell->state;
 						}
 					}
 				}
-				//fill_play_buffer(play);
+				fill_play_buffer(play);
 				//print_play(b, play);
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
@@ -283,15 +279,18 @@ int main(void) {
 			else if(1){ // TO DO check if mouse position on the board
 				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 				if(cell_tab[id_mouse_cell]->state==BLACK){
-					if(cell_tab[id_mouse_cell]->selection==SELECT){ // TO DO add the possibility to unselect a ball
-						//cell_tab[id_mouse_cell]->selection=UNSELECT;
-						//nb_selected_cells-=1;
-						//printf("%d %d\n",nb_selected_cells, play->movement_direction);
+					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[nb_selected_cells-1])){
+						cell_tab[id_mouse_cell]->selection=UNSELECT;
+						play->cell_tab[nb_selected_cells] = NULL;
+						nb_selected_cells--;
+						play->cell_tab_length--;
 					}
 					else{
 						play->cell_tab[nb_selected_cells] = cell_tab[id_mouse_cell];
 						play->cell_tab_length++;
-						play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+
+						//play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
+
 						cell_tab[id_mouse_cell]->selection=SELECT;
 						nb_selected_cells++;
 						if (nb_selected_cells==2){
