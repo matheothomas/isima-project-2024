@@ -49,7 +49,9 @@ int main(void) {
 	int r2 = 0;
 	int r = 0;
 	int mouse_state = 0;
+	int space = 0;
 	int id_mouse_cell;
+	int id_mouse_cell_bis=0;
 	int nb_selected_cells = 0;
 	cell_t *cur_cell;
 
@@ -154,6 +156,7 @@ int main(void) {
 	while (program_on_2) {
 		// process event
 		mouse_state=0;
+		space=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 
@@ -211,6 +214,10 @@ int main(void) {
 							play->movement_direction=5;
 						break;
 
+						case SDLK_SPACE:
+							space=1;
+						break;
+
 						default:
 						break;
 				}
@@ -221,9 +228,25 @@ int main(void) {
 		}
 
 		// update
+		id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+		if(id_mouse_cell_bis>0 && id_mouse_cell_bis<61){
+			if(cell_tab[id_mouse_cell_bis]->selection==MOUSE){
+				cell_tab[id_mouse_cell_bis]->selection=UNSELECT;
+			}
+		}
+
 		if(mouse_state==0){
-			//id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-			//cell_tab[id_mouse_cell]->selection=MOUSE;
+			// segfault because
+			if(!(is_in(g->panel, x, y))){
+				id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
+				printf("%d\n",id_mouse_cell_bis);
+				if(id_mouse_cell_bis>0 && id_mouse_cell_bis<61){
+					if(cell_tab[id_mouse_cell_bis]->selection==UNSELECT && cell_tab[id_mouse_cell_bis]->state==BLACK){
+						id_mouse_cell_bis=get_cell_id_from_mouse_position(g, x, y);
+						cell_tab[id_mouse_cell_bis]->selection=MOUSE;
+					}
+				}
+			}
 		}
 
 		else if(mouse_state==1){
@@ -235,11 +258,11 @@ int main(void) {
 			}
 		}
 
-		else if(mouse_state==2){
+		else if(mouse_state==2 || space==1){
 			r=0;
 
 			// Confirm the play
-			if(is_in(g->confirm, x, y)){
+			if(is_in(g->confirm, x, y) || space==1){
 				cur_cell= play->cell_tab[play->cell_tab_length-1];
 				if(play->cell_direction==play->movement_direction){
 					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
@@ -283,9 +306,9 @@ int main(void) {
 				}
 			}
 
-			// Select the balls to move
-			else { // TO DO check if mouse position on the board
-				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+			// Select/unselect the balls to move
+			else if(id_mouse_cell>0 && id_mouse_cell<61){ // TO DO check if mouse position on the board
+
 				if(cell_tab[id_mouse_cell]->state==BLACK){
 					// unselect
 					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[nb_selected_cells-1])){
@@ -326,7 +349,7 @@ int main(void) {
 			is_bot_turn = false;
 			play->cell_tab_length=0;
 		}
-		// render
+
 		// à modif ?
 		///*
 		b->n_black=0;
@@ -345,12 +368,8 @@ int main(void) {
 		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
 		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
 		
+		// render
 		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
-		/*
-		if(cell_tab[id_mouse_cell]->selection==MOUSE){
-			cell_tab[id_mouse_cell]->selection=UNSELECT;
-		}
-		*/
 		SDL_Delay(1);
 	}
 
