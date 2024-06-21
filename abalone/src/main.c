@@ -318,6 +318,7 @@ int main(void) {
 		}
 		// render
 		// à modif ?
+		///*
 		b->n_black=0;
 		b->n_white=0;
 		for(int i=0;i<61;i++){
@@ -328,6 +329,7 @@ int main(void) {
 				b->n_white+=1;
 			}
 		}
+		//*/
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
 		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);

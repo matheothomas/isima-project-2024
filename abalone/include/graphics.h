@@ -43,6 +43,7 @@ typedef struct graphics {
 typedef struct colours {
 	SDL_Color yellow;
 	SDL_Color black;
+	SDL_Color dark_red;
 } colours_t;
 
 /// coordinates of a point in space

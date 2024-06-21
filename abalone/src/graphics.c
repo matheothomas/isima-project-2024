@@ -144,11 +144,13 @@ colours_t *init_colours(){
 
 	colours_t *colours=malloc(sizeof(colours_t));
 
-	SDL_Color yellow = {255,250,0,0}; 
-	SDL_Color black = {0,0,0,0};
+	SDL_Color yellow = {255,250,0,255}; 
+	SDL_Color black = {0,0,0,255};
+	SDL_Color dark_red = {25,20,20,255};
 
 	colours->yellow=yellow;
 	colours->black=black;
+	colours->dark_red=dark_red;
 
 	return colours;
 }
@@ -176,8 +178,8 @@ home_menu_t *init_home_menu(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
 	SDL_Rect* text_box = crea_rect(2*w/15, h/4, 11*w/15, h/4);
 	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
 	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
-	SDL_Texture *text_home_menu = create_texture_for_text(" choose your starting line ! ", font, renderer,colours->yellow);
-	SDL_Texture *fond = load_texture_from_image("res/fond_1.jpg", window, renderer);
+	SDL_Texture *text_home_menu = create_texture_for_text(" choose your starting line ! ", font, renderer,colours->dark_red);
+	SDL_Texture *fond = load_texture_from_image("res/fond.png", window, renderer);
 
 	home_menu->text_box=text_box;
 	home_menu->button_1=button_1;
