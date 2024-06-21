@@ -141,7 +141,6 @@ int main(void) {
 	// Second Event Loop
 
 	// TO DO
-	// add the possibility to unselect a ball
 	// check if mouse position on the board
 	// display unvalid play
 	
@@ -279,7 +278,7 @@ int main(void) {
 			}
 
 			// Select the balls to move
-			else if(1){ // TO DO check if mouse position on the board
+			else { // TO DO check if mouse position on the board
 				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
 				if(cell_tab[id_mouse_cell]->state==BLACK){
 					// unselect
@@ -315,6 +314,7 @@ int main(void) {
 			play = choose_play(b, cell_tab, 1);
 			apply_play(b, play);
 			is_bot_turn = false;
+			play->cell_tab_length=0;
 		}
 		// render
 		// à modif ?
