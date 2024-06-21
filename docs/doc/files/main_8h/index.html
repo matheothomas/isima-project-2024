@@ -19,7 +19,7 @@
     <meta charset="utf-8">
     <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>README.md - Project</title>
+    <title>include/main.h - Project</title>
 
     
 
@@ -28,10 +28,10 @@
     
 
     
-        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/readme_8md/">
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/main_8h/">
   <meta property="og:site_name" content="Project">
-  <meta property="og:title" content="README.md">
-  <meta property="og:description" content="README.md Source code # abalone This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning. ## Roadmap - [ ] Create the structure of the game. - [ ] Create a graphical interface in SDL2. - [ ] Implement the min-max algorithm. - [ ] Implement the alpha-beta pruning. - [ ] Improve our heuristics. ## Principle It is a 1v1 game, it is played against our algorithm.">
+  <meta property="og:title" content="include/main.h">
+  <meta property="og:description" content="include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif ">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="doc">
@@ -56,8 +56,8 @@
     
         
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="README.md">
-  <meta name="twitter:description" content="README.md Source code # abalone This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning. ## Roadmap - [ ] Create the structure of the game. - [ ] Create a graphical interface in SDL2. - [ ] Implement the min-max algorithm. - [ ] Implement the alpha-beta pruning. - [ ] Improve our heuristics. ## Principle It is a 1v1 game, it is played against our algorithm.">
+  <meta name="twitter:title" content="include/main.h">
+  <meta name="twitter:description" content="include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif ">
 
     <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
 
@@ -212,40 +212,25 @@
 <article class="line-numbers">
     
     
-    <h1 id="readmemd">README.md</h1>
+    <h1 id="includemainh">include/main.h</h1>
 <h2 id="source-code">Source code</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># abalone
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : main.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>This first project uses the game <span style="font-weight:bold">**Abalone**</span> to implement the <span style="font-weight:bold">**min-max**</span> algorithm with the <span style="font-weight:bold">**alpha-beta**</span> pruning.
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef main_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define main_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Struct definitions */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">## Roadmap
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">- [ ]</span> Create the structure of the game.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">- [ ]</span> Create a graphical interface in SDL2.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">- [ ]</span> Implement the min-max algorithm.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">- [ ]</span> Implement the alpha-beta pruning.
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">- [ ]</span> Improve our heuristics.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">## Principle
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>It is a 1v1 game, it is played against our algorithm.
-</span></span><span style="display:flex;"><span>Each player has 14 balls.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Rules
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[...]
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Functions definitions */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Goal
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>The goal is to push every ball of the opponent out of the board.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">## To launch the game
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>```bash
-</span></span><span style="display:flex;"><span>make dir
-</span></span><span style="display:flex;"><span>make
-</span></span><span style="display:flex;"><span>./bin/main
-</span></span></code></pre></div><pre tabindex="0"><code>
-
--------------------------------
-
-Updated on 2024-06-21 at 00:15:40 +0200
-</code></pre>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div>
 </article>
 </div>
 

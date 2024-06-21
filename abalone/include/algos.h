@@ -13,6 +13,7 @@
 
 /* Struct definitions */
 
+/// contains all info to make a play
 typedef struct play {
 	cell_t *cell_tab[5];
 	state_e buffer[5];
@@ -21,6 +22,7 @@ typedef struct play {
 	int cell_direction;
 } play_t;
 
+/// node of the tree made by/for the min-max algorithm
 typedef struct tree {
 	struct tree *next_tree;
 	play_t *play;
@@ -31,24 +33,33 @@ typedef struct tree {
 
 /* Functions definitions */
 
+/// return the max value of a and b
+int max_value(int a, int b);
+
+/// return the min value of a and b
+int min_value(int a, int b);
+
 /// returns the max/min value of a tree node, depending on the player turn
 int max(tree_t *tree, bool player);
 
 /// return the max play of a tree node
 play_t *max_play(tree_t *tree);
 
+/// basic heuristic function maximizing the ratio between our cells and the adversary
+int basic_heuristic(cell_t **cell_tab);
+
 /// returns the best play depending on the player
+play_t *choose_play(board_t *board, cell_t **cell_tab, bool player);
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab);
-play_t *choose_play(board_t *board, bool player);
 
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play);
 
-///
+/// reverts a play to the board
 board_t *undo_play(board_t *board, play_t *play);
 
 /// applies the min-max algorithm 
-int eval(board_t *board, int depth, int max_depth, bool player);
+int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta);
 
 
 #endif

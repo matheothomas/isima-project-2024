@@ -3,13 +3,12 @@
  * date : 18-06-24
  */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
 
-#include "init.h"
 #include "algos.h"
+#include "init.h"
 #include "utilities.h"
 
 
@@ -40,6 +39,7 @@ void print_play(play_t *play) {
 }
 
 bool is_duplicate(play_t * play1, play_t * play2) {
+	// printf("is_duplicate\n");
 
 	if (play1 != NULL && play2 != NULL) {
 
@@ -77,7 +77,7 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 }
 
 bool validity_play(play_t * play, bool player) {
-	printf("value %d\n", player);
+
 	if (play == NULL) {
 		return false;
 	}
@@ -148,7 +148,6 @@ bool validity_play(play_t * play, bool player) {
 	else {
 		for (int k = 0; k < play -> cell_tab_length; k++) {
 			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] == NULL) {
-				puts("d");
 				return false;
 			}
 			if (play -> cell_tab[k] -> neighbor[play -> movement_direction] -> state != EMPTY) {
@@ -161,7 +160,6 @@ bool validity_play(play_t * play, bool player) {
 
 	if (play->cell_tab_length > 1 && 
 		play->cell_tab[0]->neighbor[play->cell_direction] != play->cell_tab[1]) {
-		puts("f");
 		return false;
 	}
 	return true;
@@ -178,6 +176,7 @@ void free_tree(tree_t * tree) {
 }
 
 tree_t * create_tree(play_t * play, int value, int depth) {
+	// printf("create_tree\n");
 
 	tree_t * tree = malloc(sizeof(tree_t));
 	tree -> play = play;
@@ -207,6 +206,7 @@ void append_tree(tree_t * tree, play_t * play, int value, int depth, bool player
 }
 
 void fill_play_buffer(play_t * play) {
+	// printf("fill_play_buffer\n");
 
 	if (play -> cell_tab_length < 5) {
 		play -> cell_tab[play -> cell_tab_length] = NULL;
@@ -285,6 +285,7 @@ void cell_does_not_belongs_to_player(tree_t * tree, play_t * play, cell_t * cell
 			for (int i = 0; i < 6; i++) {
 				traversal_rec(tree, NULL, cell -> neighbor[i], visited, player);
 			}
+			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 		}
 	}
 }
@@ -341,6 +342,7 @@ void traversal_rec(tree_t * tree, play_t * play, cell_t * cell, bool * visited, 
 }
 
 tree_t * gen_plays(board_t * board, int depth, bool player) {
+	// printf("gen_plays\n");
 
 	// Player = 1 if bot is the player else 0
 	bool * visited = malloc(sizeof(bool) * CELL_NUMBER);
