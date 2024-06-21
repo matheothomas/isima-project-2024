@@ -247,11 +247,11 @@ int main(void) {
 
 			// Confirm the play
 			if(is_in(confirm, x, y)){
-				cur_cell= play->cell_tab[play->cell_tab_length-1];
-				if(play->cell_direction==play->movement_direction){
-					while (cur_cell && cur_cell->state && play->cell_tab_length<6) {
-						cur_cell=cur_cell->neighbor[play->cell_direction];
-						if(cur_cell || cur_cell->state || play->cell_tab_length<6){
+				cur_cell = play->cell_tab[play->cell_tab_length - 1];
+				if(play->cell_direction == play->movement_direction){
+					while (cur_cell && cur_cell->state && play->cell_tab_length < 6) {
+						cur_cell = cur_cell->neighbor[play->cell_direction];
+						if(cur_cell || cur_cell->state || play->cell_tab_length < 6){
 							nb_selected_cells++;
 							play->cell_tab[nb_selected_cells-1] = cur_cell;
 							play->cell_tab_length++;
@@ -267,11 +267,12 @@ int main(void) {
 				if (validity_play(play, 0)){
 					b=apply_play(b, play);
 					printf("player :\n");
-				print_play(play);
+					print_play(play);
 					is_bot_turn = true;
+					display_board(g, cell_tab);
 				}
 				else{
-					printf("coup non valide, réinitialitation du coup\n");
+					printf("coup non valide, réinitialisation du coup\n");
 				}
 				for(int k=0;k<play->cell_tab_length;k++){
 					play->cell_tab[k]->selection=UNSELECT;
@@ -282,19 +283,19 @@ int main(void) {
 
 			// Choose in which direction to push the balls
 			else if(is_in(g->commands_panel->button, x, y)){
-				for(int i=0;i<6;i++){
+				for(int i = 0; i < 6; i++){
 					if (is_in(g->commands_panel->tab_dir[i], x, y)) {
-						play->movement_direction=i;
-						i=6;
+						play->movement_direction = i;
+						i = 6;
 					}
 				}
 			}
 
 			// Select the balls to move
-		else if(1){ // TO DO check if mouse position on the board
-				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-				if(cell_tab[id_mouse_cell]->state==BLACK){
-					if(cell_tab[id_mouse_cell]->selection==SELECT){ // TO DO add the possibility to unselect a ball
+			else if(1){ // TO DO check if mouse position on the board
+				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+				if(cell_tab[id_mouse_cell]->state == BLACK){
+					if(cell_tab[id_mouse_cell]->selection == SELECT){ // TO DO add the possibility to unselect a ball
 						//cell_tab[id_mouse_cell]->selection=UNSELECT;
 						//nb_selected_cells-=1;
 						//printf("%d %d\n",nb_selected_cells, play->movement_direction);
@@ -305,15 +306,15 @@ int main(void) {
 						play->buffer[nb_selected_cells] = cell_tab[id_mouse_cell]->state;
 						cell_tab[id_mouse_cell]->selection=SELECT;
 						nb_selected_cells++;
-						if (nb_selected_cells==2){
-							for(int k=0;k<6;k++){
-								if(play->cell_tab[nb_selected_cells-2]->neighbor[k]==cell_tab[id_mouse_cell]){
-									play->cell_direction=k;
-									k=6;
+						if (nb_selected_cells == 2){
+							for(int k = 0; k < 6; k++){
+								if(play->cell_tab[nb_selected_cells-2]->neighbor[k] == cell_tab[id_mouse_cell]){
+									play->cell_direction = k;
+									k = 6;
 								}
 							}
 						}
-						printf("%d %d %d\n",nb_selected_cells, play->movement_direction, play->cell_direction);
+						// printf("%d %d %d\n",nb_selected_cells, play->movement_direction, play->cell_direction);
 					}
 				}
 			}
