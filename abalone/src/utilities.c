@@ -6,11 +6,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "algos.h"
 #include "init.h"
 #include "utilities.h"
 
+// bool global_player = false;
 
 void print_play(play_t *play) {
 	if(validity_play(play, 1)) {
@@ -78,6 +80,7 @@ bool is_duplicate(play_t * play1, play_t * play2) {
 
 bool validity_play(play_t * play, bool player) {
 	// printf("validity_play\n");
+	// player = global_player;
 
 	if (play == NULL) {
 		return false;
@@ -190,9 +193,9 @@ tree_t * create_tree(play_t * play, int value, int depth) {
 	return tree;
 }
 
-void append_tree(tree_t * tree, play_t * play, int value, int depth) {
+void append_tree(tree_t * tree, play_t * play, int value, int depth, bool player) {
 	// printf("append_tree\n");
-	if(validity_play(play, 1)) {
+	if(validity_play(play, player)) {
 		tree_t *new_tree = create_tree(play, value, depth);
 		tree_t * cours = tree;
 
@@ -255,7 +258,7 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 			if(play->cell_tab[0]->id == 5) {
 				// printf("oulala %d\n", play->cell_tab_length);
 			}
-			append_tree(tree, play, 0, tree -> depth);
+			append_tree(tree, play, 0, tree -> depth, player);
 		}	
 		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 	}
@@ -264,23 +267,32 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
 	// printf("cell_does_not_belongs_to_player\n");
-	if (play != NULL && play -> cell_tab_length < 5) {
-		// If movement direction is not colinear to cell direction then we should
-		// not add the cell of the other player
-		if (play -> cell_direction == play -> movement_direction || 
-			play -> cell_direction == (play -> movement_direction + 3) % 6) {
+	if (play != NULL){
+		if(play -> cell_tab_length < 5) {
+			// If movement direction is not colinear to cell direction then we should
+			// not add the cell of the other player
+			if (play -> cell_direction == play -> movement_direction || 
+				play -> cell_direction == (play -> movement_direction + 3) % 6) {
 
-			play -> cell_tab[play -> cell_tab_length] = cell;
-			play -> cell_tab_length ++;
+				play -> cell_tab[play -> cell_tab_length] = cell;
+				play -> cell_tab_length ++;
 
-			if (validity_play(play, player)) {
-				fill_play_buffer(play);
-				if(play->cell_tab[0]->id == 5) {
-					// printf("putput\n");
+				if (validity_play(play, player)) {
+					fill_play_buffer(play);
+					if(play->cell_tab[0]->id == 5) {
+						// printf("putput\n");
+					}
+					append_tree(tree, play, 0, tree -> depth, player);
 				}
-				append_tree(tree, play, 0, tree -> depth);
+				traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 			}
-			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
+		}
+	} else {
+		if(!visited[cell->id]) {
+			visited[cell->id] = true;
+			for(int i = 0; i < 6; i++) {
+				traversal_rec(board, tree, NULL, cell->neighbor[i], visited, player);
+			}
 		}
 	}
 }
@@ -305,7 +317,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 						if(play->cell_tab[0]->id == 5) {
 							// printf("putputput\n");
 						}
-						append_tree(tree, play, 0, tree -> depth);
+						append_tree(tree, play, 0, tree -> depth, player);
 						for (int i = 0; i < 6; i++) {
 							traversal_rec(board, tree, NULL, cell -> neighbor[i], visited, player);
 						}
@@ -318,7 +330,7 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 					if(play->cell_tab[0]->id == 5) {
 						// printf("putputput\n");
 					}
-					append_tree(tree, play, 0, tree -> depth);
+					append_tree(tree, play, 0, tree -> depth, player);
 				}
 			}
 		break;

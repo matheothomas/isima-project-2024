@@ -46,7 +46,7 @@ int max(tree_t *tree, bool player);
 play_t *max_play(tree_t *tree);
 
 /// basic heuristic function maximizing the ratio between our cells and the adversary
-int basic_heuristic(cell_t **cell_tab);
+int basic_heuristic(cell_t **cell_tab, bool player);
 
 /// returns the best play depending on the player
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player);
@@ -55,7 +55,7 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player);
 /// applies a play to the board
 board_t *apply_play(board_t *board, play_t *play);
 
-/// reverts a play to the board
+///
 board_t *undo_play(board_t *board, play_t *play);
 
 /// applies the min-max algorithm 
