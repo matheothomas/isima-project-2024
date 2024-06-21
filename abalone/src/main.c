@@ -31,6 +31,11 @@ int main(void) {
 	play->cell_tab_length=0;
 	play->movement_direction=0;
 
+
+	/////////////////////////////
+	// SDL MAIN LOOP FUNCTIONS //
+	/////////////////////////////
+
 	int h;
 	int w;
 	int x = 0;
@@ -43,13 +48,14 @@ int main(void) {
 	int nb_selected_cells = 0;
 	cell_t *cur_cell;
 
-	/////////////////////////////
-	// SDL MAIN LOOP FUNCTIONS //
-	/////////////////////////////
-
 	SDL_GetWindowSize(g->window, &w, &h);
 
-	// Rect and texture creation for the second event loop
+	// Rect and texture creation for the first event loop
+	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
+	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
+
+
+	// Rect and texture creation for the first event loop
 	SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11);
 	SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11);
 
@@ -94,11 +100,11 @@ int main(void) {
 
 		// update
 		if(mouse_state==1){
-			if(is_in(g->home_menu->button_1, x, y)){
+			if(is_in(button_1, x, y)){
 				r1=255;
 				r2=0;
 			}
-			else if (is_in(g->home_menu->button_2, x, y)){
+			else if (is_in(button_2, x, y)){
 				r1=0;
 				r2=255;
 			}
@@ -111,12 +117,12 @@ int main(void) {
 		if(mouse_state==2){
 			r1=0;
 			r2=0;
-			if(is_in(g->home_menu->button_1, x, y)){
+			if(is_in(button_1, x, y)){
 				b=start_config(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
 			}
-			else if (is_in(g->home_menu->button_2, x, y)){
+			else if (is_in(button_2, x, y)){
 				b=start_config_2(b);
 				program_on = SDL_FALSE;
 				program_on_2 = SDL_TRUE;
@@ -132,11 +138,8 @@ int main(void) {
 	// Second Event Loop
 
 	// TO DO
-	// let the bot play
 	// add the possibility to unselect a ball
 	// check if mouse position on the board
-	// make the selection prettier
-
 	// Texts
 	
 	bool is_bot_turn = false;

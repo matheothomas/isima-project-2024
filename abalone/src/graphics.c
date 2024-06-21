@@ -53,8 +53,9 @@ graphics_t *init_sdl() {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, *white, *black, *red, *config_1, *config_2, *commands;
+	SDL_Texture *board, *white, *black, *red, *config_1, *config_2, *commands, *background;
 	TTF_Font * font;
+	SDL_Rect *window_dimensions, *panel;
 
 	// SDL INITIALISATION
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -70,6 +71,9 @@ graphics_t *init_sdl() {
 	if (window == NULL)
 		end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
 
+	window_dimensions=crea_rect(0, 0, screen.h * 0.9 * 1.5, screen.h * 0.9);
+	panel=crea_rect(2*screen.h * 0.9 * 1.5/3, 0, screen.h * 0.9 * 1.5/3, screen.h * 0.9);
+
 	// Renderer creation
 	renderer = SDL_CreateRenderer(
 		window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -84,6 +88,8 @@ graphics_t *init_sdl() {
 	config_1 = load_texture_from_image("res/config_1.png", window, renderer);
 	config_2 = load_texture_from_image("res/config_2.png", window, renderer);
 	commands = load_texture_from_image("res/commands.png", window, renderer);
+	background= load_texture_from_image("res/fond_2.jpg", window, renderer);
+
 
 	// Font opening
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
@@ -93,6 +99,7 @@ graphics_t *init_sdl() {
 	
 	graphics_t *graphics = malloc(sizeof(graphics_t));
 	graphics->window = window;
+	graphics->window_dimensions=window_dimensions;
 	graphics->renderer = renderer;
 	graphics->board = board;
 	graphics->white = white;
@@ -101,10 +108,12 @@ graphics_t *init_sdl() {
 	graphics->config_1 = config_1;
 	graphics->config_2 = config_2;
 	graphics->commands = commands;
+	graphics->background=background;
 	graphics->font = font;
 	graphics->commands_panel=c;
+	graphics->panel=panel;
 
-	home_menu_t *home_menu=init_home_menu(graphics, screen.h * 0.9 * 1.5, screen.h * 0.9);
+	home_menu_t *home_menu=init_home_menu(window, renderer, font, screen.h * 0.9 * 1.5, screen.h * 0.9);
 
 	graphics->home_menu=home_menu;
 
@@ -128,18 +137,20 @@ commands_panel_t *init_commands_panel(int w, int h){
 	return commands_panel;
 }
 
-home_menu_t *init_home_menu(graphics_t *g, int w, int h){
+home_menu_t *init_home_menu(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font, int w, int h){
 	home_menu_t *home_menu=malloc(sizeof(home_menu_t));
 
 	SDL_Rect* text_box = crea_rect(2*w/15, h/4, 11*w/15, h/4);
 	SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4);
 	SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4);
-	SDL_Texture *text_home_menu = create_texture_for_text(" choose your starting line ! ", g->font, g->renderer);
+	SDL_Texture *text_home_menu = create_texture_for_text(" choose your starting line ! ", font, renderer);
+	SDL_Texture *fond = load_texture_from_image("res/fond_1.jpg", window, renderer);
 
 	home_menu->text_box=text_box;
 	home_menu->button_1=button_1;
 	home_menu->button_2=button_2;
 	home_menu->text_home_menu=text_home_menu;
+	home_menu->fond=fond;
 
 	return home_menu;
 }
@@ -337,7 +348,7 @@ int get_cell_id_from_mouse_position(graphics_t *g, int x, int y) {
 }
 
 void display_board(graphics_t *g, cell_t **cell_tab) {
-	SDL_RenderClear(g->renderer);
+	//SDL_RenderClear(g->renderer);
 	texturing(g->board, g->window, g->renderer);
 
 	for(int i = 0; i < 61; i++) {
@@ -364,20 +375,27 @@ int is_in (SDL_Rect* button,int x,int y){
 }
 
 void home_menu(graphics_t* g, int r1,int r2){
+
+	SDL_Rect source = {0};
+
+	// clear renderer
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 
-	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, g->home_menu->text_box);
+	// background
+	SDL_QueryTexture(g->home_menu->fond, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->home_menu->fond, &source, g->window_dimensions);
 
+	// text box
+	//SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
+	//SDL_RenderFillRect(g->renderer, g->home_menu->text_box);
+
+	// buttons
 	SDL_SetRenderDrawColor(g->renderer, r1, 200, 200, 255);
 	SDL_RenderFillRect(g->renderer, g->home_menu->button_1);
 
 	SDL_SetRenderDrawColor(g->renderer, r2, 200, 200, 255);
 	SDL_RenderFillRect(g->renderer, g->home_menu->button_2);
-
-
-	SDL_Rect source = {0};
 
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->config_1, &source, g->home_menu->button_1);
@@ -385,30 +403,45 @@ void home_menu(graphics_t* g, int r1,int r2){
 	SDL_QueryTexture(g->config_1, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->config_2, &source, g->home_menu->button_2);
 
+	// text
 	SDL_QueryTexture(g->home_menu->text_home_menu, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->home_menu->text_home_menu, NULL, g->home_menu->text_box);
 
-
+	// shows
 	SDL_RenderPresent(g->renderer);
 }
 
 void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture * text, int r, cell_t **cell_tab, int direction_state){
+	
+	SDL_Rect source = {0};
+
+	// clear renderer
 	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	SDL_RenderClear(g->renderer);
 
+	// background
+	SDL_QueryTexture(g->background, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->background, &source, g->window_dimensions);
+
+	// panel
+	SDL_SetRenderDrawColor(g->renderer, 50, 50, 50, 255);
+	SDL_RenderFillRect(g->renderer, g->panel);
+
+	// board
 	display_board(g, cell_tab);
 
-	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(g->renderer, text_box);
-
+	// text box
+	//SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
+	//SDL_RenderFillRect(g->renderer, text_box);
+	
+	// confirm button
 	SDL_SetRenderDrawColor(g->renderer, r, 200, 200, 255);
 	SDL_RenderFillRect(g->renderer, confirm);
 
+	// commands panel (for directions)
 	SDL_RenderDrawRect(g->renderer, g->commands_panel->button);
-	SDL_Rect source = {0};
 	SDL_QueryTexture(g->commands, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->commands, &source, g->commands_panel->button);
-
 
 	for(int i=0;i<6;i++){
 		if(i==direction_state){
@@ -417,8 +450,10 @@ void display_game(graphics_t* g,SDL_Rect* text_box,SDL_Rect* confirm,SDL_Texture
 		}
 	}
 
+	// text
 	SDL_QueryTexture(text, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, text, NULL, text_box);
 
+	// shows
 	SDL_RenderPresent(g->renderer);
 }

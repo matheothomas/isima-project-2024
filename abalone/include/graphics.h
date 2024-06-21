@@ -18,6 +18,7 @@
 /// contains all the graphics elements
 typedef struct graphics {
 	SDL_Window *window;
+	SDL_Rect *window_dimensions;
 	SDL_Renderer *renderer;
 	SDL_Texture *board;
 	SDL_Texture *white;
@@ -26,8 +27,10 @@ typedef struct graphics {
 	SDL_Texture *config_1;
 	SDL_Texture *config_2;
 	SDL_Texture *commands;
+	SDL_Texture *background;
 	TTF_Font * font;
 	struct commands_panel *commands_panel;
+	SDL_Rect * panel;
 	struct home_menu *home_menu;
 } graphics_t;
 
@@ -45,9 +48,10 @@ typedef struct commands_panel {
 
 
 typedef struct home_menu {
-	SDL_Rect* text_box;
-	SDL_Rect* button_1;
-	SDL_Rect* button_2;
+	SDL_Texture *fond;
+	SDL_Rect *text_box;
+	SDL_Rect *button_1;
+	SDL_Rect *button_2;
 	SDL_Texture *text_home_menu;
 } home_menu_t;
 
@@ -62,7 +66,7 @@ graphics_t *init_sdl();
 /// initialises the commands_panel structure
 commands_panel_t *init_commands_panel(int w, int h);
 
-home_menu_t *init_home_menu(graphics_t *g, int w, int h);
+home_menu_t *init_home_menu(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font, int w, int h);
 
 /// loads a texture from an image
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer );
