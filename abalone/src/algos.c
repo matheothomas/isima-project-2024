@@ -61,6 +61,7 @@ int max(tree_t *tree, bool player) {
 		temp = temp->next_tree;
 	}
 
+	free_tree(tree);
 	return val_max;
 }
 
@@ -207,7 +208,7 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 			if (flag) {
 				fprintf(stderr, "Thread failed to initialize: %d\n", flag);
 			}
-			// printf("temp->value : %d\n", temp->value);
+			printf("temp->value : %d\n", temp->value);
 		}
 	}
 
