@@ -169,43 +169,6 @@ int main(void) {
 					mouse_state=2;
 				break;
 
-				case SDL_KEYDOWN:
-					switch (event.key.keysym.sym) {
-
-						case SDLK_0:
-						case SDLK_KP_0:
-							play->movement_direction=0;
-						break;
-
-						case SDLK_1:
-						case SDLK_KP_1:
-							play->movement_direction=1;
-						break;
-
-						case SDLK_2:
-						case SDLK_KP_2:
-							play->movement_direction=2;
-						break;
-
-						case SDLK_3:
-						case SDLK_KP_3:
-							play->movement_direction=3;
-						break;
-
-						case SDLK_4:
-						case SDLK_KP_4:
-							play->movement_direction=4;
-						break;
-
-						case SDLK_5:
-						case SDLK_KP_5:
-							play->movement_direction=5;
-						break;
-
-						default:
-						break;
-				}
-
 				default:
 				break;
 			}
@@ -218,15 +181,15 @@ int main(void) {
 			}
 		}
 
-		id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
 
-		if(mouse_state==0){
+		if(mouse_state == 0){
 			if(!(is_in(g->panel, x, y))){
-				id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-				if(id_mouse_cell>0 && id_mouse_cell<61){
-					if(cell_tab[id_mouse_cell]->selection==UNSELECT && cell_tab[id_mouse_cell]->state==BLACK){
-						id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
-						cell_tab[id_mouse_cell]->selection=MOUSE;
+				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+				if(id_mouse_cell > 0 && id_mouse_cell<61){
+					if(cell_tab[id_mouse_cell]->selection == UNSELECT && cell_tab[id_mouse_cell]->state == BLACK){
+						id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+						cell_tab[id_mouse_cell]->selection = MOUSE;
 					}
 				}
 			}
