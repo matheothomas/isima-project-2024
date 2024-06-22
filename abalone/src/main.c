@@ -182,7 +182,6 @@ int main(void) {
 			printf("bot :\n");
 			print_play(play);
 			init_play(play);
-			//nb_selected_cells = 0;
 			//play->cell_tab_length=0;
 			is_bot_turn = false;
 		}
@@ -268,7 +267,6 @@ int main(void) {
 						for(int k=0;k<play->cell_tab_length;k++){
 							play->cell_tab[k]->selection=UNSELECT;
 						}
-						//nb_selected_cells=0;
 						//play->cell_tab_length=0;
 						init_play(play);
 					}
@@ -291,7 +289,6 @@ int main(void) {
 						if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
 							cell_tab[id_mouse_cell]->selection=UNSELECT;
 							play->cell_tab[play->cell_tab_length] = NULL;
-							//nb_selected_cells--;
 							play->cell_tab_length--;
 						}
 						// select
@@ -302,7 +299,6 @@ int main(void) {
 							play->buffer[play->cell_tab_length] = cell_tab[id_mouse_cell]->state;
 
 							cell_tab[id_mouse_cell]->selection=SELECT;
-							//nb_selected_cells++;
 							if (play->cell_tab_length == 2){
 								for(int k = 0; k < 6; k++){
 									if(play->cell_tab[play->cell_tab_length-2]->neighbor[k] == cell_tab[id_mouse_cell]){
