@@ -154,10 +154,8 @@ int main(void) {
 
 	// Second Event Loop
 
-	// TO DO
-	// display unvalid play
-
 	while (program_on_2) {
+
 		// process event
 		mouse_state=0;
 		while (SDL_PollEvent(&event)) {
@@ -190,6 +188,7 @@ int main(void) {
 		}
 
 		// update
+
 		// the bot turn to play
 		if(is_bot_turn) {
 			play = choose_play(b, cell_tab, 1);
@@ -200,8 +199,13 @@ int main(void) {
 			//play->cell_tab_length=0;
 			is_bot_turn = false;
 		}
+
 		// the player turn to play
 		else{
+
+			// init the play as valid
+			is_play_selected_valid = 1;
+
 			// cell previously under the mouse's cursor back to being displayed in black
 			if(id_mouse_cell>0 && id_mouse_cell<61){
 				if(cell_tab[id_mouse_cell]->selection==MOUSE){
@@ -242,6 +246,8 @@ int main(void) {
 				// Confirm the play // maybe a problem, maybe not
 				if(is_in(g->confirm, x, y)){
 					if(play->cell_tab_length){
+
+						// update and check for validity
 						if(play->cell_direction==play->movement_direction){
 							int input_length = play->cell_tab_length - 1;
 							while(input_length < 5) {
@@ -269,16 +275,21 @@ int main(void) {
 						if(play->cell_tab_length==1){
 							play->cell_direction=play->movement_direction;
 						}
+
+						// valid play
 						if (validity_play(play, 0) && is_play_selected_valid){
 							b=apply_play(b, play);
 							printf("player :\n");
 							print_play(play);
 							is_bot_turn = true;
 						}
+
+						// unvalid play
 						else{
-							is_play_selected_valid = 1;
-							printf("coup non valide, réinitialisation du coup\n");
+							is_play_selected_valid = 0;
 						}
+
+						// unselect the balls
 						for(int k=0;k<play->cell_tab_length;k++){
 							play->cell_tab[k]->selection=UNSELECT;
 						}
@@ -339,7 +350,7 @@ int main(void) {
 		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
 		
 		// render
-		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
+		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction, is_play_selected_valid);
 		SDL_Delay(1);
 	}
 
