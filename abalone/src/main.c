@@ -151,9 +151,7 @@ int main(void) {
 		SDL_Delay(1);
 	}
 
-
 	// Second Event Loop
-
 	while (program_on_2) {
 
 		// process event
@@ -207,7 +205,7 @@ int main(void) {
 			is_play_selected_valid = 1;
 
 			// cell previously under the mouse's cursor back to being displayed in black
-			if(id_mouse_cell>0 && id_mouse_cell<61){
+			if(id_mouse_cell>=0 && id_mouse_cell<61){
 				if(cell_tab[id_mouse_cell]->selection==MOUSE){
 					cell_tab[id_mouse_cell]->selection=UNSELECT;
 				}
@@ -220,7 +218,7 @@ int main(void) {
 			if(mouse_state == 0){
 				if(!(is_in(g->panel, x, y))){
 					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
-					if(id_mouse_cell > 0 && id_mouse_cell<61){
+					if(id_mouse_cell >= 0 && id_mouse_cell<61){
 						if(cell_tab[id_mouse_cell]->selection == UNSELECT && cell_tab[id_mouse_cell]->state == BLACK){
 							id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
 							cell_tab[id_mouse_cell]->selection = MOUSE;
@@ -309,7 +307,7 @@ int main(void) {
 				}
 
 				// Select/unselect the balls to move
-				else if(id_mouse_cell>0 && id_mouse_cell<61){
+				else if(id_mouse_cell>=0 && id_mouse_cell<61){
 					if(cell_tab[id_mouse_cell]->state==BLACK){
 						// unselect
 						if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
