@@ -237,14 +237,10 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				new_play -> movement_direction = j;
 				new_play -> cell_direction = i;
 				new_play -> cell_tab[0] = cell;
-				new_play -> cell_tab[1] = NULL;
-				new_play -> cell_tab[2] = NULL;
-				new_play -> cell_tab[3] = NULL;
-				new_play -> cell_tab[4] = NULL;
-
 				new_play -> buffer[0] = cell -> state;
 				for (int k = 1; k < 5; k++) {
 					new_play -> buffer[k] = EMPTY;
+					new_play -> cell_tab[k] = NULL;
 				}
 
 				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
