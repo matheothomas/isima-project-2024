@@ -34,8 +34,9 @@ void score_update(board_t *b, cell_t **cell_tab){
 }
 
 int main(void) {
-	graphics_t *g = init_sdl();
 
+	// global initialisation
+	graphics_t *g = init_sdl();
 	board_t *b = create_clean_board();
 	cell_t **cell_tab=create_table(*b);
 	play_t *play=create_play();
@@ -46,19 +47,23 @@ int main(void) {
 	/////////////////////////////
 
 	// initialisation of variables
-	int h;
-	int w;
+
+	// mouse's position and state
 	int x = 0;
 	int y = 0;
+	int mouse_state = 0;
+
+	// colour modification (red part) to highlight clicked buttons
 	int r1 = 0;
 	int r2 = 0;
 	int r = 0;
-	int mouse_state = 0;
-	int id_mouse_cell = 0;
-	//int nb_selected_cells = 0;
-	bool is_play_selected_valid = 1;
 
-	SDL_GetWindowSize(g->window, &w, &h);
+	// id of the cell pointed by the mouse
+	int id_mouse_cell = 0;
+
+	// the play is valid and the player play first
+	bool is_play_selected_valid = 1;
+	bool is_bot_turn = false;
 
 	// Initialisation of the textures for the score display
 	char *Text_Panel_Black= malloc(10*sizeof(char));
@@ -151,10 +156,7 @@ int main(void) {
 
 	// TO DO
 	// display unvalid play
-	
-	bool is_bot_turn = false;
 
-	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
 		// process event
 		mouse_state=0;
@@ -330,7 +332,7 @@ int main(void) {
 		// update score
 		score_update(b, cell_tab);
 
-		// update score display
+		// update textures for the score display
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
 		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
