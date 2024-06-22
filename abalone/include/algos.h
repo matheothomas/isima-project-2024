@@ -33,6 +33,10 @@ typedef struct tree {
 
 /* Functions definitions */
 
+play_t *create_play();
+
+void init_play(play_t *play);
+
 /// return the max value of a and b
 int max_value(int a, int b);
 

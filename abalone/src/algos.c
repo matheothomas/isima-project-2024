@@ -14,6 +14,22 @@
 #include "init.h"
 #include "utilities.h"
 
+play_t *create_play(){
+	play_t *play=malloc(sizeof(play_t));
+	init_play(play);
+	return play;
+}
+
+void init_play(play_t *play){
+	play->cell_direction=0;
+	play->cell_tab_length=0;
+	play->movement_direction=0;
+	for(int i = 0; i < 5; i++) {
+		play->buffer[i] = 0;
+		play->cell_tab[i] = NULL;
+	}
+}
+
 
 int play_count = 0;
 int undo_count = 0;
