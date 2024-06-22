@@ -175,7 +175,6 @@ int main(void) {
 		}
 
 		// update
-
 		// the bot turn to play
 		if(is_bot_turn) {
 			play = choose_play(b, cell_tab, 1);
@@ -188,14 +187,17 @@ int main(void) {
 			is_bot_turn = false;
 		}
 		else{
+			// cell previously under the mouse's cursor back to being displayed in black
 			if(id_mouse_cell>0 && id_mouse_cell<61){
 				if(cell_tab[id_mouse_cell]->selection==MOUSE){
 					cell_tab[id_mouse_cell]->selection=UNSELECT;
 				}
 			}
 
+			// get the id of the cell under the mouse's cursor
 			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
 
+			// display the cell under the mouse's cursor in red
 			if(mouse_state == 0){
 				if(!(is_in(g->panel, x, y))){
 					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
@@ -208,6 +210,7 @@ int main(void) {
 				}
 			}
 
+			// display the confirm button in pink when clicked on
 			else if(mouse_state==1){
 				if(is_in(g->confirm, x, y)){
 					r=255;
@@ -217,6 +220,7 @@ int main(void) {
 				}
 			}
 
+			// button clicked
 			else if(mouse_state==2){
 				r=0;
 
