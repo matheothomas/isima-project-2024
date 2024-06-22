@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+#include <pthread.h>
 
 #include "algos.h"
 #include "graphics.h"
@@ -15,8 +17,8 @@
 #include "utilities.h"
 
 
-int play_count = 0;
-int undo_count = 0;
+// int play_count = 0;
+// int undo_count = 0;
 
 
 void init_play(play_t *play) {
@@ -127,11 +129,36 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 	}
 }
 
+void * create_thread(void * args) {
+	args_t * vals = args;
+	eval_thread(vals -> board, vals -> cell_tab, vals -> temp_value, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+	pthread_exit(NULL);
+}
+
+
+board_t * copy_board(cell_t ** cell_tab) {
+	board_t * new_board = create_clean_board();
+	cell_t ** new_cell_tab = create_table(*new_board);
+
+	for (int i = 0; i < CELL_NUMBER; i++) {
+		new_cell_tab[i] -> state = cell_tab[i] -> state;
+		new_cell_tab[i] -> selection = cell_tab[i] -> selection;
+	}
+
+	return new_board;
+}
+
+cell_t ** copy_cell_tab(board_t * board) {
+	cell_t ** new_cell_tab = create_table(*board);
+
+	return new_cell_tab;
+}
+
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	// printf("choose_play\n");
-	play_count = 0;
-	undo_count = 0;
+	// play_count = 0;
+	// undo_count = 0;
 	tree_t *tree = gen_plays(board, 0, player);
 	tree_t *temp = tree;
 
@@ -139,24 +166,56 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 		// printf("something is null\n");
 		return NULL;
 	}
+
+	int num_threads = 8;
+	pthread_t threads[num_threads];
+	args_t arguments[num_threads];
+
+	for (int i = 0; i < num_threads; i++) {
+		arguments[i].board = copy_board(cell_tab);
+		arguments[i].cell_tab = copy_cell_tab(board);
+		arguments[i].temp_value = NULL;
+		arguments[i].depth = 0;
+		arguments[i].max_depth = MAX_DEPTH;
+		arguments[i].player = !player;
+		arguments[i].alpha = INT_MIN;
+		arguments[i].beta = INT_MAX;
+	}
+
+	int active_threads = 0;
 	while (temp->next_tree != NULL) {
 		if(validity_play(temp->play, player)) {
-			temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
-			printf("temp->value : %d\n", temp->value);
-			undo_play(board, temp->play);
+			if (active_threads < num_threads) {
+				arguments[active_threads].temp_value = &temp -> value;
+				int flag = pthread_create(&threads[active_threads], NULL, create_thread, (void *) &arguments[active_threads]);
+				if (flag) {
+					fprintf(stderr, "Thread failed to initialize: %d\n", flag);
+				}
+				active_threads++;
+			}
+			else {
+				temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
+				undo_play(board, temp->play);
+			}
+			// printf("temp->value : %d\n", temp->value);
 		}
 
 		temp = temp->next_tree;
 	}
 
-	printf("play_count : %d\n", play_count);
-	printf("undo_count : %d\n", undo_count);
+	// Wait for all the threads to finish
+	for (int i = 0; i < num_threads; i++) {
+		pthread_join(threads[i], NULL);
+	}
+
+	// printf("play_count : %d\n", play_count);
+	// printf("undo_count : %d\n", undo_count);
 	return max_play(tree);
 }
 
 board_t *apply_play(board_t *board, play_t *play) {
 	// printf("apply_play\n");
-	play_count++;
+	// play_count++;
 
 	// duplicates the balls
 	for(int i = play->cell_tab_length - 1; i >= 0; i--) {
@@ -185,7 +244,7 @@ board_t *apply_play(board_t *board, play_t *play) {
 
 board_t *undo_play(board_t *board, play_t *play) {
 	// printf("undo_play\n");
-	undo_count++;
+	// undo_count++;
 
 	// duplicates the balls
 	if(play->cell_tab[play->cell_tab_length - 1]->neighbor[play->cell_direction] == NULL) {
@@ -214,6 +273,52 @@ board_t *undo_play(board_t *board, play_t *play) {
 	}
 
 	return board;
+}
+
+void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta) {
+	// printf("eval\n");
+	int score;
+
+	// score = basic_heuristic(cell_tab);
+	score = center_heuristic(cell_tab);
+	
+	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
+		*temp_value = score;
+	}
+	tree_t *tree = gen_plays(board, depth, player);
+
+	if(tree == NULL) {
+		*temp_value = score;
+		
+	} else {
+		tree_t *temp = tree;
+
+		while(temp->next_tree != NULL) {
+			if(validity_play(temp->play, player)) {
+				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
+				undo_play(board, temp->play);
+
+				if(player) {
+					alpha = max_value(alpha, temp->value);
+					if(beta <= alpha) {
+						break;
+					}
+				} else {
+					beta = min_value(beta, temp->value);
+					if(beta <= alpha) {
+						break;
+					}
+				}
+			}
+			temp = temp->next_tree;
+		}
+
+		if(player) {
+			*temp_value = max(tree, !player);
+		} else {
+			*temp_value = max(tree, player);
+		}
+	}
 }
 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {

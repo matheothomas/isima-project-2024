@@ -9,6 +9,7 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
@@ -54,7 +55,7 @@ graphics_t *init_sdl() {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_DisplayMode screen;
-	SDL_Texture *board, *white, *black, *red, *config_1, *config_2, *commands, *background, *text_confirm;
+	SDL_Texture *board, *white, *black, *red, *config_1, *config_2, *commands, *background, *text_confirm, *error_text, *error_text_2;
 	TTF_Font * font;
 	SDL_Rect *window_dimensions, *panel, *text_box, *text_box_black, *text_box_white, *confirm;
 	colours_t *colours;
@@ -106,6 +107,8 @@ graphics_t *init_sdl() {
 	background= load_texture_from_image("res/fond_2.jpg", window, renderer);
 
 	text_confirm=create_texture_for_text(" Confirm ", font, renderer, colours->black);
+	error_text=create_texture_for_text(" Invalid play ", font, renderer, colours->dark_red);
+	error_text_2=create_texture_for_text(" Try again ", font, renderer, colours->dark_red);
 
 
 	// commands_panel creation
@@ -133,6 +136,8 @@ graphics_t *init_sdl() {
 	graphics->text_box_black=text_box_black;
 	graphics->text_box_white=text_box_white;
 	graphics->confirm=confirm;
+	graphics->error_text=error_text;
+	graphics->error_text_2=error_text_2;
 	graphics->text_confirm=text_confirm;
 	graphics->home_menu=home_menu;
 	graphics->colours=colours;
@@ -450,7 +455,7 @@ void home_menu(graphics_t* g, int r1,int r2){
 	SDL_RenderPresent(g->renderer);
 }
 
-void display_game(graphics_t* g,SDL_Texture * text_panel_black, SDL_Texture * text_panel_white, int r, cell_t **cell_tab, int direction_state){
+void display_game(graphics_t* g,SDL_Texture * text_panel_black, SDL_Texture * text_panel_white, int r, cell_t **cell_tab, int direction_state, int is_play_selected_valid){
 	
 	SDL_Rect source = {0};
 
@@ -468,10 +473,6 @@ void display_game(graphics_t* g,SDL_Texture * text_panel_black, SDL_Texture * te
 
 	// board
 	display_board(g, cell_tab);
-
-	// text box
-	//SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	//SDL_RenderFillRect(g->renderer, g->text_box);
 	
 	// confirm button
 	SDL_SetRenderDrawColor(g->renderer, r, 200, 200, 255);
@@ -497,6 +498,19 @@ void display_game(graphics_t* g,SDL_Texture * text_panel_black, SDL_Texture * te
 	SDL_QueryTexture(text_panel_black, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, text_panel_white, NULL, g->text_box_white);
 
+	// text box
+	if(!is_play_selected_valid){
+		SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+		SDL_RenderFillRect(g->renderer, g->text_box);
+		SDL_QueryTexture(g->error_text, NULL, NULL, &source.w, &source.h);
+		SDL_RenderCopy(g->renderer, g->error_text, NULL, g->text_box_black);
+		SDL_QueryTexture(g->error_text_2, NULL, NULL, &source.w, &source.h);
+		SDL_RenderCopy(g->renderer, g->error_text_2, NULL, g->text_box_white);
+	}
+
 	// shows
 	SDL_RenderPresent(g->renderer);
+	if(!is_play_selected_valid){
+		SDL_Delay(2000);
+	}
 }

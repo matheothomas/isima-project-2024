@@ -13,6 +13,18 @@
 
 /* Struct definitions */
 
+/// Wrapper struct for paralelism
+typedef struct args_t {
+	board_t * board;
+	cell_t ** cell_tab;
+	int * temp_value;
+	int depth;
+	int max_depth;
+	bool player;
+	int alpha;
+	int beta;
+} args_t;
+
 /// contains all info to make a play
 typedef struct play {
 	cell_t *cell_tab[5];
@@ -52,6 +64,8 @@ play_t *max_play(tree_t *tree);
 /// basic heuristic function maximizing the ratio between our cells and the adversary
 int basic_heuristic(cell_t **cell_tab);
 
+/// Wrapper 
+
 /// returns the best play depending on the player
 play_t *choose_play(board_t *board, cell_t **cell_tab, bool player);
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab);
@@ -65,6 +79,7 @@ board_t *undo_play(board_t *board, play_t *play);
 /// applies the min-max algorithm 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta);
 
+void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta);
 
 #endif
 
