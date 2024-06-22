@@ -198,12 +198,16 @@ void append_tree(tree_t * tree, play_t * play, int value, int depth, bool player
 
 		while (cours -> next_tree != NULL) {
 			if (is_duplicate(play, cours -> play)) {
+				free(new_tree);
 				return;
 			}
 			cours = cours -> next_tree;
 		}
 		if (!is_duplicate(cours -> play, play)) {
 			cours -> next_tree = new_tree;
+		}
+		else {
+			free(new_tree);
 		}
 	}
 }
@@ -246,6 +250,9 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
 			}
 		}
+		if (play != NULL) {
+			free(play);
+		}
 	}
 	else if (play -> cell_tab_length < 3) {
 
@@ -261,7 +268,9 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 		}
 		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 	}
-
+	else {
+		free(play);
+	}
 }
 
 void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player) {
@@ -286,6 +295,9 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 				traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 			}
 		}
+		else {
+			free(play);
+		}
 	}
 	else {
 		if (!visited[cell -> id]) {
@@ -293,6 +305,9 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 			for (int i = 0; i < 6; i++) {
 				traversal_rec(board, tree, play, cell -> neighbor[i], visited, player);
 			}
+		}
+		else {
+			free(play);
 		}
 	}
 }
@@ -319,12 +334,18 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 							traversal_rec(board, tree, NULL, cell -> neighbor[i], visited, player);
 						}
 					}
+					else {
+						free(play);
+					}
 				}
 			}
 			else {
 				if (validity_play(play, player)) {
 					fill_play_buffer(play);
 					append_tree(tree, play, 0, tree -> depth, player);
+				}
+				else if (play != NULL) {
+					free(play);
 				}
 			}
 		break;
@@ -342,7 +363,6 @@ void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell,
 
 		break;
 	}
-
 }
 
 tree_t * gen_plays(board_t * board, int depth, bool player) {
