@@ -20,9 +20,23 @@
 #include "init.h"
 #include "utilities.h"
 
-int main(void) {
-	graphics_t *g = init_sdl();
+void score_update(board_t *b, cell_t **cell_tab){
+	b->n_black=0;
+	b->n_white=0;
+	for(int i=0;i<61;i++){
+		if(cell_tab[i]->state==BLACK){
+			b->n_black+=1;
+		}
+		else if(cell_tab[i]->state==WHITE){
+			b->n_white+=1;
+		}
+	}
+}
 
+int main(void) {
+
+	// global initialisation
+	graphics_t *g = init_sdl();
 	board_t *b = create_clean_board();
 	cell_t **cell_tab=create_table(*b);
 	play_t *play=create_play();
@@ -33,19 +47,23 @@ int main(void) {
 	/////////////////////////////
 
 	// initialisation of variables
-	int h;
-	int w;
+
+	// mouse's position and state
 	int x = 0;
 	int y = 0;
+	int mouse_state = 0;
+
+	// colour modification (red part) to highlight clicked buttons
 	int r1 = 0;
 	int r2 = 0;
 	int r = 0;
-	int mouse_state = 0;
-	int id_mouse_cell = 0;
-	//int nb_selected_cells = 0;
-	bool is_play_selected_valid = 1;
 
-	SDL_GetWindowSize(g->window, &w, &h);
+	// id of the cell pointed by the mouse
+	int id_mouse_cell = 0;
+
+	// the play is valid and the player play first
+	bool is_play_selected_valid = 1;
+	bool is_bot_turn = false;
 
 	// Initialisation of the textures for the score display
 	char *Text_Panel_Black= malloc(10*sizeof(char));
@@ -136,13 +154,8 @@ int main(void) {
 
 	// Second Event Loop
 
-	// TO DO
-	// display unvalid play
-	
-	bool is_bot_turn = false;
-
-	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
 	while (program_on_2) {
+
 		// process event
 		mouse_state=0;
 		while (SDL_PollEvent(&event)) {
@@ -175,6 +188,7 @@ int main(void) {
 		}
 
 		// update
+
 		// the bot turn to play
 		if(is_bot_turn) {
 			play = choose_play(b, cell_tab, 1);
@@ -182,12 +196,16 @@ int main(void) {
 			printf("bot :\n");
 			print_play(play);
 			init_play(play);
-			//nb_selected_cells = 0;
 			//play->cell_tab_length=0;
 			is_bot_turn = false;
 		}
+
 		// the player turn to play
 		else{
+
+			// init the play as valid
+			is_play_selected_valid = 1;
+
 			// cell previously under the mouse's cursor back to being displayed in black
 			if(id_mouse_cell>0 && id_mouse_cell<61){
 				if(cell_tab[id_mouse_cell]->selection==MOUSE){
@@ -228,6 +246,8 @@ int main(void) {
 				// Confirm the play // maybe a problem, maybe not
 				if(is_in(g->confirm, x, y)){
 					if(play->cell_tab_length){
+
+						// update and check for validity
 						if(play->cell_direction==play->movement_direction){
 							int input_length = play->cell_tab_length - 1;
 							while(input_length < 5) {
@@ -255,20 +275,24 @@ int main(void) {
 						if(play->cell_tab_length==1){
 							play->cell_direction=play->movement_direction;
 						}
+
+						// valid play
 						if (validity_play(play, 0) && is_play_selected_valid){
 							b=apply_play(b, play);
 							printf("player :\n");
 							print_play(play);
 							is_bot_turn = true;
 						}
+
+						// unvalid play
 						else{
-							is_play_selected_valid = 1;
-							printf("coup non valide, réinitialisation du coup\n");
+							is_play_selected_valid = 0;
 						}
+
+						// unselect the balls
 						for(int k=0;k<play->cell_tab_length;k++){
 							play->cell_tab[k]->selection=UNSELECT;
 						}
-						//nb_selected_cells=0;
 						//play->cell_tab_length=0;
 						init_play(play);
 					}
@@ -291,7 +315,6 @@ int main(void) {
 						if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
 							cell_tab[id_mouse_cell]->selection=UNSELECT;
 							play->cell_tab[play->cell_tab_length] = NULL;
-							//nb_selected_cells--;
 							play->cell_tab_length--;
 						}
 						// select
@@ -302,7 +325,6 @@ int main(void) {
 							play->buffer[play->cell_tab_length] = cell_tab[id_mouse_cell]->state;
 
 							cell_tab[id_mouse_cell]->selection=SELECT;
-							//nb_selected_cells++;
 							if (play->cell_tab_length == 2){
 								for(int k = 0; k < 6; k++){
 									if(play->cell_tab[play->cell_tab_length-2]->neighbor[k] == cell_tab[id_mouse_cell]){
@@ -319,26 +341,16 @@ int main(void) {
 		}
 
 		// update score
-		// à mettre dans une fonction ?
-		///*
-		b->n_black=0;
-		b->n_white=0;
-		for(int i=0;i<61;i++){
-			if(cell_tab[i]->state==BLACK){
-				b->n_black+=1;
-			}
-			else if(cell_tab[i]->state==WHITE){
-				b->n_white+=1;
-			}
-		}
-		//*/
+		score_update(b, cell_tab);
+
+		// update textures for the score display
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
 		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
 		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
 		
 		// render
-		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction);
+		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction, is_play_selected_valid);
 		SDL_Delay(1);
 	}
 

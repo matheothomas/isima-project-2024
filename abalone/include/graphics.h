@@ -36,6 +36,8 @@ typedef struct graphics {
 	SDL_Rect *text_box_white;
 	SDL_Rect *confirm;
 	SDL_Texture *text_confirm;
+	SDL_Texture *error_text;
+	SDL_Texture *error_text_2;
 	struct home_menu *home_menu;
 	struct colours *colours;
 } graphics_t;
@@ -115,7 +117,7 @@ int is_in (SDL_Rect* button,int x,int y);
 void home_menu(graphics_t* g, int r1,int r2);
 
 /// displays the user interface during the game
-void display_game(graphics_t *g,SDL_Texture * text_panel_black, SDL_Texture * text_panel_white, int r, cell_t **cell_tab, int direction_state);
+void display_game(graphics_t *g,SDL_Texture * text_panel_black, SDL_Texture * text_panel_white, int r, cell_t **cell_tab, int direction_state, int is_play_selected_valid);
 
 #endif
 
