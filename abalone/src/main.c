@@ -227,49 +227,51 @@ int main(void) {
 
 				// Confirm the play // maybe a problem, maybe not
 				if(is_in(g->confirm, x, y)){
-					if(play->cell_direction==play->movement_direction){
-						int input_length = play->cell_tab_length - 1;
-						while(input_length < 5) {
-							if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
-								break;
-							}
-							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
-								is_play_selected_valid = 0;
-								break;
-							}
-							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == EMPTY) {
-								break;
-							}
-							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
-								play->cell_tab[input_length + 1] = play->cell_tab[input_length]->neighbor[play->movement_direction];
-								play->buffer[input_length + 1] = WHITE;
-								input_length++;
-								play->cell_tab_length++;
-							}
-							printf("input_length : %d\n", input_length);
+					if(play->cell_tab_length){
+						if(play->cell_direction==play->movement_direction){
+							int input_length = play->cell_tab_length - 1;
+							while(input_length < 5) {
+								if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
+									break;
+								}
+								if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
+									is_play_selected_valid = 0;
+									break;
+								}
+								if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == EMPTY) {
+									break;
+								}
+								if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
+									play->cell_tab[input_length + 1] = play->cell_tab[input_length]->neighbor[play->movement_direction];
+									play->buffer[input_length + 1] = WHITE;
+									input_length++;
+									play->cell_tab_length++;
+								}
+								printf("input_length : %d\n", input_length);
 
+							}
 						}
+						fill_play_buffer(play);
+						if(play->cell_tab_length==1){
+							play->cell_direction=play->movement_direction;
+						}
+						if (validity_play(play, 0) && is_play_selected_valid){
+							b=apply_play(b, play);
+							printf("player :\n");
+							print_play(play);
+							is_bot_turn = true;
+						}
+						else{
+							is_play_selected_valid = 1;
+							printf("coup non valide, réinitialisation du coup\n");
+						}
+						for(int k=0;k<play->cell_tab_length;k++){
+							play->cell_tab[k]->selection=UNSELECT;
+						}
+						//nb_selected_cells=0;
+						//play->cell_tab_length=0;
+						init_play(play);
 					}
-					fill_play_buffer(play);
-					if(play->cell_tab_length==1){
-						play->cell_direction=play->movement_direction;
-					}
-					if (validity_play(play, 0) && is_play_selected_valid){
-						b=apply_play(b, play);
-						printf("player :\n");
-						print_play(play);
-						is_bot_turn = true;
-					}
-					else{
-						is_play_selected_valid = 1;
-						printf("coup non valide, réinitialisation du coup\n");
-					}
-					for(int k=0;k<play->cell_tab_length;k++){
-						play->cell_tab[k]->selection=UNSELECT;
-					}
-					//nb_selected_cells=0;
-					//play->cell_tab_length=0;
-					init_play(play);
 				}
 
 				// Choose in which direction to push the balls
