@@ -167,46 +167,46 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 		return NULL;
 	}
 
-	int num_threads = 8;
-	pthread_t threads[num_threads];
-	args_t arguments[num_threads];
+	// int num_threads = 4;
+	// pthread_t threads[num_threads];
+	// args_t arguments[num_threads];
 
-	for (int i = 0; i < num_threads; i++) {
-		arguments[i].board = copy_board(cell_tab);
-		arguments[i].cell_tab = copy_cell_tab(board);
-		arguments[i].temp_value = NULL;
-		arguments[i].depth = 0;
-		arguments[i].max_depth = MAX_DEPTH;
-		arguments[i].player = !player;
-		arguments[i].alpha = INT_MIN;
-		arguments[i].beta = INT_MAX;
-	}
+	// for (int i = 0; i < num_threads; i++) {
+		// arguments[i].board = copy_board(cell_tab);
+		// arguments[i].cell_tab = copy_cell_tab(board);
+		// arguments[i].temp_value = NULL;
+		// arguments[i].depth = 0;
+		// arguments[i].max_depth = MAX_DEPTH;
+		// arguments[i].player = !player;
+		// arguments[i].alpha = INT_MIN;
+		// arguments[i].beta = INT_MAX;
+	// }
 
-	int active_threads = 0;
+	// int active_threads = 0;
 	while (temp->next_tree != NULL) {
 		if(validity_play(temp->play, player)) {
-			if (active_threads < num_threads) {
-				arguments[active_threads].temp_value = &temp -> value;
-				int flag = pthread_create(&threads[active_threads], NULL, create_thread, (void *) &arguments[active_threads]);
-				if (flag) {
-					fprintf(stderr, "Thread failed to initialize: %d\n", flag);
-				}
-				active_threads++;
-			}
-			else {
+			// if (active_threads < num_threads) {
+				// arguments[active_threads].temp_value = &temp -> value;
+				// int flag = pthread_create(&threads[active_threads], NULL, create_thread, (void *) &arguments[active_threads]);
+				// if (flag) {
+					// fprintf(stderr, "Thread failed to initialize: %d\n", flag);
+				// }
+				// active_threads++;
+			// }
+			// else {
 				temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
 				undo_play(board, temp->play);
-			}
-			// printf("temp->value : %d\n", temp->value);
+			// }
+			printf("temp->value : %d\n", temp->value);
 		}
 
 		temp = temp->next_tree;
 	}
 
 	// Wait for all the threads to finish
-	for (int i = 0; i < num_threads; i++) {
-		pthread_join(threads[i], NULL);
-	}
+	// for (int i = 0; i < num_threads; i++) {
+		// pthread_join(threads[i], NULL);
+	// }
 
 	// printf("play_count : %d\n", play_count);
 	// printf("undo_count : %d\n", undo_count);
@@ -280,7 +280,7 @@ void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int dept
 	int score;
 
 	// score = basic_heuristic(cell_tab);
-	score = center_heuristic(cell_tab);
+	score = center_heuristic(cell_tab, player);
 	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		*temp_value = score;
