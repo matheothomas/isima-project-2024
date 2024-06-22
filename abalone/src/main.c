@@ -20,6 +20,19 @@
 #include "init.h"
 #include "utilities.h"
 
+void score_update(board_t *b, cell_t **cell_tab){
+	b->n_black=0;
+	b->n_white=0;
+	for(int i=0;i<61;i++){
+		if(cell_tab[i]->state==BLACK){
+			b->n_black+=1;
+		}
+		else if(cell_tab[i]->state==WHITE){
+			b->n_white+=1;
+		}
+	}
+}
+
 int main(void) {
 	graphics_t *g = init_sdl();
 
@@ -315,19 +328,9 @@ int main(void) {
 		}
 
 		// update score
-		// à mettre dans une fonction ?
-		///*
-		b->n_black=0;
-		b->n_white=0;
-		for(int i=0;i<61;i++){
-			if(cell_tab[i]->state==BLACK){
-				b->n_black+=1;
-			}
-			else if(cell_tab[i]->state==WHITE){
-				b->n_white+=1;
-			}
-		}
-		//*/
+		score_update(b, cell_tab);
+
+		// update score display
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
 		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
