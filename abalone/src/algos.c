@@ -51,7 +51,7 @@ int max(tree_t *tree, bool player) {
 	// printf("max\n");
 	int is_max = player ? 1 : -1;
 
-	tree_t *temp = tree;
+	tree_t * temp = tree;
 	int val_max = tree->value;
 
 	while(temp->next_tree != NULL) {
@@ -60,7 +60,7 @@ int max(tree_t *tree, bool player) {
 		}
 		temp = temp->next_tree;
 	}
-
+	
 	free_tree(tree);
 	return val_max;
 }
@@ -72,6 +72,8 @@ play_t *max_play(tree_t *tree) {
 	int val_max = tree->value;
 
 	while(temp->next_tree != NULL) {
+
+		printf("temp->value : %d\n", temp->value);
 		if (temp->value > val_max) {
 			tree_max = temp;
 			val_max = temp->value;
@@ -79,7 +81,7 @@ play_t *max_play(tree_t *tree) {
 		temp = temp->next_tree;
 	}
 
-	printf("max play value : %d\n", tree_max->value);
+	// printf("max play value : %d\n", tree_max->value);
 	return tree_max->play;
 }
 
@@ -101,9 +103,9 @@ int basic_heuristic(cell_t **cell_tab) {
 	return score;
 }
 
-// int val_abs(int n) {
-	// return n > 0 ? n : -n;
-// }
+int val_abs(int n) {
+	return n > 0 ? n : -n;
+}
 
 int center_heuristic(cell_t **cell_tab, bool player) {
 	int score = basic_heuristic(cell_tab);
@@ -122,10 +124,8 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 		// }
 	}
 	if(player) {
-		// return 1000 + score * 100 - val_abs(((float)sum_w / nb_w - 30) * 10);
 		return 1000 + score * 100 - (((float)sum_w / nb_w) - 30) * 10;
 	} else {
-		// return 1000 + score * 100 + val_abs(((float)sum_w / nb_w - 30) * 10);
 		return 1000 + score * 100 + (((float)sum_w / nb_w) - 30) * 10;
 	}
 }
@@ -189,23 +189,6 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 		return NULL;
 	}
 
-	// int num_threads = 4;
-	// pthread_t threads[num_threads];
-	// args_t arguments[num_threads];
-
-	// for (int i = 0; i < num_threads; i++) {
-		// arguments[i].board = copy_board(cell_tab);
-		// arguments[i].cell_tab = copy_cell_tab(board);
-		// arguments[i].temp_value = NULL;
-		// arguments[i].depth = 0;
-		// arguments[i].max_depth = MAX_DEPTH;
-		// arguments[i].player = !player;
-		// arguments[i].alpha = INT_MIN;
-		// arguments[i].beta = INT_MAX;
-	// }
-
-	// int active_threads = 0;
-	while (temp->next_tree != NULL) {
 
 	pthread_mutex_t tree_mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -227,27 +210,11 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	
 	for (int i = 0; i < num_threads; i++) {
 		if(validity_play(temp->play, player)) {
-			// if (active_threads < num_threads) {
-				// arguments[active_threads].temp_value = &temp -> value;
-				// int flag = pthread_create(&threads[active_threads], NULL, create_thread, (void *) &arguments[active_threads]);
-				// if (flag) {
-					// fprintf(stderr, "Thread failed to initialize: %d\n", flag);
-				// }
-				// active_threads++;
-			// }
-			// else {
-				temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
-				undo_play(board, temp->play);
-			// }
-			printf("temp->value : %d\n", temp->value);
 			int flag = pthread_create(&threads[i], NULL, create_thread, (void *) &arguments[i]);
 			if (flag) {
 				fprintf(stderr, "Thread failed to initialize: %d\n", flag);
 			}
-			printf("temp->value : %d\n", temp->value);
 		}
-
-		temp = temp->next_tree;
 	}
 
 	// Wait for all the threads to finish
@@ -374,7 +341,7 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 
 	// score = basic_heuristic(cell_tab);
 	score = center_heuristic(cell_tab, player);
-
+	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
 	}
@@ -406,9 +373,10 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		}
 
 		if(player) {
-			return max(tree, player);
-		} else {
+			
 			return max(tree, !player);
+		} else {
+			return max(tree, player);
 		}
 	}
 }
