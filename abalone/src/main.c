@@ -186,7 +186,7 @@ int main(void) {
 			//play->cell_tab_length=0;
 			is_bot_turn = false;
 		}
-		// the bot turn to play
+		// the player turn to play
 		else{
 			// cell previously under the mouse's cursor back to being displayed in black
 			if(id_mouse_cell>0 && id_mouse_cell<61){
