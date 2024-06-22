@@ -76,7 +76,7 @@ play_t *max_play(tree_t *tree) {
 		temp = temp->next_tree;
 	}
 
-	// printf("max play value : %d\n", tree_max->value);
+	printf("max play value : %d\n", tree_max->value);
 	return tree_max->play;
 }
 
@@ -98,27 +98,33 @@ int basic_heuristic(cell_t **cell_tab) {
 	return score;
 }
 
-int val_abs(int n) {
-	return n > 0 ? n : -n;
-}
+// int val_abs(int n) {
+	// return n > 0 ? n : -n;
+// }
 
-int center_heuristic(cell_t **cell_tab) {
+int center_heuristic(cell_t **cell_tab, bool player) {
 	int score = basic_heuristic(cell_tab);
 	int nb_w = 0;
-	int nb_b = 0;
+	// int nb_b = 0;
 	int sum_w = 0;
-	int sum_b = 0;
+	// int sum_b = 0;
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		if(cell_tab[i]->state == WHITE) {
 			nb_w++;
 			sum_w += i;
 		}
-		if(cell_tab[i]->state == BLACK) {
-			nb_b++;
-			sum_b += i;
-		}
+		// if(cell_tab[i]->state == BLACK) {
+			// nb_b++;
+			// sum_b += i;
+		// }
 	}
-	return score * 100000 - val_abs(((float)sum_w / nb_w - 30) * 10000);
+	if(player) {
+		// return 1000 + score * 100 - val_abs(((float)sum_w / nb_w - 30) * 10);
+		return 1000 + score * 100 - (((float)sum_w / nb_w) - 30) * 10;
+	} else {
+		// return 1000 + score * 100 + val_abs(((float)sum_w / nb_w - 30) * 10);
+		return 1000 + score * 100 + (((float)sum_w / nb_w) - 30) * 10;
+	}
 }
 
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
@@ -134,12 +140,9 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 		return NULL;
 	}
 	while (temp->next_tree != NULL) {
-		// display_board(g->board, g->white, g->white, g->window, g->renderer, cell_tab);
-		// SDL_Delay(1000);
-		// printf("play : %d\n", temp->play->cell_tab_length);
 		if(validity_play(temp->play, player)) {
 			temp->value = eval(apply_play(board, temp->play), cell_tab, 0, MAX_DEPTH, !player, INT_MIN, INT_MAX);
-			// printf("temp->value : %d\n", temp->value);
+			printf("temp->value : %d\n", temp->value);
 			undo_play(board, temp->play);
 		}
 
@@ -218,8 +221,8 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 	int score;
 
 	// score = basic_heuristic(cell_tab);
-	score = center_heuristic(cell_tab);
-	
+	score = center_heuristic(cell_tab, player);
+
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
 	}
@@ -251,9 +254,9 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		}
 
 		if(player) {
-			return max(tree, !player);
-		} else {
 			return max(tree, player);
+		} else {
+			return max(tree, !player);
 		}
 	}
 }
