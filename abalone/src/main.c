@@ -236,8 +236,12 @@ int main(void) {
 								break;
 							}
 							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
+								play->cell_tab[input_length + 1] = play->cell_tab[input_length]->neighbor[play->movement_direction];
+								play->buffer[input_length + 1] = WHITE;
 								input_length++;
+								play->cell_tab_length++;
 							}
+							printf("input_length : %d\n", input_length);
 
 						}
 					}
