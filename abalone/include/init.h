@@ -7,7 +7,7 @@
 #define init_h
 #define CELL_NUMBER 61
 
-#define MAX_DEPTH 2
+#define MAX_DEPTH 3
 
 /* Struct definitions */ 
 
