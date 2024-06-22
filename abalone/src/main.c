@@ -41,7 +41,7 @@ int main(void) {
 	int r2 = 0;
 	int r = 0;
 	int mouse_state = 0;
-	int id_mouse_cell=0;
+	int id_mouse_cell = 0;
 	//int nb_selected_cells = 0;
 	bool is_play_selected_valid = 1;
 
@@ -175,123 +175,6 @@ int main(void) {
 		}
 
 		// update
-		if(id_mouse_cell>0 && id_mouse_cell<61){
-			if(cell_tab[id_mouse_cell]->selection==MOUSE){
-				cell_tab[id_mouse_cell]->selection=UNSELECT;
-			}
-		}
-
-		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
-
-		if(mouse_state == 0){
-			if(!(is_in(g->panel, x, y))){
-				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
-				if(id_mouse_cell > 0 && id_mouse_cell<61){
-					if(cell_tab[id_mouse_cell]->selection == UNSELECT && cell_tab[id_mouse_cell]->state == BLACK){
-						id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
-						cell_tab[id_mouse_cell]->selection = MOUSE;
-					}
-				}
-			}
-		}
-
-		else if(mouse_state==1){
-			if(is_in(g->confirm, x, y)){
-				r=255;
-			}
-			else{
-				r=0;
-			}
-		}
-
-		else if(mouse_state==2){
-			r=0;
-
-			// Confirm the play
-			if(is_in(g->confirm, x, y)){
-				if(play->cell_direction==play->movement_direction){
-					int input_length = play->cell_tab_length - 1;
-					while(input_length < 5) {
-						if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
-							break;
-						}
-						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
-							is_play_selected_valid = 0;
-							break;
-						}
-						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == EMPTY) {
-							break;
-						}
-						if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
-							input_length++;
-						}
-
-					}
-				}
-				fill_play_buffer(play);
-				if(play->cell_tab_length==1){
-					play->cell_direction=play->movement_direction;
-				}
-				if (validity_play(play, 0) && is_play_selected_valid){
-					b=apply_play(b, play);
-					printf("player :\n");
-					print_play(play);
-					is_bot_turn = true;
-					display_board(g, cell_tab);
-				}
-				else{
-					is_play_selected_valid = 1;
-					printf("coup non valide, réinitialisation du coup\n");
-				}
-				for(int k=0;k<play->cell_tab_length;k++){
-					play->cell_tab[k]->selection=UNSELECT;
-				}
-				//nb_selected_cells=0;
-				//play->cell_tab_length=0;
-				init_play(play);
-			}
-
-			// Choose in which direction to push the balls
-			else if(is_in(g->commands_panel->button, x, y)){
-				for(int i = 0; i < 6; i++){
-					if (is_in(g->commands_panel->tab_dir[i], x, y)) {
-						play->movement_direction = i;
-						i = 6;
-					}
-				}
-			}
-
-			// Select/unselect the balls to move
-			else if(id_mouse_cell>0 && id_mouse_cell<61){
-				if(cell_tab[id_mouse_cell]->state==BLACK){
-					// unselect
-					if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
-						cell_tab[id_mouse_cell]->selection=UNSELECT;
-						play->cell_tab[play->cell_tab_length] = NULL;
-						//nb_selected_cells--;
-						play->cell_tab_length--;
-					}
-					// select
-					else{
-						play->cell_tab[play->cell_tab_length] = cell_tab[id_mouse_cell];
-						play->cell_tab_length++;
-
-						play->buffer[play->cell_tab_length] = cell_tab[id_mouse_cell]->state;
-
-						cell_tab[id_mouse_cell]->selection=SELECT;
-						//nb_selected_cells++;
-						if (play->cell_tab_length == 2){
-							for(int k = 0; k < 6; k++){
-								if(play->cell_tab[play->cell_tab_length-2]->neighbor[k] == cell_tab[id_mouse_cell]){
-									play->cell_direction = k;
-									k = 6;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
 
 		// the bot turn to play
 		if(is_bot_turn) {
@@ -303,6 +186,125 @@ int main(void) {
 			//nb_selected_cells = 0;
 			//play->cell_tab_length=0;
 			is_bot_turn = false;
+		}
+		else{
+			if(id_mouse_cell>0 && id_mouse_cell<61){
+				if(cell_tab[id_mouse_cell]->selection==MOUSE){
+					cell_tab[id_mouse_cell]->selection=UNSELECT;
+				}
+			}
+
+			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+
+			if(mouse_state == 0){
+				if(!(is_in(g->panel, x, y))){
+					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+					if(id_mouse_cell > 0 && id_mouse_cell<61){
+						if(cell_tab[id_mouse_cell]->selection == UNSELECT && cell_tab[id_mouse_cell]->state == BLACK){
+							id_mouse_cell = get_cell_id_from_mouse_position(g, x, y);
+							cell_tab[id_mouse_cell]->selection = MOUSE;
+						}
+					}
+				}
+			}
+
+			else if(mouse_state==1){
+				if(is_in(g->confirm, x, y)){
+					r=255;
+				}
+				else{
+					r=0;
+				}
+			}
+
+			else if(mouse_state==2){
+				r=0;
+
+				// Confirm the play // maybe a problem, maybe not
+				if(is_in(g->confirm, x, y)){
+					if(play->cell_direction==play->movement_direction){
+						int input_length = play->cell_tab_length - 1;
+						while(input_length < 5) {
+							if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
+								break;
+							}
+							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == BLACK) {
+								is_play_selected_valid = 0;
+								break;
+							}
+							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == EMPTY) {
+								break;
+							}
+							if (play->cell_tab[input_length]->neighbor[play->movement_direction]->state == WHITE) {
+								input_length++;
+							}
+
+						}
+					}
+					fill_play_buffer(play);
+					if(play->cell_tab_length==1){
+						play->cell_direction=play->movement_direction;
+					}
+					if (validity_play(play, 0) && is_play_selected_valid){
+						b=apply_play(b, play);
+						printf("player :\n");
+						print_play(play);
+						is_bot_turn = true;
+					}
+					else{
+						is_play_selected_valid = 1;
+						printf("coup non valide, réinitialisation du coup\n");
+					}
+					for(int k=0;k<play->cell_tab_length;k++){
+						play->cell_tab[k]->selection=UNSELECT;
+					}
+					//nb_selected_cells=0;
+					//play->cell_tab_length=0;
+					init_play(play);
+				}
+
+				// Choose in which direction to push the balls
+				else if(is_in(g->commands_panel->button, x, y)){
+					for(int i = 0; i < 6; i++){
+						if (is_in(g->commands_panel->tab_dir[i], x, y)) {
+							play->movement_direction = i;
+							i = 6;
+						}
+					}
+				}
+
+				// Select/unselect the balls to move
+				else if(id_mouse_cell>0 && id_mouse_cell<61){
+					if(cell_tab[id_mouse_cell]->state==BLACK){
+						// unselect
+						if(cell_tab[id_mouse_cell]->selection==SELECT && (cell_tab[id_mouse_cell]==play->cell_tab[play->cell_tab_length-1])){
+							cell_tab[id_mouse_cell]->selection=UNSELECT;
+							play->cell_tab[play->cell_tab_length] = NULL;
+							//nb_selected_cells--;
+							play->cell_tab_length--;
+						}
+						// select
+						else{
+							play->cell_tab[play->cell_tab_length] = cell_tab[id_mouse_cell];
+							play->cell_tab_length++;
+
+							play->buffer[play->cell_tab_length] = cell_tab[id_mouse_cell]->state;
+
+							cell_tab[id_mouse_cell]->selection=SELECT;
+							//nb_selected_cells++;
+							if (play->cell_tab_length == 2){
+								for(int k = 0; k < 6; k++){
+									if(play->cell_tab[play->cell_tab_length-2]->neighbor[k] == cell_tab[id_mouse_cell]){
+										play->cell_direction = k;
+										k = 6;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
 		}
 
 		// update score
