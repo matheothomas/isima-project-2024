@@ -51,7 +51,7 @@ int max(tree_t *tree, bool player) {
 	// printf("max\n");
 	int is_max = player ? 1 : -1;
 
-	tree_t *temp = tree;
+	tree_t * temp = tree;
 	int val_max = tree->value;
 
 	while(temp->next_tree != NULL) {
@@ -60,7 +60,7 @@ int max(tree_t *tree, bool player) {
 		}
 		temp = temp->next_tree;
 	}
-
+	
 	free_tree(tree);
 	return val_max;
 }
@@ -72,6 +72,8 @@ play_t *max_play(tree_t *tree) {
 	int val_max = tree->value;
 
 	while(temp->next_tree != NULL) {
+
+		printf("temp->value : %d\n", temp->value);
 		if (temp->value > val_max) {
 			tree_max = temp;
 			val_max = temp->value;
@@ -105,23 +107,27 @@ int val_abs(int n) {
 	return n > 0 ? n : -n;
 }
 
-int center_heuristic(cell_t **cell_tab) {
+int center_heuristic(cell_t **cell_tab, bool player) {
 	int score = basic_heuristic(cell_tab);
 	int nb_w = 0;
-	int nb_b = 0;
+	// int nb_b = 0;
 	int sum_w = 0;
-	int sum_b = 0;
+	// int sum_b = 0;
 	for(int i = 0; i < CELL_NUMBER; i++) {
 		if(cell_tab[i]->state == WHITE) {
 			nb_w++;
 			sum_w += i;
 		}
-		if(cell_tab[i]->state == BLACK) {
-			nb_b++;
-			sum_b += i;
-		}
+		// if(cell_tab[i]->state == BLACK) {
+			// nb_b++;
+			// sum_b += i;
+		// }
 	}
-	return score * 100000 - val_abs(((float)sum_w / nb_w - 30) * 10000);
+	if(player) {
+		return 1000 + score * 100 - (((float)sum_w / nb_w) - 30) * 10;
+	} else {
+		return 1000 + score * 100 + (((float)sum_w / nb_w) - 30) * 10;
+	}
 }
 
 int * get_temp_address(tree_t ** current_tree, pthread_mutex_t * tree_mutex) {
@@ -208,7 +214,6 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 			if (flag) {
 				fprintf(stderr, "Thread failed to initialize: %d\n", flag);
 			}
-			printf("temp->value : %d\n", temp->value);
 		}
 	}
 
@@ -289,7 +294,7 @@ void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int dept
 	int score;
 
 	// score = basic_heuristic(cell_tab);
-	score = center_heuristic(cell_tab);
+	score = center_heuristic(cell_tab, player);
 	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		*temp_value = score;
@@ -335,7 +340,7 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 	int score;
 
 	// score = basic_heuristic(cell_tab);
-	score = center_heuristic(cell_tab);
+	score = center_heuristic(cell_tab, player);
 	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
@@ -368,6 +373,7 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		}
 
 		if(player) {
+			
 			return max(tree, !player);
 		} else {
 			return max(tree, player);
