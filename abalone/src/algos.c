@@ -14,11 +14,10 @@
 #include "init.h"
 #include "utilities.h"
 
-play_t *create_play() {
-	play_t *play = malloc(sizeof(play_t));
-	init_play(play);
-	return play;
-}
+
+int play_count = 0;
+int undo_count = 0;
+
 
 void init_play(play_t *play) {
 	play->cell_direction = 0;
@@ -30,9 +29,11 @@ void init_play(play_t *play) {
 	}
 }
 
-
-int play_count = 0;
-int undo_count = 0;
+play_t *create_play() {
+	play_t *play = malloc(sizeof(play_t));
+	init_play(play);
+	return play;
+}
 
 int max_value(int a, int b) {
 	// printf("max_value\n");
@@ -95,6 +96,29 @@ int basic_heuristic(cell_t **cell_tab) {
 	score = nb_white - nb_black;
 
 	return score;
+}
+
+int val_abs(int n) {
+	return n > 0 ? n : -n;
+}
+
+int center_heuristic(cell_t **cell_tab) {
+	int score = basic_heuristic(cell_tab);
+	int nb_w = 0;
+	int nb_b = 0;
+	int sum_w = 0;
+	int sum_b = 0;
+	for(int i = 0; i < CELL_NUMBER; i++) {
+		if(cell_tab[i]->state == WHITE) {
+			nb_w++;
+			sum_w += i;
+		}
+		if(cell_tab[i]->state == BLACK) {
+			nb_b++;
+			sum_b += i;
+		}
+	}
+	return score * 100000 - val_abs(((float)sum_w / nb_w - 30) * 10000);
 }
 
 // play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
@@ -191,8 +215,10 @@ board_t *undo_play(board_t *board, play_t *play) {
 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta) {
 	// printf("eval\n");
+	int score;
 
-	int score = basic_heuristic(cell_tab);
+	// score = basic_heuristic(cell_tab);
+	score = center_heuristic(cell_tab);
 	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
 		return score;
