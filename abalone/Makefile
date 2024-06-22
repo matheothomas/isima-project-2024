@@ -12,7 +12,7 @@ BIN_DIR = bin
 
 CC = gcc
 CFLAGS = -I$(INC_DIR) -Wall -Wextra -I /usr/include/SDL2 -I ./include -g
-LDFLAGS= -lm -lSDL2_image -lSDL2_ttf -lSDL2 -g
+LDFLAGS= -lm -lSDL2_image -lSDL2_ttf -lSDL2 -lpthread -g
 
 # Linking and compiling
 
