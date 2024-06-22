@@ -58,5 +58,9 @@ board_t* start_config_2(board_t* b);
 /// creates an array with all the cells of the board 
 cell_t ** create_table(board_t b);
 
+void free_cell(cell_t *cell);
+
+void free_board_and_cell_tab(board_t *board, cell_t **cell_tab);
+
 #endif
 

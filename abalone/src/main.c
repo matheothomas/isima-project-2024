@@ -41,7 +41,7 @@ int main(void) {
 	cell_t **cell_tab=create_table(*b);
 	play_t *play=create_play();
 
-
+///*
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
@@ -352,7 +352,7 @@ int main(void) {
 		SDL_Delay(1);
 	}
 
-
+//*/
 
 	// TEST FUNCTIONS
 
@@ -451,12 +451,15 @@ int main(void) {
 	*/
 
 
-
+	///*
 	SDL_RenderClear(g->renderer);
 
 	IMG_Quit();
 
 	end_sdl(1, "Normal ending", g->window, g->renderer);
+	//*/
+
+	free_board_and_cell_tab(b, cell_tab);
 
 	return 0;
 
