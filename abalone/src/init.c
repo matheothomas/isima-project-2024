@@ -312,3 +312,15 @@ cell_t ** create_table(board_t b) {
 	}
 	return table;
 }
+
+void free_cell(cell_t *cell){
+	free(cell);
+}
+
+void free_board_and_cell_tab(board_t *board, cell_t **cell_tab){
+	for(int i=0;i<61;i++){
+		free_cell(cell_tab[i]);
+	}
+	free(board);
+	free(cell_tab);
+}

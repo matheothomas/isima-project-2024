@@ -3,6 +3,7 @@
  * date : 18-06-24
  */
 
+#include <bits/pthreadtypes.h>
 #include <stdbool.h>
 
 #include "init.h"
@@ -12,18 +13,6 @@
 #define algos_h
 
 /* Struct definitions */
-
-/// Wrapper struct for paralelism
-typedef struct args_t {
-	board_t * board;
-	cell_t ** cell_tab;
-	int * temp_value;
-	int depth;
-	int max_depth;
-	bool player;
-	int alpha;
-	int beta;
-} args_t;
 
 /// contains all info to make a play
 typedef struct play {
@@ -42,6 +31,18 @@ typedef struct tree {
 	int depth;
 } tree_t;
 
+/// Wrapper struct for paralelism
+typedef struct args_t {
+	board_t * board;
+	cell_t ** cell_tab;
+	tree_t ** temp;
+	pthread_mutex_t * tree_mutex;
+	int depth;
+	int max_depth;
+	bool player;
+	int alpha;
+	int beta;
+} args_t;
 
 /* Functions definitions */
 

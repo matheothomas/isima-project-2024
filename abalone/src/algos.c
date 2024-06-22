@@ -2,7 +2,7 @@
  * authors : eloi petit, matheo thomas, domitille vale
  * date : 18-06-24
  */
-
+#define _GNU_SOURCE
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -61,6 +61,7 @@ int max(tree_t *tree, bool player) {
 		temp = temp->next_tree;
 	}
 
+	free_tree(tree);
 	return val_max;
 }
 
@@ -129,9 +130,30 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 	}
 }
 
+int * get_temp_address(tree_t ** current_tree, pthread_mutex_t * tree_mutex) {
+	int * returned_value_address = NULL;
+	if (pthread_mutex_lock(tree_mutex)) {
+		fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
+	}
+	if (*current_tree != NULL) {
+		returned_value_address = &((*current_tree) -> value);
+		*current_tree = (*current_tree) -> next_tree;
+	}
+
+	if (pthread_mutex_unlock(tree_mutex)) {
+		fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
+	}
+
+	return returned_value_address;
+}
+
 void * create_thread(void * args) {
 	args_t * vals = args;
-	eval_thread(vals -> board, vals -> cell_tab, vals -> temp_value, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+	int * temp_value = NULL;
+	while ((temp_value = get_temp_address(vals -> temp, vals -> tree_mutex)) != NULL) {
+		eval_thread(vals -> board, vals -> cell_tab, temp_value, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+		printf("Searching\n");
+	}
 	pthread_exit(NULL);
 }
 
@@ -184,6 +206,26 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 
 	// int active_threads = 0;
 	while (temp->next_tree != NULL) {
+
+	pthread_mutex_t tree_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+	int num_threads = 8;
+	pthread_t threads[num_threads];
+	args_t arguments[num_threads];
+
+	for (int i = 0; i < num_threads; i++) {
+		arguments[i].board = copy_board(cell_tab);
+		arguments[i].cell_tab = copy_cell_tab(board);
+		arguments[i].temp = &temp;
+		arguments[i].tree_mutex = &tree_mutex;
+		arguments[i].depth = 0;
+		arguments[i].max_depth = MAX_DEPTH;
+		arguments[i].player = !player;
+		arguments[i].alpha = INT_MIN;
+		arguments[i].beta = INT_MAX;
+	}
+	
+	for (int i = 0; i < num_threads; i++) {
 		if(validity_play(temp->play, player)) {
 			// if (active_threads < num_threads) {
 				// arguments[active_threads].temp_value = &temp -> value;
@@ -198,15 +240,20 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 				undo_play(board, temp->play);
 			// }
 			printf("temp->value : %d\n", temp->value);
+			int flag = pthread_create(&threads[i], NULL, create_thread, (void *) &arguments[i]);
+			if (flag) {
+				fprintf(stderr, "Thread failed to initialize: %d\n", flag);
+			}
+			printf("temp->value : %d\n", temp->value);
 		}
 
 		temp = temp->next_tree;
 	}
 
 	// Wait for all the threads to finish
-	// for (int i = 0; i < num_threads; i++) {
-		// pthread_join(threads[i], NULL);
-	// }
+	for (int i = 0; i < num_threads; i++) {
+		pthread_join(threads[i], NULL);
+	}
 
 	// printf("play_count : %d\n", play_count);
 	// printf("undo_count : %d\n", undo_count);

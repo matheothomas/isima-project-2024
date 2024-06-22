@@ -43,7 +43,7 @@ int main(void) {
 	
 	int input_length = 0;
 
-
+///*
 	/////////////////////////////
 	// SDL MAIN LOOP FUNCTIONS //
 	/////////////////////////////
@@ -74,8 +74,8 @@ int main(void) {
 	sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 	sprintf(Text_Panel_White, "White : %d",b->n_white);
 
-	SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->black);
-	SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->black);
+	//SDL_Texture * texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->black);
+	//SDL_Texture * texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->black);
 
 
 	// Initialisation for the event loop
@@ -346,15 +346,19 @@ int main(void) {
 		// update textures for the score display
 		sprintf(Text_Panel_Black, "Black : %d",b->n_black);
 		sprintf(Text_Panel_White, "White : %d",b->n_white);
-		texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
-		texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
+		SDL_Texture *texture_text_panel_black=create_texture_for_text(Text_Panel_Black, g->font, g->renderer, g->colours->yellow);
+		SDL_Texture *texture_text_panel_white=create_texture_for_text(Text_Panel_White, g->font, g->renderer, g->colours->yellow);
 		
 		// render
 		display_game(g, texture_text_panel_black, texture_text_panel_white, r, cell_tab, play->movement_direction, is_play_selected_valid);
 		SDL_Delay(1);
+
+		// destroy textures for the score display
+		SDL_DestroyTexture(texture_text_panel_black);
+		SDL_DestroyTexture(texture_text_panel_white);
 	}
 
-
+//*/
 
 	// TEST FUNCTIONS
 
@@ -453,12 +457,17 @@ int main(void) {
 	*/
 
 
-
+	///*
 	SDL_RenderClear(g->renderer);
 
 	IMG_Quit();
 
 	end_sdl(1, "Normal ending", g->window, g->renderer);
+	//*/
+
+	free(Text_Panel_Black);
+	free(Text_Panel_White);
+	free_board_and_cell_tab(b, cell_tab);
 
 	return 0;
 
