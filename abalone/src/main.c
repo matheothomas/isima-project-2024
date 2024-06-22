@@ -40,6 +40,8 @@ int main(void) {
 	board_t *b = create_clean_board();
 	cell_t **cell_tab=create_table(*b);
 	play_t *play=create_play();
+	
+	int input_length = 0;
 
 
 	/////////////////////////////
@@ -247,7 +249,7 @@ int main(void) {
 
 						// update and check for validity
 						if(play->cell_direction==play->movement_direction){
-							int input_length = play->cell_tab_length - 1;
+							input_length = play->cell_tab_length - 1;
 							while(input_length < 5) {
 								if (play->cell_tab[input_length]->neighbor[play->movement_direction] == NULL) {
 									break;
