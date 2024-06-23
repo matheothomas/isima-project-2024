@@ -1,5 +1,5 @@
 /* name : main.c
- * author : matheo thomas
+ * authors : eloi petit, matheo thomas, domitille vale
  * date : 23-06-24
  */
 
