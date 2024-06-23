@@ -3,11 +3,11 @@
 This first project uses the game **Abalone** to implement the **min-max** algorithm with the **alpha-beta** pruning.
 
 ## Roadmap
-- [ ] Create the structure of the game.
-- [ ] Create a graphical interface in SDL2.
-- [ ] Implement the min-max algorithm.
-- [ ] Implement the alpha-beta pruning.
-- [ ] Improve our heuristics.
+- [x] Create the structure of the game.
+- [x] Create a graphical interface in SDL2.
+- [x] Implement the min-max algorithm.
+- [x] Implement the alpha-beta pruning.
+- [x] Improve our heuristics.
 
 ## Principle
 It is a 1v1 game, it is played against our algorithm.
