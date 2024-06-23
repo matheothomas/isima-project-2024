@@ -80,7 +80,7 @@ board_t *undo_play(board_t *board, play_t *play);
 /// applies the min-max algorithm 
 int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool player, int alpha, int beta);
 
-void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta);
+int eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta);
 
 #endif
 

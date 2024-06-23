@@ -59,9 +59,8 @@ int max(tree_t *tree, bool player) {
 			val_max = temp->value;
 		}
 		temp = temp->next_tree;
-	}
-	
-	free_tree(tree);
+	}	
+	// free_tree(tree);
 	return val_max;
 }
 
@@ -123,6 +122,7 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 			// sum_b += i;
 		// }
 	}
+	//return rand() - RAND_MAX / 2;
 	if(player) {
 		return 1000 + score * 100 - (((float)sum_w / nb_w) - 30) * 10;
 	} else {
@@ -151,7 +151,7 @@ void * create_thread(void * args) {
 	args_t * vals = args;
 	int * temp_value = NULL;
 	while ((temp_value = get_temp_address(vals -> temp, vals -> tree_mutex)) != NULL) {
-		eval_thread(vals -> board, vals -> cell_tab, temp_value, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+		*temp_value = eval(vals -> board, vals -> cell_tab, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
 		printf("Searching\n");
 	}
 	pthread_exit(NULL);
@@ -209,11 +209,9 @@ play_t *choose_play(board_t *board, cell_t **cell_tab, bool player) {
 	}
 	
 	for (int i = 0; i < num_threads; i++) {
-		if(validity_play(temp->play, player)) {
-			int flag = pthread_create(&threads[i], NULL, create_thread, (void *) &arguments[i]);
-			if (flag) {
-				fprintf(stderr, "Thread failed to initialize: %d\n", flag);
-			}
+		int flag = pthread_create(&threads[i], NULL, create_thread, (void *) &arguments[i]);
+		if (flag) {
+			fprintf(stderr, "Thread failed to initialize: %d\n", flag);
 		}
 	}
 
@@ -289,7 +287,7 @@ board_t *undo_play(board_t *board, play_t *play) {
 	return board;
 }
 
-void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta) {
+int eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int depth, int max_depth, bool player, int alpha, int beta) {
 	// printf("eval\n");
 	int score;
 
@@ -297,12 +295,12 @@ void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int dept
 	score = center_heuristic(cell_tab, player);
 	
 	if (max_depth == depth || score == CELL_NUMBER/2 || score == -CELL_NUMBER/2) {
-		*temp_value = score;
+		return score;
 	}
 	tree_t *tree = gen_plays(board, depth, player);
 
 	if(tree == NULL) {
-		*temp_value = score;
+		return score;
 		
 	} else {
 		tree_t *temp = tree;
@@ -310,6 +308,9 @@ void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int dept
 		while(temp->next_tree != NULL) {
 			if(validity_play(temp->play, player)) {
 				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
+				if ( temp -> value != 0 && depth < 3) {
+					printf("depth : %d\n", depth);
+				}
 				undo_play(board, temp->play);
 
 				if(player) {
@@ -328,10 +329,13 @@ void eval_thread(board_t * board, cell_t ** cell_tab, int * temp_value, int dept
 		}
 
 		if(player) {
-			*temp_value = max(tree, !player);
+			return max(tree, !player);
+			printf("*temps_value 1 %d\n", *temp_value);
 		} else {
-			*temp_value = max(tree, player);
+			return max(tree, player);
+			printf("*temps_value 2 %d\n", *temp_value);
 		}
+		printf("*temps_value %d\n", *temp_value);
 	}
 }
 
@@ -355,6 +359,9 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		while(temp->next_tree != NULL) {
 			if(validity_play(temp->play, player)) {
 				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
+				if ( temp -> value != 0 && depth == 2) {
+					// printf("depth : %d %d\n", depth, temp -> value);
+				}
 				undo_play(board, temp->play);
 
 				if(player) {
@@ -373,9 +380,17 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		}
 
 		if(player) {
+			int h = max(tree, !player);
+			if (h == 0) {
+				// printf("at depth : %d %d %d %d\n", depth, tree -> value, max(tree, player), player);
+			}
 			
-			return max(tree, !player);
+			return h;
 		} else {
+			int h = max(tree, player);
+			if (h == 0) {
+				// printf("at depth : %d %d %d %d\n", depth, tree -> value, max(tree, !player), player);
+			}
 			return max(tree, player);
 		}
 	}
