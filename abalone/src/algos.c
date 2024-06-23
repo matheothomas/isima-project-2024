@@ -122,7 +122,7 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 			// sum_b += i;
 		// }
 	}
-	//return rand() - RAND_MAX / 2;
+	// printf("score : %d sum_w : %d nb_w : %d res : %f\n", score, sum_w, nb_w, score * 100 - (((float)sum_w / nb_w) - 30) * 10);
 	if(player) {
 		return 1000 + score * 100 - (((float)sum_w / nb_w) - 30) * 10;
 	} else {
@@ -130,13 +130,12 @@ int center_heuristic(cell_t **cell_tab, bool player) {
 	}
 }
 
-int * get_temp_address(tree_t ** current_tree, pthread_mutex_t * tree_mutex) {
-	int * returned_value_address = NULL;
+tree_t * get_temp_address(tree_t ** current_tree, pthread_mutex_t * tree_mutex) {
+	tree_t * returned_value_address = NULL;
 	if (pthread_mutex_lock(tree_mutex)) {
 		fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
 	}
 	if (*current_tree != NULL) {
-		returned_value_address = &((*current_tree) -> value);
 		*current_tree = (*current_tree) -> next_tree;
 	}
 
@@ -144,15 +143,18 @@ int * get_temp_address(tree_t ** current_tree, pthread_mutex_t * tree_mutex) {
 		fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
 	}
 
-	return returned_value_address;
+	return *current_tree;
 }
 
 void * create_thread(void * args) {
 	args_t * vals = args;
-	int * temp_value = NULL;
-	while ((temp_value = get_temp_address(vals -> temp, vals -> tree_mutex)) != NULL) {
+	tree_t * temp = NULL;
+	while ((temp = get_temp_address(vals -> temp, vals -> tree_mutex)) != NULL) {
 		printf("Searching\n");
-		*temp_value = eval(vals -> board, vals -> cell_tab, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+		int result = eval(apply_play(vals -> board, temp -> play), vals -> cell_tab, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
+		undo_play(vals -> board, temp -> play);
+		printf("Result is %d\n", result);
+		temp -> value = result;
 	}
 	pthread_exit(NULL);
 }
@@ -356,12 +358,9 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 	} else {
 		tree_t *temp = tree;
 
-		while(temp->next_tree != NULL) {
+		while(temp != NULL) {
 			if(validity_play(temp->play, player)) {
 				temp->value = eval(apply_play(board, temp->play), cell_tab, depth + 1, max_depth, !player, alpha, beta);
-				if ( temp -> value != 0 && depth == 2) {
-					// printf("depth : %d %d\n", depth, temp -> value);
-				}
 				undo_play(board, temp->play);
 
 				if(player) {
@@ -379,7 +378,7 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 			temp = temp->next_tree;
 		}
 
-		if(player) {
+		if(!player) {
 			return max(tree, !player);
 		} else {
 			return max(tree, player);
