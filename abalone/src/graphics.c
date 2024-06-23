@@ -257,8 +257,8 @@ void display_cell(SDL_Texture *texture, SDL_Window *window, SDL_Renderer *render
 	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
 
-	int i, j;
-	float k;
+	int i = 0, j = 0;
+	float k = 0;
 
 	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
 	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
