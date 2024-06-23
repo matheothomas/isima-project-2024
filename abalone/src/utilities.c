@@ -247,11 +247,15 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 					new_play -> cell_tab[k] = NULL;
 				}
 
-				traversal_rec(board, tree, new_play, cell -> neighbor[i], visited, player);
+				if (validity_play(new_play, player)) {
+					fill_play_buffer(new_play);
+					append_tree(tree, new_play, 0, tree -> depth, player);
+					traversal_rec(board, tree, new_play, cell -> neighbor[new_play -> cell_direction], visited, player);
+				}
+				else {
+					free(new_play);
+				}
 			}
-		}
-		if (play != NULL) {
-			free(play);
 		}
 	}
 	else if (play -> cell_tab_length < 3) {
@@ -262,11 +266,11 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 		if (validity_play(play, player)) {
 			fill_play_buffer(play);
 			append_tree(tree, play, 0, tree -> depth, player);
+			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 		}
 		else {
-			play -> cell_tab_length--;
+			free(play);
 		}
-		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 	}
 	else {
 		free(play);
@@ -288,11 +292,11 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 				if (validity_play(play, player)) {
 					fill_play_buffer(play);
 					append_tree(tree, play, 0, tree -> depth, player);
+					traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 				}
 				else {
-					play -> cell_tab_length--;
+					free(play);
 				}
-				traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 			}
 		}
 		else {
@@ -303,11 +307,8 @@ void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * pl
 		if (!visited[cell -> id]) {
 			visited[cell -> id] = true;
 			for (int i = 0; i < 6; i++) {
-				traversal_rec(board, tree, play, cell -> neighbor[i], visited, player);
+				traversal_rec(board, tree, NULL, cell -> neighbor[i], visited, player);
 			}
-		}
-		else {
-			free(play);
 		}
 	}
 }
