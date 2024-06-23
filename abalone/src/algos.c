@@ -151,8 +151,8 @@ void * create_thread(void * args) {
 	args_t * vals = args;
 	int * temp_value = NULL;
 	while ((temp_value = get_temp_address(vals -> temp, vals -> tree_mutex)) != NULL) {
-		*temp_value = eval(vals -> board, vals -> cell_tab, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
 		printf("Searching\n");
+		*temp_value = eval(vals -> board, vals -> cell_tab, vals -> depth, vals -> max_depth, vals -> player, vals -> alpha, vals -> beta);
 	}
 	pthread_exit(NULL);
 }
