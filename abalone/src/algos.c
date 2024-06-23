@@ -60,7 +60,7 @@ int max(tree_t *tree, bool player) {
 		}
 		temp = temp->next_tree;
 	}	
-	// free_tree(tree);
+	free_tree(tree);
 	return val_max;
 }
 
@@ -380,17 +380,8 @@ int eval(board_t *board, cell_t **cell_tab, int depth, int max_depth, bool playe
 		}
 
 		if(player) {
-			int h = max(tree, !player);
-			if (h == 0) {
-				// printf("at depth : %d %d %d %d\n", depth, tree -> value, max(tree, player), player);
-			}
-			
-			return h;
+			return max(tree, !player);
 		} else {
-			int h = max(tree, player);
-			if (h == 0) {
-				// printf("at depth : %d %d %d %d\n", depth, tree -> value, max(tree, !player), player);
-			}
 			return max(tree, player);
 		}
 	}
