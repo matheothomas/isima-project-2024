@@ -12,6 +12,17 @@
 
 /* Functions definitions */
 
+/// itinialises the root of the tree with the two tiles available
+void initialisation();
+
+///
+void ucb();
+
+///
+void mcts();
+
+///
+
 
 #endif
 
