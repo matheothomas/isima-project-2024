@@ -14,11 +14,16 @@
 typedef enum cell_type {
 	EMPTY,
 	HOUSE_BLUE,
-	MARKET_YELLOW,
 	BARRAK_RED,
+	MARKET_YELLOW,
 	TEMPLE_PURPLE,
 	PARK_GREEN,
 	QUARRY_GRAY,
+	BLUE_PLACE,
+	YELLOW_PLACE,
+	RED_PLACE,
+	PURPLE_PLACE,
+	GREEN_PLACE,
 } cell_type_e;
 
 typedef struct type_linked {
@@ -36,7 +41,6 @@ typedef struct cell {
 	// struct tile *parent; 
 	int x, y;
 	int altitude;
-
 } cell_t;
 
 typedef struct tile {
@@ -80,13 +84,16 @@ typedef struct args {
 
 type_linked_t *create_type_linked();
 void init_type_linked(type_linked_t * type_linked);
+
 cell_t *create_cell();
 void init_cell(cell_t * cell);
-tile_t *create_tile();
-void init_tile(tile_t * tile);
 
 board_t *create_board();
 void init_board(board_t * board);
+
+tile_t *create_tile();
+void init_tile(tile_t * tile);
+void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2);
 
 tile_t ** creates_all_tiles();
 
