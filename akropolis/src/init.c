@@ -28,7 +28,7 @@ cell_t *create_cell(){
 
 void init_cell(cell_t * cell){
     cell->id=0;
-	cell->cell_type=create_type_linked();
+	cell->level=create_type_linked();
     for(int i=0;i<6;i++){
         cell->neighbour[i]=NULL;
     }
@@ -56,10 +56,11 @@ board_t *create_board(){
     board_t *board=malloc(sizeof(board_t));
     init_board(board);
 
-    int i=0;
-    int k=0;
     cell_t *cur_cell=NULL;
     cell_t **cell_tab=(cell_t **)malloc(390*sizeof(cell_t*));
+
+    int i=0;
+    int k=0;
 
     // creates all cells and stock them in cell_tab
     for(k=0;k<390;k+=39){
@@ -126,7 +127,7 @@ board_t *create_board(){
     }
 
     board->cell=cell_tab[165];
-    free(cell_tab);
+    board->cell_tab=cell_tab;
 
     return board;
 }
@@ -138,5 +139,6 @@ void init_board(board_t * board){
 	board->red_mult=0;
 	board->purple_mult=0;
 	board->green_mult=0;
-	board->rocks=0;	
+	board->rocks=0;
+    board->cell_tab=NULL;
 }
