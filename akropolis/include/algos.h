@@ -12,8 +12,16 @@
 
 typedef struct play {
 	tile_t * tile;
+	int n_coup;
+	float gain_coup;
 	struct play * next;
 } play_t;
+
+typedef struct tree {
+	play_t *play;
+	struct tree *next;
+} tree_t;
+
 
 /* Functions definitions */
 
