@@ -16,10 +16,14 @@ typedef enum cell_type {
 	QUARRY_GRAY,
 } cell_type_e;
 
+typedef struct type_linked {
+	cell_type_e cell_type;
+	struct type_linked *next;
+} type_linked_t;
 
 typedef struct cell {
 	int id;
-	cell_type_e cell_type;
+	type_linked_t *cell_type;			// linked list of types
 	struct cell *neighbour[6];
 	struct tile *parent;
 	int x, y;
