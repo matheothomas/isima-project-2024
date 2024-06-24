@@ -45,11 +45,23 @@ type_linked_t * add_level(tile_t * tile, type_linked_t * level, cell_type_e cell
 	return type;
 }
 
+void remove_level(cell_t * cell) {
+	type_linked_t * next = cell -> level -> next;
+	free(cell -> level);
+	cell -> level = next;
+}
+
 void add_tile(tile_t * tile) {
-	
-	// Add layer
 	for (int i = 0; i < 3; i++) {
 		tile -> cell_tab[i] -> altitude ++;
 		tile -> cell_tab[i] -> level = add_level(tile, tile -> cell_tab[i] -> level, tile -> cell_types[i]);
+	}
+}
+
+void undo_tile(tile_t * tile) {
+	for (int i = 0; i < 3; i++) {
+		tile -> cell_tab[i] -> altitude --;
+		remove_level(tile -> cell_tab[i]);
+		tile -> cell_tab[i] = NULL;
 	}
 }
