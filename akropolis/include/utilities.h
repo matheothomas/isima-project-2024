@@ -6,11 +6,24 @@
 #ifndef utilities_h 
 #define utilities_h
 
-#include "init.h"
+#define HASHMAP_SIZE 1000000
+
+
 #include <stdbool.h>
+#include <stdint.h>
+#include "init.h"
+#include "algos.h"
 /* Struct definitions */
+typedef struct hash {
+	uint32_t hash;
+	play_t * plays;
+	struct hash * next;
+} hash_t;
 
-
+typedef struct linked_plays {
+	int size;
+	play_t * play;
+} linked_plays_t;
 
 /* Functions definitions */
 bool validity_tile(tile_t * tile_to_add);

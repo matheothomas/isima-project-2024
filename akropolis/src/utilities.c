@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <init.h>
-#include <algos.h>
+
+#include "algos.h"
 
 bool validity_tile(tile_t * tile_to_add) {
 
