@@ -11,6 +11,6 @@
 void test_domi(){
     board_t *b=create_board();
     for(int i=0;i<390;i++){
-        printf("id : %d i : %d\n",b->cell_tab[i]->id,i);
+        printf("id : %d i : %p\n",b->cell_tab[i]->id,b->cell_tab[i]);
     }
 }
