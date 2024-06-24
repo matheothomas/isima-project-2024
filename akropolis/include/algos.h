@@ -6,9 +6,14 @@
 #ifndef algos_h 
 #define algos_h
 
+#include "init.h"
+
 /* Struct definitions */
 
-
+typedef struct play {
+	tile_t * tile;
+	struct play * next;
+} play_t;
 
 /* Functions definitions */
 
