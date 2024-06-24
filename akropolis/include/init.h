@@ -22,6 +22,8 @@ typedef struct cell {
 	cell_type_e cell_type;
 	struct cell *neighbour[6];
 	struct tile *parent;
+	int x, y;
+	int altitude;
 
 } cell_t;
 
