@@ -266,11 +266,9 @@ void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_
 		if (validity_play(play, player)) {
 			fill_play_buffer(play);
 			append_tree(tree, play, 0, tree -> depth, player);
-			traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
 		}
-		else {
-			free(play);
-		}
+		traversal_rec(board, tree, play, cell -> neighbor[play -> cell_direction], visited, player);
+
 	}
 	else {
 		free(play);
