@@ -71,14 +71,17 @@ typedef struct args {
 
 /* Functions definitions */
 
+type_linked_t *create_type_linked();
+void init_type_linked(type_linked_t * type_linked);
 cell_t *create_cell();
 void init_cell(cell_t * cell);
 tile_t *create_tile();
 void init_tile(tile_t * tile);
-tile_t ** creates_all_tiles();
 
 board_t *create_board();
 void init_board(board_t * board);
+
+tile_t ** creates_all_tiles();
 
 
 #endif

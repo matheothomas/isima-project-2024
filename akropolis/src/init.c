@@ -8,6 +8,18 @@
 
 #include "../include/init.h"
 
+type_linked_t *create_type_linked(){
+    type_linked_t *type_linked=malloc(sizeof(type_linked_t));
+    init_type_linked(type_linked);
+    return type_linked;
+}
+
+void init_type_linked(type_linked_t * type_linked){
+    type_linked->cell_type=EMPTY;
+	type_linked->tile=NULL;
+	type_linked->next=NULL;
+}
+
 cell_t *create_cell(){
     cell_t *cell=malloc(sizeof(cell_t));
     init_cell(cell);
@@ -16,11 +28,11 @@ cell_t *create_cell(){
 
 void init_cell(cell_t * cell){
     cell->id=0;
-	cell->cell_type=QUARRY_GRAY;
+	cell->cell_type=create_type_linked();
     for(int i=0;i<6;i++){
         cell->neighbour[i]=NULL;
     }
-	cell->parent=NULL;
+	//cell->parent=NULL;
 }
 
 tile_t *create_tile(){
@@ -37,13 +49,13 @@ void init_tile(tile_t * tile){
 	tile->orientation=0;
 }
 
-tile_t ** creates_all_tiles(){
-}
-
 board_t *create_board(){
     board_t *board=malloc(sizeof(board_t));
     init_board(board);
+
+    board->cell=create_cell();
     
+
     return board;
 }
 
