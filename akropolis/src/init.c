@@ -38,5 +38,21 @@ void init_tile(tile_t * tile){
 }
 
 tile_t ** creates_all_tiles(){
+}
+
+board_t *create_board(){
+    board_t *board=malloc(sizeof(board_t));
+    init_board(board);
     
+    return board;
+}
+
+void init_board(board_t * board){
+    board->cell=NULL;
+	board->blue_mult=0;
+	board->yellow_mult=0;
+	board->red_mult=0;
+	board->purple_mult=0;
+	board->green_mult=0;
+	board->rocks=0;	
 }

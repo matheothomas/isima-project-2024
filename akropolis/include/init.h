@@ -69,5 +69,8 @@ tile_t *create_tile();
 void init_tile(tile_t * tile);
 tile_t ** creates_all_tiles();
 
+board_t *create_board();
+void init_board(board_t * board);
+
 
 #endif
