@@ -34,11 +34,16 @@ typedef struct tile {
 
 typedef struct board {
 
-
 } board_t;
 
 
 /* Functions definitions */
+
+cell_t *create_cell();
+void init_cell(cell_t * cell);
+tile_t *create_tile();
+void init_tile(tile_t * tile);
+tile_t ** creates_all_tiles();
 
 
 #endif
