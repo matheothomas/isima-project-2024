@@ -8,13 +8,13 @@
 
 /* Struct definitions */
 typedef enum cell_type {
+	EMPTY,
 	HOUSE_BLUE,
 	MARKET_YELLOW,
 	BARRAK_RED,
 	TEMPLE_PURPLE,
 	PARK_GREEN,
 	QUARRY_GRAY,
-	EMPTY,
 } cell_type_e;
 
 typedef struct type_linked {
