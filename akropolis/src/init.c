@@ -38,20 +38,6 @@ void init_cell(cell_t * cell){
 	//cell->parent=NULL;
 }
 
-tile_t *create_tile(){
-    tile_t *tile=malloc(sizeof(tile_t));
-    init_tile(tile);
-    return tile;
-}
-
-void init_tile(tile_t * tile){
-    tile->id=0;
-    for(int i=0; i<3; i++){
-        tile->cell_tab[i]=NULL;
-    }
-	tile->orientation=0;
-}
-
 board_t *create_board(){
     board_t *board=malloc(sizeof(board_t));
     init_board(board);
@@ -141,4 +127,201 @@ void init_board(board_t * board){
 	board->green_mult=0;
 	board->rocks=0;
     board->cell_tab=NULL;
+}
+
+tile_t *create_tile(){
+    tile_t *tile=malloc(sizeof(tile_t));
+    init_tile(tile);
+    return tile;
+}
+
+void init_tile(tile_t * tile){
+    tile->id=0;
+    for(int i=0; i<3; i++){
+        tile->cell_tab[i]=NULL;
+        tile->cell_types[i]=QUARRY_GRAY;
+    }
+	tile->orientation=0;
+}
+
+void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2){
+    tile->cell_types[0]=type_0;
+    tile->cell_types[1]=type_1;
+    tile->cell_types[2]=type_2;
+}
+
+tile_t ** creates_all_tiles(){
+    tile_t **tile_tab=malloc(37*sizeof(tile_t*));
+    int i=0;
+    for (i=0;i<3;i++){
+        tile_tab[i]=create_tile();
+        init_tile(tile_tab[i]);
+        fill_tile(tile_tab[i], BLUE_PLACE, QUARRY_GRAY, QUARRY_GRAY);
+        tile_tab[i]->id=i;
+    }
+    for (i=3;i<7;i++){
+        tile_tab[i]=create_tile();
+        init_tile(tile_tab[i]);
+        fill_tile(tile_tab[i], i+5, QUARRY_GRAY, QUARRY_GRAY);
+        tile_tab[i]->id=i;
+    }
+    for (i=7;i<10;i++){
+        tile_tab[i]=create_tile();
+        init_tile(tile_tab[i]);
+        fill_tile(tile_tab[i], i-3, QUARRY_GRAY, QUARRY_GRAY);
+        tile_tab[i]->id=i;
+    }
+
+    i=10;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, RED_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, MARKET_YELLOW);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, HOUSE_BLUE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, PURPLE_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, QUARRY_GRAY);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, TEMPLE_PURPLE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, PURPLE_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, MARKET_YELLOW);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, YELLOW_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, BARRAK_RED);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, MARKET_YELLOW);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, TEMPLE_PURPLE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, YELLOW_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], MARKET_YELLOW, QUARRY_GRAY, TEMPLE_PURPLE);
+    tile_tab[i]->id=i;
+    i++;
+
+    for(int k=0;k<2;k++){
+        tile_tab[i]=create_tile();
+        init_tile(tile_tab[i]);
+        fill_tile(tile_tab[i], MARKET_YELLOW, QUARRY_GRAY, BARRAK_RED);
+        tile_tab[i]->id=i;
+        i++;
+    }
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], PARK_GREEN, QUARRY_GRAY, MARKET_YELLOW);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], PARK_GREEN, QUARRY_GRAY, BLUE_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], QUARRY_GRAY, HOUSE_BLUE, GREEN_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], QUARRY_GRAY, HOUSE_BLUE, PURPLE_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, TEMPLE_PURPLE, RED_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], HOUSE_BLUE, TEMPLE_PURPLE, MARKET_YELLOW);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], GREEN_PLACE, HOUSE_BLUE, BARRAK_RED);
+    tile_tab[i]->id=i;
+    i++;
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], GREEN_PLACE, HOUSE_BLUE, QUARRY_GRAY);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], MARKET_YELLOW, HOUSE_BLUE, RED_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], MARKET_YELLOW, TEMPLE_PURPLE, QUARRY_GRAY);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], MARKET_YELLOW, BARRAK_RED, BLUE_PLACE);
+    tile_tab[i]->id=i;
+    i++;
+
+    tile_tab[i]=create_tile();
+    init_tile(tile_tab[i]);
+    fill_tile(tile_tab[i], YELLOW_PLACE, TEMPLE_PURPLE, HOUSE_BLUE);
+    tile_tab[i]->id=i;
+
+    return tile_tab;
 }
