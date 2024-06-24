@@ -17,15 +17,29 @@ bool validity_tile(tile_t * tile_to_add) {
 		return false;
 	}
 
-	// Check if the tile is placed on intersection of two tiles by comparing the id of the uppermost tile
-	if (tile_to_add -> cell_tab[0] -> level -> tile -> id == 
-		tile_to_add -> cell_tab[1] -> level -> tile -> id &&
-		tile_to_add -> cell_tab[0] -> level -> tile -> id ==
-		tile_to_add -> cell_tab[2] -> level -> tile -> id) {
+	// Check if the tile is placed on intersection of two tiles by comparing the pointer of the uppermost tile
+	if (tile_to_add -> cell_tab[0] -> level -> tile == 
+		tile_to_add -> cell_tab[1] -> level -> tile &&
+		tile_to_add -> cell_tab[0] -> level -> tile ==
+		tile_to_add -> cell_tab[2] -> level -> tile) {
 		return false;
 	}
 
-	// Check if the new graph is connected
+	int number_empty_neighbour = 0;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 6; j++) {
+			if (tile_to_add -> cell_tab[i] -> neighbour[j] == NULL ||
+				tile_to_add -> cell_tab[i] -> neighbour[j] -> level -> cell_type == EMPTY) {
+				number_empty_neighbour++;
+			}
+		}
+	}
+	// If the tile is all alone
+	if (number_empty_neighbour == 9) {
+		return false;
+	}
+
+	// Check if the new graph is not on the edge
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 6; j++) {
 			if (tile_to_add -> cell_tab[i] -> neighbour[j] == NULL) {
@@ -67,4 +81,31 @@ void undo_tile(tile_t * tile) {
 	}
 }
 
-gen_tiles()
+play_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
+	
+	play_t * list = malloc(sizeof(play_t));
+	list -> tile = NULL;
+	list -> next = NULL;
+
+	play_t * previous = list;
+
+	for (int i = 0; i < CELL_NUMBER; i++) {
+		for (int orientation = 0; orientation < 6; orientation++) {
+			for (int center = 0; center < 3; center++) {
+				play_t * play = malloc(sizeof(play_t));
+				tile_t * new_tile = malloc(sizeof(tile_t));
+				new_tile -> id = tile -> id;
+				new_tile -> orientation = orientation;
+
+				if (validity_tile(new_tile)) {
+					previous -> next = play;
+				}
+				else {
+					free(new_tile);
+					free(play);
+				}
+			}
+		}
+	}
+	return NULL;
+}
