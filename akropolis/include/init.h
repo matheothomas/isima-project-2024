@@ -27,7 +27,7 @@ typedef struct type_linked {
 
 typedef struct cell {
 	int id;
-	type_linked_t *cell_type;			// linked list of types
+	type_linked_t *level;			// linked list of types
 	struct cell *neighbour[6];
 	// struct tile *parent; 
 	int x, y;
@@ -38,8 +38,8 @@ typedef struct cell {
 typedef struct tile {
 	int id;
 	cell_t *cell_tab[3];
+	cell_type_e cell_types[3];
 	int orientation;
-
 } tile_t;
 
 typedef struct board {
