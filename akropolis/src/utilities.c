@@ -9,6 +9,11 @@
 #include <string.h>
 
 #include "algos.h"
+#include "utilities.h"
+
+/*
+ * Checking and generating plays
+ */
 
 bool validity_tile(tile_t * tile_to_add) {
 
@@ -82,13 +87,19 @@ void undo_tile(tile_t * tile) {
 	}
 }
 
-play_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
+linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
 	play_t * list = malloc(sizeof(play_t));
 	list -> tile = NULL;
 	list -> next = NULL;
 
+	linked_plays_t * linked_plays = malloc(sizeof(linked_plays_t));
+	linked_plays -> size = 0;
+	linked_plays -> play = list;
+
 	play_t * previous = list;
+
+	int size = 0;
 
 	for (int i = 0; i < CELL_NUMBER; i++) {
 		for (int orientation = 0; orientation < 5; orientation++) {
@@ -110,6 +121,7 @@ play_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 			if (validity_tile(new_tile)) {
 				play -> tile = new_tile;
 				previous -> next = play;
+				size++;
 			}
 			else {
 				free(new_tile);
@@ -117,5 +129,24 @@ play_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 			}
 		}
 	}
-	return list;
+
+	return linked_plays;
+}
+
+/*
+ * Hashmaps functions
+ */
+
+hash_t ** create_hash_map() {
+	
+	hash_t ** hash_map = malloc(sizeof(hash_t *) * HASHMAP_SIZE);
+	for (int i = 0; i < HASHMAP_SIZE; i++) {
+		hash_map[i] = calloc(HASHMAP_SIZE, sizeof(hash_t));
+	}
+
+	return hash_map;
+}
+
+uint32_t hash_index(cell_t ** cell_tab) {
+	
 }

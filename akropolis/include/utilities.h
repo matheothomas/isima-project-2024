@@ -36,5 +36,11 @@ void add_tile(tile_t * tile);
 
 void undo_tile(tile_t * tile);
 
+linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);
+
+hash_t ** create_hash_map();
+
+uint32_t hash_index(cell_t ** cell_tab);
+
 #endif
 
