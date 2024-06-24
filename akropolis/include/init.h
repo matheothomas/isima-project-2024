@@ -6,6 +6,9 @@
 #ifndef init_h 
 #define init_h
 
+// #include "algos.h"
+
+
 /* Struct definitions */
 typedef enum cell_type {
 	EMPTY,
@@ -56,7 +59,9 @@ typedef struct board {
 typedef struct game {
 	board_t player;
 	board_t bot;
-	tile_t *deck;			// linked list of tiles
+	tile_t *card_1;
+	tile_t *card_2;
+	struct play *deck;			// linked list of tiles
 } game_t;
 
 /// used for the different searches
