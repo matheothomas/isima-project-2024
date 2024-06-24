@@ -43,4 +43,7 @@ play_t *selection(tree_t *tree) {
 	return temp;
 }
 
+tree_t *development(play_t *play) {
+	tree_t *tree = malloc(sizeof(tree_t));
 
+}
