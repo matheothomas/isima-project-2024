@@ -19,14 +19,17 @@ typedef enum cell_type {
 
 typedef struct type_linked {
 	cell_type_e cell_type;
+	struct tile *tile;
 	struct type_linked *next;
 } type_linked_t;
+
+
 
 typedef struct cell {
 	int id;
 	type_linked_t *cell_type;			// linked list of types
 	struct cell *neighbour[6];
-	struct tile *parent;
+	// struct tile *parent; 
 	int x, y;
 	int altitude;
 
