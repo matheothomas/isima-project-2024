@@ -46,5 +46,13 @@ hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next
 
 void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays);
 
+void free_plays(play_t * plays);
+
+void free_linked_plays(linked_plays_t * linked_plays);
+
+void free_hash_list(hash_t * hash);
+
+void free_hash_map(hash_t ** hash_map);
+
 #endif
 

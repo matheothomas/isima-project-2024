@@ -210,21 +210,57 @@ void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
 	uint32_t hashed_board = hash_board(board);
 	int hash_index = hashed_board / HASHMAP_SIZE;
 
-	hash_t * hashs = hash_map[hash_index];
+	hash_t * hash = hash_map[hash_index];
 
-	if (hashs == NULL) {
+	if (hash == NULL) {
 		hash_map[hash_index] = create_linked_hash(hashed_board, plays, NULL);
 		return;
 	}
 
-	while (hashs -> next != NULL) {
-		if (hashs -> hashed_board == hashed_board) {
+	while (hash -> next != NULL) {
+		if (hash -> hashed_board == hashed_board) {
 			// TODO add merging of scores
 			break;
 		}
 		else {
-			hashs = hashs -> next;
+			hash = hash -> next;
 		}
 	}
-	hashs -> next = create_linked_hash(hashed_board, plays, NULL);
+	hash -> next = create_linked_hash(hashed_board, plays, NULL);
+}
+
+void free_plays(play_t * plays) {
+	
+	play_t * previous = plays;
+
+	while (plays != NULL) {
+		previous = plays;
+		plays = plays -> next;
+		free(previous);
+	}
+}
+
+void free_linked_plays(linked_plays_t * linked_plays) {
+	free_plays(linked_plays -> play);
+	free(linked_plays);
+}
+
+void free_hash_list(hash_t * hash) {
+	
+	hash_t * previous = hash;
+
+	while (hash != NULL) {
+		previous = hash;
+		hash = hash -> next;
+		free_plays(previous -> plays);
+		free(hash);
+	}
+}
+
+void free_hash_map(hash_t ** hash_map) {
+	
+	for (int i = 0; i < HASHMAP_SIZE; i++) {
+		free_hash_list(hash_map[i]);
+	}
+	free(hash_map);
 }
