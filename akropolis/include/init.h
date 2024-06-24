@@ -53,6 +53,7 @@ typedef struct board {
 	int purple_mult;
 	int green_mult;
 	int rocks;				// the money
+	cell_t **cell_tab;
 
 } board_t;
 
