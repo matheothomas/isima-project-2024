@@ -12,12 +12,19 @@ int main(int argc, char *argv[]){
 	if(argc == 2) {
 		if(strcmp(argv[1], "domitille") == 0) {
 			printf("domitille\n");
+
 		} else if(strcmp(argv[1], "eloi") == 0) {
 			printf("eloi\n");
+
 		} else if(strcmp(argv[1], "matheo") == 0) {
 			printf("matheo\n");
+			
 		}
 	} else {
+
+
+
+
 
 	}
 
