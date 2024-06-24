@@ -16,7 +16,7 @@ void test_domi(){
     }
     */
     tile_t **tile_tab=creates_all_tiles();
-    for(int i=0;i<37;i++){
+    for(int i=0;i<34;i++){
         printf("%d %d %d id : %d\n",tile_tab[i]->cell_types[0], tile_tab[i]->cell_types[1], tile_tab[i]->cell_types[2], tile_tab[i]->id);
     }
 }

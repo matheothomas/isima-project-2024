@@ -153,26 +153,26 @@ void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e
 tile_t ** creates_all_tiles(){
     tile_t **tile_tab=malloc(37*sizeof(tile_t*));
     int i=0;
-    for (i=0;i<3;i++){
+    //for (i=0;i<3;i++){
         tile_tab[i]=create_tile();
         init_tile(tile_tab[i]);
         fill_tile(tile_tab[i], BLUE_PLACE, QUARRY_GRAY, QUARRY_GRAY);
         tile_tab[i]->id=i;
-    }
-    for (i=3;i<7;i++){
+    //}
+    for (i=1;i<5;i++){
         tile_tab[i]=create_tile();
         init_tile(tile_tab[i]);
-        fill_tile(tile_tab[i], i+5, QUARRY_GRAY, QUARRY_GRAY);
+        fill_tile(tile_tab[i], i+7, QUARRY_GRAY, QUARRY_GRAY);
         tile_tab[i]->id=i;
     }
-    for (i=7;i<10;i++){
+    for (i=5;i<8;i++){
         tile_tab[i]=create_tile();
         init_tile(tile_tab[i]);
-        fill_tile(tile_tab[i], i-3, QUARRY_GRAY, QUARRY_GRAY);
+        fill_tile(tile_tab[i], i-1, QUARRY_GRAY, QUARRY_GRAY);
         tile_tab[i]->id=i;
     }
 
-    i=10;
+    i=8;
     tile_tab[i]=create_tile();
     init_tile(tile_tab[i]);
     fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, RED_PLACE);
@@ -248,13 +248,13 @@ tile_t ** creates_all_tiles(){
     tile_tab[i]->id=i;
     i++;
 
-    for(int k=0;k<2;k++){
+    //for(int k=0;k<2;k++){
         tile_tab[i]=create_tile();
         init_tile(tile_tab[i]);
         fill_tile(tile_tab[i], MARKET_YELLOW, QUARRY_GRAY, BARRAK_RED);
         tile_tab[i]->id=i;
         i++;
-    }
+    //}
 
     tile_tab[i]=create_tile();
     init_tile(tile_tab[i]);
