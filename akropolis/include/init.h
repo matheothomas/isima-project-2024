@@ -35,9 +35,30 @@ typedef struct tile {
 } tile_t;
 
 typedef struct board {
-
+	cell_t *cell;
+	int blue_mult;
+	int yellow_mult;
+	int red_mult;
+	int purple_mult;
+	int green_mult;
+	int rocks;				// the money
 
 } board_t;
+
+typedef struct game {
+	board_t player;
+	board_t bot;
+	tile_t *deck;			// linked list of tiles
+} game_t;
+
+/// used for the different searches
+typedef struct args {
+	tile_t *tile;
+	cell_t *cell;
+	int score;
+
+
+} args_t;
 
 
 /* Functions definitions */
