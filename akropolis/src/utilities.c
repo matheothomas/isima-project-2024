@@ -170,7 +170,7 @@ hash_t ** create_hash_map() {
 	return hash_map;
 }
 
-uint32_t hash_index(board_t * board) {
+uint32_t hash_board(board_t * board) {
 	
 	// TODO Rajouter 31 * score
 
@@ -192,11 +192,39 @@ uint32_t hash_index(board_t * board) {
 		}
 	}
 	
-	uint32_t index = 31 * board -> score + pow_u32(31, 2) * nb_tiles + pow_u32(31, 3) * nb_cells + pow_u32(31, 4) * sum_orientation_id_tiles + pow_u32(31, 5) * sum_cells_values + pow_u32(31, 6) * sum_cells_ids;
+	uint32_t hash = 31 * board -> score + pow_u32(31, 2) * nb_tiles + pow_u32(31, 3) * nb_cells + pow_u32(31, 4) * sum_orientation_id_tiles + pow_u32(31, 5) * sum_cells_values + pow_u32(31, 6) * sum_cells_ids;
 
-	return index % HASHMAP_SIZE;
+	return hash;
 }
 
-void hash_map_add(hash_t ** hash_map, board_t * board) {
+hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next) {
+	hash_t * new_hash = malloc(sizeof(hash_t));
+	new_hash -> hashed_board = hashed_board;
+	new_hash -> plays = plays;
+	new_hash -> next = next;
+	
+	return new_hash;
+}
 
+void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
+	uint32_t hashed_board = hash_board(board);
+	int hash_index = hashed_board / HASHMAP_SIZE;
+
+	hash_t * hashs = hash_map[hash_index];
+
+	if (hashs == NULL) {
+		hash_map[hash_index] = create_linked_hash(hashed_board, plays, NULL);
+		return;
+	}
+
+	while (hashs -> next != NULL) {
+		if (hashs -> hashed_board == hashed_board) {
+			// TODO add merging of scores
+			break;
+		}
+		else {
+			hashs = hashs -> next;
+		}
+	}
+	hashs -> next = create_linked_hash(hashed_board, plays, NULL);
 }

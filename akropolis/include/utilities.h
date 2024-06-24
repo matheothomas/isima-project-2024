@@ -15,7 +15,7 @@
 #include "algos.h"
 /* Struct definitions */
 typedef struct hash {
-	uint32_t hash;
+	uint32_t hashed_board;
 	play_t * plays;
 	struct hash * next;
 } hash_t;
@@ -40,7 +40,11 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);
 
 hash_t ** create_hash_map();
 
-uint32_t hash_index(board_t * board_t);
+uint32_t hash_board(board_t * board_t);
+
+hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next);
+
+void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays);
 
 #endif
 

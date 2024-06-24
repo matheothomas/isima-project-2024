@@ -12,5 +12,5 @@
 void test_hash_index() {
 	board_t * board = create_board();
 	board -> score = 0;
-	printf("hash index clean board %d\n", hash_index(board));
+	printf("hash index clean board %d\n", hash_board(board));
 }
