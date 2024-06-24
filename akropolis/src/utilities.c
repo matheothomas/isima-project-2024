@@ -3,12 +3,14 @@
  * date : 23-06-24
  */
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <sys/types.h>
 #include "algos.h"
+#include "init.h"
 #include "utilities.h"
 
 /*
@@ -137,6 +139,27 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
  * Hashmaps functions
  */
 
+// Pow with exponentation by squaring
+uint32_t pow_u32(uint32_t x, int n) {
+
+	uint32_t res = 1;
+    while (1) {
+
+        if (n & 1)
+            res *= x;
+        // equivalent to (n - 1) / 2
+		n >>= 1;
+
+		// if n is zero
+        if (!n)
+            break;
+
+        x *= x;
+    }
+
+    return res;
+}
+
 hash_t ** create_hash_map() {
 	
 	hash_t ** hash_map = malloc(sizeof(hash_t *) * HASHMAP_SIZE);
@@ -147,6 +170,33 @@ hash_t ** create_hash_map() {
 	return hash_map;
 }
 
-uint32_t hash_index(cell_t ** cell_tab) {
+uint32_t hash_index(board_t * board) {
 	
+	// TODO Rajouter 31 * score
+
+	uint32_t nb_tiles = 0;
+	uint32_t nb_cells = 0;
+	uint32_t sum_cells_ids = 0;
+	uint32_t sum_cells_values = 0;
+	uint32_t sum_orientation_id_tiles = 0;
+	
+	cell_t ** cell_tab = board -> cell_tab;
+
+	for (int i = 0; i < CELL_NUMBER; i++) {
+		if (cell_tab[i] -> level -> cell_type != EMPTY) {
+			nb_cells++;
+			nb_tiles++;
+			sum_cells_ids += cell_tab[i] -> id;
+			sum_cells_values += cell_tab[i] -> level -> cell_type;
+			sum_orientation_id_tiles += cell_tab[i] -> level -> tile -> orientation * cell_tab[i] -> level -> tile -> id;
+		}
+	}
+	
+	uint32_t index = 31 * board -> score + pow_u32(31, 2) * nb_tiles + pow_u32(31, 3) * nb_cells + pow_u32(31, 4) * sum_orientation_id_tiles + pow_u32(31, 5) * sum_cells_values + pow_u32(31, 6) * sum_cells_ids;
+
+	return index % HASHMAP_SIZE;
+}
+
+void hash_map_add(hash_t ** hash_map, board_t * board) {
+
 }

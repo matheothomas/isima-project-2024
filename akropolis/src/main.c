@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "../include/tests_domitille.h"
+#include "tests_eloi.h"
 
 
 int main(int argc, char *argv[]){
@@ -18,6 +19,7 @@ int main(int argc, char *argv[]){
 
 		} else if(strcmp(argv[1], "eloi") == 0) {
 			printf("eloi\n");
+			test_hash_index();
 
 		} else if(strcmp(argv[1], "matheo") == 0) {
 			printf("matheo\n");
