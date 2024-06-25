@@ -241,13 +241,13 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
-int is_in_hexa (SDL_Rect* dest, int x, int y, int offset_x, int offset_y){
+int is_in_hexa (SDL_Rect dest, int x, int y, int offset_x, int offset_y){
 	int is_in = 0;
-	int x_bis = x - dest->x;
-	int y_bis = y - dest->y;
+	int x_bis = x - dest.x;
+	int y_bis = y - dest.y;
 	if(x_bis * offset_y + y_bis * offset_x > offset_x * offset_y){
 		if(x_bis * offset_y - y_bis * offset_x < offset_x * offset_y){
-			if(x_bis < dest->w){
+			if(x_bis < dest.w){
 				if((x_bis - offset_x) * offset_y + (y_bis - 3 * offset_y) * offset_x < offset_x * offset_y){
 					if(x_bis * offset_y - (y_bis - 4 * offset_y) * offset_x > offset_x * offset_y){
 						if(x_bis > 0){
@@ -311,18 +311,18 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 	destination.h = 4 * graphics->offset_y;
 	for(int k=0;k<390;k+=39){
 		for(i=k;i<k+20;i++){
-			destination.x=2*i * graphics->offset_x +decal;
-			destination.y=6*((int)id/39) * graphics->offset_y;
-			if(is_in_hexa(&destination, x, y, graphics->offset_x, graphics->offset_y)){
+			destination.x=2*i%39 * graphics->offset_x +decal;
+			destination.y=6*((int)i/39) * graphics->offset_y;
+			if(is_in_hexa(destination, x, y, graphics->offset_x, graphics->offset_y)){
 				id=i;
 				k=390;
 				i=390;
 			}
 		}
-		for(i=k+38;i>k+19;i--){
-			destination.x=(((2*id)%39)) * graphics->offset_x +decal;
-			destination.y=(6*((int)id/39)+3) * graphics->offset_y;
-			if(is_in_hexa(&destination, x, y, graphics->offset_x, graphics->offset_y)){
+		for(i=k+20;i<k+39;i++){
+			destination.x=(((2*i)%39)) * graphics->offset_x +decal;
+			destination.y=(6*((int)i/39)+3) * graphics->offset_y;
+			if(is_in_hexa(destination, x, y, graphics->offset_x, graphics->offset_y)){
 				id=i;
 				k=390;
 				i=390;
@@ -341,7 +341,12 @@ void display_board(graphics_t *g, board_t * board, int decal) {
 	// display all cells
 	for(int i=0;i<390;i++){
 		//if(game->player->cell_tab[i]->level->cell_type){
+		if(board->cell_tab[i]->selection==MOUSE){
+			display_cell(g->type_texture[10], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+		}
+		else {
 			display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+		}
 		//}
 	}
 
@@ -365,7 +370,7 @@ void display_game(graphics_t* g, game_t *game){
 	// board
 	display_board(g, game->player,0);
 	SDL_RenderDrawRect(g->renderer, g->board_bot);
-	display_board(g, game->bot,g->window_dimensions->w/3);
+	//display_board(g, game->bot,g->window_dimensions->w/3);
 
 	// text
 

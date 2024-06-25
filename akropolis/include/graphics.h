@@ -86,7 +86,7 @@ SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l
 int is_in (SDL_Rect* button,int x,int y);
 
 /// checks if a position (x, y) is in the hexagon corresponding to a rectangle "dest"
-int is_in_hexa (SDL_Rect* dest, int x, int y, int offset_x, int offset_y);
+int is_in_hexa (SDL_Rect dest, int x, int y, int offset_x, int offset_y);
 
 void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal);
 

@@ -132,6 +132,7 @@ void test_domi(){
 	int x = 0;
 	int y = 0;
 	int mouse_state = 0;
+    int id_mouse_cell=-1;
 
     // Initialisation for the event loop
 	SDL_bool program_on = SDL_TRUE;
@@ -172,6 +173,31 @@ void test_domi(){
 		}
 
 		// update
+
+        // cell previously under the mouse's cursor back to being displayed in black
+			if(id_mouse_cell>=0 && id_mouse_cell<390){
+				if(game->player->cell_tab[id_mouse_cell]->selection==MOUSE){
+					game->player->cell_tab[id_mouse_cell]->selection=UNSELECT;
+				}
+			}
+
+			// get the id of the cell under the mouse's cursor
+			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+
+			// display the cell under the mouse's cursor in red
+			if(mouse_state == 0){
+				if(!(is_in(g->board_player, x, y))){
+					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+					if(id_mouse_cell >= 0 && id_mouse_cell<390){
+						if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
+							id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+							game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
+						}
+					}
+				}
+			}
+
+
 		if(mouse_state==1){
 		}
 

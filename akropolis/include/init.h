@@ -32,6 +32,13 @@ typedef enum cell_type {
 	GREEN_PLACE,
 } cell_type_e;
 
+/// state of selection of a cell/tile on the board
+typedef enum selection {
+	UNSELECT,
+	SELECT,
+	MOUSE,
+} selection_e;
+
 typedef struct type_linked {
 	cell_type_e cell_type;
 	struct tile *tile;
@@ -45,6 +52,7 @@ typedef struct cell {
 	// struct tile *parent; 
 	int x, y;
 	int altitude;
+	selection_e selection;
 } cell_t;
 
 typedef struct tile {

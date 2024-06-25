@@ -36,6 +36,7 @@ void init_cell(cell_t * cell){
     cell->x=0;
     cell->y=0;
 	cell->altitude=0;
+    cell->selection=UNSELECT;
 	//cell->parent=NULL;
 }
 
