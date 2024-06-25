@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "algos.h"
 
+/*
 play_t *initialisation(game_t *game, hashmap *h) {
 
 	// play_t *play;
@@ -48,27 +49,14 @@ play_t *selection(play_t *play) {
 }
 
 simulation(play_t *play, int n) {
+	apply_play(play);
+	play_t *p;
+	p = gen_plays()
 
 }
-
+*/
 
 /////////////////
 // PSEUDO CODE //
 /////////////////
 
-initialisation() {
-	// 
-}
-
-selection() {
-	// UCB
-	// On joue le coup et si c'est un nouveau on le crée.
-}
-
-simulation() {
-	// random jusqu'à situation finale
-}
-
-retropropagation() {
-	// actualiser les scores récursivement
-}
