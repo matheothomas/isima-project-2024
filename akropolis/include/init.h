@@ -64,8 +64,8 @@ typedef struct board {
 } board_t;
 
 typedef struct game {
-	board_t player;
-	board_t bot;
+	board_t *player;
+	board_t *bot;
 	tile_t *card_1;
 	tile_t *card_2;
 	struct play *deck;			// linked list of tiles

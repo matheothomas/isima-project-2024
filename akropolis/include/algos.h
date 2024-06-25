@@ -7,6 +7,7 @@
 #define algos_h
 
 #include "init.h"
+// #include "utilities.h"
 
 /* Struct definitions */
 
@@ -26,7 +27,7 @@ typedef struct tree {
 /* Functions definitions */
 
 /// itinialises the root of the tree with the two tiles available
-tree_t *initialisation(game_t *game);
+play_t *initialisation(game_t *game, struct hash *h);
 
 /// selects the play to play
 play_t *selection(tree_t *tree);
