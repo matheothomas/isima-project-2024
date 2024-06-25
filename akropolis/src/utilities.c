@@ -141,19 +141,15 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
 // Pow with exponentation by squaring
 uint32_t pow_u32(uint32_t x, int n) {
-
 	uint32_t res = 1;
     while (1) {
-
         if (n & 1)
             res *= x;
         // equivalent to (n - 1) / 2
 		n >>= 1;
-
 		// if n is zero
         if (!n)
             break;
-
         x *= x;
     }
 
@@ -172,8 +168,6 @@ hash_t ** create_hash_map() {
 
 uint32_t hash_board(board_t * board) {
 	
-	// TODO Rajouter 31 * score
-
 	uint32_t nb_tiles = 0;
 	uint32_t nb_cells = 0;
 	uint32_t sum_cells_ids = 0;
@@ -206,6 +200,19 @@ hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next
 	return new_hash;
 }
 
+void merge_plays(play_t * play, play_t * new_play) {
+
+	while (play != NULL && new_play != NULL) {
+		play -> n_coup += new_play -> n_coup;
+		play -> gain_coup += new_play -> gain_coup;
+		play = play -> next;
+		new_play = new_play -> next;
+	}
+	if ((play != NULL) ^ (new_play != NULL)) {
+		fprintf(stderr, "play or new_play may be of different size play : %p new_play %p\n", play, new_play);
+	}
+}
+
 void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
 	uint32_t hashed_board = hash_board(board);
 	int hash_index = hashed_board / HASHMAP_SIZE;
@@ -219,8 +226,8 @@ void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
 
 	while (hash -> next != NULL) {
 		if (hash -> hashed_board == hashed_board) {
-			// TODO add merging of scores
-			break;
+			merge_plays(hash -> plays, plays);
+			return;
 		}
 		else {
 			hash = hash -> next;

@@ -44,6 +44,9 @@ uint32_t hash_board(board_t * board_t);
 
 hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next);
 
+/// Merge two plays scores in place
+void merge_plays(play_t * play, play_t * new_play);
+
 void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays);
 
 void free_plays(play_t * plays);
