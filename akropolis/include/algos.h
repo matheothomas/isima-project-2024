@@ -8,6 +8,7 @@
 
 #include "init.h"
 #include "utilities.h"
+#include "hash_map.h"
 
 /* Struct definitions */
 
