@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/init.h"
+#include "init.h"
 
 type_linked_t *create_type_linked(){
     type_linked_t *type_linked=malloc(sizeof(type_linked_t));

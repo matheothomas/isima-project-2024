@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/init.h"
-#include "../include/utilities.h"
+#include "init.h"
+#include "utilities.h"
 
 void test_domi(){
     
