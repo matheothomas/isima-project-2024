@@ -121,7 +121,7 @@ void test_domi(){
     init_deck(deck);
 
     game_t *game=create_game();
-    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck->deck);
+    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
 
 
 
