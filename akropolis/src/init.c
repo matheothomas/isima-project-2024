@@ -151,6 +151,30 @@ void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e
     tile->cell_types[2]=type_2;
 }
 
+deck_t *create_deck(){
+    deck_t *deck=malloc(sizeof(deck_t));
+    deck->n=0;
+    deck->deck=NULL;
+    return deck;
+}
+
+void init_deck(deck_t *struct_deck){
+    tile_t **deck = malloc(34* sizeof(tile_t *));
+    tile_t **tile_tab = creates_all_tiles();
+    for(int i=0;i<34;i++){
+        int random = rand() % 34;
+        if(tile_tab[random]) {
+            deck[i] = tile_tab[random];
+            tile_tab[random] = NULL;
+        }
+        else {
+            i--;
+        }
+    }
+    free(tile_tab);
+    struct_deck->deck=deck;
+}
+
 tile_t ** creates_all_tiles(){
     tile_t **tile_tab=malloc(37*sizeof(tile_t*));
     int i=0;

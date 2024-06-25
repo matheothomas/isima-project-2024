@@ -32,8 +32,6 @@ typedef struct type_linked {
 	struct type_linked *next;
 } type_linked_t;
 
-
-
 typedef struct cell {
 	int id;
 	type_linked_t *level;			// linked list of types
@@ -49,6 +47,11 @@ typedef struct tile {
 	cell_type_e cell_types[3];
 	int orientation;
 } tile_t;
+
+typedef struct deck{
+	int n;
+	struct tile **deck;
+} deck_t;
 
 typedef struct board {
 	cell_t *cell;
@@ -95,6 +98,9 @@ void init_tile(tile_t * tile);
 void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2);
 
 tile_t ** creates_all_tiles();
+
+deck_t *create_deck();
+void init_deck(deck_t *struct_deck);
 
 args_t *create_and_init_args();
 void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score);
