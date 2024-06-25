@@ -325,3 +325,36 @@ tile_t ** creates_all_tiles(){
 
     return tile_tab;
 }
+
+args_t *create_and_init_args(){
+    args_t *args=malloc(sizeof(args_t));
+    args->tile=NULL;
+    args->cell=NULL;
+    args->score=0;
+    return args;
+}
+
+void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score){
+    args->cell=cell;
+    args->tile=tile;
+    args->score=score;
+}
+
+
+game_t * create_game(){
+    game_t *game=malloc(sizeof(game_t));
+    game->card_1=NULL;
+    game->card_2=NULL;
+    game->deck=NULL;
+    game->player=NULL;
+    game->bot=NULL;
+    return game;
+}
+
+void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, struct play *deck){
+    game->card_1=card_1;
+    game->card_2=card_2;
+    game->deck=deck;
+    game->player=player;
+    game->bot=bot;
+}
