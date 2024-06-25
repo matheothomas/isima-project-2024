@@ -7,6 +7,7 @@
 #define init_h
 
 #define CELL_NUMBER 390
+#define DECK_NUMBER 34
 //#include "algos.h"
 
 
