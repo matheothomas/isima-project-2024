@@ -18,6 +18,13 @@
 
 bool validity_tile(tile_t * tile_to_add) {
 
+	// Check if one of the cell is placed outside the board (NULL)
+	for (int i = 0; i < 3; i++) {
+		if (tile_to_add -> cell_tab[i] == NULL) {
+			return false;
+		}
+	}
+
 	// Check if the tile is placed at the right level
 	if (tile_to_add -> cell_tab[0] -> altitude != tile_to_add -> cell_tab[1] -> altitude ||
 		tile_to_add -> cell_tab[0] -> altitude != tile_to_add -> cell_tab[2] -> altitude) {
@@ -25,11 +32,15 @@ bool validity_tile(tile_t * tile_to_add) {
 	}
 
 	// Check if the tile is placed on intersection of two tiles by comparing the pointer of the uppermost tile
-	if (tile_to_add -> cell_tab[0] -> level -> tile != 
-		tile_to_add -> cell_tab[1] -> level -> tile ||
-		tile_to_add -> cell_tab[0] -> level -> tile !=
-		tile_to_add -> cell_tab[2] -> level -> tile) {
-		return false;
+	if (tile_to_add -> cell_tab[0] -> altitude > 0 &&
+		tile_to_add -> cell_tab[1] -> altitude > 0 &&
+		tile_to_add -> cell_tab[2] -> altitude > 0) {
+		if (tile_to_add -> cell_tab[0] -> level -> tile ==
+			tile_to_add -> cell_tab[1] -> level -> tile &&
+			tile_to_add -> cell_tab[0] -> level -> tile ==
+			tile_to_add -> cell_tab[2] -> level -> tile) {
+			return false;
+		}
 	}
 
 	int number_empty_neighbour = 0;
@@ -277,21 +288,14 @@ void add_tile_to_board(board_t * board, tile_t * tile) {
 
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
-	play_t * list = malloc(sizeof(play_t));
-	list -> tile = NULL;
-	list -> next = NULL;
-
 	linked_plays_t * linked_plays = malloc(sizeof(linked_plays_t));
 	linked_plays -> size = 0;
-	linked_plays -> play = list;
+	linked_plays -> play = NULL;
 
-	play_t * previous = list;
+	play_t * cours = NULL;
 
 	for (int i = 0; i < CELL_NUMBER; i++) {
 		for (int orientation = 0; orientation < 5; orientation++) {
-			play_t * play = malloc(sizeof(play_t));
-			play -> tile = NULL;
-			play -> next = NULL;
 			tile_t * new_tile = malloc(sizeof(tile_t));
 			new_tile -> id = tile -> id;
 			new_tile -> orientation = orientation;
@@ -304,14 +308,16 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 			new_tile -> cell_types[1] = tile -> cell_types[1];
 			new_tile -> cell_types[2] = tile -> cell_types[2];
 
-			if (validity_tile(new_tile)) {
+			if (validity_tile(new_tile)) {			
+				play_t * play = malloc(sizeof(play_t));
 				play -> tile = new_tile;
-				previous -> next = play;
+				cours = linked_plays -> play;
+				linked_plays -> play = play;
+				linked_plays -> play -> next = cours;
 				linked_plays -> size++;
 			}
 			else {
 				free(new_tile);
-				free(play);
 			}
 		}
 	}
