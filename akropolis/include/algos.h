@@ -17,7 +17,7 @@
 play_t *initialisation(game_t *game, hash_t **h);
 
 /// Selects the play to play.
-play_t *selection(play_t *play);
+play_t *selection(play_t *play, float c, int n);
 
 /// Returns a random tile from a play list.
 play_t *get_random_tile(linked_plays_t *lp);
@@ -26,7 +26,7 @@ play_t *get_random_tile(linked_plays_t *lp);
 int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last_node);
 
 ///
-void ucb();
+play_t *ucb(play_t *play, float c, int n);
 
 /// Applies the MCTS algorithm for a fixed time.
 play_t *mcts(game_t *game);
