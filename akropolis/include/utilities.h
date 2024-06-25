@@ -48,6 +48,22 @@ void add_tile(tile_t * tile);
 
 void undo_tile(tile_t * tile);
 
+void undo_without_null_tile(tile_t * tile);
+
+bool cell_in_periphery(cell_t * cell);
+
+bool cell_isolated(cell_t * cell, cell_type_e cell_type);
+
+bool cell_circled(cell_t * cell);
+
+void calculate_score_from_table(board_t * board);
+
+void update_scoring_table(board_t * board, tile_t * tile, int operation);
+
+void remove_tile_from_board(board_t * board, tile_t * tile);
+
+void add_tile_to_board(board_t * board, tile_t * tile);
+
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);
 
 hash_t ** create_hash_map();
