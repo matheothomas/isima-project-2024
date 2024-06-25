@@ -115,7 +115,7 @@ graphics_t *init_sdl() {
 
 
     // Textures creation
-	//background= load_texture_from_image("res/background.jpg", window, renderer);
+	background= load_texture_from_image("res/background.jpeg", window, renderer);
 	background=NULL;
 
 	offset_y=(float)board_player->h/61;
@@ -261,14 +261,17 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) 
 	SDL_RenderCopy(graphics->renderer, texture, &source, &destination);
 }
 
+
+
 void display_board(graphics_t *g, game_t *game) {
 	SDL_RenderClear(g->renderer);
+
+	// display all cells
 	for(int i=0;i<390;i++){
 		if(game->player->cell_tab[i]->level->cell_type){
 			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type-1], g, game->player->cell_tab[i]->id, 0);
 		}
 	}
-
 
 	SDL_RenderPresent(g->renderer);
 }
