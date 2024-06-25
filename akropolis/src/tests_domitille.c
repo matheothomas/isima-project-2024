@@ -85,7 +85,7 @@ void test_domi_2(){
     }
 
     game_t *game=create_game();
-    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck->deck);
+    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
 
     for(int i=0;i<34;i++){
         free(deck->deck[i]);

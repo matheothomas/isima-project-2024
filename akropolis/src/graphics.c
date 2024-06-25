@@ -155,6 +155,7 @@ type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer){
 	type_texture_t *type_texture=malloc(sizeof(type_texture_t));
 
 	SDL_Texture *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
+	
 	blue= load_texture_from_image("res/blue.png", window, renderer);
     red= load_texture_from_image("res/red.png", window, renderer);
     yellow= load_texture_from_image("res/yellow.png", window, renderer);
@@ -173,11 +174,11 @@ type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer){
     type_texture->purple=purple;
     type_texture->green=green;
     type_texture->grey=grey;
-	type_texture->blue_place=blue;
-    type_texture->red_place=red;
-    type_texture->yellow_place=yellow;
-    type_texture->purple_place=purple;
-    type_texture->green_place=green;
+	type_texture->blue_place=blue_place;
+    type_texture->red_place=red_place;
+    type_texture->yellow_place=yellow_place;
+    type_texture->purple_place=purple_place;
+    type_texture->green_place=green_place;
 
 	return type_texture;
 }
@@ -270,7 +271,7 @@ void display_board(graphics_t *g, game_t *game) {
 	SDL_RenderClear(g->renderer);
 	for(int i=0;i<390;i++){
 		if(game->player->cell_tab[i]->level->cell_type){
-			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type+1], g, game->player->cell_tab[i]->id, 0);
+			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type-1], g, game->player->cell_tab[i]->id, 0);
 		}
 	}
 
