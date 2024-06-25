@@ -119,7 +119,7 @@ void test_matheo(){
 
 		// render
         //display_game(g, game);
-        display_board(g, game);
+        display_board(g, game->player, 0);
 		SDL_Delay(1);
 	}
 

@@ -179,8 +179,8 @@ void test_domi(){
 		}
 
 		// render
-        //display_game(g, game);
-        display_board(g, game);
+        display_game(g, game);
+        //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}
 
