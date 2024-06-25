@@ -174,7 +174,7 @@ void test_domi(){
 
 		// update
 
-        // cell previously under the mouse's cursor back to being displayed in black
+            // cell previously under the mouse's cursor back to being displayed in it's original colour
 			if(id_mouse_cell>=0 && id_mouse_cell<390){
 				if(game->player->cell_tab[id_mouse_cell]->selection==MOUSE){
 					game->player->cell_tab[id_mouse_cell]->selection=UNSELECT;
