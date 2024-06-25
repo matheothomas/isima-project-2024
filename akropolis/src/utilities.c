@@ -25,9 +25,9 @@ bool validity_tile(tile_t * tile_to_add) {
 	}
 
 	// Check if the tile is placed on intersection of two tiles by comparing the pointer of the uppermost tile
-	if (tile_to_add -> cell_tab[0] -> level -> tile == 
-		tile_to_add -> cell_tab[1] -> level -> tile &&
-		tile_to_add -> cell_tab[0] -> level -> tile ==
+	if (tile_to_add -> cell_tab[0] -> level -> tile != 
+		tile_to_add -> cell_tab[1] -> level -> tile ||
+		tile_to_add -> cell_tab[0] -> level -> tile !=
 		tile_to_add -> cell_tab[2] -> level -> tile) {
 		return false;
 	}
@@ -41,8 +41,9 @@ bool validity_tile(tile_t * tile_to_add) {
 			}
 		}
 	}
+
 	// If the tile is all alone
-	if (number_empty_neighbour == 9) {
+	if (number_empty_neighbour == 18) {
 		return false;
 	}
 

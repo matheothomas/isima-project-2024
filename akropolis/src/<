@@ -59,11 +59,10 @@ void test_add_tiles() {
 	
 	printf("");
 	tile_t * tile = game -> deck -> deck[3];
-	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0];
-	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0] -> neighbour[1];
-	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0] -> neighbour[2];
-	if (validity_tile(tile)) {
-	add_tile_to_board(game -> player, tile);}
+	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
+	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
+	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
+	add_tile_to_board(game -> player, tile);
 	// remove_tile_from_board(game -> player, tile);
 
 
