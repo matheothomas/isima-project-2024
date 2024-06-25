@@ -464,7 +464,7 @@ void free_hash_list(hash_t * hash) {
 		previous = hash;
 		hash = hash -> next;
 		free_linked_plays(previous -> plays);
-		free(hash);
+		free(previous);
 	}
 }
 
