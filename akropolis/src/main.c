@@ -9,6 +9,7 @@
 
 #include "tests_domitille.h"
 #include "tests_eloi.h"
+#include "tests_matheo.h"
 
 
 int main(int argc, char *argv[]){
@@ -23,6 +24,7 @@ int main(int argc, char *argv[]){
 
 		} else if(strcmp(argv[1], "matheo") == 0) {
 			printf("matheo\n");
+			test_func();
 			
 		}
 	} else {
