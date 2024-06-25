@@ -26,7 +26,10 @@ typedef struct tree {
 /* Functions definitions */
 
 /// itinialises the root of the tree with the two tiles available
-void initialisation();
+tree_t *initialisation(game_t *game);
+
+/// selects the play to play
+play_t *selection(tree_t *tree);
 
 ///
 void ucb();
