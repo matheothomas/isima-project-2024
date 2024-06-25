@@ -83,8 +83,7 @@ SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l
 /// checks if a position (x, y) is in a rectangle button
 int is_in (SDL_Rect* button,int x,int y);
 
-
-void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer);
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom);
 
 void display_board(graphics_t *g, game_t *game);
 

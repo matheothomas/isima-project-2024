@@ -239,7 +239,6 @@ int is_in (SDL_Rect* button,int x,int y){
 }
 
 void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) {
-	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, destination = {0};
 
 	destination.w = 2 * graphics->offset_x;
@@ -256,28 +255,10 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) 
 		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
 	}
 
-	printf("x : %d y : %d id : %d\n", destination.x,destination.y, id);
+	//printf("x : %d y : %d id : %d\n", destination.x,destination.y, id);
 
 	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(graphics->renderer, texture, &source, &destination);
-}
-
-
-void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
-	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
-
-	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
-	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
-
-	float zoom = 0.9;
-	destination.w = window_dimensions.h * zoom;						// the destination is a source's zoom
-	destination.h = window_dimensions.h * zoom;
-	destination.x = (window_dimensions.h - destination.w) / 2;
-	destination.y = (window_dimensions.h - destination.h) / 2;
-
-
-	// SDL_RenderCopyEx(renderer, my_texture, &source, &destination, j*0.1, &point, SDL_FLIP_NONE);
-	SDL_RenderCopy(renderer, texture, &source, &destination);
 }
 
 void display_board(graphics_t *g, game_t *game) {

@@ -109,9 +109,6 @@ void test_domi(){
     first_player->cell_tab[1]=player->cell->neighbour[0];
     first_player->cell_tab[2]=player->cell->neighbour[1];
     add_tile(first_player);
-
-    player->cell_tab[166]->level->cell_type=BARRAK_RED;
-    player->cell_tab[185]->level->cell_type=BARRAK_RED;
  
     board_t *bot=create_board();
     tile_t *first_bot=create_tile();
