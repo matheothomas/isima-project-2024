@@ -15,6 +15,7 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
+#include <time.h>
 
 #include "algos.h"
 #include "graphics.h"
@@ -55,10 +56,13 @@ graphics_t *init_sdl() {
 	SDL_Renderer *renderer = NULL;
     SDL_Rect *window_dimensions;
 	colours_t *colours;
-	SDL_Texture *background, *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
+	SDL_Texture **type_texture;
+	SDL_Texture *background;
 	TTF_Font * font;
 	float offset_x;
 	float offset_y;
+
+	type_texture_t *types;
 
     SDL_DisplayMode screen;
 
@@ -90,19 +94,26 @@ graphics_t *init_sdl() {
 
 	colours=init_colours();
 
+	types=init_type_texture( window, renderer);
+
+	type_texture=malloc(11*sizeof(SDL_Texture*));
+
+	type_texture[0]=types->blue;
+	type_texture[1]=types->red;
+	type_texture[2]=types->yellow;
+	type_texture[3]=types->purple;
+	type_texture[4]=types->green;
+	type_texture[5]=types->grey;
+	type_texture[6]=types->blue_place;
+	type_texture[7]=types->red_place;
+	type_texture[8]=types->yellow_place;
+	type_texture[9]=types->purple_place;
+	type_texture[10]=types->green_place;
+
+
     // Textures creation
-    blue= load_texture_from_image("res/blue.png", window, renderer);
-    red= load_texture_from_image("res/red.png", window, renderer);
-    yellow= load_texture_from_image("res/yellow.png", window, renderer);
-    purple= load_texture_from_image("res/purple.png", window, renderer);
-    green= load_texture_from_image("res/green.png", window, renderer);
-    grey= load_texture_from_image("res/grey.png", window, renderer);
-	blue_place= load_texture_from_image("res/blue_star.png", window, renderer);
-    red_place= load_texture_from_image("res/red_star.png", window, renderer);
-    yellow_place= load_texture_from_image("res/yellow_star.png", window, renderer);
-    purple_place= load_texture_from_image("res/purple_star.png", window, renderer);
-    green_place= load_texture_from_image("res/green_star.png", window, renderer);
-	background= load_texture_from_image("res/background.jpg", window, renderer);
+	//background= load_texture_from_image("res/background.jpg", window, renderer);
+	background=NULL;
 
 	offset_x=0.866*screen.h/40;
 	offset_y=(float)screen.h/61;
@@ -112,22 +123,14 @@ graphics_t *init_sdl() {
     graphics->window=window;
     graphics->renderer=renderer;
     graphics->window_dimensions=window_dimensions;
-    graphics->blue=blue;
-    graphics->red=red;
-    graphics->yellow=yellow;
-    graphics->purple=purple;
-    graphics->green=green;
-    graphics->grey=grey;
-	graphics->blue_place=blue;
-    graphics->red_place=red;
-    graphics->yellow_place=yellow;
-    graphics->purple_place=purple;
-    graphics->green_place=green;
     graphics->background=background;
     graphics->colours=colours;
+	graphics->type_texture=type_texture;
     graphics->font=font;
 	graphics->offset_x=offset_x;
 	graphics->offset_y=offset_y;
+
+	//free(types);
 
     return graphics;
 }
@@ -145,6 +148,38 @@ colours_t *init_colours(){
 	colours->dark_red=dark_red;
 
 	return colours;
+}
+
+type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer){
+
+	type_texture_t *type_texture=malloc(sizeof(type_texture_t));
+
+	SDL_Texture *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
+	blue= load_texture_from_image("res/blue.png", window, renderer);
+    red= load_texture_from_image("res/red.png", window, renderer);
+    yellow= load_texture_from_image("res/yellow.png", window, renderer);
+    purple= load_texture_from_image("res/purple.png", window, renderer);
+    green= load_texture_from_image("res/green.png", window, renderer);
+    grey= load_texture_from_image("res/gray.png", window, renderer);
+	blue_place= load_texture_from_image("res/blue_star.png", window, renderer);
+    red_place= load_texture_from_image("res/red_star.png", window, renderer);
+    yellow_place= load_texture_from_image("res/yellow_star.png", window, renderer);
+    purple_place= load_texture_from_image("res/purple_star.png", window, renderer);
+    green_place= load_texture_from_image("res/green_star.png", window, renderer);
+
+	type_texture->blue=blue;
+    type_texture->red=red;
+    type_texture->yellow=yellow;
+    type_texture->purple=purple;
+    type_texture->green=green;
+    type_texture->grey=grey;
+	type_texture->blue_place=blue;
+    type_texture->red_place=red;
+    type_texture->yellow_place=yellow;
+    type_texture->purple_place=purple;
+    type_texture->green_place=green;
+
+	return type_texture;
 }
 
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer ){
@@ -192,6 +227,28 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) {
+	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_Rect source = {0}, destination = {0};
+
+	destination.h = 2 * graphics->offset_y;
+	destination.w = 4 * graphics->offset_x;
+
+	int i=id%39;
+
+	if(i>0 && i<19){
+		destination.x=2*i * graphics->offset_x;
+		destination.y=6*((int)id/39) * graphics->offset_y;
+	}
+	else if (i>20 && i<38){
+		destination.x=(2*i+1) * graphics->offset_x;
+		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
+	}
+
+	SDL_RenderCopy(graphics->renderer, texture, &source, &destination);
+}
+
+
 void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
 	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
 
@@ -210,10 +267,14 @@ void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer)
 }
 
 void display_board(graphics_t *g, game_t *game) {
-	//SDL_RenderClear(g->renderer);
+	SDL_RenderClear(g->renderer);
+	for(int i=0;i<390;i++){
+		if(game->player->cell_tab[i]->level->cell_type){
+			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type+1], g, game->player->cell_tab[i]->id, 0);
+		}
+	}
 
-
-	//SDL_RenderPresent(renderer);
+	SDL_RenderPresent(g->renderer);
 }
 
 void display_game(graphics_t* g, game_t *game){

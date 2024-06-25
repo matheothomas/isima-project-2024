@@ -4,6 +4,7 @@
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
@@ -19,17 +20,7 @@ typedef struct graphics{
 	SDL_Renderer *renderer;
     SDL_Rect *window_dimensions;
     struct colours *colours;
-	SDL_Texture *blue;
-	SDL_Texture *red;
-	SDL_Texture *yellow;
-	SDL_Texture *purple;
-	SDL_Texture *grey;
-	SDL_Texture *green;
-	SDL_Texture *blue_place;
-	SDL_Texture *red_place;
-	SDL_Texture *yellow_place;
-	SDL_Texture *purple_place;
-	SDL_Texture *green_place;
+	SDL_Texture **type_texture;
     SDL_Texture *background;
     TTF_Font * font;
 	float offset_x;
@@ -47,6 +38,19 @@ typedef struct colours {
 	SDL_Color dark_red;
 } colours_t;
 
+typedef struct type_texture{
+	SDL_Texture *blue;
+	SDL_Texture *red;
+	SDL_Texture *yellow;
+	SDL_Texture *purple;
+	SDL_Texture *green;
+	SDL_Texture *grey;
+	SDL_Texture *blue_place;
+	SDL_Texture *yellow_place;
+	SDL_Texture *red_place;
+	SDL_Texture *purple_place;
+	SDL_Texture *green_place;
+}type_texture_t;
 
 
 
@@ -59,6 +63,8 @@ void end_sdl(char ok, char const *msg, SDL_Window *window, SDL_Renderer *rendere
 graphics_t *init_sdl();
 
 colours_t *init_colours();
+
+type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer);
 
 /// loads a texture from an image
 SDL_Texture* load_texture_from_image(char  *  file_image_name, SDL_Window *window, SDL_Renderer *renderer );
