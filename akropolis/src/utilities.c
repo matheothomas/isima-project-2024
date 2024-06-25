@@ -80,14 +80,41 @@ void add_tile(tile_t * tile) {
 	}
 }
 
+
+
 void add_tile_to_board(board_t * board, tile_t * tile) {
+
+	add_tile(tile);
 
 	for (int i = 0; i < 3; i++) {
 		switch (tile -> cell_types[i]) {
 			case EMPTY:
 				fprintf(stderr, "Tile should not contain EMPTY value %d\n", i);
 			break;
-			case 
+			case HOUSE_BLUE:
+
+			break;
+			case BARRAK_RED:
+			break;
+			case MARKET_YELLOW:
+			break;
+			case TEMPLE_PURPLE:
+			break;
+			case PARK_GREEN:
+				
+			break;
+			case QUARRY_GRAY:
+			break;
+			case BLUE_PLACE:
+			break;
+			case YELLOW_PLACE:
+			break;
+			case RED_PLACE:
+			break;
+			case PURPLE_PLACE:
+			break;
+			case GREEN_PLACE:
+			break;
 		}
 	}
 }
