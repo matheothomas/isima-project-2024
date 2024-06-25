@@ -3,6 +3,7 @@
  * date : 23-06-24
  */
 
+#include <bits/posix2_lim.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -217,8 +218,6 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
 	play_t * previous = list;
 
-	int size = 0;
-
 	for (int i = 0; i < CELL_NUMBER; i++) {
 		for (int orientation = 0; orientation < 5; orientation++) {
 			play_t * play = malloc(sizeof(play_t));
@@ -239,7 +238,7 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 			if (validity_tile(new_tile)) {
 				play -> tile = new_tile;
 				previous -> next = play;
-				size++;
+				linked_plays -> size++;
 			}
 			else {
 				free(new_tile);
@@ -249,6 +248,34 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 	}
 
 	return linked_plays;
+}
+
+linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_plays_t * linked_plays_2) {
+	
+	play_t * cours = linked_plays_1 -> play;
+
+	if (cours == NULL) {
+		free(linked_plays_1);
+		return linked_plays_2;
+	}
+
+	while (cours -> next != NULL) {
+		cours = cours -> next;
+	}
+	
+	cours -> next = linked_plays_2 -> play;
+	linked_plays_1 -> size += linked_plays_2 -> size;
+
+	free(linked_plays_2);
+	return linked_plays_1;
+}
+
+linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
+	
+	if (is_bot) {
+		return fusion_linked_plays(gen_tiles(game -> bot -> cell_tab, game -> card_1), gen_tiles(game -> bot -> cell_tab, game -> card_2));
+	}
+	return fusion_linked_plays(gen_tiles(game -> player -> cell_tab, game -> card_1), gen_tiles(game -> player -> cell_tab, game -> card_2));
 }
 
 /*

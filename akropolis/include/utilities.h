@@ -67,6 +67,12 @@ void add_tile_to_board(board_t * board, tile_t * tile);
 
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);
 
+linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_plays_t * linked_plays_2);
+
+linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot);
+
+uint32_t pow_u32(uint32_t x, int n);
+
 hash_t ** create_hash_map();
 
 uint32_t hash_board(board_t * board_t);
