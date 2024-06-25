@@ -282,6 +282,7 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 	SDL_RenderCopy(graphics->renderer, texture_altitude, &source, &destination_alt);
 
 	SDL_DestroyTexture(texture_altitude);
+	free(string_altitude);
 }
 
 
