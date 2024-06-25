@@ -7,7 +7,7 @@
 #define init_h
 
 #define CELL_NUMBER 390
-// #include "algos.h"
+//#include "algos.h"
 
 
 /* Struct definitions */
@@ -76,8 +76,6 @@ typedef struct args {
 	tile_t *tile;
 	cell_t *cell;
 	int score;
-
-
 } args_t;
 
 
@@ -97,6 +95,12 @@ void init_tile(tile_t * tile);
 void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2);
 
 tile_t ** creates_all_tiles();
+
+args_t *create_and_init_args();
+void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score);
+
+game_t * create_game();
+void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, struct play *deck);
 
 
 #endif

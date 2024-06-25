@@ -7,22 +7,9 @@
 #define algos_h
 
 #include "init.h"
-// #include "utilities.h"
+#include "utilities.h"
 
 /* Struct definitions */
-
-typedef struct play {
-	tile_t * tile;
-	int n_coup;
-	float gain_coup;
-	struct play * next;
-} play_t;
-
-typedef struct tree {
-	play_t *play;
-	struct tree *next;
-} tree_t;
-
 
 /* Functions definitions */
 
