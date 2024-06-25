@@ -13,19 +13,24 @@
 
 /* Functions definitions */
 
-/// itinialises the root of the tree with the two tiles available
-play_t *initialisation(game_t *game, struct hash *h);
+/// Itinialises the root of the tree with the two tiles available.
+play_t *initialisation(game_t *game, hash_t **h);
 
-/// selects the play to play
-play_t *selection(tree_t *tree);
+/// Selects the play to play.
+play_t *selection(play_t *play);
+
+/// Returns a random tile from a play list.
+play_t *get_random_tile(linked_plays_t *lp);
+
+/// Simulates the plays and updates their scores.
+int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last_node);
 
 ///
 void ucb();
 
-///
-void mcts();
+/// Applies the MCTS algorithm for a fixed time.
+play_t *mcts(game_t *game);
 
-///
 
 
 #endif
