@@ -53,17 +53,25 @@ typedef struct deck{
 	struct tile **deck;
 } deck_t;
 
+typedef struct scoring_table {
+	int blue_mult;
+	int blue_nb_alt;
+	int yellow_mult;
+	int yellow_nb_alt;
+	int red_mult;
+	int red_nb_alt;
+	int purple_mult;
+	int purple_nb_alt;
+	int green_mult;
+	int green_nb_alt;
+} scoring_table_t;
+
 typedef struct board {
 	cell_t *cell;
-	int blue_mult;
-	int yellow_mult;
-	int red_mult;
-	int purple_mult;
-	int green_mult;
+	scoring_table_t * table;
 	int rocks;				// the money
 	int score;
 	cell_t **cell_tab;
-
 } board_t;
 
 typedef struct game {
@@ -92,6 +100,8 @@ void init_cell(cell_t * cell);
 
 board_t *create_board();
 void init_board(board_t * board);
+
+scoring_table_t *init_scoring_table();
 
 tile_t *create_tile();
 void init_tile(tile_t * tile);

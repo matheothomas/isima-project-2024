@@ -121,13 +121,25 @@ board_t *create_board(){
 
 void init_board(board_t * board){
     board->cell=NULL;
-	board->blue_mult=0;
-	board->yellow_mult=0;
-	board->red_mult=0;
-	board->purple_mult=0;
-	board->green_mult=0;
+    board->table=init_scoring_table();
+    board->score=0;
 	board->rocks=0;
     board->cell_tab=NULL;
+}
+
+scoring_table_t *init_scoring_table(){
+    scoring_table_t *scoring_table=malloc(sizeof(scoring_table_t));
+    scoring_table->blue_mult=0;
+    scoring_table->blue_nb_alt=0;
+    scoring_table->yellow_mult=0;
+    scoring_table->yellow_nb_alt=0;
+    scoring_table->red_mult=0;
+    scoring_table->red_nb_alt=0;
+    scoring_table->purple_mult=0;
+    scoring_table->purple_nb_alt=0;
+    scoring_table->green_mult=0;
+    scoring_table->green_nb_alt=0;
+    return scoring_table;
 }
 
 tile_t *create_tile(){

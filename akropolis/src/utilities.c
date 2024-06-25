@@ -73,6 +73,23 @@ void remove_level(cell_t * cell) {
 	cell -> level = next;
 }
 
+void undo_tile(tile_t * tile) {
+	for (int i = 0; i < 3; i++) {
+		tile -> cell_tab[i] -> altitude --;
+		remove_level(tile -> cell_tab[i]);
+		tile -> cell_tab[i] = NULL;
+	}
+}
+
+void undo_without_null_tile(tile_t * tile) {
+	for (int i = 0; i < 3; i++) {
+		tile -> cell_tab[i] -> altitude --;
+		remove_level(tile -> cell_tab[i]);
+		tile -> cell_tab[i] = NULL;
+	}
+}
+
+
 void add_tile(tile_t * tile) {
 	for (int i = 0; i < 3; i++) {
 		tile -> cell_tab[i] -> altitude ++;
@@ -80,13 +97,49 @@ void add_tile(tile_t * tile) {
 	}
 }
 
+bool cell_in_periphery(cell_t * cell) {
 
+	for (int i = 0; i < 6; i++) {
+		if (cell -> neighbour[i] == NULL || cell -> neighbour[i] -> level -> cell_type == EMPTY) {
+			return true;
+		}
+	}
+	return false;
+}
 
-void add_tile_to_board(board_t * board, tile_t * tile) {
+bool cell_isolated(cell_t * cell, cell_type_e cell_type) {
 
-	add_tile(tile);
+	for (int i = 0; i < 6; i++) {
+		if (cell -> neighbour[i] != NULL && cell -> neighbour[i] -> level -> cell_type == cell_type) {
+			return false;
+		}
+	}
+	return true;
+}
 
-	for (int i = 0; i < 3; i++) {
+bool cell_circled(cell_t * cell) {
+
+	for (int i = 0; i < 6; i++) {
+		if (cell -> neighbour[i] == NULL || cell -> neighbour[i] -> level -> cell_type == EMPTY) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void calculate_score_from_table(board_t * board) {
+	board -> score = 0;
+	
+	board -> score += board -> table -> blue_mult * board -> table -> blue_nb_alt;
+	board -> score += board -> table -> yellow_mult * board -> table -> yellow_nb_alt;
+	board -> score += board -> table -> red_mult * board -> table -> red_nb_alt;
+	board -> score += board -> table -> purple_mult * board -> table -> purple_nb_alt;
+	board -> score += board -> table -> green_mult * board -> table -> green_nb_alt;
+}
+
+void update_scoring_table(board_t * board, tile_t * tile, int operation) {
+
+	for (int i = 0; i < 6; i++) {
 		switch (tile -> cell_types[i]) {
 			case EMPTY:
 				fprintf(stderr, "Tile should not contain EMPTY value %d\n", i);
@@ -95,36 +148,61 @@ void add_tile_to_board(board_t * board, tile_t * tile) {
 
 			break;
 			case BARRAK_RED:
+				if (cell_in_periphery(tile -> cell_tab[i])) {
+					board -> table -> red_nb_alt += tile -> cell_tab[i] -> altitude * operation;
+				}
 			break;
 			case MARKET_YELLOW:
+				if (cell_isolated(tile -> cell_tab[i], tile -> cell_types[i])) {
+					board -> table -> yellow_nb_alt += tile -> cell_tab[i] -> altitude * operation;
+				}
 			break;
 			case TEMPLE_PURPLE:
+				if (cell_circled(tile -> cell_tab[i])) {
+					board -> table -> purple_nb_alt += tile -> cell_tab[i] -> altitude * operation;
+				}
 			break;
 			case PARK_GREEN:
-				
+				board -> table -> green_nb_alt += tile -> cell_tab[i] -> altitude * operation;
 			break;
 			case QUARRY_GRAY:
+				if (operation == -1) {
+					board -> rocks++;
+				}
 			break;
 			case BLUE_PLACE:
+				board -> table -> blue_mult++;
 			break;
 			case YELLOW_PLACE:
+				board -> table -> yellow_mult++;
 			break;
 			case RED_PLACE:
+				board -> table -> red_mult++;
 			break;
 			case PURPLE_PLACE:
+				board -> table -> purple_mult++;
 			break;
 			case GREEN_PLACE:
+				board -> table -> green_mult++;
 			break;
 		}
 	}
+	calculate_score_from_table(board);
 }
 
-void undo_tile(tile_t * tile) {
+void remove_tile_from_board(board_t * board, tile_t * tile) {
+	update_scoring_table(board, tile, -1);
+	undo_without_null_tile(tile);
+	update_scoring_table(board, tile, 1);
 	for (int i = 0; i < 3; i++) {
-		tile -> cell_tab[i] -> altitude --;
-		remove_level(tile -> cell_tab[i]);
 		tile -> cell_tab[i] = NULL;
 	}
+}
+
+void add_tile_to_board(board_t * board, tile_t * tile) {
+	update_scoring_table(board, tile, -1);
+	add_tile(tile);
+	update_scoring_table(board, tile, 1);
 }
 
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
@@ -181,13 +259,15 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 uint32_t pow_u32(uint32_t x, int n) {
 	uint32_t res = 1;
 	while (1) {
-		if (n & 1)
+		if (n & 1) {
 			res *= x;
+		}
 		// equivalent to (n - 1) / 2
 		n >>= 1;
 		// if n is zero
-		if (!n)
+		if (!n) {
 			break;
+		}
 		x *= x;
 	}
 
@@ -229,7 +309,7 @@ uint32_t hash_board(board_t * board) {
 	return hash;
 }
 
-hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next) {
+hash_t * create_linked_hash(uint32_t hashed_board, linked_plays_t * plays, hash_t * next) {
 	hash_t * new_hash = malloc(sizeof(hash_t));
 	new_hash -> hashed_board = hashed_board;
 	new_hash -> plays = plays;
@@ -251,7 +331,7 @@ void merge_plays(play_t * play, play_t * new_play) {
 	}
 }
 
-void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
+void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays) {
 	uint32_t hashed_board = hash_board(board);
 	int hash_index = hashed_board / HASHMAP_SIZE;
 
@@ -264,7 +344,7 @@ void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
 
 	while (hash -> next != NULL) {
 		if (hash -> hashed_board == hashed_board) {
-			merge_plays(hash -> plays, plays);
+			merge_plays(hash -> plays -> play, plays -> play);
 			return;
 		}
 		else {
@@ -297,7 +377,7 @@ void free_hash_list(hash_t * hash) {
 	while (hash != NULL) {
 		previous = hash;
 		hash = hash -> next;
-		free_plays(previous -> plays);
+		free_linked_plays(previous -> plays);
 		free(hash);
 	}
 }
