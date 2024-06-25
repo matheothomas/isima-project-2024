@@ -54,7 +54,7 @@ graphics_t *init_sdl() {
     TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-    SDL_Rect *window_dimensions;
+    SDL_Rect *window_dimensions, *board_player, *board_bot;
 	colours_t *colours;
 	SDL_Texture **type_texture;
 	SDL_Texture *background;
@@ -84,7 +84,10 @@ graphics_t *init_sdl() {
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
 
 	// Rects creation
-	window_dimensions=crea_rect(0, 0, screen.h * 0.9 * 0.866, screen.h * 0.9);
+	window_dimensions=crea_rect(0, 0, screen.h * 0.9 * 0.866 * 1.5, screen.h * 0.9);
+
+	board_player=crea_rect(0, 0, window_dimensions->h, (69.28/61)*window_dimensions->h);
+	board_bot=crea_rect(0, 0, window_dimensions->h, window_dimensions->h);
 
     // Renderer creation
 	renderer = SDL_CreateRenderer(
@@ -115,8 +118,15 @@ graphics_t *init_sdl() {
 	//background= load_texture_from_image("res/background.jpg", window, renderer);
 	background=NULL;
 
-	offset_x=0.866*(float)window_dimensions->h/40;
-	offset_y=(float)window_dimensions->h/61;
+	offset_y=(float)board_player->h/61;
+	offset_x=2*0.866*offset_y;
+	//offset_x=(float)board_player->h/40;
+	//offset_y=offset_x/(0.866*2);
+
+	
+
+
+	printf("x : %f y : %f \n", offset_x, offset_y);
 
     graphics_t *graphics = malloc(sizeof(graphics_t));
 
@@ -232,17 +242,17 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) 
 	// SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_Rect source = {0}, destination = {0};
 
-	destination.h = 2 * graphics->offset_y;
-	destination.w = 4 * graphics->offset_x;
+	destination.w = 2 * graphics->offset_x;
+	destination.h = 4 * graphics->offset_y;
 
 	int i=id%39;
 
-	if(i>0 && i<19){
+	if(i>=0 && i<=19){
 		destination.x=2*i * graphics->offset_x;
 		destination.y=6*((int)id/39) * graphics->offset_y;
 	}
-	else if (i>20 && i<38){
-		destination.x=(2*i+1) * graphics->offset_x;
+	else if (i>=20 && i<=38){
+		destination.x=((2*i)+1) * graphics->offset_x;
 		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
 	}
 
