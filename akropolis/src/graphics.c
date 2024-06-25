@@ -74,8 +74,8 @@ graphics_t *init_sdl() {
 
     // Window creation
 	window = SDL_CreateWindow("Premier dessin", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 
-                            screen.h * 0.866 * 1.5,
-						    screen.h * 1, SDL_WINDOW_OPENGL);
+                            screen.h * 0.9 * 0.866 * 1.5,
+						    screen.h * 0.9, SDL_WINDOW_OPENGL);
 
 	if (window == NULL)
 		end_sdl(0, "ERROR WINDOW CREATION", window, renderer);
@@ -84,7 +84,7 @@ graphics_t *init_sdl() {
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
 
 	// Rects creation
-	window_dimensions=crea_rect(0, 0, screen.h * 0.866 * 1.5, screen.h * 1);
+	window_dimensions=crea_rect(0, 0, screen.h * 0.9 * 0.866, screen.h * 0.9);
 
     // Renderer creation
 	renderer = SDL_CreateRenderer(
@@ -115,8 +115,8 @@ graphics_t *init_sdl() {
 	//background= load_texture_from_image("res/background.jpg", window, renderer);
 	background=NULL;
 
-	offset_x=0.866*screen.h/40;
-	offset_y=(float)screen.h/61;
+	offset_x=0.866*(float)window_dimensions->h/40;
+	offset_y=(float)window_dimensions->h/61;
 
     graphics_t *graphics = malloc(sizeof(graphics_t));
 
@@ -246,6 +246,9 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) 
 		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
 	}
 
+	printf("x : %d y : %d id : %d\n", destination.x,destination.y, id);
+
+	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(graphics->renderer, texture, &source, &destination);
 }
 
@@ -274,6 +277,7 @@ void display_board(graphics_t *g, game_t *game) {
 			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type-1], g, game->player->cell_tab[i]->id, 0);
 		}
 	}
+
 
 	SDL_RenderPresent(g->renderer);
 }
