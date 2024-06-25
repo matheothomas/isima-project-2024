@@ -42,6 +42,7 @@ typedef struct colours {
 } colours_t;
 
 typedef struct type_texture{
+	SDL_Texture *empty;
 	SDL_Texture *blue;
 	SDL_Texture *red;
 	SDL_Texture *yellow;
