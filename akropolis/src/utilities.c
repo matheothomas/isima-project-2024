@@ -309,7 +309,7 @@ uint32_t hash_board(board_t * board) {
 	return hash;
 }
 
-hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next) {
+hash_t * create_linked_hash(uint32_t hashed_board, linked_plays_t * plays, hash_t * next) {
 	hash_t * new_hash = malloc(sizeof(hash_t));
 	new_hash -> hashed_board = hashed_board;
 	new_hash -> plays = plays;
@@ -331,7 +331,7 @@ void merge_plays(play_t * play, play_t * new_play) {
 	}
 }
 
-void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
+void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays) {
 	uint32_t hashed_board = hash_board(board);
 	int hash_index = hashed_board / HASHMAP_SIZE;
 
@@ -344,7 +344,7 @@ void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays) {
 
 	while (hash -> next != NULL) {
 		if (hash -> hashed_board == hashed_board) {
-			merge_plays(hash -> plays, plays);
+			merge_plays(hash -> plays -> play, plays -> play);
 			return;
 		}
 		else {
@@ -377,7 +377,7 @@ void free_hash_list(hash_t * hash) {
 	while (hash != NULL) {
 		previous = hash;
 		hash = hash -> next;
-		free_plays(previous -> plays);
+		free_linked_plays(previous -> plays);
 		free(hash);
 	}
 }
