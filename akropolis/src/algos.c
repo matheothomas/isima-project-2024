@@ -7,29 +7,33 @@
 #include <stdlib.h>
 #include "algos.h"
 
-tree_t *initialisation(game_t *game) {
-	tree_t *tree = malloc(sizeof(tree_t));
-	play_t *p1 = malloc(sizeof(play_t));
-	play_t *p2 = malloc(sizeof(play_t));
-	
-	p1->tile = game->card_1;
-	p1->n_coup = 0;
-	p1->gain_coup = 0;
-	p1->next = p2;
-	
-	p2->tile = game->card_2;
-	p2->n_coup = 0;
-	p2->gain_coup = 0;
-	p2->next = NULL;
+play_t *initialisation(game_t *game, hashmap *h) {
 
-	tree->play = p1;
-	tree->next = NULL;
+	// play_t *play;
+	int n;
+	struct ???, temp; 
+	??? = = gen_plays(game->card_1);
+	n = ???->n;
+	play = ???->plays;
+	
+	??? = gen_plays(game->card_2);
 
-	return tree;
+	temp = play;
+	while(temp->next != NULL) {
+		temp = temp->next;
+	}
+
+	n += ???->n;
+	temp->next = ???->plays;
+
+	// ADD TO HASHMAP
+
+	return plays;
 }
 
-play_t *selection(tree_t *tree) {
-	play_t *temp = tree->play;
+play_t *selection(play_t *play) {
+	
+	play_t *temp = play;
 	while(temp != NULL) {
 		if (temp->n_coup == 0) {
 			break;
@@ -43,7 +47,28 @@ play_t *selection(tree_t *tree) {
 	return temp;
 }
 
-tree_t *development(play_t *play) {
-	tree_t *tree = malloc(sizeof(tree_t));
+simulation(play_t *play, int n) {
 
+}
+
+
+/////////////////
+// PSEUDO CODE //
+/////////////////
+
+initialisation() {
+	// 
+}
+
+selection() {
+	// UCB
+	// On joue le coup et si c'est un nouveau on le crée.
+}
+
+simulation() {
+	// random jusqu'à situation finale
+}
+
+retropropagation() {
+	// actualiser les scores récursivement
 }
