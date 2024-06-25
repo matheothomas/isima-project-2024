@@ -118,6 +118,8 @@ void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score);
 game_t * create_game();
 void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, tile_t **deck);
 
+
+// si jamais au grand jamais y a un blem c'est ici
 struct play * create_play();
 void update_play(struct play *play, tile_t *tile, int n_coup, float gain_coup, struct play *next);
 

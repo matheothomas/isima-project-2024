@@ -25,8 +25,15 @@ typedef struct graphics{
 	SDL_Texture *purple;
 	SDL_Texture *grey;
 	SDL_Texture *green;
+	SDL_Texture *blue_place;
+	SDL_Texture *red_place;
+	SDL_Texture *yellow_place;
+	SDL_Texture *purple_place;
+	SDL_Texture *green_place;
     SDL_Texture *background;
     TTF_Font * font;
+	float offset_x;
+	float offset_y;
 }graphics_t;
 
 typedef struct coordinates {
@@ -64,6 +71,16 @@ SDL_Rect* crea_rect(int x, int y, int width, int height);
 
 /// create a pointer to a rectangle inside another rectangle
 SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l);
+
+/// checks if a position (x, y) is in a rectangle button
+int is_in (SDL_Rect* button,int x,int y);
+
+
+void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer);
+
+void display_board(graphics_t *g, game_t *game);
+
+void display_game(graphics_t* g,  game_t *game);
 
 
 #endif
