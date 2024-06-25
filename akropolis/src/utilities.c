@@ -3,7 +3,6 @@
  * date : 23-06-24
  */
 
-#include <bits/posix2_lim.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -199,6 +198,7 @@ void update_scoring_table(board_t * board, tile_t * tile, int operation) {
 			case EMPTY:
 				fprintf(stderr, "Tile should not contain EMPTY value %d\n", i);
 			break;
+			// blue
 			case HOUSE_BLUE:
 				if (operation == -1) {
 					board -> table -> blue_nb_alt = 0;
@@ -207,41 +207,51 @@ void update_scoring_table(board_t * board, tile_t * tile, int operation) {
 					board -> table -> blue_nb_alt = maximum_connex_size_with_altitude(board, HOUSE_BLUE);
 				}
 			break;
+			// red
 			case BARRAK_RED:
 				if (cell_in_periphery(tile -> cell_tab[i])) {
 					board -> table -> red_nb_alt += tile -> cell_tab[i] -> altitude * operation;
 				}
 			break;
+			// yellow
 			case MARKET_YELLOW:
 				if (cell_isolated(tile -> cell_tab[i], tile -> cell_types[i])) {
 					board -> table -> yellow_nb_alt += tile -> cell_tab[i] -> altitude * operation;
 				}
 			break;
+			// purple
 			case TEMPLE_PURPLE:
 				if (cell_circled(tile -> cell_tab[i])) {
 					board -> table -> purple_nb_alt += tile -> cell_tab[i] -> altitude * operation;
 				}
 			break;
+			// green
 			case PARK_GREEN:
 				board -> table -> green_nb_alt += tile -> cell_tab[i] -> altitude * operation;
 			break;
+			// grey
 			case QUARRY_GRAY:
 				if (operation == -1) {
 					board -> rocks++;
 				}
 			break;
+			// blue
 			case BLUE_PLACE:
 				board -> table -> blue_mult++;
 			break;
+			// yellow
 			case YELLOW_PLACE:
 				board -> table -> yellow_mult++;
 			break;
+			// red
 			case RED_PLACE:
 				board -> table -> red_mult++;
 			break;
+			// purple
 			case PURPLE_PLACE:
 				board -> table -> purple_mult++;
 			break;
+			// green
 			case GREEN_PLACE:
 				board -> table -> green_mult++;
 			break;
