@@ -63,6 +63,8 @@ void test_add_tiles() {
 	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
 	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
 	
+	add_tile_to_board(game -> player, tile);
+
 	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
 	play_t * cours = plays -> play;
 	for (int i = 0; i < plays -> size; i++) {
