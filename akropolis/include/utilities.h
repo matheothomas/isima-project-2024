@@ -12,8 +12,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "init.h"
-#include "algos.h"
 /* Struct definitions */
+
+typedef struct play {
+	tile_t * tile;
+	int n_coup;
+	float gain_coup;
+	struct play * next;
+} play_t;
+
+typedef struct tree {
+	play_t *play;
+	struct tree *next;
+} tree_t;
+
 typedef struct hash {
 	uint32_t hashed_board;
 	play_t * plays;
