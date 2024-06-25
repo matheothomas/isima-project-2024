@@ -205,7 +205,7 @@ tile_t ** creates_all_tiles(){
     for (i=5;i<8;i++){
         tile_tab[i]=create_tile();
         init_tile(tile_tab[i]);
-        fill_tile(tile_tab[i], i-1, QUARRY_GRAY, QUARRY_GRAY);
+        fill_tile(tile_tab[i], i-2, QUARRY_GRAY, QUARRY_GRAY);
         tile_tab[i]->id=i;
     }
 
