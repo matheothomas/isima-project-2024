@@ -10,8 +10,6 @@
 #define DECK_NUMBER 34
 //#include "algos.h"
 
-#define DEBUG
-
 #ifdef DEBUG
 	#define DUMP(X) printf("%s = %d\n", #X, X)
 #else
