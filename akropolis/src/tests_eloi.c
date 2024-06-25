@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "utilities.h"
 #include "init.h"
+#include "hash_map.h"
 #include "tests_eloi.h"
 
 void test_hash_index() {
