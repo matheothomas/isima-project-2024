@@ -377,7 +377,6 @@ void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score){
     args->score=score;
 }
 
-
 game_t * create_game(){
     game_t *game=malloc(sizeof(game_t));
     game->card_1=NULL;
@@ -388,13 +387,15 @@ game_t * create_game(){
     return game;
 }
 
-void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, tile_t **deck){
+void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, deck_t *deck){
     game->card_1=card_1;
     game->card_2=card_2;
     game->deck=deck;
     game->player=player;
     game->bot=bot;
 }
+
+
 
 struct play * create_play(){
     struct play *play=malloc(sizeof(struct play));

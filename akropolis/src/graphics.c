@@ -55,8 +55,10 @@ graphics_t *init_sdl() {
 	SDL_Renderer *renderer = NULL;
     SDL_Rect *window_dimensions;
 	colours_t *colours;
-	SDL_Texture *background, *blue, *red, *yellow, *green, *purple, *grey;
+	SDL_Texture *background, *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
 	TTF_Font * font;
+	float offset_x;
+	float offset_y;
 
     SDL_DisplayMode screen;
 
@@ -95,7 +97,15 @@ graphics_t *init_sdl() {
     purple= load_texture_from_image("res/purple.png", window, renderer);
     green= load_texture_from_image("res/green.png", window, renderer);
     grey= load_texture_from_image("res/grey.png", window, renderer);
+	blue_place= load_texture_from_image("res/blue_star.png", window, renderer);
+    red_place= load_texture_from_image("res/red_star.png", window, renderer);
+    yellow_place= load_texture_from_image("res/yellow_star.png", window, renderer);
+    purple_place= load_texture_from_image("res/purple_star.png", window, renderer);
+    green_place= load_texture_from_image("res/green_star.png", window, renderer);
 	background= load_texture_from_image("res/background.jpg", window, renderer);
+
+	offset_x=0.866*screen.h/40;
+	offset_y=(float)screen.h/61;
 
     graphics_t *graphics = malloc(sizeof(graphics_t));
 
@@ -108,9 +118,16 @@ graphics_t *init_sdl() {
     graphics->purple=purple;
     graphics->green=green;
     graphics->grey=grey;
+	graphics->blue_place=blue;
+    graphics->red_place=red;
+    graphics->yellow_place=yellow;
+    graphics->purple_place=purple;
+    graphics->green_place=green;
     graphics->background=background;
     graphics->colours=colours;
     graphics->font=font;
+	graphics->offset_x=offset_x;
+	graphics->offset_y=offset_y;
 
     return graphics;
 }
@@ -163,4 +180,63 @@ SDL_Rect* crea_rect(int x, int y, int width, int height){
 SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l){
 	SDL_Rect *dir=crea_rect(button->x+((float)i*(button->w)), button->y+((float)j*(button->h)), k*(button->w), l*(button->h));
 	return dir;
+}
+
+int is_in (SDL_Rect* button,int x,int y){
+	int is_in=0;
+	if(x>button->x && x<button->x+button->w){
+		if(y>button->y && y<button->y+button->h){
+			is_in=1;
+		}
+	}
+	return is_in;
+}
+
+void texturing(SDL_Texture* texture, SDL_Window* window, SDL_Renderer* renderer) {
+	SDL_Rect source = {0}, window_dimensions = {0}, destination = {0};
+
+	SDL_GetWindowSize(window, &window_dimensions.w, &window_dimensions.h);
+	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
+
+	float zoom = 0.9;
+	destination.w = window_dimensions.h * zoom;						// the destination is a source's zoom
+	destination.h = window_dimensions.h * zoom;
+	destination.x = (window_dimensions.h - destination.w) / 2;
+	destination.y = (window_dimensions.h - destination.h) / 2;
+
+
+	// SDL_RenderCopyEx(renderer, my_texture, &source, &destination, j*0.1, &point, SDL_FLIP_NONE);
+	SDL_RenderCopy(renderer, texture, &source, &destination);
+}
+
+void display_board(graphics_t *g, game_t *game) {
+	//SDL_RenderClear(g->renderer);
+
+
+	//SDL_RenderPresent(renderer);
+}
+
+void display_game(graphics_t* g, game_t *game){
+	
+	SDL_Rect source = {0};
+
+	// clear renderer
+	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	SDL_RenderClear(g->renderer);
+
+	// background
+	SDL_QueryTexture(g->background, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->background, &source, g->window_dimensions);
+
+	// panel
+
+	// board
+	display_board(g, game);
+
+	// text
+
+	// text box
+
+	// shows
+	SDL_RenderPresent(g->renderer);
 }
