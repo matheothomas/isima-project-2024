@@ -174,29 +174,28 @@ void test_domi(){
 
 		// update
 
-            // cell previously under the mouse's cursor back to being displayed in it's original colour
-			if(id_mouse_cell>=0 && id_mouse_cell<390){
-				if(game->player->cell_tab[id_mouse_cell]->selection==MOUSE){
-					game->player->cell_tab[id_mouse_cell]->selection=UNSELECT;
-				}
+        // cell previously under the mouse's cursor back to being displayed in it's original colour
+		if(id_mouse_cell>=0 && id_mouse_cell<390){
+			if(game->player->cell_tab[id_mouse_cell]->selection==MOUSE){
+				game->player->cell_tab[id_mouse_cell]->selection=UNSELECT;
 			}
+		}
 
-			// get the id of the cell under the mouse's cursor
-			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+		// get the id of the cell under the mouse's cursor
+		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
 
-			// display the cell under the mouse's cursor in red
-			if(mouse_state == 0){
-				if(!(is_in(g->board_player, x, y))){
-					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
-					if(id_mouse_cell >= 0 && id_mouse_cell<390){
-						if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
-							id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
-							game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
-						}
+		// display the cell under the mouse's cursor in red
+		if(mouse_state == 0){
+			if(!(is_in(g->board_player, x, y))){
+				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+				if(id_mouse_cell >= 0 && id_mouse_cell<390){
+					if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
+						id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+						game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
 					}
 				}
 			}
-
+		}
 
 		if(mouse_state==1){
 		}
