@@ -85,7 +85,6 @@ void undo_without_null_tile(tile_t * tile) {
 	for (int i = 0; i < 3; i++) {
 		tile -> cell_tab[i] -> altitude --;
 		remove_level(tile -> cell_tab[i]);
-		tile -> cell_tab[i] = NULL;
 	}
 }
 
@@ -193,7 +192,7 @@ void calculate_score_from_table(board_t * board) {
 
 void update_scoring_table(board_t * board, tile_t * tile, int operation) {
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 3; i++) {
 		switch (tile -> cell_types[i]) {
 			case EMPTY:
 				fprintf(stderr, "Tile should not contain EMPTY value %d\n", i);

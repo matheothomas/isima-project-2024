@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
 
 		} else if(strcmp(argv[1], "eloi") == 0) {
 			printf("eloi\n");
-			test_hash_index();
+			test_add_tiles();
 
 		} else if(strcmp(argv[1], "matheo") == 0) {
 			printf("matheo\n");
