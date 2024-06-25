@@ -74,7 +74,7 @@ graphics_t *init_sdl() {
 
     // Window creation
 	window = SDL_CreateWindow("Premier dessin", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 
-                            screen.h * 0.9 * 0.866 * 1.5,
+                            screen.w * 0.9,
 						    screen.h * 0.9, SDL_WINDOW_OPENGL);
 
 	if (window == NULL)
@@ -84,10 +84,15 @@ graphics_t *init_sdl() {
 	font=TTF_OpenFont("res/Unique.ttf", 72 );
 
 	// Rects creation
-	window_dimensions=crea_rect(0, 0, screen.h * 0.9 * 0.866 * 1.5, screen.h * 0.9);
+	window_dimensions=crea_rect(0, 0, screen.w * 0.9, screen.h * 0.9);
 
-	board_player=crea_rect(0, 0, window_dimensions->h, (69.28/61)*window_dimensions->h);
-	board_bot=crea_rect(0, 0, window_dimensions->h, window_dimensions->h);
+	board_player=crea_rect(0, 0, window_dimensions->w/3, window_dimensions->h);
+	board_bot=crea_rect(window_dimensions->w/3, 0, window_dimensions->w/3, window_dimensions->h);
+
+	offset_y=(float)board_player->h/61;
+	offset_x=2*0.866*offset_y;
+	//offset_x=(float)board_player->h/40;
+	//offset_y=offset_x/(0.866*2);
 
     // Renderer creation
 	renderer = SDL_CreateRenderer(
@@ -118,13 +123,6 @@ graphics_t *init_sdl() {
     // Textures creation
 	background= load_texture_from_image("res/background.jpeg", window, renderer);
 	background=NULL;
-
-	offset_y=(float)board_player->h/61;
-	offset_x=2*0.866*offset_y;
-	//offset_x=(float)board_player->h/40;
-	//offset_y=offset_x/(0.866*2);
-
-	
 
 
 	printf("x : %f y : %f \n", offset_x, offset_y);
@@ -243,7 +241,27 @@ int is_in (SDL_Rect* button,int x,int y){
 	return is_in;
 }
 
-void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int zoom) {
+int is_in_hexa (SDL_Rect* dest, int x, int y, int offset_x, int offset_y){
+	int is_in = 0;
+	int x_bis = x - dest->x;
+	int y_bis = y - dest->y;
+	if(x_bis * offset_y + y_bis * offset_x > offset_x * offset_y){
+		if(x_bis * offset_y - y_bis * offset_x < offset_x * offset_y){
+			if(x_bis < dest->w){
+				if((x_bis - offset_x) * offset_y + (y_bis - 3 * offset_y) * offset_x < offset_x * offset_y){
+					if(x_bis * offset_y - (y_bis - 4 * offset_y) * offset_x > offset_x * offset_y){
+						if(x_bis > 0){
+							is_in = 1;
+						}
+					}
+				}
+			}
+		}
+	}
+	return is_in;
+}
+
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal) {
 	SDL_Rect source = {0}, destination = {0}, destination_alt = {0};
 
 	char *string_altitude= malloc(sizeof(char));
@@ -259,17 +277,17 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 	int i=id%39;
 
 	if(i>=0 && i<=19){
-		destination.x=2*i * graphics->offset_x;
+		destination.x=2*i * graphics->offset_x +decal;
 		destination.y=6*((int)id/39) * graphics->offset_y;
 
-		destination_alt.x=(2*i+0.75) * graphics->offset_x;
+		destination_alt.x=(2*i+0.75) * graphics->offset_x +decal;
 		destination_alt.y=(6*((int)id/39)+2) * graphics->offset_y;
 	}
 	else if (i>=20 && i<=38){
-		destination.x=(((2*id)%39)) * graphics->offset_x;
+		destination.x=(((2*id)%39)) * graphics->offset_x +decal;
 		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
 
-		destination_alt.x=(((2*id)%39)+0.75) * graphics->offset_x;
+		destination_alt.x=(((2*id)%39)+0.75) * graphics->offset_x +decal;
 		destination_alt.y=(6*((int)id/39)+5) * graphics->offset_y;
 	}
 
@@ -285,20 +303,49 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 	free(string_altitude);
 }
 
+int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal){
+	int id=-1;
+	int i=0;
+	SDL_Rect destination = {0};
+	destination.w = 2 * graphics->offset_x;
+	destination.h = 4 * graphics->offset_y;
+	for(int k=0;k<390;k+=39){
+		for(i=k;i<k+20;i++){
+			destination.x=2*i * graphics->offset_x +decal;
+			destination.y=6*((int)id/39) * graphics->offset_y;
+			if(is_in_hexa(&destination, x, y, graphics->offset_x, graphics->offset_y)){
+				id=i;
+				k=390;
+				i=390;
+			}
+		}
+		for(i=k+38;i>k+19;i--){
+			destination.x=(((2*id)%39)) * graphics->offset_x +decal;
+			destination.y=(6*((int)id/39)+3) * graphics->offset_y;
+			if(is_in_hexa(&destination, x, y, graphics->offset_x, graphics->offset_y)){
+				id=i;
+				k=390;
+				i=390;
+			}
+		}
+	}
+	return id;
+}
 
 
-void display_board(graphics_t *g, game_t *game) {
-	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
-	SDL_RenderClear(g->renderer);
+
+void display_board(graphics_t *g, board_t * board, int decal) {
+	//SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	//SDL_RenderClear(g->renderer);
 
 	// display all cells
 	for(int i=0;i<390;i++){
 		//if(game->player->cell_tab[i]->level->cell_type){
-			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type], g, game->player->cell_tab[i]->id, game->player->cell_tab[i]->altitude, 0);
+			display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
 		//}
 	}
 
-	SDL_RenderPresent(g->renderer);
+	//SDL_RenderPresent(g->renderer);
 }
 
 void display_game(graphics_t* g, game_t *game){
@@ -310,13 +357,15 @@ void display_game(graphics_t* g, game_t *game){
 	SDL_RenderClear(g->renderer);
 
 	// background
-	SDL_QueryTexture(g->background, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, g->background, &source, g->window_dimensions);
+	//SDL_QueryTexture(g->background, NULL, NULL, &source.w, &source.h);
+	//SDL_RenderCopy(g->renderer, g->background, &source, g->window_dimensions);
 
 	// panel
 
 	// board
-	display_board(g, game);
+	display_board(g, game->player,0);
+	SDL_RenderDrawRect(g->renderer, g->board_bot);
+	display_board(g, game->bot,g->window_dimensions->w/3);
 
 	// text
 

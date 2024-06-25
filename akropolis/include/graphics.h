@@ -85,9 +85,14 @@ SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l
 /// checks if a position (x, y) is in a rectangle button
 int is_in (SDL_Rect* button,int x,int y);
 
-void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int zoom);
+/// checks if a position (x, y) is in the hexagon corresponding to a rectangle "dest"
+int is_in_hexa (SDL_Rect* dest, int x, int y, int offset_x, int offset_y);
 
-void display_board(graphics_t *g, game_t *game);
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal);
+
+int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal);
+
+void display_board(graphics_t *g, board_t * board, int decal);
 
 void display_game(graphics_t* g,  game_t *game);
 
