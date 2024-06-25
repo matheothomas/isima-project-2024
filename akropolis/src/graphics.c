@@ -99,19 +99,20 @@ graphics_t *init_sdl() {
 
 	types=init_type_texture( window, renderer);
 
-	type_texture=malloc(11*sizeof(SDL_Texture*));
+	type_texture=malloc(12*sizeof(SDL_Texture*));
 
-	type_texture[0]=types->blue;
-	type_texture[1]=types->red;
-	type_texture[2]=types->yellow;
-	type_texture[3]=types->purple;
-	type_texture[4]=types->green;
-	type_texture[5]=types->grey;
-	type_texture[6]=types->blue_place;
-	type_texture[7]=types->red_place;
-	type_texture[8]=types->yellow_place;
-	type_texture[9]=types->purple_place;
-	type_texture[10]=types->green_place;
+	type_texture[0]=types->empty;
+	type_texture[1]=types->blue;
+	type_texture[2]=types->red;
+	type_texture[3]=types->yellow;
+	type_texture[4]=types->purple;
+	type_texture[5]=types->green;
+	type_texture[6]=types->grey;
+	type_texture[7]=types->blue_place;
+	type_texture[8]=types->red_place;
+	type_texture[9]=types->yellow_place;
+	type_texture[10]=types->purple_place;
+	type_texture[11]=types->green_place;
 
 
     // Textures creation
@@ -166,8 +167,9 @@ type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer){
 
 	type_texture_t *type_texture=malloc(sizeof(type_texture_t));
 
-	SDL_Texture *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
+	SDL_Texture *empty, *blue, *red, *yellow, *green, *purple, *grey, *blue_place, *red_place, *yellow_place, *green_place, *purple_place;
 	
+	empty= load_texture_from_image("res/empty.png", window, renderer);
 	blue= load_texture_from_image("res/blue.png", window, renderer);
     red= load_texture_from_image("res/red.png", window, renderer);
     yellow= load_texture_from_image("res/yellow.png", window, renderer);
@@ -180,6 +182,7 @@ type_texture_t *init_type_texture( SDL_Window *window, SDL_Renderer *renderer){
     purple_place= load_texture_from_image("res/purple_star.png", window, renderer);
     green_place= load_texture_from_image("res/green_star.png", window, renderer);
 
+	type_texture->empty=empty;
 	type_texture->blue=blue;
     type_texture->red=red;
     type_texture->yellow=yellow;
@@ -289,9 +292,9 @@ void display_board(graphics_t *g, game_t *game) {
 
 	// display all cells
 	for(int i=0;i<390;i++){
-		if(game->player->cell_tab[i]->level->cell_type){
-			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type-1], g, game->player->cell_tab[i]->id, game->player->cell_tab[i]->altitude, 0);
-		}
+		//if(game->player->cell_tab[i]->level->cell_type){
+			display_cell(g->type_texture[game->player->cell_tab[i]->level->cell_type], g, game->player->cell_tab[i]->id, game->player->cell_tab[i]->altitude, 0);
+		//}
 	}
 
 	SDL_RenderPresent(g->renderer);
