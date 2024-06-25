@@ -24,7 +24,9 @@ int main(int argc, char *argv[]){
 
 		} else if(strcmp(argv[1], "matheo") == 0) {
 			printf("matheo\n");
-			test_func();
+
+			test_matheo();
+
 			
 		}
 	} else {
