@@ -80,16 +80,16 @@ board_t *create_board(){
         // i=k
         cell_tab[k]->neighbour[2]=cell_tab[k+1];
         if(k){
-            cell_tab[k]->neighbour[1]=cell_tab[k-1];
-            cell_tab[k-1]->neighbour[4]=cell_tab[k];
+            cell_tab[k]->neighbour[1]=cell_tab[k-19];
+            cell_tab[k-19]->neighbour[4]=cell_tab[k];
         }
         for(i=k+1;i<k+19;i++){
             if(k){
-                cell_tab[i]->neighbour[0]=cell_tab[2*k-i];
-                cell_tab[2*k-i]->neighbour[3]=cell_tab[i];
+                cell_tab[i]->neighbour[0]=cell_tab[i-20];
+                cell_tab[i-20]->neighbour[3]=cell_tab[i];
 
-                cell_tab[i]->neighbour[1]=cell_tab[2*k-i-1];
-                cell_tab[2*k-i-1]->neighbour[4]=cell_tab[i];
+                cell_tab[i]->neighbour[1]=cell_tab[i-19];
+                cell_tab[i-19]->neighbour[4]=cell_tab[i];
             }
             cell_tab[i]->neighbour[2]=cell_tab[i+1];
             cell_tab[i]->neighbour[5]=cell_tab[i-1];

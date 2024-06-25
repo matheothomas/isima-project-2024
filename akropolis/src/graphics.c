@@ -251,7 +251,7 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom) 
 		destination.y=6*((int)id/39) * graphics->offset_y;
 	}
 	else if (i>=20 && i<=38){
-		destination.x=(((2*id)%39)-2) * graphics->offset_x;
+		destination.x=(((2*id)%39)) * graphics->offset_x;
 		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
 	}
 
