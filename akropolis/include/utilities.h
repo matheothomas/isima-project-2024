@@ -12,8 +12,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "init.h"
-#include "algos.h"
 /* Struct definitions */
+
+typedef struct play {
+	tile_t * tile;
+	int n_coup;
+	float gain_coup;
+	struct play * next;
+} play_t;
+
+typedef struct tree {
+	play_t *play;
+	struct tree *next;
+} tree_t;
+
 typedef struct hash {
 	uint32_t hashed_board;
 	play_t * plays;
@@ -43,6 +55,9 @@ hash_t ** create_hash_map();
 uint32_t hash_board(board_t * board_t);
 
 hash_t * create_linked_hash(uint32_t hashed_board, play_t * plays, hash_t * next);
+
+/// Merge two plays scores in place
+void merge_plays(play_t * play, play_t * new_play);
 
 void hash_map_add(hash_t ** hash_map, board_t * board, play_t * plays);
 
