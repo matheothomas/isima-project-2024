@@ -6,30 +6,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "algos.h"
+#include "utilities.h"
 
-/*
-play_t *initialisation(game_t *game, hashmap *h) {
+// /*
 
-	// play_t *play;
+
+play_t *initialisation(game_t *game, hash_t *h) {
+
+	play_t *play, *temp;
 	int n;
-	struct ???, temp; 
-	??? = = gen_plays(game->card_1);
-	n = ???->n;
-	play = ???->plays;
+	linked_plays_t *lp; 
+	lp = gen_tiles(game->bot->cell_tab, game->card_1);
+
+	n = lp->size;
+	play = lp->play;
 	
-	??? = gen_plays(game->card_2);
+	lp = gen_tiles(game->bot->cell_tab, game->card_2);
 
 	temp = play;
 	while(temp->next != NULL) {
 		temp = temp->next;
 	}
 
-	n += ???->n;
-	temp->next = ???->plays;
+	n += lp->size;
+	temp->next = lp->play;
 
 	// ADD TO HASHMAP
 
-	return plays;
+	return play;
 }
 
 play_t *selection(play_t *play) {
@@ -54,9 +58,12 @@ simulation(play_t *play, int n) {
 	p = gen_plays()
 
 }
-*/
+// */
 
-/////////////////
-// PSEUDO CODE //
-/////////////////
 
+play_t *mcts(game_t *game) {
+	hash_t *h = create_hash_map();
+	play_t *p = initialisation(game, h);
+
+
+}
