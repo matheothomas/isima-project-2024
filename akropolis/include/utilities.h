@@ -57,6 +57,12 @@ bool cell_isolated(cell_t * cell, cell_type_e cell_type);
 
 bool cell_circled(cell_t * cell);
 
+int get_connex_size(bool * visited, cell_t * cell, cell_type_e cell_type);
+
+int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cell_type);
+
+int maximum_connex_size_with_altitude(board_t * board, cell_type_e cell_type);
+
 void calculate_score_from_table(board_t * board);
 
 void update_scoring_table(board_t * board, tile_t * tile, int operation);

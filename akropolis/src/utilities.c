@@ -128,6 +128,60 @@ bool cell_circled(cell_t * cell) {
 	return true;
 }
 
+int get_connex_size(bool * visited, cell_t * cell, cell_type_e cell_type) {
+	
+	visited[cell -> id] = true;
+	int size = 1;
+	for (int i = 0; i < 6; i++) {
+		if (!visited[cell -> neighbour[i] -> id] && cell -> neighbour[i] -> level -> cell_type == cell_type) {
+			size += get_connex_size(visited, cell -> neighbour[i], cell_type);
+		}
+	}
+	return size;
+}
+
+int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cell_type) {
+	
+	visited[cell -> id] = true;
+	int size_alt = cell -> altitude;
+	for (int i = 0; i < 6; i++) {
+		if (!visited[cell -> neighbour[i] -> id] && cell -> neighbour[i] -> level -> cell_type == cell_type) {
+			size_alt += get_connex_size_with_altitude(visited, cell -> neighbour[i], cell_type);
+		}
+	}
+	return size_alt;
+}
+
+int maximum_connex_size_with_altitude(board_t * board, cell_type_e cell_type) {
+
+	int maxi_connex_size = 0;
+	int new_size = 0;
+	int maxi_connex_size_alt = 0;
+	int new_size_alt = 0;
+	bool visited[CELL_NUMBER] = {false};
+
+	for (int i = 0; i < CELL_NUMBER; i++) {
+		if (!visited[i]) {
+			if (board -> cell_tab[i] -> level -> cell_type == cell_type) {
+				new_size = get_connex_size(visited, board -> cell_tab[i], cell_type);
+				new_size_alt = get_connex_size_with_altitude(visited, board -> cell_tab[i], cell_type);
+				if (new_size > maxi_connex_size) {
+					maxi_connex_size = new_size;
+					maxi_connex_size_alt = new_size_alt;
+				}
+				else if (new_size == maxi_connex_size && new_size_alt > maxi_connex_size_alt) {
+					maxi_connex_size_alt = new_size_alt;
+				}
+			}
+			else {
+				visited[i] = true;
+			}
+		}
+	}
+
+	return maxi_connex_size_alt;
+}
+
 void calculate_score_from_table(board_t * board) {
 	board -> score = 0;
 	
@@ -146,7 +200,12 @@ void update_scoring_table(board_t * board, tile_t * tile, int operation) {
 				fprintf(stderr, "Tile should not contain EMPTY value %d\n", i);
 			break;
 			case HOUSE_BLUE:
-
+				if (operation == -1) {
+					board -> table -> blue_nb_alt = 0;
+				}
+				else {
+					board -> table -> blue_nb_alt = maximum_connex_size_with_altitude(board, HOUSE_BLUE);
+				}
 			break;
 			case BARRAK_RED:
 				if (cell_in_periphery(tile -> cell_tab[i])) {
