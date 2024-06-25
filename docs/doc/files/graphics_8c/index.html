@@ -15,9 +15,9 @@
 
 
 <!DOCTYPE html>
-<html lang='en-us'><head>
+<html lang='en-us'><head><script src="/isima-project-2024/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=isima-project-2024/livereload" data-no-instant defer></script>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <link rel="shortcut icon" href='http://localhost:1313/isima-project-2024/favicon.ico' type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>src/graphics.c - Project</title>
 
@@ -28,7 +28,7 @@
     
 
     
-        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8c/">
+        <meta property="og:url" content="http://localhost:1313/isima-project-2024/doc/files/graphics_8c/">
   <meta property="og:site_name" content="Project">
   <meta property="og:title" content="src/graphics.c">
   <meta property="og:description" content="src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors">
@@ -59,7 +59,7 @@
   <meta name="twitter:title" content="src/graphics.c">
   <meta name="twitter:description" content="src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors">
 
-    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+    <link rel="stylesheet" href="/isima-project-2024/style.css" integrity="">
 
 
 
@@ -77,11 +77,11 @@
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+<script defer src="/isima-project-2024/js/header.js" integrity=""></script>
 
 
 
-    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+    <script defer src="/isima-project-2024/js/zooming.js" integrity=""></script>
 
 
 
@@ -92,7 +92,7 @@
     
         
         
-            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+            <script defer src="/isima-project-2024/js/builtin-copy.js" integrity=""></script>
         
     
 

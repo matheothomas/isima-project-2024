@@ -1,0 +1,566 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>include/graphics.h - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8h/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="include/graphics.h">
+  <meta property="og:description" content="include/graphics.h Classes Name struct graphics contains all the graphics elements struct coordinates coordinates of a point in space struct commands_panel contains an SDL button a an array of SDL rectangles to handle the command panel Types Name typedef struct graphics graphics_t contains all the graphics elements typedef struct coordinates coordinates_t coordinates of a point in space typedef struct commands_panel commands_panel_t contains an SDL button a an array of SDL rectangles to handle the command panel Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * my_texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Types Documentation typedef graphics_t typedef struct graphics graphics_t; contains all the graphics elements">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc1">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="include/graphics.h">
+  <meta name="twitter:description" content="include/graphics.h Classes Name struct graphics contains all the graphics elements struct coordinates coordinates of a point in space struct commands_panel contains an SDL button a an array of SDL rectangles to handle the command panel Types Name typedef struct graphics graphics_t contains all the graphics elements typedef struct coordinates coordinates_t coordinates of a point in space typedef struct commands_panel commands_panel_t contains an SDL button a an array of SDL rectangles to handle the command panel Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * my_texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Types Documentation typedef graphics_t typedef struct graphics graphics_t; contains all the graphics elements">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#types">Types</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#types-documentation">Types Documentation</a>
+      <ul>
+        <li><a href="#typedef-graphics_t">typedef graphics_t</a></li>
+        <li><a href="#typedef-coordinates_t">typedef coordinates_t</a></li>
+        <li><a href="#typedef-commands_panel_t">typedef commands_panel_t</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-end_sdl">function end_sdl</a></li>
+        <li><a href="#function-init_sdl">function init_sdl</a></li>
+        <li><a href="#function-init_commands_panel">function init_commands_panel</a></li>
+        <li><a href="#function-load_texture_from_image">function load_texture_from_image</a></li>
+        <li><a href="#function-create_texture_for_text">function create_texture_for_text</a></li>
+        <li><a href="#function-crea_rect">function crea_rect</a></li>
+        <li><a href="#function-crea_rect_in_rect">function crea_rect_in_rect</a></li>
+        <li><a href="#function-texturing">function texturing</a></li>
+        <li><a href="#function-display_cell">function display_cell</a></li>
+        <li><a href="#function-get_cell_id_from_mouse_position">function get_cell_id_from_mouse_position</a></li>
+        <li><a href="#function-display_board">function display_board</a></li>
+        <li><a href="#function-is_in">function is_in</a></li>
+        <li><a href="#function-home_menu">function home_menu</a></li>
+        <li><a href="#function-display_game">function display_game</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="includegraphicsh">include/graphics.h</h1>
+<h2 id="classes">Classes</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structgraphics.md">graphics</a></strong> <!-- raw HTML omitted -->contains all the graphics elements</td>
+</tr>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structcoordinates.md">coordinates</a></strong> <!-- raw HTML omitted -->coordinates of a point in space</td>
+</tr>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structcommands__panel.md">commands_panel</a></strong> <!-- raw HTML omitted -->contains an SDL button a an array of SDL rectangles to handle the command panel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>typedef struct <a href="classes/structgraphics.md">graphics</a></td>
+<td><strong><a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a></strong> <!-- raw HTML omitted -->contains all the graphics elements</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structcoordinates.md">coordinates</a></td>
+<td><strong><a href="files/graphics_8h.md#typedef-coordinates-t">coordinates_t</a></strong> <!-- raw HTML omitted -->coordinates of a point in space</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structcommands__panel.md">commands_panel</a></td>
+<td><strong><a href="files/graphics_8h.md#typedef-commands-panel-t">commands_panel_t</a></strong> <!-- raw HTML omitted -->contains an SDL button a an array of SDL rectangles to handle the command panel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-end-sdl">end_sdl</a></strong>(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)<!-- raw HTML omitted -->ends the SDL elements and handles errors</td>
+</tr>
+<tr>
+<td><a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> *</td>
+<td><strong><a href="files/graphics_8h.md#function-init-sdl">init_sdl</a></strong>()<!-- raw HTML omitted -->initialises the sdl components and returns them in a struct</td>
+</tr>
+<tr>
+<td><a href="files/graphics_8h.md#typedef-commands-panel-t">commands_panel_t</a> *</td>
+<td><strong><a href="files/graphics_8h.md#function-init-commands-panel">init_commands_panel</a></strong>(int w, int h)<!-- raw HTML omitted -->initialises the <a href="classes/structcommands__panel.md">commands_panel</a> structure</td>
+</tr>
+<tr>
+<td>SDL_Texture *</td>
+<td><strong><a href="files/graphics_8h.md#function-load-texture-from-image">load_texture_from_image</a></strong>(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)<!-- raw HTML omitted -->loads a texture from an image</td>
+</tr>
+<tr>
+<td>SDL_Texture *</td>
+<td><strong><a href="files/graphics_8h.md#function-create-texture-for-text">create_texture_for_text</a></strong>(char * text, TTF_Font * font, SDL_Renderer * renderer)<!-- raw HTML omitted -->creates a texture for a text</td>
+</tr>
+<tr>
+<td>SDL_Rect *</td>
+<td><strong><a href="files/graphics_8h.md#function-crea-rect">crea_rect</a></strong>(int x, int y, int width, int height)<!-- raw HTML omitted -->create a pointer to a rectangle</td>
+</tr>
+<tr>
+<td>SDL_Rect *</td>
+<td><strong><a href="files/graphics_8h.md#function-crea-rect-in-rect">crea_rect_in_rect</a></strong>(SDL_Rect * button, float i, float j)<!-- raw HTML omitted -->create a pointer to a rectangle inside another rectangle</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-texturing">texturing</a></strong>(SDL_Texture * my_texture, SDL_Window * window, SDL_Renderer * renderer)<!-- raw HTML omitted -->displays the textures on the renderer</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-display-cell">display_cell</a></strong>(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)<!-- raw HTML omitted -->displays a cell on the board given an id</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/graphics_8h.md#function-get-cell-id-from-mouse-position">get_cell_id_from_mouse_position</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, int x, int y)<!-- raw HTML omitted -->returns the id of the cell clicked on with the mouse</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-display-board">display_board</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab)<!-- raw HTML omitted -->displays current state of the board</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/graphics_8h.md#function-is-in">is_in</a></strong>(SDL_Rect * button, int x, int y)<!-- raw HTML omitted -->checks if a position (x, y) is in a rectangle button</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-home-menu">home_menu</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)<!-- raw HTML omitted -->shows the home menu</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8h.md#function-display-game">display_game</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab, int direction_state)<!-- raw HTML omitted -->displays the user interface during the game</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-documentation">Types Documentation</h2>
+<h3 id="typedef-graphics_t">typedef graphics_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">graphics</span> graphics_t;
+</span></span></code></pre></div><p>contains all the graphics elements</p>
+<h3 id="typedef-coordinates_t">typedef coordinates_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">coordinates</span> coordinates_t;
+</span></span></code></pre></div><p>coordinates of a point in space</p>
+<h3 id="typedef-commands_panel_t">typedef commands_panel_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">commands_panel</span> commands_panel_t;
+</span></span></code></pre></div><p>contains an SDL button a an array of SDL rectangles to handle the command panel</p>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-end_sdl">function end_sdl</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> end_sdl(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> ok,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span> msg,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>ends the SDL elements and handles errors</p>
+<h3 id="function-init_sdl">function init_sdl</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>graphics_t <span style="color:#f92672">*</span> init_sdl()
+</span></span></code></pre></div><p>initialises the sdl components and returns them in a struct</p>
+<h3 id="function-init_commands_panel">function init_commands_panel</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>commands_panel_t <span style="color:#f92672">*</span> init_commands_panel(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> w,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> h
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>initialises the <a href="classes/structcommands__panel.md">commands_panel</a> structure</p>
+<h3 id="function-load_texture_from_image">function load_texture_from_image</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Texture <span style="color:#f92672">*</span> load_texture_from_image(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> file_image_name,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>loads a texture from an image</p>
+<h3 id="function-create_texture_for_text">function create_texture_for_text</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Texture <span style="color:#f92672">*</span> create_texture_for_text(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> text,
+</span></span><span style="display:flex;"><span>    TTF_Font <span style="color:#f92672">*</span> font,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>creates a texture for a text</p>
+<h3 id="function-crea_rect">function crea_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Rect <span style="color:#f92672">*</span> crea_rect(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> width,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> height
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>create a pointer to a rectangle</p>
+<h3 id="function-crea_rect_in_rect">function crea_rect_in_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Rect <span style="color:#f92672">*</span> crea_rect_in_rect(
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> i,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> j
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>create a pointer to a rectangle inside another rectangle</p>
+<h3 id="function-texturing">function texturing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> texturing(
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> my_texture,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>displays the textures on the renderer</p>
+<h3 id="function-display_cell">function display_cell</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_cell(
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> texture,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>displays a cell on the board given an id</p>
+<h3 id="function-get_cell_id_from_mouse_position">function get_cell_id_from_mouse_position</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> get_cell_id_from_mouse_position(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>returns the id of the cell clicked on with the mouse</p>
+<h3 id="function-display_board">function display_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_board(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>displays current state of the board</p>
+<h3 id="function-is_in">function is_in</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> is_in(
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>checks if a position (x, y) is in a rectangle button</p>
+<h3 id="function-home_menu">function home_menu</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> home_menu(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> text_box,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button_1,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button_2,
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> text,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r1,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>shows the home menu</p>
+<h3 id="function-display_game">function display_game</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_game(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> text_box,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> confirm,
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> text,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> direction_state
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>displays the user interface during the game</p>
+<h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : graphics.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_render.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_ttf.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_video.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef graphics_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define graphics_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Struct definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">graphics</span> {
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span>window;
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span>renderer;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>board;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>white;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>black;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>red;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>config_1;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>config_2;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>commands;
+</span></span><span style="display:flex;"><span>    TTF_Font <span style="color:#f92672">*</span> font;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">commands_panel</span><span style="color:#f92672">*</span> commands_panel;
+</span></span><span style="display:flex;"><span>} graphics_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">coordinates</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y;
+</span></span><span style="display:flex;"><span>} coordinates_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">commands_panel</span> {
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>button;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>tab_dir[<span style="color:#ae81ff">6</span>];
+</span></span><span style="display:flex;"><span>} commands_panel_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Functions definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end_sdl</span>(<span style="color:#66d9ef">char</span> ok, <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>msg, SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>graphics_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_sdl</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commands_panel_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_commands_panel</span>(<span style="color:#66d9ef">int</span> w, <span style="color:#66d9ef">int</span> h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Texture<span style="color:#f92672">*</span> <span style="color:#a6e22e">load_texture_from_image</span>(<span style="color:#66d9ef">char</span>  <span style="color:#f92672">*</span>  file_image_name, SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Texture<span style="color:#f92672">*</span> <span style="color:#a6e22e">create_texture_for_text</span>(<span style="color:#66d9ef">char</span>  <span style="color:#f92672">*</span>  text, TTF_Font <span style="color:#f92672">*</span> font, SDL_Renderer <span style="color:#f92672">*</span>renderer );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Rect<span style="color:#f92672">*</span> <span style="color:#a6e22e">crea_rect</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> width, <span style="color:#66d9ef">int</span> height);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Rect<span style="color:#f92672">*</span> <span style="color:#a6e22e">crea_rect_in_rect</span>(SDL_Rect <span style="color:#f92672">*</span>button, <span style="color:#66d9ef">float</span> i, <span style="color:#66d9ef">float</span> j);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">texturing</span>(SDL_Texture<span style="color:#f92672">*</span> my_texture, SDL_Window<span style="color:#f92672">*</span> window, SDL_Renderer<span style="color:#f92672">*</span> renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_cell</span>(SDL_Texture <span style="color:#f92672">*</span>texture, SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer, <span style="color:#66d9ef">int</span> id);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_cell_id_from_mouse_position</span>(graphics_t <span style="color:#f92672">*</span>g, <span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_board</span>(graphics_t <span style="color:#f92672">*</span>g, cell_t <span style="color:#f92672">**</span>cell_tab);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">is_in</span> (SDL_Rect<span style="color:#f92672">*</span> button,<span style="color:#66d9ef">int</span> x,<span style="color:#66d9ef">int</span> y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">home_menu</span>(graphics_t <span style="color:#f92672">*</span>g, SDL_Rect<span style="color:#f92672">*</span> text_box,SDL_Rect<span style="color:#f92672">*</span> button_1,SDL_Rect<span style="color:#f92672">*</span> button_2,SDL_Texture <span style="color:#f92672">*</span> text,<span style="color:#66d9ef">int</span> r1,<span style="color:#66d9ef">int</span> r2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_game</span>(graphics_t <span style="color:#f92672">*</span>g,SDL_Rect<span style="color:#f92672">*</span> text_box,SDL_Rect<span style="color:#f92672">*</span> confirm,SDL_Texture <span style="color:#f92672">*</span> text, <span style="color:#66d9ef">int</span> r, cell_t <span style="color:#f92672">**</span>cell_tab, <span style="color:#66d9ef">int</span> direction_state);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div>
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

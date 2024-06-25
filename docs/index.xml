@@ -8,91 +8,91 @@
     <language>en-us</language><atom:link href="https://matheothomas.github.io/isima-project-2024/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>include/algos.h</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/algos_8h/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/algos_8h/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8h/</guid>
       <description>include/algos.h Classes Name struct play contains all info to make a play struct tree node of the tree made by/for the min-max algorithm Types Name typedef struct play play_t contains all info to make a play typedef struct tree tree_t node of the tree made by/for the min-max algorithm Functions Name int max_value(int a, int b)return the max value of a and b int min_value(int a, int b)return the min value of a and b int max(tree_t * tree, bool player)returns the max/min value of a tree node, depending on the player turn play_t * max_play(tree_t * tree)return the max play of a tree node int basic_heuristic(cell_t ** cell_tab)basic heuristic function maximizing the ratio between our cells and the adversary play_t * choose_play(board_t * board, cell_t ** cell_tab, bool player)returns the best play depending on the player board_t * apply_play(board_t * board, play_t * play)applies a play to the board board_t * undo_play(board_t * board, play_t * play)reverts a play to the board int eval(board_t * board, cell_t ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)applies the min-max algorithm Defines Name algos_h Types Documentation typedef play_t typedef struct play play_t; contains all info to make a play</description>
     </item>
     
     <item>
       <title>include/graphics.h</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8h/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8h/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8h/</guid>
       <description>include/graphics.h Classes Name struct graphics contains all the graphics elements struct coordinates coordinates of a point in space struct commands_panel contains an SDL button a an array of SDL rectangles to handle the command panel Types Name typedef struct graphics graphics_t contains all the graphics elements typedef struct coordinates coordinates_t coordinates of a point in space typedef struct commands_panel commands_panel_t contains an SDL button a an array of SDL rectangles to handle the command panel Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * my_texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Types Documentation typedef graphics_t typedef struct graphics graphics_t; contains all the graphics elements</description>
     </item>
     
     <item>
       <title>include/init.h</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/init_8h/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/init_8h/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8h/</guid>
       <description>include/init.h Classes Name struct cell cell of the board struct board board containing the number of cells for each player, and a pointer to the middle cell Types Name enum state { EMPTY, WHITE, BLACK}state of a cell on the board enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell on the board typedef enum state state_e state of a cell on the board typedef enum selection selection_e state of selection of a cell on the board typedef struct cell cell_t cell of the board typedef struct board board_t board containing the number of cells for each player, and a pointer to the middle cell Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Defines Name CELL_NUMBER MAX_DEPTH Types Documentation enum state Enumerator Value Description EMPTY WHITE BLACK state of a cell on the board</description>
     </item>
     
     <item>
       <title>include/main.h</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/main_8h/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/main_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/main_8h/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/main_8h/</guid>
       <description>include/main.h Source code /* name : main.h * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #ifndef main_h #define main_h /* Struct definitions */ /* Functions definitions */ #endif </description>
     </item>
     
     <item>
       <title>include/utilities.h</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8h/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8h/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8h/</guid>
       <description>include/utilities.h Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid tree_t * create_tree(play_t * play, int value, int depth)creats a tree void free_tree(tree_t * tree)frees a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</description>
     </item>
     
     <item>
       <title>src/algos.c</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/algos_8c/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/algos_8c/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8c/</guid>
       <description>src/algos.c Functions Name int max_value(int a, int b)return the max value of a and b int min_value(int a, int b)return the min value of a and b int max(tree_t * tree, bool player)returns the max/min value of a tree node, depending on the player turn play_t * max_play(tree_t * tree)return the max play of a tree node int basic_heuristic(cell_t ** cell_tab)basic heuristic function maximizing the ratio between our cells and the adversary play_t * choose_play(board_t * board, cell_t ** cell_tab, bool player)returns the best play depending on the player board_t * apply_play(board_t * board, play_t * play)applies a play to the board board_t * undo_play(board_t * board, play_t * play)reverts a play to the board int eval(board_t * board, cell_t ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)applies the min-max algorithm Attributes Name int play_count int undo_count Functions Documentation function max_value int max_value( int a, int b ) return the max value of a and b</description>
     </item>
     
     <item>
       <title>src/graphics.c</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8c/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/graphics_8c/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8c/</guid>
       <description>src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct commands_panel_t * init_commands_panel(int w, int h)initialises the commands_panel structure SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j)create a pointer to a rectangle inside another rectangle void texturing(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer)displays the textures on the renderer void display_cell(SDL_Texture * texture, SDL_Window * window, SDL_Renderer * renderer, int id)displays a cell on the board given an id int get_cell_id_from_mouse_position(graphics_t * g, int x, int y)returns the id of the cell clicked on with the mouse void display_board(graphics_t * g, cell_t ** cell_tab)displays current state of the board int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button void home_menu(graphics_t * g, SDL_Rect * text_box, SDL_Rect * button_1, SDL_Rect * button_2, SDL_Texture * text, int r1, int r2)shows the home menu void display_game(graphics_t * g, SDL_Rect * text_box, SDL_Rect * confirm, SDL_Texture * text, int r, cell_t ** cell_tab, int direction_state)displays the user interface during the game Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors</description>
     </item>
     
     <item>
       <title>src/init.c</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/init_8c/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/init_8c/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8c/</guid>
       <description>src/init.c Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Functions Documentation function create_cell cell_t * create_cell( int id ) creates a cell of the board</description>
     </item>
     
     <item>
       <title>src/main.c</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/main_8c/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/main_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/main_8c/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/main_8c/</guid>
       <description>src/main.c Functions Name int main(void ) Functions Documentation function main int main( void ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #include &amp;lt;SDL2/SDL.h&amp;gt; #include &amp;lt;SDL2/SDL_events.h&amp;gt; #include &amp;lt;SDL2/SDL_image.h&amp;gt; #include &amp;lt;SDL2/SDL_keycode.h&amp;gt; #include &amp;lt;SDL2/SDL_render.h&amp;gt; #include &amp;lt;SDL2/SDL_stdinc.h&amp;gt; #include &amp;lt;SDL2/SDL_ttf.h&amp;gt; #include &amp;lt;SDL2/SDL_timer.h&amp;gt; #include &amp;lt;SDL2/SDL_video.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;#34;algos.h&amp;#34; #include &amp;#34;graphics.h&amp;#34; #include &amp;#34;init.h&amp;#34; #include &amp;#34;utilities.h&amp;#34; int main(void) { graphics_t *g = init_sdl(); board_t *b = create_clean_board(); cell_t **cell_tab=create_table(*b); play_t *play=malloc(sizeof(play_t)); play-&amp;gt;cell_direction=0; play-&amp;gt;cell_tab_length=0; play-&amp;gt;movement_direction=0; // SDL MAIN LOOP FUNCTIONS // // First Event Loop int h; int w; int x = 0; int y = 0; int r1 = 0; int r2 = 0; int r = 0; int mouse_state = 0; int id_mouse_cell; int nb_selected_cells = 0; cell_t *cur_cell; SDL_GetWindowSize(g-&amp;gt;window, &amp;amp;w, &amp;amp;h); // Rect creation SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4); SDL_Rect* button_1 = crea_rect(2*w/15+h/8, 5*h/9, h/4, h/4); SDL_Rect* button_2 = crea_rect(8*w/15+h/8, 5*h/9, h/4, h/4); SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11); SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11); SDL_Texture *text_home_menu = create_texture_for_text(&amp;#34;choose your\nstarting line !</description>
     </item>
     
     <item>
       <title>src/utilities.c</title>
-      <link>https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8c/</link>
+      <link>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://matheothomas.github.io/isima-project-2024/doc/files/utilities_8c/</guid>
+      <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8c/</guid>
       <description>src/utilities.c Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid void free_tree(tree_t * tree)frees a tree tree_t * create_tree(play_t * play, int value, int depth)creats a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</description>
     </item>
     

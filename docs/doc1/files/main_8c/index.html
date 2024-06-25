@@ -1,0 +1,698 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src/main.c - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc1/files/main_8c/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="src/main.c">
+  <meta property="og:description" content="src/main.c Functions Name int main(void ) Functions Documentation function main int main( void ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #include &lt;SDL2/SDL.h&gt; #include &lt;SDL2/SDL_events.h&gt; #include &lt;SDL2/SDL_image.h&gt; #include &lt;SDL2/SDL_keycode.h&gt; #include &lt;SDL2/SDL_render.h&gt; #include &lt;SDL2/SDL_stdinc.h&gt; #include &lt;SDL2/SDL_ttf.h&gt; #include &lt;SDL2/SDL_timer.h&gt; #include &lt;SDL2/SDL_video.h&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &#34;algos.h&#34; #include &#34;graphics.h&#34; #include &#34;init.h&#34; #include &#34;utilities.h&#34; int main(void) { graphics_t *g = init_sdl(); board_t *b = create_clean_board(); cell_t **cell_tab=create_table(*b); play_t *play=malloc(sizeof(play_t)); play-&gt;cell_direction=0; play-&gt;cell_tab_length=0; play-&gt;movement_direction=0; // SDL MAIN LOOP FUNCTIONS // // First Event Loop int h; int w; int x = 0; int y = 0; int r1 = 0; int r2 = 0; int r = 0; int mouse_state = 0; int id_mouse_cell; int nb_selected_cells = 0; cell_t *cur_cell; SDL_GetWindowSize(g-&gt;window, &amp;w, &amp;h); // Rect creation SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4); SDL_Rect* button_1 = crea_rect(2*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* button_2 = crea_rect(8*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11); SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11); SDL_Texture *text_home_menu = create_texture_for_text(&#34;choose your\nstarting line !">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc1">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="src/main.c">
+  <meta name="twitter:description" content="src/main.c Functions Name int main(void ) Functions Documentation function main int main( void ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 18-06-24 */ #include &lt;SDL2/SDL.h&gt; #include &lt;SDL2/SDL_events.h&gt; #include &lt;SDL2/SDL_image.h&gt; #include &lt;SDL2/SDL_keycode.h&gt; #include &lt;SDL2/SDL_render.h&gt; #include &lt;SDL2/SDL_stdinc.h&gt; #include &lt;SDL2/SDL_ttf.h&gt; #include &lt;SDL2/SDL_timer.h&gt; #include &lt;SDL2/SDL_video.h&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include &#34;algos.h&#34; #include &#34;graphics.h&#34; #include &#34;init.h&#34; #include &#34;utilities.h&#34; int main(void) { graphics_t *g = init_sdl(); board_t *b = create_clean_board(); cell_t **cell_tab=create_table(*b); play_t *play=malloc(sizeof(play_t)); play-&gt;cell_direction=0; play-&gt;cell_tab_length=0; play-&gt;movement_direction=0; // SDL MAIN LOOP FUNCTIONS // // First Event Loop int h; int w; int x = 0; int y = 0; int r1 = 0; int r2 = 0; int r = 0; int mouse_state = 0; int id_mouse_cell; int nb_selected_cells = 0; cell_t *cur_cell; SDL_GetWindowSize(g-&gt;window, &amp;w, &amp;h); // Rect creation SDL_Rect* text_box = crea_rect(w/3, h/4, w/3, h/4); SDL_Rect* button_1 = crea_rect(2*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* button_2 = crea_rect(8*w/15&#43;h/8, 5*h/9, h/4, h/4); SDL_Rect* text_box_2 = crea_rect(13*w/18, h/11, 2*w/9, 2*h/11); SDL_Rect* confirm = crea_rect(7*w/9, 4*h/11, w/9, h/11); SDL_Texture *text_home_menu = create_texture_for_text(&#34;choose your\nstarting line !">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-main">function main</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="srcmainc">src/main.c</h1>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td><strong><a href="files/main_8c.md#function-main">main</a></strong>(void )</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-main">function main</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> main(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> 
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : main.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_events.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_image.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_keycode.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_render.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_stdinc.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_ttf.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_timer.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_video.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;graphics.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;utilities.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span>g <span style="color:#f92672">=</span> init_sdl();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> create_clean_board();
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span>cell_tab<span style="color:#f92672">=</span>create_table(<span style="color:#f92672">*</span>b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>play<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(play_t));
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// SDL MAIN LOOP FUNCTIONS //
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// First Event Loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> h;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> w;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mouse_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id_mouse_cell;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> nb_selected_cells <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span>cur_cell;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_GetWindowSize(g<span style="color:#f92672">-&gt;</span>window, <span style="color:#f92672">&amp;</span>w, <span style="color:#f92672">&amp;</span>h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Rect creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_Rect<span style="color:#f92672">*</span> text_box <span style="color:#f92672">=</span> crea_rect(w<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, w<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> button_1 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span><span style="color:#f92672">+</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> button_2 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span><span style="color:#f92672">+</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> text_box_2 <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">13</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">18</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>);
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> confirm <span style="color:#f92672">=</span> crea_rect(<span style="color:#ae81ff">7</span><span style="color:#f92672">*</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>, w<span style="color:#f92672">/</span><span style="color:#ae81ff">9</span>, h<span style="color:#f92672">/</span><span style="color:#ae81ff">11</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>text_home_menu <span style="color:#f92672">=</span> create_texture_for_text(<span style="color:#e6db74">&#34;choose your</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">starting line !&#34;</span>, g<span style="color:#f92672">-&gt;</span>font, g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    texturing(text_home_menu,g<span style="color:#f92672">-&gt;</span>window, g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    SDL_RenderPresent(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>    SDL_Delay(<span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_bool program_on <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>    SDL_bool program_on_2 <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Event event;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (program_on) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// process event
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">switch</span> (event.type) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_QUIT:
+</span></span><span style="display:flex;"><span>                    program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEMOTION:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONUP:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// update
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(button_1, x, y)){
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (is_in(button_2, x, y)){
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            r1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            r2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(button_1, x, y)){
+</span></span><span style="display:flex;"><span>                b<span style="color:#f92672">=</span>start_config(b);
+</span></span><span style="display:flex;"><span>                program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                program_on_2 <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (is_in(button_2, x, y)){
+</span></span><span style="display:flex;"><span>                b<span style="color:#f92672">=</span>start_config_2(b);
+</span></span><span style="display:flex;"><span>                program_on <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                program_on_2 <span style="color:#f92672">=</span> SDL_TRUE;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// render
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        home_menu(g, text_box, button_1, button_2, text_home_menu, r1, r2);
+</span></span><span style="display:flex;"><span>        SDL_Delay(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Second Event Loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TO DO
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// let the bot play
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// add the possibility to unselect a ball
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// check if mouse position on the board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// make the selection prettier
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Texts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot_turn <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (program_on_2) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// process event
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (SDL_PollEvent(<span style="color:#f92672">&amp;</span>event)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">switch</span> (event.type) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_QUIT:
+</span></span><span style="display:flex;"><span>                    program_on_2 <span style="color:#f92672">=</span> SDL_FALSE;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEMOTION:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONDOWN:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_MOUSEBUTTONUP:
+</span></span><span style="display:flex;"><span>                    x<span style="color:#f92672">=</span>event.button.x;
+</span></span><span style="display:flex;"><span>                    y<span style="color:#f92672">=</span>event.button.y;
+</span></span><span style="display:flex;"><span>                    mouse_state<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> SDL_KEYDOWN:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">switch</span> (event.key.keysym.sym) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_0:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_0:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_1:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_1:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_2:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_2:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_3:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_3:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_4:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_4:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_5:
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">case</span> SDLK_KP_5:
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// update
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//id_mouse_cell=get_cell_id_from_mouse_position(g, x, y);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//cell_tab[id_mouse_cell]-&gt;selection=MOUSE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in(confirm, x, y)){
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(mouse_state<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Confirm the play
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(is_in(confirm, x, y)){
+</span></span><span style="display:flex;"><span>                cur_cell<span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>cell_tab[play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">==</span>play<span style="color:#f92672">-&gt;</span>movement_direction){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> (cur_cell <span style="color:#f92672">&amp;&amp;</span> cur_cell<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">&amp;&amp;</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>) {
+</span></span><span style="display:flex;"><span>                        cur_cell<span style="color:#f92672">=</span>cur_cell<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>cell_direction];
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(cur_cell <span style="color:#f92672">||</span> cur_cell<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">||</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>){
+</span></span><span style="display:flex;"><span>                            nb_selected_cells<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> cur_cell;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                            play<span style="color:#f92672">-&gt;</span>buffer[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> cur_cell<span style="color:#f92672">-&gt;</span>state;
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//fill_play_buffer(play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">//print_play(b, play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (validity_play(play, <span style="color:#ae81ff">0</span>)){
+</span></span><span style="display:flex;"><span>                    b<span style="color:#f92672">=</span>apply_play(b, play);
+</span></span><span style="display:flex;"><span>                    is_bot_turn <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    printf(<span style="color:#e6db74">&#34;coup non valide, réinitialitation du coup</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span>play<span style="color:#f92672">-&gt;</span>cell_tab_length;k<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                    play<span style="color:#f92672">-&gt;</span>cell_tab[k]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">=</span>UNSELECT;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                nb_selected_cells<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Choose in which direction to push the balls
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(is_in(g<span style="color:#f92672">-&gt;</span>commands_panel<span style="color:#f92672">-&gt;</span>button, x, y)){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (is_in(g<span style="color:#f92672">-&gt;</span>commands_panel<span style="color:#f92672">-&gt;</span>tab_dir[i], x, y)) {
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>movement_direction<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>                        i<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Select the balls to move
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">1</span>){ <span style="color:#75715e">// TO DO check if mouse position on the board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                id_mouse_cell<span style="color:#f92672">=</span>get_cell_id_from_mouse_position(g, x, y);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>state<span style="color:#f92672">==</span>BLACK){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>SELECT){ <span style="color:#75715e">// TO DO add the possibility to unselect a ball
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//cell_tab[id_mouse_cell]-&gt;selection=UNSELECT;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//nb_selected_cells-=1;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        <span style="color:#75715e">//printf(&#34;%d %d\n&#34;,nb_selected_cells, play-&gt;movement_direction);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells] <span style="color:#f92672">=</span> cell_tab[id_mouse_cell];
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>cell_tab_length<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                        play<span style="color:#f92672">-&gt;</span>buffer[nb_selected_cells] <span style="color:#f92672">=</span> cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>state;
+</span></span><span style="display:flex;"><span>                        cell_tab[id_mouse_cell]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">=</span>SELECT;
+</span></span><span style="display:flex;"><span>                        nb_selected_cells<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (nb_selected_cells<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>;k<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[nb_selected_cells<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]<span style="color:#f92672">-&gt;</span>neighbor[k]<span style="color:#f92672">==</span>cell_tab[id_mouse_cell]){
+</span></span><span style="display:flex;"><span>                                    play<span style="color:#f92672">-&gt;</span>cell_direction<span style="color:#f92672">=</span>k;
+</span></span><span style="display:flex;"><span>                                    k<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>                                }
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        printf(<span style="color:#e6db74">&#34;%d %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,nb_selected_cells, play<span style="color:#f92672">-&gt;</span>movement_direction, play<span style="color:#f92672">-&gt;</span>cell_direction);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(is_bot_turn) {
+</span></span><span style="display:flex;"><span>            play <span style="color:#f92672">=</span> choose_play(b, cell_tab, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            apply_play(b, play);
+</span></span><span style="display:flex;"><span>            is_bot_turn <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// render
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        display_game(g, text_box_2, confirm, text_home_menu, r, cell_tab, play<span style="color:#f92672">-&gt;</span>movement_direction);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(cell_tab[id_mouse_cell]-&gt;selection==MOUSE){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            cell_tab[id_mouse_cell]-&gt;selection=UNSELECT;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        SDL_Delay(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TEST FUNCTIONS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i=0;i&lt;61;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;%d : %d \n&#34;,i,table[i]-&gt;state);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; neighbor[0] -&gt; state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t play;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[0] = b -&gt; cell;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[1] = b -&gt; cell -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[2] = b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[3] = b -&gt; cell -&gt; neighbor[0] -&gt; neighbor[0] -&gt; neighbor[0];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab[4] = NULL;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_direction = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.movement_direction = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play.cell_tab_length = 4;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    bool player = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    printf(&#34;Validity play result : %d\n&#34;, validity_play(b, &amp;play, player));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// algos.c tests
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(1000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t *p = malloc(sizeof(play_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    tree_t *t = malloc(sizeof(tree_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i = 0; i &lt; CELL_NUMBER; i++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        cell_tab[i]-&gt;id = i;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    t = gen_plays(b, 1, 1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    while(t-&gt;next_tree != NULL) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(validity_play(t-&gt;play, 1)) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            print_play(t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            apply_play(b, t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            SDL_Delay(500);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            undo_play(b, t-&gt;play);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            SDL_Delay(500);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            // b = create_clean_board();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            for(int i = 0; i &lt; CELL_NUMBER; i++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cell_tab[i]-&gt;state = EMPTY;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            b = start_config(b);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g-&gt;board, g-&gt;white, g-&gt;black, g-&gt;window, g-&gt;renderer, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(100);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        t = t-&gt;next_tree;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    play_t *p = malloc(sizeof(play_t));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // cell_tab[4]-&gt;state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    cell_tab[30]-&gt;state = BLACK;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // cell_tab[30]-&gt;state = WHITE;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(1000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    p = choose_play(b, cell_tab, 0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    while(true) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;white : \n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        p = choose_play(b, cell_tab, 1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(50);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        printf(&#34;black : \n&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        p = choose_play(b, cell_tab, 0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        b = apply_play(b, p);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        SDL_Delay(50);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    display_board(g, cell_tab);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    SDL_Delay(4000);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_RenderClear(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    IMG_Quit();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    end_sdl(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;Normal ending&#34;</span>, g<span style="color:#f92672">-&gt;</span>window, g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>
