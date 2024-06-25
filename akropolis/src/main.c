@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/tests_domitille.h"
+#include "tests_domitille.h"
 #include "tests_eloi.h"
 
 

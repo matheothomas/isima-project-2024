@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/init.h"
+#include "init.h"
+#include "algos.h"
 
 type_linked_t *create_type_linked(){
     type_linked_t *type_linked=malloc(sizeof(type_linked_t));
@@ -351,10 +352,26 @@ game_t * create_game(){
     return game;
 }
 
-void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, struct play *deck){
+void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, tile_t **deck){
     game->card_1=card_1;
     game->card_2=card_2;
     game->deck=deck;
     game->player=player;
     game->bot=bot;
+}
+
+struct play * create_play(){
+    struct play *play=malloc(sizeof(struct play));
+    play->tile=NULL;
+    play->n_coup=0;
+    play->gain_coup=0;
+    play->next=NULL;
+    return play;
+}
+
+void update_play(struct play *play, tile_t *tile, int n_coup, float gain_coup, play_t *next){
+    play->tile=tile;
+    play->n_coup=n_coup;
+    play->gain_coup=gain_coup;
+    play->next=next;
 }

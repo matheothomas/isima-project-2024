@@ -68,7 +68,7 @@ typedef struct game {
 	board_t *bot;
 	tile_t *card_1;
 	tile_t *card_2;
-	struct play *deck;			// linked list of tiles
+	tile_t **deck;			// linked list of tiles
 } game_t;
 
 /// used for the different searches
@@ -100,7 +100,10 @@ args_t *create_and_init_args();
 void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score);
 
 game_t * create_game();
-void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, struct play *deck);
+void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, tile_t **deck);
+
+struct play * create_play();
+void update_play(struct play *play, tile_t *tile, int n_coup, float gain_coup, struct play *next);
 
 
 #endif
