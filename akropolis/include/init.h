@@ -53,10 +53,15 @@ typedef struct tile {
 typedef struct board {
 	cell_t *cell;
 	int blue_mult;
+	int blue_nb;
 	int yellow_mult;
+	int yellow_nb;
 	int red_mult;
+	int red_nb;
 	int purple_mult;
+	int purple_nb;
 	int green_mult;
+	int green_nb;
 	int rocks;				// the money
 	int score;
 	cell_t **cell_tab;
