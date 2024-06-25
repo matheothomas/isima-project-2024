@@ -38,6 +38,7 @@ typedef struct colours {
 	SDL_Color yellow;
 	SDL_Color black;
 	SDL_Color dark_red;
+	SDL_Color white;
 } colours_t;
 
 typedef struct type_texture{
@@ -83,7 +84,7 @@ SDL_Rect* crea_rect_in_rect(SDL_Rect *button, float i, float j, float k, float l
 /// checks if a position (x, y) is in a rectangle button
 int is_in (SDL_Rect* button,int x,int y);
 
-void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int zoom);
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int zoom);
 
 void display_board(graphics_t *g, game_t *game);
 
