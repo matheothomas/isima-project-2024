@@ -11,8 +11,8 @@
 
 
 /* Functions definitions */
-void test_func();
 
+void test_matheo();
 
 #endif
 
