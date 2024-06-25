@@ -308,7 +308,7 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 			new_tile -> cell_types[1] = tile -> cell_types[1];
 			new_tile -> cell_types[2] = tile -> cell_types[2];
 
-			if (validity_tile(new_tile)) {			
+			if (validity_tile(new_tile)) {
 				play_t * play = malloc(sizeof(play_t));
 				play -> tile = new_tile;
 				cours = linked_plays -> play;

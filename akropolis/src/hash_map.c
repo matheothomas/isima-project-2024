@@ -32,7 +32,7 @@ hash_t ** create_hash_map() {
 
 	hash_t ** hash_map = malloc(sizeof(hash_t *) * HASHMAP_SIZE);
 	for (int i = 0; i < HASHMAP_SIZE; i++) {
-		hash_map[i] = calloc(HASHMAP_SIZE, sizeof(hash_t));
+		hash_map[i] = NULL;
 	}
 
 	return hash_map;
