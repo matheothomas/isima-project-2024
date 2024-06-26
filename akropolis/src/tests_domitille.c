@@ -186,7 +186,7 @@ void test_domi(){
 
 		// display the cell under the mouse's cursor in red
 		if(mouse_state == 0){
-			if(!(is_in(g->board_player, x, y))){
+			//if(is_in(g->board_player, x, y)){
 				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
 				if(id_mouse_cell >= 0 && id_mouse_cell<390){
 					if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
@@ -194,7 +194,7 @@ void test_domi(){
 						game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
 					}
 				}
-			}
+			//}
 		}
 
 		if(mouse_state==1){
