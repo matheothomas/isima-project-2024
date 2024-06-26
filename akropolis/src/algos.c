@@ -158,7 +158,7 @@ play_t *mcts(game_t *game) {
 
 	time_t t0 = time(0);
 	time_t t1 = time(0);
-	while(difftime(t1, t0) < 10) {
+	while(difftime(t1, t0) < 2) {
 		p2 = selection(p, c, n);
 
 		simulation(p2, h, game, 0, 0);

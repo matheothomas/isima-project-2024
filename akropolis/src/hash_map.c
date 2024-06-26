@@ -87,7 +87,7 @@ void merge_plays(play_t * play, play_t * new_play) {
 
 void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays) {
 	uint32_t hashed_board = hash_board(board);
-	int hash_index = hashed_board / HASHMAP_SIZE;
+	int hash_index = hashed_board % HASHMAP_SIZE;
 
 	hash_t * hash = hash_map[hash_index];
 
