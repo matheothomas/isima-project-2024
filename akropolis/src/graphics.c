@@ -393,15 +393,23 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 	return id;
 }
 
-void display_board(graphics_t *g, board_t * board, int decal) {
+void display_board(graphics_t *g, game_t *game, board_t * board, int decal, int x, int y) {
 
 	// display all cells
 	for(int i=0;i<390;i++){
-		if(board->cell_tab[i]->selection==MOUSE){
-			display_cell(g->type_texture[10], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
-		}
-		else {
+		if(!(board->cell_tab[i]->selection==MOUSE)){
 			display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+		}
+	}
+	// "drag" for drag and drop
+	for(int i=0;i<390;i++){
+		if (board->cell_tab[i]->selection==MOUSE) {
+			if(game->selected_card==1){
+				display_mouse_cells(game->card_1, board->cell_tab[i], g);
+			}
+			if(game->selected_card==2){
+				display_mouse_cells(game->card_2, board->cell_tab[i], g);
+			}
 		}
 	}
 }
@@ -441,7 +449,41 @@ void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics){
 	}
 }
 
-void display_game(graphics_t* g, game_t *game){
+void display_mouse_cells(tile_t *tile, cell_t *cell, graphics_t *graphics){
+	if(tile->orientation%2){
+		if(cell->neighbour[2] && cell->neighbour[1]){
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->id, cell->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[2]->id, cell->neighbour[2]->altitude+1, 0);
+		}
+	}
+	else{
+		if(cell->neighbour[0] && cell->neighbour[1]){
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->id, cell->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[0]->id, cell->neighbour[0]->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, 0);
+		}
+	}
+}
+
+void update_tile_position(tile_t *tile, cell_t *cell, game_t *game){
+	if(tile->orientation%2){
+		if(cell->neighbour[2] && cell->neighbour[1]){
+			tile->cell_tab[(tile->orientation+2)%3]=cell;
+			tile->cell_tab[(tile->orientation)%3]=cell->neighbour[1];
+			tile->cell_tab[(tile->orientation+1)%3]=cell->neighbour[2];
+		}
+	}
+	else{
+		if(cell->neighbour[0] && cell->neighbour[1]){
+			tile->cell_tab[(tile->orientation)%3]=cell;
+			tile->cell_tab[(tile->orientation+1)%3]=cell->neighbour[0];
+			tile->cell_tab[(tile->orientation+2)%3]=cell->neighbour[1];
+		}
+	}
+}
+
+void display_game(graphics_t* g, game_t *game, int x, int y){
 	
 	SDL_Rect source = {0};
 
@@ -457,7 +499,7 @@ void display_game(graphics_t* g, game_t *game){
 
 
 	// board
-	display_board(g, game->player,0);
+	display_board(g, game, game->player,0, x, y);
 
 
 	// panel

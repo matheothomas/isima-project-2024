@@ -184,7 +184,7 @@ void test_domi(){
 		// get the id of the cell under the mouse's cursor
 		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
 
-		// display the cell under the mouse's cursor in red
+		// display the selected tile up the cells under the mouse's cursor
 		if(mouse_state == 0){
 			//if(is_in(g->board_player, x, y)){
 				id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
@@ -223,10 +223,26 @@ void test_domi(){
                     game->card_2->orientation=(game->card_2->orientation+1)%6;
                 }
             }
+            else{
+                if(game->selected_card==1){
+                    update_tile_position(game->card_1, game->player->cell_tab[id_mouse_cell], game);
+                    if(validity_tile(game->card_1)){
+                        add_tile_to_board(game->player, game->card_1);
+                        update_deck(game, game->card_1);
+                    }
+                }
+                else if(game->selected_card==2){
+                    update_tile_position(game->card_2, game->player->cell_tab[id_mouse_cell], game);
+                    if(validity_tile(game->card_2)){
+                        add_tile_to_board(game->player, game->card_2);
+                        update_deck(game, game->card_2);
+                    }
+                }            
+            }
 		}
 
 		// render
-        display_game(g, game);
+        display_game(g, game, x, y);
         //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}

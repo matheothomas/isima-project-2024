@@ -112,9 +112,15 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 
 int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal);
 
-void display_board(graphics_t *g, board_t * board, int decal);
+void display_board(graphics_t *g, game_t *game, board_t * board, int decal, int x, int y);
 
-void display_game(graphics_t* g,  game_t *game);
+void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics);
+
+void display_mouse_cells(tile_t *tile, cell_t *cell, graphics_t *graphics);
+
+void update_tile_position(tile_t *tile, cell_t *cell, game_t *game);
+
+void display_game(graphics_t* g,  game_t *game, int x, int y);
 
 
 #endif
