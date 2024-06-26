@@ -100,7 +100,7 @@ void test_add_tiles() {
 	add_tile_to_board(game -> player, tile3);
 	add_tile_to_board(game -> player, tile4);
 	add_tile_to_board(game -> player, tile5);
-	add_tile_to_board(game -> player, tile6);
+	// add_tile_to_board(game -> player, tile6);
 
 	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
 	play_t * cours = plays -> play;
