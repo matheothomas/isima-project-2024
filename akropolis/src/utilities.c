@@ -155,10 +155,10 @@ int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cel
 	visited[cell -> id] = true;
 	int size_alt = cell -> altitude;
 	for (int i = 0; i < 6; i++) {
-		printf("id : %d size %d, %d %d %d\n", cell -> id, size_alt, !visited[cell -> neighbour[i] -> id], cell -> neighbour[i] -> level -> cell_type, i);
+		// printf("id : %d size %d, %d %d %d\n", cell -> id, size_alt, !visited[cell -> neighbour[i] -> id], cell -> neighbour[i] -> level -> cell_type, i);
 		if (!visited[cell -> neighbour[i] -> id] && cell -> neighbour[i] -> level -> cell_type == cell_type) {
 			size_alt += get_connex_size_with_altitude(visited, cell -> neighbour[i], cell_type);
-			printf("size_alt %d\n", size_alt);
+			// printf("size_alt %d\n", size_alt);
 		}
 	}
 	return size_alt;
@@ -278,7 +278,7 @@ void update_scoring_table(board_t * board) {
 			break;
 		}
 	}
-	print_table(board -> table);
+	// print_table(board -> table);
 	calculate_score_from_table(board);
 }
 
