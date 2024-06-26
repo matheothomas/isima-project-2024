@@ -138,6 +138,8 @@ graphics_t *init_sdl() {
     graphics->font=font;
 	graphics->offset_x=offset_x;
 	graphics->offset_y=offset_y;
+	graphics->board_player=board_player;
+	graphics->board_bot=board_bot;
 
 	//free(types);
 
