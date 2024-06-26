@@ -65,6 +65,7 @@ graphics_t *init_sdl() {
 	SDL_Rect *first_tile;
 	SDL_Rect *second_tile;
 	SDL_Rect *deck;
+	SDL_Rect *tiles_in_deck;
 
 	SDL_Texture *bot_text;
 	SDL_Texture *player_text;
@@ -117,15 +118,14 @@ graphics_t *init_sdl() {
 	player=crea_rect(window_dimensions->w - 7 * offset_x, 2 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
 	score_player=crea_rect(window_dimensions->w - 7 * offset_x, 3 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
 
+	left_arrow=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/5, 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
+	right_arrow=crea_rect(40*offset_x + 8 * (window_dimensions->w - 40 * offset_x)/15 , 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
 
-	left_arrow=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
-	right_arrow=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+	first_tile=crea_rect( 40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2, 61 * ratio/69.28 + 14 * offset_y, 5.71 * offset_x, 10 * offset_y);
+	second_tile=crea_rect(40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2 + 7.71 * offset_x, 61 * ratio/69.28 + 14 * offset_y, 5.71 * offset_x, 10 * offset_y);
 
-	first_tile=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
-	second_tile=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
-
-	deck=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
-
+	deck=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/2 - 2 * offset_x, window_dimensions->h - 7 * offset_y, 4 * offset_x, 7 * offset_y);
+	tiles_in_deck=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/2 - offset_x, window_dimensions->h - 4 * offset_y, 4 * offset_x, 4 * offset_y);
 
     // Renderer creation
 	renderer = SDL_CreateRenderer(
@@ -192,6 +192,7 @@ graphics_t *init_sdl() {
 	graphics->first_tile=first_tile;
 	graphics->second_tile=second_tile;
 	graphics->deck=deck;
+	graphics->tiles_in_deck=tiles_in_deck;
 
 	graphics->bot_text=bot_text;
 	graphics->player_text=player_text;
@@ -405,32 +406,69 @@ void display_board(graphics_t *g, board_t * board, int decal) {
 	}
 }
 
+void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics){
+	int offset_x = rect->w/4;
+	int offset_y = rect->h/7;
 
+	SDL_Rect source = {0}, destination = {0};
+
+	destination.w = 2 * offset_x;
+	destination.h = 4 * offset_y;
+
+	if(tile->orientation%2==0){
+		for(int i=0; i<2; i++){
+			destination.x = 2 * i * offset_x + rect->x;
+			destination.y = rect->y;
+			SDL_QueryTexture(graphics->type_texture[tile->cell_types[(tile->orientation+1+i)%3]], NULL, NULL, &source.w, &source.h);
+			SDL_RenderCopy(graphics->renderer, graphics->type_texture[tile->cell_types[(tile->orientation+1+i)%3]], &source, &destination);
+		}
+		destination.x = offset_x + rect->x;
+		destination.y = 3 * offset_y + rect->y;
+		SDL_QueryTexture(graphics->type_texture[tile->cell_types[tile->orientation%3]], NULL, NULL, &source.w, &source.h);
+		SDL_RenderCopy(graphics->renderer, graphics->type_texture[tile->cell_types[tile->orientation%3]], &source, &destination);
+	}
+	else{
+		destination.x = offset_x + rect->x;
+		destination.y = rect->y;
+		SDL_QueryTexture(graphics->type_texture[tile->cell_types[tile->orientation%3]], NULL, NULL, &source.w, &source.h);
+		SDL_RenderCopy(graphics->renderer, graphics->type_texture[tile->cell_types[tile->orientation%3]], &source, &destination);
+		for(int i=0; i<2; i++){
+			destination.x = 2 * i * offset_x + rect->x;
+			destination.y = 3 * offset_y + rect->y;
+			SDL_QueryTexture(graphics->type_texture[tile->cell_types[(tile->orientation+2-i)%3]], NULL, NULL, &source.w, &source.h);
+			SDL_RenderCopy(graphics->renderer, graphics->type_texture[tile->cell_types[(tile->orientation+2-i)%3]], &source, &destination);
+		}
+	}
+}
 
 void display_game(graphics_t* g, game_t *game){
 	
 	SDL_Rect source = {0};
 
+
 	// clear renderer
-	SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
 	SDL_RenderClear(g->renderer);
+
 
 	// background
 	//SDL_QueryTexture(g->background, NULL, NULL, &source.w, &source.h);
 	//SDL_RenderCopy(g->renderer, g->background, &source, g->window_dimensions);
 
-	// panel
 
 	// board
 	display_board(g, game->player,0);
 
-	SDL_SetRenderDrawColor(g->renderer, 75, 75, 75, 255);
+
+	// panel
+	SDL_SetRenderDrawColor(g->renderer, 175, 175, 175, 255);
 	SDL_RenderFillRect(g->renderer, g->panel);
+
+
+	// mini board
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(g->renderer, g->board_bot);
-	//display_board(g, game->bot,g->window_dimensions->w/3);
 
-	// text
 
 	// text box
 	SDL_QueryTexture(g->bot_text, NULL, NULL, &source.w, &source.h);
@@ -461,6 +499,33 @@ void display_game(graphics_t* g, game_t *game){
 
 	SDL_DestroyTexture(texture_player_score);
 	free(player_score);
+
+
+	// arrows
+	SDL_QueryTexture(g->left_arrow_text, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->left_arrow_text, &source, g->left_arrow);
+
+	SDL_QueryTexture(g->right_arrow_text, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->right_arrow_text, &source, g->right_arrow);
+
+
+	// tiles
+	SDL_SetRenderDrawColor(g->renderer, 0, 0, 175, 255);
+	display_tile_in_rect(g->first_tile, game->card_1, g);
+	display_tile_in_rect(g->second_tile, game->card_2, g);
+
+
+	// deck
+	char *tiles_in_deck= malloc(3*sizeof(char));
+	sprintf(tiles_in_deck, "  %d   ",34 - game->deck->n);
+	SDL_Texture *texture_tiles_in_deck=create_texture_for_text(tiles_in_deck, g->font, g->renderer, g->colours->white);
+
+	SDL_QueryTexture(texture_tiles_in_deck, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, texture_tiles_in_deck, &source, g->tiles_in_deck);
+
+	SDL_DestroyTexture(texture_tiles_in_deck);
+	free(tiles_in_deck);
+
 
 	// shows
 	SDL_RenderPresent(g->renderer);

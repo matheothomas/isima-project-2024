@@ -81,6 +81,9 @@ void update_scoring_table(board_t * board);
 /// Remove table from the board and puts pointers to NULL
 void remove_tile_from_board(board_t * board, tile_t * tile);
 
+/// Remove table from the board
+void remove_tile_from_board_without_null(board_t * board, tile_t * tile);
+
 /// Same
 void add_tile_to_board(board_t * board, tile_t * tile);
 

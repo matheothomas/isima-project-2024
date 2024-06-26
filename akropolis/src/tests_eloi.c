@@ -98,7 +98,7 @@ void test_add_tiles() {
 	add_tile_to_board(game -> player, tile);
 	add_tile_to_board(game -> player, tile2);
 	add_tile_to_board(game -> player, tile3);
-	// add_tile_to_board(game -> player, tile4);
+	add_tile_to_board(game -> player, tile4);
 	add_tile_to_board(game -> player, tile5);
 	// add_tile_to_board(game -> player, tile6);
 
