@@ -31,7 +31,7 @@ float interest(play_t *play, float c, int n) {
 
 play_t *ucb(play_t *play, float c, int n) {
 	float temp_interest = 0, interest_max = 0;
-	play_t *max_play = NULL;
+	play_t *max_play = play;
 
 
 	while (play != NULL) {
@@ -219,7 +219,7 @@ play_t *mcts(game_t *game) {
 
 	float gain = 0;
 	float gain_max = 0;
-	play_t *max_play = NULL;
+	play_t *max_play = p;
 
 	while (p != NULL) {
 		gain = G(p);
