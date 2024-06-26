@@ -12,6 +12,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -257,7 +258,7 @@ void test_domi(){
                             update_tile_position(game->card_1, game->player->cell_tab[id_mouse_cell]);
                             if(validity_tile(game->card_1)){
                                 add_tile_to_board(game->player, game->card_1);
-                                update_deck(game, game->card_1);
+                                update_deck(game, game->card_1,true);
                                 is_bot_turn=1;
                             }
                         }
@@ -265,7 +266,7 @@ void test_domi(){
                             update_tile_position(game->card_2, game->player->cell_tab[id_mouse_cell]);
                             if(validity_tile(game->card_2)){
                                 add_tile_to_board(game->player, game->card_2);
-                                update_deck(game, game->card_2);
+                                update_deck(game, game->card_2, true);
                                 is_bot_turn=1;
                             }
                         }
