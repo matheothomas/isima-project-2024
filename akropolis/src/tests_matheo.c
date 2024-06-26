@@ -57,12 +57,12 @@ void test_matheo(){
 	tile->cell_tab[0] = game->player->cell->neighbour[0]->neighbour[0];
 	tile->cell_tab[1] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[0];
 	tile->cell_tab[2] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[1];
-	// add_tile_to_board(game->player, tile);
-	// display_board(g, game);
-	// SDL_Delay(1000);
+	add_tile_to_board(game->player, tile);
+	display_game(g, game);
+	SDL_Delay(1000);
 	// remove_tile_from_board(game->player, tile);
 
-	int n = 0;
+	
 
 	// initialisation of variables
 
@@ -118,16 +118,9 @@ void test_matheo(){
 		if(mouse_state == 2){
 		}
 
-		tile = game->deck->deck[3 + rand() % (DECK_NUMBER - 3)];
-		n = rand() % (CELL_NUMBER) - 40; 
-		tile->cell_tab[0] = game->player->cell_tab[n];
-		tile->cell_tab[1] = game->player->cell_tab[n]->neighbour[0];
-		tile->cell_tab[2] = game->player->cell_tab[n]->neighbour[1];
-		add_tile_to_board(game->player, tile);
-		display_board(g, game->player, 0);
-		SDL_Delay(300);
-		remove_tile_from_board(game->player, tile);
-		display_board(g, game->player, 0);
+		// render
+		//display_game(g, game);
+		display_game(g, game);
 		SDL_Delay(10);
 	}
 
