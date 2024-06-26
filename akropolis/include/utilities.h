@@ -6,9 +6,6 @@
 #ifndef utilities_h 
 #define utilities_h
 
-#define HASHMAP_SIZE 1000000
-
-
 #include <stdbool.h>
 #include <stdint.h>
 #include "init.h"

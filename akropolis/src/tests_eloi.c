@@ -107,8 +107,8 @@ void test_add_tiles() {
 	for (int i = 0; i < plays -> size; i++) {
 		printf("Score before add : %d %d\n", game -> player -> score, game -> player -> table -> blue_mult);
 		add_tile_to_board(game -> player, cours -> tile);
-		display_board(g, game);
-		SDL_Delay(100);
+		display_game(g, game);
+		SDL_Delay(500);
 		uint32_t hash = hash_board(game -> player);
 		hash_map_add(hash_map, game -> player, plays);
 		remove_tile_from_board(game -> player, cours -> tile);
@@ -175,7 +175,7 @@ void test_add_tiles() {
 
 		// render
         //display_game(g, game);
-        display_board(g, game);
+        display_game(g, game);
 		SDL_Delay(1);
 	}
 
