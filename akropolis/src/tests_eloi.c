@@ -38,11 +38,11 @@ void test_add_tiles() {
 
     board_t *player=create_board();
     tile_t *first_player=create_tile();
-    fill_tile(first_player, BLUE_PLACE,  QUARRY_GRAY, QUARRY_GRAY);
+    fill_tile(first_player, BLUE_PLACE, PURPLE_PLACE, RED_PLACE);
     first_player->cell_tab[0]=player->cell;
     first_player->cell_tab[1]=player->cell->neighbour[0];
     first_player->cell_tab[2]=player->cell->neighbour[1];
-    add_tile(first_player);
+    // add_tile(first_player);
  
     board_t *bot=create_board();
     tile_t *first_bot=create_tile();
@@ -57,21 +57,59 @@ void test_add_tiles() {
     game_t *game=create_game();
     update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
 	
-	printf("");
 	tile_t * tile = game -> deck -> deck[3];
 	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
 	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
 	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
 	
+	tile_t * tile2 = game -> deck -> deck[4];
+	tile2 -> cell_tab[0] = game -> player -> cell -> neighbour[5];
+	tile2 -> cell_tab[1] = game -> player -> cell -> neighbour[4];
+	tile2 -> cell_tab[2] = game -> player -> cell -> neighbour[4] -> neighbour[5];
+
+	tile_t * tile3 = game -> deck -> deck[5];
+	tile3 -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[5];
+	tile3 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[5] -> neighbour[4];
+	tile3 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[5] -> neighbour[5];
+
+	tile_t * tile4 = game -> deck -> deck[6];
+	tile4 -> cell_tab[0] = game -> player -> cell -> neighbour[5];
+	tile4 -> cell_tab[1] = game -> player -> cell -> neighbour[5] -> neighbour[5];
+	tile4 -> cell_tab[2] = game -> player -> cell -> neighbour[5] -> neighbour[0];
+
+	tile_t * tile5 = game -> deck -> deck[7];
+	tile5 -> cell_tab[0] = game -> player -> cell -> neighbour[3];
+	tile5 -> cell_tab[1] = game -> player -> cell -> neighbour[2];
+	tile5 -> cell_tab[2] = game -> player -> cell -> neighbour[2] -> neighbour[3];
+
+	tile_t * tile6 = game -> deck -> deck[8];
+	tile6 -> cell_tab[0] = game -> player -> cell -> neighbour[0];
+	tile6 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0];
+	tile6 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[1];
+
+	tile_t * tile7 = game -> deck -> deck[9];
+	tile7 -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
+	tile7 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
+	tile7 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
+
+
+	add_tile_to_board(game -> player, first_player);
 	add_tile_to_board(game -> player, tile);
+	add_tile_to_board(game -> player, tile2);
+	add_tile_to_board(game -> player, tile3);
+	// add_tile_to_board(game -> player, tile4);
+	add_tile_to_board(game -> player, tile5);
+	// add_tile_to_board(game -> player, tile6);
 
 	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
 	play_t * cours = plays -> play;
 	hash_t ** hash_map = create_hash_map();
 	for (int i = 0; i < plays -> size; i++) {
+		printf("Score before add : %d %d\n", game -> player -> score, game -> player -> table -> blue_mult);
 		add_tile_to_board(game -> player, cours -> tile);
+		printf("rocks %d\n", game -> player -> rocks);
 		display_game(g, game);
-		SDL_Delay(500);
+		SDL_Delay(50);
 		uint32_t hash = hash_board(game -> player);
 		hash_map_add(hash_map, game -> player, plays);
 		remove_tile_from_board(game -> player, cours -> tile);
