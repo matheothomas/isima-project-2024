@@ -79,7 +79,7 @@ int maximum_connex_size_with_altitude(board_t * board, cell_type_e cell_type);
 void calculate_score_from_table(board_t * board);
 
 /// Update the value of the score table. Operation describes addition (1) and soustraction (-1)
-void update_scoring_table(board_t * board, tile_t * tile, int operation);
+void update_scoring_table(board_t * board);
 
 /// Remove table from the board and puts pointers to NULL
 void remove_tile_from_board(board_t * board, tile_t * tile);
