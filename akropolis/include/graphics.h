@@ -33,6 +33,7 @@ typedef struct graphics{
 	SDL_Rect *first_tile;
 	SDL_Rect *second_tile;
 	SDL_Rect *deck;
+	SDL_Rect *tiles_in_deck;
 
 	SDL_Texture *bot_text;
 	SDL_Texture *player_text;
