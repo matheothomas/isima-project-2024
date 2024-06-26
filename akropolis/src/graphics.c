@@ -457,7 +457,7 @@ void display_game(graphics_t* g, game_t *game){
 
 
 	// board
-	display_board(g, game->player,0);
+	display_board(g, game->bot,0);
 
 
 	// panel
