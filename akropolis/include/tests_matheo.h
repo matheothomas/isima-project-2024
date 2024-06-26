@@ -13,6 +13,7 @@
 /* Functions definitions */
 
 void test_matheo();
+void test_matheo_2();
 
 #endif
 

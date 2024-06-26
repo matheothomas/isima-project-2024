@@ -31,7 +31,7 @@
 
 void test_matheo_2(){
 
-	srand(time(0));
+	// srand(time(0));
 
 	graphics_t *g = init_sdl();
 
@@ -69,11 +69,14 @@ void test_matheo_2(){
 
 	play_t *mcts_play = NULL;
 
-	mcts_play = mcts(game);
+	for(int i = 0; i < 20; i++) {
+		mcts_play = mcts(game);
 
-	add_tile_to_board(game->bot, mcts_play->tile);
+		add_tile_to_board(game->bot, mcts_play->tile);
+		update_deck(game, mcts_play->tile, true);
 
-	display_game(g, game);
+		display_game(g, game);
+	}
 
 	/*
 	hash_t **h = create_hash_map();
