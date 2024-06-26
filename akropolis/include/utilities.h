@@ -98,10 +98,10 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot);
  */
 
 /// Updates the deck.
-void update_deck(game_t *game, tile_t *tile);
+void update_deck(game_t *game, tile_t *tile, bool is_bot);
 
 /// Undo the deck.
-void undo_deck(game_t *game, tile_t *tile);
+void undo_deck(game_t *game, tile_t *tile, bool is_bot);
 
 
 #endif
