@@ -393,7 +393,7 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 	return id;
 }
 
-void display_board(graphics_t *g, game_t *game, board_t * board, int decal, int x, int y) {
+void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 
 	// display all cells
 	for(int i=0;i<390;i++){
@@ -466,7 +466,7 @@ void display_mouse_cells(tile_t *tile, cell_t *cell, graphics_t *graphics){
 	}
 }
 
-void update_tile_position(tile_t *tile, cell_t *cell, game_t *game){
+void update_tile_position(tile_t *tile, cell_t *cell){
 	if(tile->orientation%2){
 		if(cell->neighbour[2] && cell->neighbour[1]){
 			tile->cell_tab[(tile->orientation+2)%3]=cell;
@@ -483,7 +483,7 @@ void update_tile_position(tile_t *tile, cell_t *cell, game_t *game){
 	}
 }
 
-void display_game(graphics_t* g, game_t *game, int x, int y){
+void display_game(graphics_t* g, game_t *game){
 	
 	SDL_Rect source = {0};
 
@@ -499,7 +499,7 @@ void display_game(graphics_t* g, game_t *game, int x, int y){
 
 
 	// board
-	display_board(g, game, game->player,0, x, y);
+	display_board(g, game, game->player,0);
 
 
 	// panel
@@ -517,7 +517,7 @@ void display_game(graphics_t* g, game_t *game, int x, int y){
 	SDL_RenderCopy(g->renderer, g->bot_text, &source, g->bot_rect);
 
 
-	char *bot_score= malloc(3*sizeof(char));
+	char *bot_score= malloc(8*sizeof(char));
 	sprintf(bot_score, "  %d   ",game->bot->score);
 	SDL_Texture *texture_bot_score=create_texture_for_text(bot_score, g->font, g->renderer, g->colours->white);
 
@@ -532,7 +532,7 @@ void display_game(graphics_t* g, game_t *game, int x, int y){
 	SDL_RenderCopy(g->renderer, g->player_text, &source, g->player_rect);
 
 
-	char *player_score= malloc(3*sizeof(char));
+	char *player_score= malloc(8*sizeof(char));
 	sprintf(player_score, "  %d   ",game->player->score);
 	SDL_Texture *texture_player_score=create_texture_for_text(player_score, g->font, g->renderer, g->colours->white);
 
@@ -564,15 +564,17 @@ void display_game(graphics_t* g, game_t *game, int x, int y){
 
 
 	// deck
-	char *tiles_in_deck= malloc(3*sizeof(char));
-	sprintf(tiles_in_deck, "  %d   ",34 - game->deck->n);
-	SDL_Texture *texture_tiles_in_deck=create_texture_for_text(tiles_in_deck, g->font, g->renderer, g->colours->white);
+	if(game->deck->n>0){
+		char *tiles_in_deck= malloc(17*sizeof(char));
+		sprintf(tiles_in_deck, "  %d   ",34 - game->deck->n);
+		SDL_Texture *texture_tiles_in_deck=create_texture_for_text(tiles_in_deck, g->font, g->renderer, g->colours->white);
 
-	SDL_QueryTexture(texture_tiles_in_deck, NULL, NULL, &source.w, &source.h);
-	SDL_RenderCopy(g->renderer, texture_tiles_in_deck, &source, g->tiles_in_deck);
+		SDL_QueryTexture(texture_tiles_in_deck, NULL, NULL, &source.w, &source.h);
+		SDL_RenderCopy(g->renderer, texture_tiles_in_deck, &source, g->tiles_in_deck);
 
-	SDL_DestroyTexture(texture_tiles_in_deck);
-	free(tiles_in_deck);
+		SDL_DestroyTexture(texture_tiles_in_deck);
+		free(tiles_in_deck);
+	}
 
 
 	// shows

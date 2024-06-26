@@ -225,14 +225,14 @@ void test_domi(){
             }
             else{
                 if(game->selected_card==1){
-                    update_tile_position(game->card_1, game->player->cell_tab[id_mouse_cell], game);
+                    update_tile_position(game->card_1, game->player->cell_tab[id_mouse_cell]);
                     if(validity_tile(game->card_1)){
                         add_tile_to_board(game->player, game->card_1);
                         update_deck(game, game->card_1);
                     }
                 }
                 else if(game->selected_card==2){
-                    update_tile_position(game->card_2, game->player->cell_tab[id_mouse_cell], game);
+                    update_tile_position(game->card_2, game->player->cell_tab[id_mouse_cell]);
                     if(validity_tile(game->card_2)){
                         add_tile_to_board(game->player, game->card_2);
                         update_deck(game, game->card_2);
@@ -242,7 +242,7 @@ void test_domi(){
 		}
 
 		// render
-        display_game(g, game, x, y);
+        display_game(g, game);
         //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}
