@@ -81,7 +81,7 @@ bool is_game_finished(game_t *game) {
 }
 
 int calculate_score(game_t *game, bool is_bot) {
-	return is_bot ? game->bot->score - game->player->score : game->player->score - game->bot->score ;
+	return is_bot ? game->bot->score - game->player->score : game->player->score - game->bot->score;
 }
 
 int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last_node) {
