@@ -28,6 +28,7 @@ void test_hash_index() {
 	printf("hash index clean board %d\n", hash_board(board));
 }
 
+
 void test_add_tiles() {
 	
     srand(time(0));
@@ -97,9 +98,9 @@ void test_add_tiles() {
 	add_tile_to_board(game -> player, tile);
 	add_tile_to_board(game -> player, tile2);
 	add_tile_to_board(game -> player, tile3);
-	// add_tile_to_board(game -> player, tile4);
+	add_tile_to_board(game -> player, tile4);
 	add_tile_to_board(game -> player, tile5);
-	// add_tile_to_board(game -> player, tile6);
+	add_tile_to_board(game -> player, tile6);
 
 	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
 	play_t * cours = plays -> play;
@@ -109,7 +110,7 @@ void test_add_tiles() {
 		add_tile_to_board(game -> player, cours -> tile);
 		printf("rocks %d\n", game -> player -> rocks);
 		display_game(g, game);
-		SDL_Delay(50);
+		SDL_Delay(100);
 		uint32_t hash = hash_board(game -> player);
 		hash_map_add(hash_map, game -> player, plays);
 		remove_tile_from_board(game -> player, cours -> tile);

@@ -94,8 +94,15 @@ linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_pla
 linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot);
 
 /*
- * Hashmaps functions
+ * Deck functions
  */
+
+/// Updates the deck.
+void update_deck(game_t *game, tile_t *tile);
+
+/// Undo the deck.
+void undo_deck(game_t *game, tile_t *tile);
+
 
 #endif
 
