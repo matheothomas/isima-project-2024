@@ -10,6 +10,8 @@
 #define DECK_NUMBER 34
 //#include "algos.h"
 
+#include <stdbool.h>
+
 #ifdef DEBUG
 	#define DUMP(X) printf("%s = %d\n", #X, X)
 #else
@@ -95,6 +97,7 @@ typedef struct game {
 	tile_t *card_2;
 	deck_t *deck;			// linked list of tiles
 	int selected_card;
+	bool player_board;
 } game_t;
 
 /// used for the different searches

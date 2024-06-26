@@ -54,7 +54,7 @@ graphics_t *init_sdl() {
     TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-    SDL_Rect *window_dimensions, *board_player, *board_bot, *panel;
+    SDL_Rect *window_dimensions, *displayed_board, *board_bot, *panel;
 
 	SDL_Rect *bot;
 	SDL_Rect *score_bot;
@@ -107,7 +107,7 @@ graphics_t *init_sdl() {
 	offset_y=(float)window_dimensions->h/61;
 	offset_x=2*0.866*offset_y;
 
-	board_player=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
+	displayed_board=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
 
 	int ratio=window_dimensions->w - 47 * offset_x;
 	board_bot=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
@@ -177,8 +177,8 @@ graphics_t *init_sdl() {
     graphics->font=font;
 	graphics->offset_x=offset_x;
 	graphics->offset_y=offset_y;
-	graphics->board_player=board_player;
-	graphics->board_bot=board_bot;
+	graphics->displayed_board=displayed_board;
+	graphics->mini_board=board_bot;
 	graphics->panel=panel;
 
 	graphics->bot_rect=bot;
@@ -414,6 +414,64 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 	}
 }
 
+
+void display_cell_bis(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y) {
+	SDL_Rect source = {0}, destination = {0}, destination_alt = {0};
+
+	char *string_altitude= malloc(2*sizeof(char));
+	sprintf(string_altitude, "%d",altitude);
+	SDL_Texture *texture_altitude=create_texture_for_text(string_altitude, graphics->font, graphics->renderer, graphics->colours->white);
+
+	destination.w = 2 * offset_x;
+	destination.h = 4 * offset_y;
+
+	destination_alt.w = 0.5 * offset_x;
+	destination_alt.h = 1.5 * offset_y;
+
+	int i=id%39;
+
+	if(i>=0 && i<=19){
+		destination.x=2*i * offset_x + decal_x;
+		destination.y=6*((int)id/39) * offset_y + decal_y;
+
+		destination_alt.x=(2*i+0.75) * offset_x + decal_x;
+		destination_alt.y=(6*((int)id/39)+2) * offset_y + decal_y;
+	}
+	else if (i>=20 && i<=38){
+		destination.x=(((2*id)%39)) * offset_x + decal_x;
+		destination.y=(6*((int)id/39)+3) * offset_y + decal_y;
+
+		destination_alt.x=(((2*id)%39)+0.75) * offset_x + decal_x;
+		destination_alt.y=(6*((int)id/39)+5) * offset_y + decal_y;
+	}
+
+	//printf("x : %d y : %d id : %d\n", destination.x,destination.y, id);
+
+	SDL_QueryTexture(texture, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(graphics->renderer, texture, &source, &destination);
+
+	SDL_QueryTexture(texture_altitude, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(graphics->renderer, texture_altitude, &source, &destination_alt);
+
+	SDL_DestroyTexture(texture_altitude);
+	free(string_altitude);
+}
+
+
+
+void display_board_in_rect(graphics_t *g, game_t *game, board_t * board, SDL_Rect *rect) {
+
+	int offset_x=rect->w/40;
+	int offset_y=rect->h/61;
+	// display all cells
+	for(int i=0;i<390;i++){
+		display_cell_bis(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, offset_x, offset_y, rect->x, rect->y);
+	}
+}
+
+
+
+
 void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics){
 	int offset_x = rect->w/4;
 	int offset_y = rect->h/7;
@@ -499,7 +557,12 @@ void display_game(graphics_t* g, game_t *game){
 
 
 	// board
-	display_board(g, game, game->player,0);
+	if(game->player_board){
+		display_board(g, game, game->player,0);
+	}
+	else {
+		display_board(g, game, game->bot,0);
+	}
 
 
 	// panel
@@ -509,14 +572,22 @@ void display_game(graphics_t* g, game_t *game){
 
 	// mini board
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(g->renderer, g->board_bot);
+	SDL_RenderDrawRect(g->renderer, g->mini_board);
+	if(game->player_board){
+		display_board_in_rect(g, game, game->bot, g->mini_board);
+	}
+	else {
+		display_board_in_rect(g, game, game->player, g->mini_board);
+	}
 
 
-	// text box
+
+	// text
+	// "bot :"
 	SDL_QueryTexture(g->bot_text, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->bot_text, &source, g->bot_rect);
 
-
+	// bot score
 	char *bot_score= malloc(8*sizeof(char));
 	sprintf(bot_score, "  %d   ",game->bot->score);
 	SDL_Texture *texture_bot_score=create_texture_for_text(bot_score, g->font, g->renderer, g->colours->white);
@@ -527,11 +598,11 @@ void display_game(graphics_t* g, game_t *game){
 	SDL_DestroyTexture(texture_bot_score);
 	free(bot_score);
 
-
+	// "player :"
 	SDL_QueryTexture(g->player_text, NULL, NULL, &source.w, &source.h);
 	SDL_RenderCopy(g->renderer, g->player_text, &source, g->player_rect);
 
-
+	// player score
 	char *player_score= malloc(8*sizeof(char));
 	sprintf(player_score, "  %d   ",game->player->score);
 	SDL_Texture *texture_player_score=create_texture_for_text(player_score, g->font, g->renderer, g->colours->white);
@@ -564,7 +635,7 @@ void display_game(graphics_t* g, game_t *game){
 
 
 	// deck
-	if(game->deck->n>0){
+	//if(game->deck->n>0){
 		char *tiles_in_deck= malloc(17*sizeof(char));
 		sprintf(tiles_in_deck, "  %d   ",34 - game->deck->n);
 		SDL_Texture *texture_tiles_in_deck=create_texture_for_text(tiles_in_deck, g->font, g->renderer, g->colours->white);
@@ -574,7 +645,7 @@ void display_game(graphics_t* g, game_t *game){
 
 		SDL_DestroyTexture(texture_tiles_in_deck);
 		free(tiles_in_deck);
-	}
+	//}
 
 
 	// shows

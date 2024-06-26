@@ -20,8 +20,8 @@ typedef struct graphics{
 	SDL_Renderer *renderer;
     SDL_Rect *window_dimensions;
 
-	SDL_Rect *board_player;
-	SDL_Rect *board_bot;
+	SDL_Rect *displayed_board;
+	SDL_Rect *mini_board;
 	SDL_Rect *panel;
 
 	SDL_Rect *bot_rect;
