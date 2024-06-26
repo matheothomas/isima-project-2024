@@ -513,6 +513,12 @@ void display_game(graphics_t* g, game_t *game){
 	SDL_SetRenderDrawColor(g->renderer, 0, 0, 175, 255);
 	display_tile_in_rect(g->first_tile, game->card_1, g);
 	display_tile_in_rect(g->second_tile, game->card_2, g);
+	if(game->selected_card==1){
+		SDL_RenderDrawRect(g->renderer, g->first_tile);
+	}
+	else if(game->selected_card==2){
+		SDL_RenderDrawRect(g->renderer, g->second_tile);
+	}
 
 
 	// deck
