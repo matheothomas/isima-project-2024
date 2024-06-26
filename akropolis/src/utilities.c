@@ -155,8 +155,10 @@ int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cel
 	visited[cell -> id] = true;
 	int size_alt = cell -> altitude;
 	for (int i = 0; i < 6; i++) {
+		printf("id : %d size %d, %d %d %d\n", cell -> id, size_alt, !visited[cell -> neighbour[i] -> id], cell -> neighbour[i] -> level -> cell_type, i);
 		if (!visited[cell -> neighbour[i] -> id] && cell -> neighbour[i] -> level -> cell_type == cell_type) {
 			size_alt += get_connex_size_with_altitude(visited, cell -> neighbour[i], cell_type);
+			printf("size_alt %d\n", size_alt);
 		}
 	}
 	return size_alt;
@@ -168,25 +170,21 @@ int maximum_connex_size_with_altitude(board_t * board, cell_type_e cell_type) {
 	int new_size = 0;
 	int maxi_connex_size_alt = 0;
 	int new_size_alt = 0;
-	bool visited[CELL_NUMBER] = {false};
+	bool visited1[CELL_NUMBER] = {false};
+	bool visited2[CELL_NUMBER] = {false};
 
 	for (int i = 0; i < CELL_NUMBER; i++) {
-		if (!visited[i]) {
-			if (board -> cell_tab[i] -> level -> cell_type == cell_type) {
-				new_size = get_connex_size(visited, board -> cell_tab[i], cell_type);
-				new_size_alt = get_connex_size_with_altitude(visited, board -> cell_tab[i], cell_type);
-				if (new_size > maxi_connex_size) {
-					maxi_connex_size = new_size;
-					maxi_connex_size_alt = new_size_alt;
-				}
-				else if (new_size == maxi_connex_size && new_size_alt > maxi_connex_size_alt) {
-					maxi_connex_size_alt = new_size_alt;
-				}
+		if (board -> cell_tab[i] -> level -> cell_type == cell_type) {
+			new_size = get_connex_size(visited1, board -> cell_tab[i], cell_type);
+			new_size_alt = get_connex_size_with_altitude(visited2, board -> cell_tab[i], cell_type);
+			if (new_size > maxi_connex_size) {
+				maxi_connex_size = new_size;
+				maxi_connex_size_alt = new_size_alt;
 			}
-			else {
-				visited[i] = true;
+			else if (new_size == maxi_connex_size && new_size_alt > maxi_connex_size_alt) {
+				maxi_connex_size_alt = new_size_alt;
 			}
-		}
+		}	
 	}
 
 	return maxi_connex_size_alt;
@@ -272,7 +270,6 @@ void update_scoring_table(board_t * board) {
 			break;
 			// purple
 			case PURPLE_PLACE:
-				printf("found purple place\n");
 				board -> table -> purple_mult += 2;
 			break;
 			// green
@@ -285,95 +282,13 @@ void update_scoring_table(board_t * board) {
 	calculate_score_from_table(board);
 }
 
-/*void update_scoring_table(board_t * board, tile_t * tile, int operation) {
-
-		for (int i = 0; i < 3; i++) {
-		cell_type_e switch_cell_type = (operation == 1) ? tile -> cell_types[i] : tile -> cell_tab[i] -> level -> cell_type;
-		switch (switch_cell_type) {
-			case EMPTY:
-				fprintf(stderr, "Tile should not contain EMPTY value %d\n", operation);
-			break;
-			// blue
-			case HOUSE_BLUE:
-				if (operation == -1) {
-					board -> table -> blue_nb_alt = 0;
-				}
-				else {
-					board -> table -> blue_nb_alt = maximum_connex_size_with_altitude(board, HOUSE_BLUE);
-				}
-			break;
-			// red
-			case BARRAK_RED:
-				if (cell_in_periphery(tile -> cell_tab[i])) {
-					board -> table -> red_nb_alt += tile -> cell_tab[i] -> altitude * operation;
-				}
-			break;
-			// yellow
-			case MARKET_YELLOW:
-				if (cell_isolated(tile -> cell_tab[i], switch_cell_type)) {
-					board -> table -> yellow_nb_alt += tile -> cell_tab[i] -> altitude * operation;
-				}
-			break;
-			// purple
-			case TEMPLE_PURPLE:
-				if (cell_circled(tile -> cell_tab[i])) {
-					board -> table -> purple_nb_alt += tile -> cell_tab[i] -> altitude * operation;
-				}
-			break;
-			// green
-			case PARK_GREEN:
-				board -> table -> green_nb_alt += tile -> cell_tab[i] -> altitude * operation;
-			break;
-			// grey
-			case QUARRY_GRAY:
-				if (operation == -1) {
-					board -> rocks++;
-				}
-			break;
-			// blue
-			// TODO decrementation
-			case BLUE_PLACE:
-				board -> table -> blue_mult += operation;
-			break;
-			// yellow
-			case YELLOW_PLACE:
-				board -> table -> yellow_mult += operation;
-			break;
-			// red
-			case RED_PLACE:
-				board -> table -> red_mult += operation;
-			break;
-			// purple
-			case PURPLE_PLACE:
-				board -> table -> purple_mult += operation;
-			break;
-			// green
-			case GREEN_PLACE:
-				board -> table -> green_mult += operation;
-			break;
-		}
-	}
-
-	// Update all the neighbours of the 3 cell
-	bool visited[18] = {false};
-	visited[]
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 6; j++) {
-			if (!visited[i * j]) {
-				visited[i * j] = true;
-
-			}
-		}
-	}
-
-	calculate_score_from_table(board);
-	print_table(board -> table);
-} */
-
 void remove_tile_from_board(board_t * board, tile_t * tile) {
 	undo_without_null_tile(tile);
 	update_scoring_table(board);
 	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks--;
+		}
 		tile -> cell_tab[i] = NULL;
 	}
 }
