@@ -201,6 +201,28 @@ void test_domi(){
 		}
 
 		if(mouse_state==2){
+            if(is_in(g->first_tile, x, y)){
+                game->selected_card=1;
+            }
+            else if (is_in(g->second_tile, x, y)){
+                game->selected_card=2;
+            }
+            else if (is_in(g->left_arrow, x, y)) {
+                if(game->selected_card==1){
+                    game->card_1->orientation=(game->card_1->orientation+5)%6;
+                }
+                else if(game->selected_card==2){
+                    game->card_2->orientation=(game->card_2->orientation+5)%6;
+                }
+            }
+            else if (is_in(g->right_arrow, x, y)) {
+                if(game->selected_card==1){
+                    game->card_1->orientation=(game->card_1->orientation+1)%6;
+                }
+                else if(game->selected_card==2){
+                    game->card_2->orientation=(game->card_2->orientation+1)%6;
+                }
+            }
 		}
 
 		// render

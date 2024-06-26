@@ -94,6 +94,7 @@ typedef struct game {
 	tile_t *card_1;
 	tile_t *card_2;
 	deck_t *deck;			// linked list of tiles
+	int selected_card;
 } game_t;
 
 /// used for the different searches
