@@ -70,7 +70,7 @@ void test_add_tiles() {
 	hash_t ** hash_map = create_hash_map();
 	for (int i = 0; i < plays -> size; i++) {
 		add_tile_to_board(game -> player, cours -> tile);
-		display_board(g, game->player, 0);
+		display_game(g, game);
 		SDL_Delay(500);
 		uint32_t hash = hash_board(game -> player);
 		hash_map_add(hash_map, game -> player, plays);
@@ -138,7 +138,7 @@ void test_add_tiles() {
 
 		// render
         //display_game(g, game);
-        display_board(g, game->player, 0);
+        display_game(g, game);
 		SDL_Delay(1);
 	}
 

@@ -124,10 +124,10 @@ void test_matheo(){
 		tile->cell_tab[1] = game->player->cell_tab[n]->neighbour[0];
 		tile->cell_tab[2] = game->player->cell_tab[n]->neighbour[1];
 		add_tile_to_board(game->player, tile);
-		display_board(g, game->player, 0);
+		display_game(g, game);
 		SDL_Delay(300);
 		remove_tile_from_board(game->player, tile);
-		display_board(g, game->player, 0);
+		display_game(g, game);
 		SDL_Delay(10);
 	}
 
