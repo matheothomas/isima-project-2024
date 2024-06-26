@@ -59,11 +59,27 @@ void test_add_tiles() {
 	
 	printf("");
 	tile_t * tile = game -> deck -> deck[3];
-	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0];
-	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0] -> neighbour[1];
-	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[0] -> neighbour[2];
-	if (validity_tile(tile)) {
-	add_tile_to_board(game -> player, tile);}
+	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
+	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
+	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
+	
+	add_tile_to_board(game -> player, tile);
+
+	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
+	play_t * cours = plays -> play;
+	hash_t ** hash_map = create_hash_map();
+	for (int i = 0; i < plays -> size; i++) {
+		add_tile_to_board(game -> player, cours -> tile);
+		display_board(g, game);
+		SDL_Delay(500);
+		uint32_t hash = hash_board(game -> player);
+		hash_map_add(hash_map, game -> player, plays);
+		remove_tile_from_board(game -> player, cours -> tile);
+		cours = cours -> next;
+		printf("%d %d %zu %d\n", plays -> size, i, (unsigned long)hash, hash % HASHMAP_SIZE);
+
+	}
+
 	// remove_tile_from_board(game -> player, tile);
 
 

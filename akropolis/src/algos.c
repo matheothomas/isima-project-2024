@@ -148,9 +148,8 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 }
 
 play_t *mcts(game_t *game) {
-	srand(time(0)); // TO BE PUT IN MAIN
 	int n = 1;	
-	float c = sqrtf(2);
+	float c = sqrtf(2)/10;
 
 	hash_t **h = create_hash_map();
 	play_t *p = initialisation(game, h);
@@ -182,6 +181,7 @@ play_t *mcts(game_t *game) {
 	}
 
 	free_hash_map(h);
+	printf("number of iterations : %d\n", n);
 
 	return max_play;
 }

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "tests_domitille.h"
 #include "tests_eloi.h"
@@ -13,6 +14,8 @@
 
 
 int main(int argc, char *argv[]){
+	srand(time(0));
+
 	if(argc == 2) {
 		if(strcmp(argv[1], "domitille") == 0) {
 			printf("domitille\n");
