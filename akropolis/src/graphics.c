@@ -54,7 +54,24 @@ graphics_t *init_sdl() {
     TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-    SDL_Rect *window_dimensions, *board_player, *board_bot;
+    SDL_Rect *window_dimensions, *board_player, *board_bot, *panel;
+
+	SDL_Rect *bot;
+	SDL_Rect *score_bot;
+	SDL_Rect *player;
+	SDL_Rect *score_player;
+	SDL_Rect *left_arrow;
+	SDL_Rect *right_arrow;
+	SDL_Rect *first_tile;
+	SDL_Rect *second_tile;
+	SDL_Rect *deck;
+
+	SDL_Texture *bot_text;
+	SDL_Texture *player_text;
+
+	SDL_Texture *left_arrow_text;
+	SDL_Texture *right_arrow_text;
+
 	colours_t *colours;
 	SDL_Texture **type_texture;
 	SDL_Texture *background;
@@ -86,13 +103,27 @@ graphics_t *init_sdl() {
 	// Rects creation
 	window_dimensions=crea_rect(0, 0, screen.w * 0.9, screen.h * 0.9);
 
-	board_player=crea_rect(0, 0, window_dimensions->w/3, window_dimensions->h);
-	board_bot=crea_rect(window_dimensions->w/3, 0, window_dimensions->w/3, window_dimensions->h);
-
-	offset_y=(float)board_player->h/61;
+	offset_y=(float)window_dimensions->h/61;
 	offset_x=2*0.866*offset_y;
-	//offset_x=(float)board_player->h/40;
-	//offset_y=offset_x/(0.866*2);
+
+	board_player=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
+	int ratio=window_dimensions->w - 47 * offset_x;
+	board_bot=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+	panel=crea_rect(40*offset_x, 0, window_dimensions->w - 40 * offset_x, window_dimensions->h);
+
+	bot=crea_rect(window_dimensions->w - 7 * offset_x, 0, 7 * offset_x, 61 * ratio/(4*69.28));
+	score_bot=crea_rect(window_dimensions->w - 7 * offset_x, 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
+	player=crea_rect(window_dimensions->w - 7 * offset_x, 2 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
+	score_player=crea_rect(window_dimensions->w - 7 * offset_x, 3 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
+
+	left_arrow=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+	right_arrow=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+
+	first_tile=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+	second_tile=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+
+	deck=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+
 
     // Renderer creation
 	renderer = SDL_CreateRenderer(
@@ -114,8 +145,8 @@ graphics_t *init_sdl() {
 	type_texture[5]=types->green;
 	type_texture[6]=types->grey;
 	type_texture[7]=types->blue_place;
-	type_texture[8]=types->red_place;
-	type_texture[9]=types->yellow_place;
+	type_texture[8]=types->yellow_place;
+	type_texture[9]=types->red_place;
 	type_texture[10]=types->purple_place;
 	type_texture[11]=types->green_place;
 
@@ -123,6 +154,9 @@ graphics_t *init_sdl() {
     // Textures creation
 	background= load_texture_from_image("res/background.jpeg", window, renderer);
 	background=NULL;
+
+	bot_text=create_texture_for_text(" Bot : ", font, renderer, colours->white);
+	player_text=create_texture_for_text(" Player : ", font, renderer, colours->white);
 
 
 	printf("x : %f y : %f \n", offset_x, offset_y);
@@ -140,8 +174,24 @@ graphics_t *init_sdl() {
 	graphics->offset_y=offset_y;
 	graphics->board_player=board_player;
 	graphics->board_bot=board_bot;
+	graphics->panel=panel;
 
-	//free(types);
+	graphics->bot=bot;
+	graphics->score_bot=score_bot;
+	graphics->player=player;
+	graphics->score_player=score_player;
+
+	graphics->left_arrow=left_arrow;
+	graphics->right_arrow=right_arrow;
+
+	graphics->first_tile=first_tile;
+	graphics->second_tile=second_tile;
+	graphics->deck=deck;
+
+	graphics->bot_text=bot_text;
+	graphics->player_text=player_text;
+
+	free(types);
 
     return graphics;
 }
@@ -266,7 +316,7 @@ int is_in_hexa (SDL_Rect dest, int x, int y, int offset_x, int offset_y){
 void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal) {
 	SDL_Rect source = {0}, destination = {0}, destination_alt = {0};
 
-	char *string_altitude= malloc(sizeof(char));
+	char *string_altitude= malloc(2*sizeof(char));
 	sprintf(string_altitude, "%d",altitude);
 	SDL_Texture *texture_altitude=create_texture_for_text(string_altitude, graphics->font, graphics->renderer, graphics->colours->white);
 
@@ -342,14 +392,12 @@ void display_board(graphics_t *g, board_t * board, int decal) {
 
 	// display all cells
 	for(int i=0;i<390;i++){
-		//if(game->player->cell_tab[i]->level->cell_type){
 		if(board->cell_tab[i]->selection==MOUSE){
 			display_cell(g->type_texture[10], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
 		}
 		else {
 			display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
 		}
-		//}
 	}
 
 	//SDL_RenderPresent(g->renderer);
@@ -371,7 +419,10 @@ void display_game(graphics_t* g, game_t *game){
 
 	// board
 	display_board(g, game->player,0);
-	SDL_RenderDrawRect(g->renderer, g->board_bot);
+
+	SDL_SetRenderDrawColor(g->renderer, 75, 75, 75, 255);
+	//SDL_RenderFillRect(g->renderer, g->panel);
+	SDL_RenderFillRect(g->renderer, g->board_bot);
 	//display_board(g, game->bot,g->window_dimensions->w/3);
 
 	// text

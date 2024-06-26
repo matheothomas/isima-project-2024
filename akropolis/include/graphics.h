@@ -19,8 +19,27 @@ typedef struct graphics{
     SDL_Window *window;
 	SDL_Renderer *renderer;
     SDL_Rect *window_dimensions;
+
 	SDL_Rect *board_player;
 	SDL_Rect *board_bot;
+	SDL_Rect *panel;
+
+	SDL_Rect *bot;
+	SDL_Rect *score_bot;
+	SDL_Rect *player;
+	SDL_Rect *score_player;
+	SDL_Rect *left_arrow;
+	SDL_Rect *right_arrow;
+	SDL_Rect *first_tile;
+	SDL_Rect *second_tile;
+	SDL_Rect *deck;
+
+	SDL_Texture *bot_text;
+	SDL_Texture *player_text;
+
+	SDL_Texture *left_arrow_text;
+	SDL_Texture *right_arrow_text;
+
     struct colours *colours;
 	SDL_Texture **type_texture;
     SDL_Texture *background;
