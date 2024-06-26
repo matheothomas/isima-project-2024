@@ -118,7 +118,7 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 		}
 
 		if (hash_cell != NULL) {		// the node has already been explored before
-			printf("node already explored\n");
+			// printf("node already explored\n");
 			play_t *new_play = get_random_tile(hash_cell->plays);
 			game->deck->n++;
 
@@ -136,7 +136,7 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 		} else {						// first time exploring this node, adding initialisation 
 			// linked_plays_t *lp = is_bot ? gen_tiles_from_game(game, is_bot) : gen_tiles_from_game(game, !is_bot);
-			printf("first time exploring node\n");
+			// printf("first time exploring node\n");
 		if(is_bot) {
 				lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 			} else {
@@ -174,7 +174,7 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 		}
 	} else {							// random recursion until end game
 		// linked_plays_t *lp = is_bot ? gen_tiles_from_game(game, is_bot) : gen_tiles_from_game(game, !is_bot);
-		printf("random recursion until end game\n");
+		// printf("random recursion until end game\n");
 		if(is_bot) {
 			lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 		} else {
@@ -213,7 +213,7 @@ play_t *mcts(game_t *game) {
 		simulation(p2, h, game, 0, 0);
 
 		t1 = time(0);
-		printf("n : %d\n", n);
+		// printf("n : %d\n", n);
 		n++;
 	}
 
