@@ -24,9 +24,9 @@ typedef struct graphics{
 	SDL_Rect *board_bot;
 	SDL_Rect *panel;
 
-	SDL_Rect *bot;
+	SDL_Rect *bot_rect;
 	SDL_Rect *score_bot;
-	SDL_Rect *player;
+	SDL_Rect *player_rect;
 	SDL_Rect *score_player;
 	SDL_Rect *left_arrow;
 	SDL_Rect *right_arrow;
