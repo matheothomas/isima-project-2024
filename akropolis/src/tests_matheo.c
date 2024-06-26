@@ -28,16 +28,6 @@
 
 #include "tests_matheo.h"
 
-void update_deck(game_t *game, tile_t *tile) {
-	if(game->card_1 == tile) {
-		game->card_1 = game->deck->deck[game->deck->n];
-	} else {
-		// UPDATE ROCKS
-		game->card_2 = game->deck->deck[game->deck->n];
-	}
-	game->deck->n++;
-
-}
 
 void test_matheo(){
 
@@ -95,7 +85,16 @@ void test_matheo(){
 
 	game->deck->n = 2;
 
+	lp = gen_tiles_from_game(game, false);
+	play_t *play = get_random_tile(lp);
+	add_tile_to_board(game->player, play->tile);
+	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
+	update_deck(game, play->tile);
+	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
+	undo_deck(game, play->tile);
+	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
 
+	/*
 	for(int i = 0; i < DECK_NUMBER - 2; i++) {
 		display_game(g, game);
 		SDL_Delay(200);
@@ -105,8 +104,8 @@ void test_matheo(){
 		add_tile_to_board(game->player, play->tile);
 		update_deck(game, play->tile);
 
-
 	}
+	*/
 
 	// remove_tile_from_board(game->player, tile);
 
