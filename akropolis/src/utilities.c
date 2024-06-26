@@ -155,10 +155,10 @@ int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cel
 	visited[cell -> id] = true;
 	int size_alt = cell -> altitude;
 	for (int i = 0; i < 6; i++) {
-		printf("id : %d size %d, %d %d %d\n", cell -> id, size_alt, !visited[cell -> neighbour[i] -> id], cell -> neighbour[i] -> level -> cell_type, i);
+		// printf("id : %d size %d, %d %d %d\n", cell -> id, size_alt, !visited[cell -> neighbour[i] -> id], cell -> neighbour[i] -> level -> cell_type, i);
 		if (!visited[cell -> neighbour[i] -> id] && cell -> neighbour[i] -> level -> cell_type == cell_type) {
 			size_alt += get_connex_size_with_altitude(visited, cell -> neighbour[i], cell_type);
-			printf("size_alt %d\n", size_alt);
+			// printf("size_alt %d\n", size_alt);
 		}
 	}
 	return size_alt;
@@ -278,7 +278,7 @@ void update_scoring_table(board_t * board) {
 			break;
 		}
 	}
-	print_table(board -> table);
+	// print_table(board -> table);
 	calculate_score_from_table(board);
 }
 
@@ -290,6 +290,16 @@ void remove_tile_from_board(board_t * board, tile_t * tile) {
 			board -> rocks--;
 		}
 		tile -> cell_tab[i] = NULL;
+	}
+}
+
+void remove_tile_from_board_without_null(board_t * board, tile_t * tile) {
+	undo_without_null_tile(tile);
+	update_scoring_table(board);
+	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks--;
+		}
 	}
 }
 
@@ -328,6 +338,9 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
 			if (validity_tile(new_tile)) {
 				play_t * play = malloc(sizeof(play_t));
+				play -> n_coup = 0;
+				play -> gain_coup = 0;
+				play -> next = NULL;
 				play -> tile = new_tile;
 				cours = linked_plays -> play;
 				linked_plays -> play = play;
@@ -375,22 +388,24 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
  * Deck functions
  */
 
-void update_deck(game_t *game, tile_t *tile) {
+void update_deck(game_t *game, tile_t *tile, bool is_bot) {
 	if(game->card_1->id == tile->id) {
 		game->card_1 = game->deck->deck[game->deck->n];
 	} else {
 		// UPDATE ROCKS
+		is_bot ? game->bot->rocks-- : game->player->rocks--;
 		game->card_2 = game->deck->deck[game->deck->n];
 	}
 	game->deck->n++;
 }
 
-void undo_deck(game_t *game, tile_t *tile) {
+void undo_deck(game_t *game, tile_t *tile, bool is_bot) {
 	game->deck->n--;
 	if(game->card_1->id == game->deck->deck[game->deck->n]->id) {
 		game->card_1 = tile;
 	} else {
 		// UPDATE ROCKS
+		is_bot ? game->bot->rocks++ : game->player->rocks++;
 		game->card_2 = tile;
 	}
 }

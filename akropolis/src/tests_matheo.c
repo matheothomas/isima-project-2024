@@ -29,9 +29,9 @@
 #include "tests_matheo.h"
 
 
-void test_matheo(){
+void test_matheo_2(){
 
-	srand(time(0));
+	// srand(time(0));
 
 	graphics_t *g = init_sdl();
 
@@ -45,7 +45,7 @@ void test_matheo(){
 
 	board_t *bot=create_board();
 	tile_t *first_bot=create_tile();
-	fill_tile(first_bot, BLUE_PLACE,  QUARRY_GRAY, QUARRY_GRAY);
+	fill_tile(first_bot, BLUE_PLACE,  HOUSE_BLUE, QUARRY_GRAY);
 	first_bot->cell_tab[0] = bot->cell;
 	first_bot->cell_tab[1] = bot->cell->neighbour[0];
 	first_bot->cell_tab[2] = bot->cell->neighbour[1];
@@ -61,7 +61,24 @@ void test_matheo(){
 	tile->cell_tab[1] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[0];
 	tile->cell_tab[2] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[1];
 
+	add_tile_to_board(game->bot, first_bot);
 
+	display_game(g, game);
+
+	SDL_Delay(1000);
+
+	play_t *mcts_play = NULL;
+
+	for(int i = 0; i < 20; i++) {
+		mcts_play = mcts(game);
+
+		add_tile_to_board(game->bot, mcts_play->tile);
+		update_deck(game, mcts_play->tile, true);
+
+		display_game(g, game);
+	}
+
+	/*
 	hash_t **h = create_hash_map();
 	printf("%zu\n", hash_board(game->player));
 
@@ -89,10 +106,11 @@ void test_matheo(){
 	play_t *play = get_random_tile(lp);
 	add_tile_to_board(game->player, play->tile);
 	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
-	update_deck(game, play->tile);
+	update_deck(game, play->tile, false);
 	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
-	undo_deck(game, play->tile);
+	undo_deck(game, play->tile, false);
 	printf("card_1 : %p card2 : %p n : %d\n", game->card_1, game->card_2, game->deck->n);
+	*/
 
 	/*
 	for(int i = 0; i < DECK_NUMBER - 2; i++) {
@@ -109,7 +127,7 @@ void test_matheo(){
 
 	// remove_tile_from_board(game->player, tile);
 
-	free_hash_map(h);
+	// free_hash_map(h);
 
 
 	// initialisation of variables
@@ -200,6 +218,57 @@ void test_matheo(){
 
 	end_sdl(1, "Normal ending", g->window, g->renderer);
 	//*/
+
+	for(int i = 0; i < 34; i++){
+		free(deck->deck[i]);
+	}
+
+	free(deck);
+}
+
+
+
+
+
+void test_matheo(){
+
+	srand(time(0));
+
+	board_t *player = create_board();
+	tile_t *first_player = create_tile();
+	fill_tile(first_player, BLUE_PLACE,  QUARRY_GRAY, QUARRY_GRAY);
+	first_player->cell_tab[0] = player->cell;
+	first_player->cell_tab[1] = player->cell->neighbour[0];
+	first_player->cell_tab[2] = player->cell->neighbour[1];
+	add_tile(first_player);
+
+	board_t *bot=create_board();
+	tile_t *first_bot=create_tile();
+	fill_tile(first_bot, BLUE_PLACE,  HOUSE_BLUE, QUARRY_GRAY);
+	first_bot->cell_tab[0] = bot->cell;
+	first_bot->cell_tab[1] = bot->cell->neighbour[0];
+	first_bot->cell_tab[2] = bot->cell->neighbour[1];
+
+	deck_t *deck = create_deck();
+	init_deck(deck);
+
+	game_t *game = create_game();
+	update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+
+	tile_t *tile = game->deck->deck[3];
+	tile->cell_tab[0] = game->player->cell->neighbour[0]->neighbour[0];
+	tile->cell_tab[1] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[0];
+	tile->cell_tab[2] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[1];
+
+	add_tile_to_board(game->bot, first_bot);
+
+
+	play_t *mcts_play = NULL;
+
+	mcts_play = mcts(game);
+
+	add_tile_to_board(game->bot, mcts_play->tile);
+
 
 	for(int i = 0; i < 34; i++){
 		free(deck->deck[i]);

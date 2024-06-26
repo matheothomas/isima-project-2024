@@ -81,6 +81,9 @@ void update_scoring_table(board_t * board);
 /// Remove table from the board and puts pointers to NULL
 void remove_tile_from_board(board_t * board, tile_t * tile);
 
+/// Remove table from the board
+void remove_tile_from_board_without_null(board_t * board, tile_t * tile);
+
 /// Same
 void add_tile_to_board(board_t * board, tile_t * tile);
 
@@ -98,10 +101,10 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot);
  */
 
 /// Updates the deck.
-void update_deck(game_t *game, tile_t *tile);
+void update_deck(game_t *game, tile_t *tile, bool is_bot);
 
 /// Undo the deck.
-void undo_deck(game_t *game, tile_t *tile);
+void undo_deck(game_t *game, tile_t *tile, bool is_bot);
 
 
 #endif
