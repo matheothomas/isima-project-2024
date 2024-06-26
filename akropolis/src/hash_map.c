@@ -105,7 +105,12 @@ void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays) {
 			hash = hash -> next;
 		}
 	}
-	hash -> next = create_linked_hash(hashed_board, plays, NULL);
+	if (hash -> hashed_board == hashed_board) {
+			merge_plays(hash -> plays -> play, plays -> play);
+	}
+	else {
+		hash -> next = create_linked_hash(hashed_board, plays, NULL);
+	}
 }
 
 void free_plays(play_t * plays) {
