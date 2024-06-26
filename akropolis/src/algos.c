@@ -15,7 +15,6 @@
 
 
 play_t *initialisation(game_t *game, hash_t **h) {
-
 	linked_plays_t *lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 	hash_map_add(h, game->bot, lp);
 
@@ -23,10 +22,6 @@ play_t *initialisation(game_t *game, hash_t **h) {
 }
 
 float G(play_t *play) {
-	if(play == NULL) {
-		printf("ya un probleme dans G\n");
-		return 0;
-	}
 	return play->gain_coup / (float)play->n_coup;
 }
 
@@ -36,7 +31,7 @@ float interest(play_t *play, float c, int n) {
 
 play_t *ucb(play_t *play, float c, int n) {
 	float temp_interest = 0, interest_max = 0;
-	play_t *max_play;
+	play_t *max_play = NULL;
 
 
 	while (play != NULL) {
@@ -79,6 +74,7 @@ play_t *get_random_tile(linked_plays_t *lp) {
 		play_i--;
 	}
 
+	/*
 	play_t *cour = lp->play;
 	for (int i = 0 ; i < 3; i++) {
 		if (p->tile->cell_tab[i] == NULL) {
@@ -90,6 +86,7 @@ play_t *get_random_tile(linked_plays_t *lp) {
 			break;
 		}
 	}
+	*/
 	return p;
 }
 
@@ -102,7 +99,6 @@ int calculate_score(game_t *game, bool is_bot) {
 }
 
 int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last_node) {
-	// printf("simulation\n");
 	linked_plays_t *lp = NULL;
 	if(is_game_finished(game)) {
 		return calculate_score(game, is_bot);
@@ -206,7 +202,7 @@ play_t *mcts(game_t *game) {
 
 	hash_t **h = create_hash_map();
 	play_t *p = initialisation(game, h);
-	play_t *p2;
+	play_t *p2 = NULL;
 
 
 	time_t t0 = time(0);
