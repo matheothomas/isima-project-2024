@@ -303,6 +303,27 @@ void remove_tile_from_board_without_null(board_t * board, tile_t * tile) {
 	}
 }
 
+void remove_tile_from_board_without_null_without_score(board_t * board, tile_t * tile) {
+	undo_without_null_tile(tile);
+	// update_scoring_table(board);
+	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks--;
+		}
+	}
+}
+
+void add_tile_to_board_without_score(board_t * board, tile_t * tile) {
+	// Check if we need to add rocks
+	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks++;
+		}
+	}
+	add_tile(tile);
+	// update_scoring_table(board);
+}
+
 void add_tile_to_board(board_t * board, tile_t * tile) {
 	// Check if we need to add rocks
 	for (int i = 0; i < 3; i++) {
