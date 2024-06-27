@@ -78,6 +78,14 @@ void calculate_score_from_table(board_t * board);
 /// Update the value of the score table. Operation describes addition (1) and soustraction (-1)
 void update_scoring_table(board_t * board);
 
+/// print the score table
+void print_table(scoring_table_t * table);
+
+/// table is updated recursively
+void update_scoring_table_rec(board_t * board, cell_t * cell, bool * visited);
+
+void update_scoring_table_rec_false_start(board_t * board);
+
 /// Remove table from the board and puts pointers to NULL
 void remove_tile_from_board(board_t * board, tile_t * tile);
 
