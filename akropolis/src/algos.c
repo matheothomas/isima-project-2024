@@ -73,20 +73,6 @@ play_t *get_random_tile(linked_plays_t *lp) {
 
 		play_i--;
 	}
-
-	/*
-	play_t *cour = lp->play;
-	for (int i = 0 ; i < 3; i++) {
-		if (p->tile->cell_tab[i] == NULL) {
-			for(int j = 0; j < lp->size; j++) {
-				printf("lp[%d] : %d %d %d\n", j, cour->tile->cell_types[0], cour->tile->cell_types[1], cour->tile->cell_types[2]);
-				printf("lp[%d] : %p %p %p\n", j, cour->tile->cell_tab[0], cour->tile->cell_tab[1], cour->tile->cell_tab[2]);
-				cour = cour->next;
-			}
-			break;
-		}
-	}
-	*/
 	return p;
 }
 
@@ -95,6 +81,16 @@ bool is_game_finished(game_t *game) {
 }
 
 int calculate_score(game_t *game, bool is_bot) {
+	
+	// if(is_bot) {
+		// update_scoring_table(game->bot);
+		// calculate_score_from_table(game->bot);
+	// } else {
+		// update_scoring_table(game->player);
+		// calculate_score_from_table(game->player);
+	// }
+	update_scoring_table_rec_false_start(is_bot ? game->bot : game->player);
+	calculate_score_from_table(is_bot ? game->bot : game->player);
 	return is_bot ? game->bot->score - game->player->score : game->player->score - game->bot->score;
 }
 
@@ -118,25 +114,20 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 		}
 
 		if (hash_cell != NULL) {		// the node has already been explored before
-			// printf("node already explored\n");
 			play_t *new_play = get_random_tile(hash_cell->plays);
 			game->deck->n++;
 
-			// add_tile(play->tile);
-			is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
+			is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 			play->n_coup ++;
 			int temp_score = simulation(new_play, h, game, !is_bot, is_last_node);
 			play->gain_coup += temp_score;
-			is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
-			// undo_tile(play->tile);
+			is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 			// UNDO THE DECK
 			game->deck->n--;
 			return temp_score;
 
 		} else {						// first time exploring this node, adding initialisation 
-			// linked_plays_t *lp = is_bot ? gen_tiles_from_game(game, is_bot) : gen_tiles_from_game(game, !is_bot);
-			// printf("first time exploring node\n");
 		if(is_bot) {
 				lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 			} else {
@@ -147,34 +138,18 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 			play_t *new_play = get_random_tile(lp);
 
-			// tile_t *temp_tile = play->tile;
-			// bool is_broken = false;
-			// for(int i = 0; i < 3; i++) {
-			// if(temp_tile->cell_tab[i] == NULL) {
-			// is_broken = 1;
-			// }
-			// }
+			is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 
-			// if(!is_broken) {
-			// add_tile(play->tile);
-			is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
-
-			// }
 			play->n_coup ++;
 			int temp_score = simulation(new_play, h, game, !is_bot, !is_last_node);
 			play->gain_coup += temp_score;
-			// if(!is_broken) {
-			// undo_tile(play->tile);
-			// }
-			is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
+			is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 			// UNDO THE DECK
 			game->deck->n--;
 			return temp_score;
 		}
 	} else {							// random recursion until end game
-		// linked_plays_t *lp = is_bot ? gen_tiles_from_game(game, is_bot) : gen_tiles_from_game(game, !is_bot);
-		// printf("random recursion until end game\n");
 		if(is_bot) {
 			lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 		} else {
@@ -184,16 +159,36 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 		play_t *new_play = get_random_tile(lp);
 
-		// add_tile(play->tile);
-		is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
+		is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 		int temp_score = simulation(new_play, h, game, !is_bot, is_last_node);
-		// undo_tile(play->tile);
-		is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
+		is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 		// UNDO THE DECK
 		game->deck->n--;
 		return temp_score;
 	}
+}
+
+play_t *copy_play(play_t *play) {
+	play_t *new_play = malloc(sizeof(play_t));
+	tile_t *tile = malloc(sizeof(tile_t));
+	
+	tile->id = play->tile->id;
+	tile->cell_tab[0] = play->tile->cell_tab[0];
+	tile->cell_tab[1] = play->tile->cell_tab[1];
+	tile->cell_tab[2] = play->tile->cell_tab[2];
+	tile->cell_types[0] = play->tile->cell_types[0];
+	tile->cell_types[1] = play->tile->cell_types[1];
+	tile->cell_types[2] = play->tile->cell_types[2];
+	tile->id = play->tile->id;
+	tile->orientation = play->tile->orientation;
+
+	new_play->next = NULL;
+	new_play->n_coup = play->n_coup;
+	new_play->gain_coup = play->gain_coup;
+	new_play->tile = tile;
+
+	return new_play;
 }
 
 play_t *mcts(game_t *game) {
@@ -213,7 +208,6 @@ play_t *mcts(game_t *game) {
 		simulation(p2, h, game, 0, 0);
 
 		t1 = time(0);
-		// printf("n : %d\n", n);
 		n++;
 	}
 
@@ -223,7 +217,6 @@ play_t *mcts(game_t *game) {
 
 	while (p != NULL) {
 		gain = G(p);
-		// if(1 > 0) {
 		if (gain > gain_max) {
 			gain_max = gain;
 			max_play = p;
@@ -232,7 +225,9 @@ play_t *mcts(game_t *game) {
 		p = p->next;
 	}
 
-	// free_hash_map(h);
+	max_play = copy_play(max_play);
+	free_hash_map(h);
+
 	printf("number of iterations : %d\n", n);
 
 	return max_play;

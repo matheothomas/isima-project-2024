@@ -78,14 +78,28 @@ void calculate_score_from_table(board_t * board);
 /// Update the value of the score table. Operation describes addition (1) and soustraction (-1)
 void update_scoring_table(board_t * board);
 
+/// print the score table
+void print_table(scoring_table_t * table);
+
+/// table is updated recursively
+void update_scoring_table_rec(board_t * board, cell_t * cell, bool * visited);
+
+void update_scoring_table_rec_false_start(board_t * board);
+
 /// Remove table from the board and puts pointers to NULL
 void remove_tile_from_board(board_t * board, tile_t * tile);
+
+/// Remove tile from board without updating the score
+void remove_tile_from_board_without_null_without_score(board_t * board, tile_t * tile);
 
 /// Remove table from the board
 void remove_tile_from_board_without_null(board_t * board, tile_t * tile);
 
 /// Same
 void add_tile_to_board(board_t * board, tile_t * tile);
+
+/// Flemme
+void add_tile_to_board_without_score(board_t * board, tile_t * tile);
 
 /// Generate all plays associated to the current state of the board and the tile given
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);

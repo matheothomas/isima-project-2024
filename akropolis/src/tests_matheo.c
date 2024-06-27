@@ -54,9 +54,9 @@ void test_matheo_2(){
 	init_deck(deck);
 
 	game_t *game = create_game();
-	update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+	update_game(game, player, bot, deck->tile_tab[0], deck->tile_tab[1], deck);
 
-	tile_t *tile = game->deck->deck[3];
+	tile_t *tile = game->deck->tile_tab[3];
 	tile->cell_tab[0] = game->player->cell->neighbour[0]->neighbour[0];
 	tile->cell_tab[1] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[0];
 	tile->cell_tab[2] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[1];
@@ -220,7 +220,7 @@ void test_matheo_2(){
 	//*/
 
 	for(int i = 0; i < 34; i++){
-		free(deck->deck[i]);
+		free(deck->tile_tab[i]);
 	}
 
 	free(deck);
@@ -253,9 +253,9 @@ void test_matheo(){
 	init_deck(deck);
 
 	game_t *game = create_game();
-	update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+	update_game(game, player, bot, deck->tile_tab[0], deck->tile_tab[1], deck);
 
-	tile_t *tile = game->deck->deck[3];
+	tile_t *tile = game->deck->tile_tab[3];
 	tile->cell_tab[0] = game->player->cell->neighbour[0]->neighbour[0];
 	tile->cell_tab[1] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[0];
 	tile->cell_tab[2] = game->player->cell->neighbour[0]->neighbour[0]->neighbour[1];
@@ -271,7 +271,7 @@ void test_matheo(){
 
 
 	for(int i = 0; i < 34; i++){
-		free(deck->deck[i]);
+		free(deck->tile_tab[i]);
 	}
 
 	free(deck);

@@ -139,7 +139,7 @@ bool cell_circled(cell_t * cell) {
 }
 
 int get_connex_size(bool * visited, cell_t * cell, cell_type_e cell_type) {
-	
+
 	visited[cell -> id] = true;
 	int size = 1;
 	for (int i = 0; i < 6; i++) {
@@ -151,7 +151,7 @@ int get_connex_size(bool * visited, cell_t * cell, cell_type_e cell_type) {
 }
 
 int get_connex_size_with_altitude(bool * visited, cell_t * cell, cell_type_e cell_type) {
-	
+
 	visited[cell -> id] = true;
 	int size_alt = cell -> altitude;
 	for (int i = 0; i < 6; i++) {
@@ -205,7 +205,7 @@ void reinitialize_table_to_zero(scoring_table_t * table) {
 
 void calculate_score_from_table(board_t * board) {
 	board -> score = 0;
-	
+
 	board -> score += board -> table -> blue_mult * board -> table -> blue_nb_alt;
 	board -> score += board -> table -> yellow_mult * board -> table -> yellow_nb_alt;
 	board -> score += board -> table -> red_mult * board -> table -> red_nb_alt;
@@ -215,6 +215,77 @@ void calculate_score_from_table(board_t * board) {
 
 void print_table(scoring_table_t * table) {
 	printf("mults : blue % d  yellow %d  red %d  purple %d  green %d\nnb_alts : blue %d  yellow %d  red %d  purple %d  green %d\n", table -> blue_mult, table -> yellow_mult, table -> red_mult, table -> purple_mult, table -> green_mult, table -> blue_nb_alt, table -> yellow_nb_alt, table -> red_nb_alt, table -> purple_nb_alt, table -> green_nb_alt);
+}
+
+void update_scoring_table_rec(board_t * board, cell_t * cell, bool * visited) {
+	visited[cell -> id] = true;
+	switch(cell -> level -> cell_type) {
+		case EMPTY:
+		break;
+		// blue
+		case HOUSE_BLUE:
+			board -> table -> blue_nb_alt = maximum_connex_size_with_altitude(board, HOUSE_BLUE);
+		break;
+		// red
+		case BARRAK_RED:
+			if (cell_in_periphery(cell)) {
+				board -> table -> red_nb_alt += cell -> altitude;
+			}
+		break;
+		// yellow
+		case MARKET_YELLOW:
+			if (cell_isolated(cell, MARKET_YELLOW)) {
+				board -> table -> yellow_nb_alt += cell -> altitude;
+			}
+		break;
+		// purple
+		case TEMPLE_PURPLE:
+			if (cell_circled(cell)) {
+				board -> table -> purple_nb_alt += cell -> altitude;
+			}
+		break;
+		// green
+		case PARK_GREEN:
+			board -> table -> green_nb_alt += cell -> altitude;
+		break;
+		// grey
+		case QUARRY_GRAY:
+
+		break;
+		// blue
+		// TODO decrementation
+		case BLUE_PLACE:
+			board -> table -> blue_mult++;
+		break;
+		// yellow
+		case YELLOW_PLACE:
+			board -> table -> yellow_mult += 2;
+		break;
+		// red
+		case RED_PLACE:
+			board -> table -> red_mult += 2;
+		break;
+		// purple
+		case PURPLE_PLACE:
+			board -> table -> purple_mult += 2;
+		break;
+		// green
+		case GREEN_PLACE:
+			board -> table -> green_mult += 3;
+		break;
+	}
+	for (int i = 0; i < 6; i++) {
+		if (cell -> neighbour[i] != NULL && cell -> neighbour[i] -> level -> cell_type != EMPTY && !visited[cell -> neighbour[i] -> id]) {
+			update_scoring_table_rec(board, cell -> neighbour[i], visited);
+		}
+	}
+}
+
+void update_scoring_table_rec_false_start(board_t * board) {
+	bool visited[CELL_NUMBER] = {false};
+	reinitialize_table_to_zero(board -> table);
+	update_scoring_table_rec(board, board -> cell, visited);
+	calculate_score_from_table(board);
 }
 
 void update_scoring_table(board_t * board) {
@@ -284,7 +355,7 @@ void update_scoring_table(board_t * board) {
 
 void remove_tile_from_board(board_t * board, tile_t * tile) {
 	undo_without_null_tile(tile);
-	update_scoring_table(board);
+	update_scoring_table_rec_false_start(board);
 	for (int i = 0; i < 3; i++) {
 		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
 			board -> rocks--;
@@ -295,12 +366,33 @@ void remove_tile_from_board(board_t * board, tile_t * tile) {
 
 void remove_tile_from_board_without_null(board_t * board, tile_t * tile) {
 	undo_without_null_tile(tile);
-	update_scoring_table(board);
+	update_scoring_table_rec_false_start(board);
 	for (int i = 0; i < 3; i++) {
 		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
 			board -> rocks--;
 		}
 	}
+}
+
+void remove_tile_from_board_without_null_without_score(board_t * board, tile_t * tile) {
+	undo_without_null_tile(tile);
+	// update_scoring_table(board);
+	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks--;
+		}
+	}
+}
+
+void add_tile_to_board_without_score(board_t * board, tile_t * tile) {
+	// Check if we need to add rocks
+	for (int i = 0; i < 3; i++) {
+		if (tile -> cell_tab[i] -> level -> cell_type == QUARRY_GRAY) {
+			board -> rocks++;
+		}
+	}
+	add_tile(tile);
+	// update_scoring_table(board);
 }
 
 void add_tile_to_board(board_t * board, tile_t * tile) {
@@ -357,7 +449,7 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 }
 
 linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_plays_t * linked_plays_2) {
-	
+
 	play_t * cours = linked_plays_1 -> play;
 
 	if (cours == NULL) {
@@ -368,7 +460,7 @@ linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_pla
 	while (cours -> next != NULL) {
 		cours = cours -> next;
 	}
-	
+
 	cours -> next = linked_plays_2 -> play;
 	linked_plays_1 -> size += linked_plays_2 -> size;
 
@@ -377,7 +469,7 @@ linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_pla
 }
 
 linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
-	
+
 	if (is_bot) {
 		return fusion_linked_plays(gen_tiles(game -> bot -> cell_tab, game -> card_1), gen_tiles(game -> bot -> cell_tab, game -> card_2));
 	}
@@ -390,18 +482,18 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
 
 void update_deck(game_t *game, tile_t *tile, bool is_bot) {
 	if(game->card_1->id == tile->id) {
-		game->card_1 = game->deck->deck[game->deck->n];
+		game->card_1 = game->deck->tile_tab[game->deck->n];
 	} else {
 		// UPDATE ROCKS
 		is_bot ? game->bot->rocks-- : game->player->rocks--;
-		game->card_2 = game->deck->deck[game->deck->n];
+		game->card_2 = game->deck->tile_tab[game->deck->n];
 	}
 	game->deck->n++;
 }
 
 void undo_deck(game_t *game, tile_t *tile, bool is_bot) {
 	game->deck->n--;
-	if(game->card_1->id == game->deck->deck[game->deck->n]->id) {
+	if(game->card_1->id == game->deck->tile_tab[game->deck->n]->id) {
 		game->card_1 = tile;
 	} else {
 		// UPDATE ROCKS
