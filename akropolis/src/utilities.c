@@ -406,6 +406,36 @@ void add_tile_to_board(board_t * board, tile_t * tile) {
 	update_scoring_table(board);
 }
 
+/*
+void gen_tiles_rec(linked_plays_t * play, tile_t * tile, cell_t * cell, bool * visited) {
+
+	for (int orientation = 0; orientation < 6; orientation++) {
+		tile_t * new_tile = malloc(sizeof(tile_t));
+		new_tile -> id = tile -> id;
+		new_tile -> orientation = orientation;
+
+		new_tile -> cell_tab[0] = cell;
+		new_tile -> cell_tab[1] = cell -> neighbour[orientation];
+		new_tile -> cell_tab[2] = cell -> neighbour[(orientation + 1) % 6];
+
+		new_tile -> cell_types[0] = tile -> cell_types[0];
+		new_tile -> cell_types[1] = tile -> cell_types[1];
+		new_tile -> cell_types[2] = tile -> cell_types[2];
+
+	}
+
+}
+
+linked_plays_t * gen_tiles_rec_false_start(board_t * board) {
+	bool visited[] = {false};
+	linked_plays_t * linked_plays = malloc(sizeof(linked_plays_t));
+	linked_plays -> size = 0;
+	linked_plays -> play = NULL;
+	gen_tiles_rec(linked_plays, board -> cell, visited);
+
+	return linked_plays;
+}*/
+
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
 	linked_plays_t * linked_plays = malloc(sizeof(linked_plays_t));
@@ -415,7 +445,7 @@ linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 	play_t * cours = NULL;
 
 	for (int i = 0; i < CELL_NUMBER; i++) {
-		for (int orientation = 0; orientation < 5; orientation++) {
+		for (int orientation = 0; orientation < 6; orientation++) {
 			tile_t * new_tile = malloc(sizeof(tile_t));
 			new_tile -> id = tile -> id;
 			new_tile -> orientation = orientation;
