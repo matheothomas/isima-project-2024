@@ -385,6 +385,8 @@ game_t * create_game(){
     game->deck=NULL;
     game->player=NULL;
     game->bot=NULL;
+    game->selected_card=0;
+    game->player_board=1;
     return game;
 }
 

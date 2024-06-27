@@ -20,8 +20,8 @@ typedef struct graphics{
 	SDL_Renderer *renderer;
     SDL_Rect *window_dimensions;
 
-	SDL_Rect *board_player;
-	SDL_Rect *board_bot;
+	SDL_Rect *displayed_board;
+	SDL_Rect *mini_board;
 	SDL_Rect *panel;
 
 	SDL_Rect *bot_rect;
@@ -112,7 +112,13 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 
 int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal);
 
-void display_board(graphics_t *g, board_t * board, int decal);
+void display_board(graphics_t *g, game_t *game, board_t * board, int decal);
+
+void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics);
+
+void display_mouse_cells(tile_t *tile, cell_t *cell, graphics_t *graphics);
+
+void update_tile_position(tile_t *tile, cell_t *cell);
 
 void display_game(graphics_t* g,  game_t *game);
 
