@@ -364,20 +364,6 @@ tile_t ** creates_all_tiles(){
     return tile_tab;
 }
 
-args_t *create_and_init_args(){
-    args_t *args=malloc(sizeof(args_t));
-    args->tile=NULL;
-    args->cell=NULL;
-    args->score=0;
-    return args;
-}
-
-void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score){
-    args->cell=cell;
-    args->tile=tile;
-    args->score=score;
-}
-
 game_t * create_game(){
     game_t *game=malloc(sizeof(game_t));
     game->card_1=NULL;

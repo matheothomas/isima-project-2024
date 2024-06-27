@@ -100,13 +100,6 @@ typedef struct game {
 	bool player_board;
 } game_t;
 
-/// used for the different searches
-typedef struct args {
-	tile_t *tile;
-	cell_t *cell;
-	int score;
-} args_t;
-
 
 /* Functions definitions */
 
@@ -129,9 +122,6 @@ tile_t ** creates_all_tiles();
 
 deck_t *create_deck();
 void init_deck(deck_t *struct_deck);
-
-args_t *create_and_init_args();
-void updates_args(args_t *args, tile_t *tile, cell_t *cell, int score);
 
 game_t * create_game();
 void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, tile_t *card_2, deck_t *deck);

@@ -8,57 +8,65 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <pthread.h>
+#include <unistd.h>
 #include "algos.h"
 #include "hash_map.h"
 #include "init.h"
 #include "utilities.h"
 
 
-play_t *initialisation(game_t *game, hash_t **h) {
+linked_plays_t *initialisation(game_t *game, hash_t **h) {
 	linked_plays_t *lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 	hash_map_add(h, game->bot, lp);
 
-	return lp->play;
+	return lp;
 }
 
 float G(play_t *play) {
 	return play->gain_coup / (float)play->n_coup;
 }
 
-float interest(play_t *play, float c, int n) {
-	return G(play) + c * sqrtf(logf(n) / play->n_coup);
+float interest(play_t *play, float c, int * n) {
+	return G(play) + c * sqrtf(logf(*n) / play->n_coup);
 }
 
-play_t *ucb(play_t *play, float c, int n) {
+play_t *ucb(play_t *play, float c, int * n, int i, bool * working_nodes) {
 	float temp_interest = 0, interest_max = 0;
 	play_t *max_play = play;
-
+	int j = 0;
 
 	while (play != NULL) {
 		temp_interest = interest(play, c, n);
-		if (temp_interest > interest_max) {
+		if (temp_interest > interest_max && !working_nodes[j]) {
 			interest_max = temp_interest;
 			max_play = play;
+			i = j;
 		}
-
+		j++;
 		play = play->next;
 	}
+	
+	working_nodes[i] = true;
 
 	return max_play;
 }
 
-play_t *selection(play_t *play, float c, int n) {
+play_t *selection(play_t *play, float c, int * n, bool * working_nodes) {
 
 	play_t *temp = play;
+	int i = 0;
 	while(temp != NULL) {
-		if (temp->n_coup == 0) {
+		if (temp->n_coup == 0 && !working_nodes[i]) {
+			working_nodes[i] = true;
 			break;
 		}
 		temp = temp->next;
+		i++;
 	}
 	if (temp == NULL) {
 		// UCB
-		temp = ucb(play, c, n);
+		temp = ucb(play, c, n, i, working_nodes);
 	}
 
 	return temp;
@@ -191,38 +199,83 @@ play_t *copy_play(play_t *play) {
 	return new_play;
 }
 
+void * create_thread(void * args) {
+
+	args_t * vals = args;
+	play_t * p2 = NULL;
+
+	while (*(vals -> pthread_state)) {
+		if (pthread_mutex_lock(vals -> plays_mutex)) {
+			fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
+		}
+		p2 = selection(vals -> p -> play, vals -> c, vals -> n, vals -> working_nodes);
+
+		vals -> n++;
+		if (pthread_mutex_unlock(vals -> plays_mutex)) {
+			fprintf(stderr, "Error unlocking tree_mutex in get_temp_address\n");
+		}
+
+		simulation(p2, vals -> hash_map, vals -> game, 0, 0);
+	}
+
+	return NULL;
+}
+
 play_t *mcts(game_t *game) {
 	int n = 1;	
 	float c = sqrtf(2)/10;
 
 	hash_t **h = create_hash_map();
-	play_t *p = initialisation(game, h);
-	play_t *p2 = NULL;
+	linked_plays_t *p = initialisation(game, h);
 
+	// THREADS BEWARE
+	pthread_mutex_t play_mutex = PTHREAD_MUTEX_INITIALIZER;
+	
+	pthread_t threads[NUM_THREADS];
+	args_t arguments[NUM_THREADS];
+	bool pthread_states[NUM_THREADS] = {true};
 
-	time_t t0 = time(0);
-	time_t t1 = time(0);
-	while(difftime(t1, t0) < 2) {
-		p2 = selection(p, c, n);
+	for (int i = 0; i < NUM_THREADS; i++) {
+		arguments[i].pthread_state = &pthread_states[i];
+		arguments[i].game = (game);
+		arguments[i].p = p;
+		arguments[i].hash_map = h;
+		arguments[i].n = &n;
+		arguments[i].c = c;
+	}
 
-		simulation(p2, h, game, 0, 0);
+	for (int i = 0; i < NUM_THREADS; i++) {
+		int flag = pthread_create(&threads[i], NULL, create_thread, (void *) &arguments[i]);
+		if (flag) {
+			fprintf(stderr, "Thread failed to initialize: %d\n", flag);
+		}
+	}
 
-		t1 = time(0);
-		n++;
+	sleep(2);
+
+	// Signal the thread to stop
+	for (int i = 0; i < NUM_THREADS; i++) {
+		pthread_states[i] = false;
+	}
+
+	// Wait for all the threads to finish
+	for (int i = 0; i < NUM_THREADS; i++) {
+		pthread_join(threads[i], NULL);
 	}
 
 	float gain = 0;
 	float gain_max = 0;
-	play_t *max_play = p;
+	play_t * cour = p -> play;
+	play_t *max_play = cour;
 
 	while (p != NULL) {
-		gain = G(p);
+		gain = G(p -> play);
 		if (gain > gain_max) {
 			gain_max = gain;
-			max_play = p;
+			max_play = cour;
 		}
 
-		p = p->next;
+		cour = cour -> next;
 	}
 
 	max_play = copy_play(max_play);
