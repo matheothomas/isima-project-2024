@@ -394,7 +394,81 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 }
 
 void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
+///*
+	if(game->selected_card==1){
+		if(game->card_1->orientation%2){
+			for(int i=0;i<390;i++){
+				if( board->cell_tab[i]->neighbour[5] && board->cell_tab[i]->neighbour[2]){
+					if(!(board->cell_tab[i]->selection==MOUSE) && !(board->cell_tab[i]->neighbour[5]->selection==MOUSE)){
+						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					}
+					else if (board->cell_tab[i]->selection==MOUSE && board->cell_tab[i]->neighbour[3] && board->cell_tab[i]->neighbour[0] && board->cell_tab[i]->neighbour[1]){
+						if(board->cell_tab[i]->neighbour[0]->neighbour[0] && board->cell_tab[i]->neighbour[0]->neighbour[5] && board->cell_tab[i]->neighbour[1]->neighbour[2]){
+							display_mouse_cells(game->card_1, board->cell_tab[i], g);
+						}
+					}
+				}
+				else{
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+			}
+		}
+		else{
+			for(int i=0;i<390;i++){
+				if(!(board->cell_tab[i]->selection==MOUSE)){
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+				else if (board->cell_tab[i]->selection==MOUSE){
+					display_mouse_cells(game->card_1, board->cell_tab[i], g);
+				}
+				else{
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+			}
+		}
+	}
+	else if(game->selected_card==2){
+		if(game->card_2->orientation%2){
+			for(int i=0;i<390;i++){
+				if( board->cell_tab[i]->neighbour[5] && board->cell_tab[i]->neighbour[2]){
+					if(!(board->cell_tab[i]->selection==MOUSE) && !(board->cell_tab[i]->neighbour[5]->selection==MOUSE)){
+						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					}
+					else if (board->cell_tab[i]->selection==MOUSE && board->cell_tab[i]->neighbour[3] && board->cell_tab[i]->neighbour[0] && board->cell_tab[i]->neighbour[1]){
+						if(board->cell_tab[i]->neighbour[0]->neighbour[0] && board->cell_tab[i]->neighbour[0]->neighbour[5] && board->cell_tab[i]->neighbour[1]->neighbour[2]){
+							display_mouse_cells(game->card_2, board->cell_tab[i], g);
+						}
+					}
+				}
+				else{
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+			}
+		}
+		else{
+			for(int i=0;i<390;i++){
+				if(!(board->cell_tab[i]->selection==MOUSE)){
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+				else if (board->cell_tab[i]->selection==MOUSE){
+					display_mouse_cells(game->card_2, board->cell_tab[i], g);
+				}
+				else{
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				}
+			}
+		}
+	}
+	else {
+		for(int i=0;i<390;i++){
+			if(!(board->cell_tab[i]->selection==MOUSE)){
+				display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+			}
+		}
+	}
+//*/
 
+/*
 	// display all cells
 	for(int i=0;i<390;i++){
 		if(!(board->cell_tab[i]->selection==MOUSE)){
@@ -412,6 +486,7 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 			}
 		}
 	}
+*/
 }
 
 
