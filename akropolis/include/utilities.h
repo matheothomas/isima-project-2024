@@ -121,5 +121,17 @@ void update_deck(game_t *game, tile_t *tile, bool is_bot);
 void undo_deck(game_t *game, tile_t *tile, bool is_bot);
 
 
+game_t *copy_game(game_t* game);
+tile_t *copy_tile(tile_t *tile,board_t *board_copy);
+tile_t *copy_tile_for_deck(tile_t *tile);
+
+deck_t *copy_deck(deck_t *deck);
+type_linked_t *copy_type_linked(type_linked_t* type_linked, board_t *board_copy);
+
+void copy_cell(cell_t *cell, cell_t *cell_copy, board_t *board_copy);
+board_t *copy_board(board_t *board);
+void copy_scoring_table(scoring_table_t *scoring_table, scoring_table_t *scoring_table_copy);
+
+
 #endif
 

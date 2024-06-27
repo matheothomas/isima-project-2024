@@ -139,8 +139,13 @@ void test_domi(){
 	int x = 0;
 	int y = 0;
 	int mouse_state = 0;
+    int move = 0;
+    float zoom = 1;
     int id_mouse_cell=-1;
     bool is_bot_turn=0;
+    int decal_x=0;
+    int decal_y=0;
+
 
     // Initialisation for the event loop
 	SDL_bool program_on = SDL_TRUE;
@@ -150,13 +155,18 @@ void test_domi(){
 	while (program_on) {
 
 		// process event
-		mouse_state=0;
+		mouse_state = 0;
+        move = 0;
+        zoom = 1;
+        decal_x=0;
+        decal_y=0;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 
 				case SDL_QUIT:
 					program_on = SDL_FALSE;
 				break;
+
 
 				case SDL_MOUSEMOTION:
 					x=event.button.x;
@@ -175,6 +185,39 @@ void test_domi(){
 					mouse_state=2;
 				break;
 
+
+                case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                    case SDLK_UP:
+                    decal_y=100;
+                    break;
+
+                    case SDLK_DOWN:
+                    decal_y=-100;
+                    break;
+
+                    case SDLK_LEFT:
+                    decal_x=100;
+                    break;
+
+                    case SDLK_RIGHT:
+                    decal_x=-100;
+                    break;
+
+
+                    case SDLK_a:
+                    zoom = 1.1;
+                    break;
+                    case SDLK_z:
+                    zoom = 0.9;
+                    break;
+
+
+                    default:
+                    break;
+                    }
+
+
 				default:
 				break;
 			}
@@ -182,10 +225,10 @@ void test_domi(){
 
 		// update
         if(is_bot_turn){
-            mcts_play = mcts(game);
+            //mcts_play = mcts(game);
 
-            add_tile_to_board(game->bot, mcts_play->tile);
-            update_deck(game, mcts_play->tile, true);
+            //add_tile_to_board(game->bot, mcts_play->tile);
+            //update_deck(game, mcts_play->tile, true);
             game->selected_card=0;
             is_bot_turn=0;
         }
@@ -205,22 +248,22 @@ void test_domi(){
             }
 
             // get the id of the cell under the mouse's cursor
-            id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+            id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
 
             // display the selected tile up the cells under the mouse's cursor
             if(mouse_state == 0){
                 //if(is_in(g->board_player, x, y)){
-                    id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+                    id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
                     if(id_mouse_cell >= 0 && id_mouse_cell<390){
                         if(game->player_board){
                             if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
-                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
                                 game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
                             }
                         }
                         else{
                             if(game->bot->cell_tab[id_mouse_cell]->selection == UNSELECT){
-                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
                                 game->bot->cell_tab[id_mouse_cell]->selection = MOUSE;
                             }
                         }
@@ -281,10 +324,156 @@ void test_domi(){
 
         }
 
-        
+        update_graphics(zoom, decal_x, decal_y, g);
 
 		// render
         display_game(g, game);
+        //display_board(g, game->bot, g->board_bot->x);
+		SDL_Delay(1);
+	}
+
+    game_t *game_copy=copy_game(game);
+    game_copy->deck=game->deck;
+    //program_on=1;
+
+    while (program_on) {
+
+		// process event
+		mouse_state=0;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+
+				case SDL_QUIT:
+					program_on = SDL_FALSE;
+				break;
+
+				case SDL_MOUSEMOTION:
+					x=event.button.x;
+					y=event.button.y;
+				break;
+
+				case SDL_MOUSEBUTTONDOWN:
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=1;
+				break;
+
+				case SDL_MOUSEBUTTONUP:
+					x=event.button.x;
+					y=event.button.y;
+					mouse_state=2;
+				break;
+
+				default:
+				break;
+			}
+		}
+
+		// update
+        if(is_bot_turn){
+            //mcts_play = mcts(game);
+
+            //add_tile_to_board(game->bot, mcts_play->tile);
+            //update_deck(game, mcts_play->tile, true);
+            game_copy->selected_card=0;
+            is_bot_turn=0;
+        }
+        else{
+            // cell previously under the mouse's cursor back to being displayed in it's original colour
+            if(id_mouse_cell>=0 && id_mouse_cell<390){
+                if(game_copy->player_board){
+                    if(game_copy->player->cell_tab[id_mouse_cell]->selection==MOUSE){
+                        game_copy->player->cell_tab[id_mouse_cell]->selection=UNSELECT;
+                    }
+                }
+                else{
+                    if(game_copy->bot->cell_tab[id_mouse_cell]->selection==MOUSE){
+                        game_copy->bot->cell_tab[id_mouse_cell]->selection=UNSELECT;
+                    }
+                }
+            }
+
+            // get the id of the cell under the mouse's cursor
+            id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
+
+            // display the selected tile up the cells under the mouse's cursor
+            if(mouse_state == 0){
+                //if(is_in(g->board_player, x, y)){
+                    id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
+                    if(id_mouse_cell >= 0 && id_mouse_cell<390){
+                        if(game_copy->player_board){
+                            if(game_copy->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
+                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
+                                game_copy->player->cell_tab[id_mouse_cell]->selection = MOUSE;
+                            }
+                        }
+                        else{
+                            if(game_copy->bot->cell_tab[id_mouse_cell]->selection == UNSELECT){
+                                id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
+                                game_copy->bot->cell_tab[id_mouse_cell]->selection = MOUSE;
+                            }
+                        }
+                    }
+                //}
+            }
+
+            if(mouse_state==1){
+            }
+
+            if(mouse_state==2){
+                if(is_in(g->first_tile, x, y)){
+                    game_copy->selected_card=1;
+                }
+                else if (is_in(g->second_tile, x, y)){
+                    game_copy->selected_card=2;
+                }
+                else if (is_in(g->left_arrow, x, y)) {
+                    if(game_copy->selected_card==1){
+                        game_copy->card_1->orientation=(game_copy->card_1->orientation+5)%6;
+                    }
+                    else if(game_copy->selected_card==2){
+                        game_copy->card_2->orientation=(game_copy->card_2->orientation+5)%6;
+                    }
+                }
+                else if (is_in(g->right_arrow, x, y)) {
+                    if(game_copy->selected_card==1){
+                        game_copy->card_1->orientation=(game_copy->card_1->orientation+1)%6;
+                    }
+                    else if(game_copy->selected_card==2){
+                        game_copy->card_2->orientation=(game_copy->card_2->orientation+1)%6;
+                    }
+                }
+                else if (is_in(g->mini_board, x, y)){
+                    game_copy->player_board=(game_copy->player_board+1)%2;
+                }
+                else if (id_mouse_cell>=0 && id_mouse_cell<390){
+                    if(game_copy->player_board){
+                        if(game_copy->selected_card==1){
+                            update_tile_position(game_copy->card_1, game_copy->player->cell_tab[id_mouse_cell]);
+                            if(validity_tile(game_copy->card_1)){
+                                add_tile_to_board(game_copy->player, game_copy->card_1);
+                                update_deck(game_copy, game_copy->card_1,true);
+                                is_bot_turn=1;
+                            }
+                        }
+                        else if(game_copy->selected_card==2){
+                            update_tile_position(game_copy->card_2, game_copy->player->cell_tab[id_mouse_cell]);
+                            if(validity_tile(game_copy->card_2)){
+                                add_tile_to_board(game_copy->player, game_copy->card_2);
+                                update_deck(game_copy, game_copy->card_2, true);
+                                is_bot_turn=1;
+                            }
+                        }
+                    }           
+                }
+            }
+
+        }
+
+        
+
+		// render
+        display_game(g, game_copy);
         //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}
