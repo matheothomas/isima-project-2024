@@ -38,6 +38,12 @@ typedef struct graphics{
 	SDL_Texture *bot_text;
 	SDL_Texture *player_text;
 
+	SDL_Texture *rocks;
+	SDL_Rect *bot_rocks;
+	SDL_Rect *player_rocks;
+	SDL_Rect *n_bot_rocks;
+	SDL_Rect *n_player_rocks;
+
 	SDL_Texture *left_arrow_text;
 	SDL_Texture *right_arrow_text;
 

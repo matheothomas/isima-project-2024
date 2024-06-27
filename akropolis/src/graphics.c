@@ -66,9 +66,15 @@ graphics_t *init_sdl() {
 	SDL_Rect *second_tile;
 	SDL_Rect *deck;
 	SDL_Rect *tiles_in_deck;
+	SDL_Rect *bot_rocks;
+	SDL_Rect *player_rocks;
+	SDL_Rect *n_bot_rocks;
+	SDL_Rect *n_player_rocks;
 
 	SDL_Texture *bot_text;
 	SDL_Texture *player_text;
+
+	SDL_Texture *rocks;
 
 	SDL_Texture *left_arrow_text;
 	SDL_Texture *right_arrow_text;
@@ -113,10 +119,18 @@ graphics_t *init_sdl() {
 	board_bot=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
 	panel=crea_rect(40*offset_x, 0, window_dimensions->w - 40 * offset_x, window_dimensions->h);
 
-	bot=crea_rect(window_dimensions->w - 7 * offset_x, 0, 7 * offset_x, 61 * ratio/(4*69.28));
-	score_bot=crea_rect(window_dimensions->w - 7 * offset_x, 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
-	player=crea_rect(window_dimensions->w - 7 * offset_x, 2 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
-	score_player=crea_rect(window_dimensions->w - 7 * offset_x, 3 * 61 * ratio/(4*69.28), 7 * offset_x, 61 * ratio/(4*69.28));
+	bot=crea_rect(window_dimensions->w - 7 * offset_x, 0, 0.6 * 7 * offset_x, 61 * ratio/(4*69.28));
+	score_bot=crea_rect(window_dimensions->w - 7 * offset_x + 0.6 * 7 * offset_x, 0, 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+	player=crea_rect(window_dimensions->w - 7 * offset_x, 2 * 61 * ratio/(4*69.28), 0.6 * 7 * offset_x, 61 * ratio/(4*69.28));
+	score_player=crea_rect(window_dimensions->w - 7 * offset_x + 0.6 * 7 * offset_x, 2 * 61 * ratio/(4*69.28), 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+
+	bot_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.1 * 7 * offset_x, 61 * ratio/(4*69.28), 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+	n_bot_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.5 * 7 * offset_x, 61 * ratio/(4*69.28), 0.5 * 7 * offset_x, 61 * ratio/(4*69.28));
+
+	player_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.1 * 7 * offset_x, 3 * 61 * ratio/(4*69.28), 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+	n_player_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.5 * 7 * offset_x, 3 * 61 * ratio/(4*69.28), 0.5 * 7 * offset_x, 61 * ratio/(4*69.28));
+
+
 
 	left_arrow=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/5, 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
 	right_arrow=crea_rect(40*offset_x + 8 * (window_dimensions->w - 40 * offset_x)/15 , 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
@@ -157,11 +171,13 @@ graphics_t *init_sdl() {
 	background= load_texture_from_image("res/background.jpeg", window, renderer);
 	background=NULL;
 
-	bot_text=create_texture_for_text(" Bot :    ", font, renderer, colours->white);
-	player_text=create_texture_for_text(" Player : ", font, renderer, colours->white);
+	bot_text=create_texture_for_text(" Bot: ", font, renderer, colours->white);
+	player_text=create_texture_for_text(" You: ", font, renderer, colours->white);
 
 	left_arrow_text=load_texture_from_image("res/arrow_left.png", window, renderer);
 	right_arrow_text=load_texture_from_image("res/arrow_right.png", window, renderer);
+
+	rocks=load_texture_from_image("res/rocks.png", window, renderer);
 
 
 	printf("x : %f y : %f \n", offset_x, offset_y);
@@ -188,6 +204,12 @@ graphics_t *init_sdl() {
 
 	graphics->left_arrow=left_arrow;
 	graphics->right_arrow=right_arrow;
+
+	graphics->rocks=rocks;
+	graphics->bot_rocks=bot_rocks;
+	graphics->n_bot_rocks=n_bot_rocks;
+	graphics->player_rocks=player_rocks;
+	graphics->n_player_rocks=n_player_rocks;
 
 	graphics->first_tile=first_tile;
 	graphics->second_tile=second_tile;
@@ -664,7 +686,7 @@ void display_game(graphics_t* g, game_t *game){
 
 	// bot score
 	char *bot_score= malloc(8*sizeof(char));
-	sprintf(bot_score, "  %d   ",game->bot->score);
+	sprintf(bot_score, "%d  ",game->bot->score);
 	SDL_Texture *texture_bot_score=create_texture_for_text(bot_score, g->font, g->renderer, g->colours->white);
 
 	SDL_QueryTexture(texture_bot_score, NULL, NULL, &source.w, &source.h);
@@ -679,7 +701,7 @@ void display_game(graphics_t* g, game_t *game){
 
 	// player score
 	char *player_score= malloc(8*sizeof(char));
-	sprintf(player_score, "  %d   ",game->player->score);
+	sprintf(player_score, "%d  ",game->player->score);
 	SDL_Texture *texture_player_score=create_texture_for_text(player_score, g->font, g->renderer, g->colours->white);
 
 	SDL_QueryTexture(texture_player_score, NULL, NULL, &source.w, &source.h);
@@ -688,6 +710,32 @@ void display_game(graphics_t* g, game_t *game){
 	SDL_DestroyTexture(texture_player_score);
 	free(player_score);
 
+	// rocks
+	SDL_QueryTexture(g->rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->rocks, &source, g->bot_rocks);
+
+	char *player_rocks= malloc(8*sizeof(char));
+	sprintf(player_rocks, " %d  ",game->player->rocks);
+	SDL_Texture *texture_player_rocks=create_texture_for_text(player_rocks, g->font, g->renderer, g->colours->white);
+
+	SDL_QueryTexture(texture_player_rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, texture_player_rocks, &source, g->n_player_rocks);
+
+	SDL_DestroyTexture(texture_player_rocks);
+	free(player_rocks);
+
+	SDL_QueryTexture(g->rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->rocks, &source, g->player_rocks);
+
+	char *bot_rocks= malloc(8*sizeof(char));
+	sprintf(bot_rocks, " %d  ",game->bot->rocks);
+	SDL_Texture *texture_bot_rocks=create_texture_for_text(bot_rocks, g->font, g->renderer, g->colours->white);
+
+	SDL_QueryTexture(texture_bot_rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, texture_bot_rocks, &source, g->n_bot_rocks);
+
+	SDL_DestroyTexture(texture_bot_rocks);
+	free(bot_rocks);
 
 	// arrows
 	SDL_QueryTexture(g->left_arrow_text, NULL, NULL, &source.w, &source.h);
