@@ -129,6 +129,8 @@ void test_domi(){
     game_t *game=create_game();
     update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
 
+    play_t *mcts_play = NULL;
+
 
 
     // initialisation of variables
@@ -179,8 +181,11 @@ void test_domi(){
 		}
 
 		// update
-
         if(is_bot_turn){
+            mcts_play = mcts(game);
+
+            add_tile_to_board(game->bot, mcts_play->tile);
+            update_deck(game, mcts_play->tile, true);
             game->selected_card=0;
             is_bot_turn=0;
         }
@@ -252,7 +257,7 @@ void test_domi(){
                 else if (is_in(g->mini_board, x, y)){
                     game->player_board=(game->player_board+1)%2;
                 }
-                else if (is_in(g->displayed_board, x, y)){
+                else if (id_mouse_cell>=0 && id_mouse_cell<390){
                     if(game->player_board){
                         if(game->selected_card==1){
                             update_tile_position(game->card_1, game->player->cell_tab[id_mouse_cell]);
