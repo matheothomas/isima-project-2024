@@ -54,7 +54,7 @@ graphics_t *init_sdl() {
     TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-    SDL_Rect *window_dimensions, *displayed_board, *board_bot, *panel;
+    SDL_Rect *window_dimensions, *displayed_board, *mini_board, *panel;
 
 	SDL_Rect *bot;
 	SDL_Rect *score_bot;
@@ -70,6 +70,10 @@ graphics_t *init_sdl() {
 	SDL_Rect *player_rocks;
 	SDL_Rect *n_bot_rocks;
 	SDL_Rect *n_player_rocks;
+	SDL_Rect *rocks_price_1;
+	SDL_Rect *rocks_price_2;
+	SDL_Rect *price_1;
+	SDL_Rect *price_2;
 
 	SDL_Texture *bot_text;
 	SDL_Texture *player_text;
@@ -78,6 +82,9 @@ graphics_t *init_sdl() {
 
 	SDL_Texture *left_arrow_text;
 	SDL_Texture *right_arrow_text;
+
+	SDL_Texture *text_price_1;
+	SDL_Texture *text_price_2;
 
 	colours_t *colours;
 	SDL_Texture **type_texture;
@@ -116,7 +123,7 @@ graphics_t *init_sdl() {
 	displayed_board=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
 
 	int ratio=window_dimensions->w - 47 * offset_x;
-	board_bot=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
+	mini_board=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
 	panel=crea_rect(40*offset_x, 0, window_dimensions->w - 40 * offset_x, window_dimensions->h);
 
 	bot=crea_rect(window_dimensions->w - 7 * offset_x, 0, 0.6 * 7 * offset_x, 61 * ratio/(4*69.28));
@@ -130,13 +137,19 @@ graphics_t *init_sdl() {
 	player_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.1 * 7 * offset_x, 3 * 61 * ratio/(4*69.28), 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
 	n_player_rocks=crea_rect(window_dimensions->w - 7 * offset_x + 0.5 * 7 * offset_x, 3 * 61 * ratio/(4*69.28), 0.5 * 7 * offset_x, 61 * ratio/(4*69.28));
 
-
-
 	left_arrow=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/5, 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
 	right_arrow=crea_rect(40*offset_x + 8 * (window_dimensions->w - 40 * offset_x)/15 , 61 * ratio/69.28 + 4 * offset_y, 4 * (window_dimensions->w - 40 * offset_x)/15, 6 * offset_y);
 
 	first_tile=crea_rect( 40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2, 61 * ratio/69.28 + 14 * offset_y, 5.71 * offset_x, 10 * offset_y);
 	second_tile=crea_rect(40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2 + 7.71 * offset_x, 61 * ratio/69.28 + 14 * offset_y, 5.71 * offset_x, 10 * offset_y);
+
+
+	rocks_price_1=crea_rect( 40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2, 61 * ratio/69.28 + 24 * offset_y, 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+	price_1=crea_rect(40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2 + 0.4 * 7 * offset_x, 61 * ratio/69.28 + 24 * offset_y, 0.5 * 7 * offset_x, 61 * ratio/(4*69.28));
+
+	rocks_price_2=crea_rect( 40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2 + 7.71 * offset_x, 61 * ratio/69.28 + 24 * offset_y, 0.4 * 7 * offset_x, 61 * ratio/(4*69.28));
+	price_2=crea_rect(40*offset_x + (window_dimensions->w - 53.43 * offset_x)/2 + 7.71 * offset_x + 0.4 * 7 * offset_x, 61 * ratio/69.28 + 24 * offset_y, 0.5 * 7 * offset_x, 61 * ratio/(4*69.28));
+
 
 	deck=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/2 - 2 * offset_x, window_dimensions->h - 7 * offset_y, 4 * offset_x, 7 * offset_y);
 	tiles_in_deck=crea_rect(40*offset_x + (window_dimensions->w - 40 * offset_x)/2 - offset_x, window_dimensions->h - 4 * offset_y, 4 * offset_x, 4 * offset_y);
@@ -179,6 +192,9 @@ graphics_t *init_sdl() {
 
 	rocks=load_texture_from_image("res/rocks.png", window, renderer);
 
+	text_price_1=create_texture_for_text(" 0 ", font, renderer, colours->white);
+	text_price_2=create_texture_for_text(" 1 ", font, renderer, colours->white);
+
 
 	printf("x : %f y : %f \n", offset_x, offset_y);
 
@@ -194,7 +210,7 @@ graphics_t *init_sdl() {
 	graphics->offset_x=offset_x;
 	graphics->offset_y=offset_y;
 	graphics->displayed_board=displayed_board;
-	graphics->mini_board=board_bot;
+	graphics->mini_board=mini_board;
 	graphics->panel=panel;
 
 	graphics->bot_rect=bot;
@@ -213,6 +229,15 @@ graphics_t *init_sdl() {
 
 	graphics->first_tile=first_tile;
 	graphics->second_tile=second_tile;
+
+	graphics->rocks_price_1=rocks_price_1;
+	graphics->rocks_price_2=rocks_price_2;
+	graphics->price_1=price_1;
+	graphics->price_2=price_2;
+
+	graphics->text_price_1=text_price_1;
+	graphics->text_price_2=text_price_2;
+
 	graphics->deck=deck;
 	graphics->tiles_in_deck=tiles_in_deck;
 
@@ -755,6 +780,19 @@ void display_game(graphics_t* g, game_t *game){
 	else if(game->selected_card==2){
 		SDL_RenderDrawRect(g->renderer, g->second_tile);
 	}
+
+	// prices
+	SDL_QueryTexture(g->rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->rocks, &source, g->rocks_price_1);
+
+	SDL_QueryTexture(g->text_price_1, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->text_price_1, &source, g->price_1);
+
+	SDL_QueryTexture(g->rocks, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->rocks, &source, g->rocks_price_2);
+
+	SDL_QueryTexture(g->text_price_2, NULL, NULL, &source.w, &source.h);
+	SDL_RenderCopy(g->renderer, g->text_price_2, &source, g->price_2);
 
 
 	// deck

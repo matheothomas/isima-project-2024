@@ -44,6 +44,13 @@ typedef struct graphics{
 	SDL_Rect *n_bot_rocks;
 	SDL_Rect *n_player_rocks;
 
+	SDL_Rect *rocks_price_1;
+	SDL_Rect *rocks_price_2;
+	SDL_Rect *price_1;
+	SDL_Rect *price_2;
+	SDL_Texture *text_price_1;
+	SDL_Texture *text_price_2;
+
 	SDL_Texture *left_arrow_text;
 	SDL_Texture *right_arrow_text;
 
