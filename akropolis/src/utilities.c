@@ -512,18 +512,18 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
 
 void update_deck(game_t *game, tile_t *tile, bool is_bot) {
 	if(game->card_1->id == tile->id) {
-		game->card_1 = game->deck->deck[game->deck->n];
+		game->card_1 = game->deck->tile_tab[game->deck->n];
 	} else {
 		// UPDATE ROCKS
 		is_bot ? game->bot->rocks-- : game->player->rocks--;
-		game->card_2 = game->deck->deck[game->deck->n];
+		game->card_2 = game->deck->tile_tab[game->deck->n];
 	}
 	game->deck->n++;
 }
 
 void undo_deck(game_t *game, tile_t *tile, bool is_bot) {
 	game->deck->n--;
-	if(game->card_1->id == game->deck->deck[game->deck->n]->id) {
+	if(game->card_1->id == game->deck->tile_tab[game->deck->n]->id) {
 		game->card_1 = tile;
 	} else {
 		// UPDATE ROCKS

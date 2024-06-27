@@ -82,14 +82,14 @@ void test_domi_2(){
     */
 
     for(int i=0;i<34;i++){
-        printf("%d %d %d id : %d\n",deck->deck[i]->cell_types[0], deck->deck[i]->cell_types[1], deck->deck[i]->cell_types[2], deck->deck[i]->id);
+        printf("%d %d %d id : %d\n",deck->tile_tab[i]->cell_types[0], deck->tile_tab[i]->cell_types[1], deck->tile_tab[i]->cell_types[2], deck->tile_tab[i]->id);
     }
 
     game_t *game=create_game();
-    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+    update_game(game, player, bot, deck->tile_tab[0], deck->tile_tab[1], deck);
 
     for(int i=0;i<34;i++){
-        free(deck->deck[i]);
+        free(deck->tile_tab[i]);
     }
 
     free(deck);
@@ -127,7 +127,7 @@ void test_domi(){
     init_deck(deck);
 
     game_t *game=create_game();
-    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+    update_game(game, player, bot, deck->tile_tab[0], deck->tile_tab[1], deck);
 
     play_t *mcts_play = NULL;
 
@@ -298,7 +298,7 @@ void test_domi(){
 	//*/
 
     for(int i=0;i<34;i++){
-        free(deck->deck[i]);
+        free(deck->tile_tab[i]);
     }
 
     free(deck);

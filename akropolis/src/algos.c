@@ -225,9 +225,9 @@ play_t *mcts(game_t *game) {
 		p = p->next;
 	}
 
+	max_play = copy_play(max_play);
+	free_hash_map(h);
 
-
-	// free_hash_map(h);
 	printf("number of iterations : %d\n", n);
 
 	return max_play;

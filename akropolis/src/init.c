@@ -167,7 +167,7 @@ void fill_tile(tile_t *tile, cell_type_e type_0, cell_type_e type_1, cell_type_e
 deck_t *create_deck(){
     deck_t *deck=malloc(sizeof(deck_t));
     deck->n=0;
-    deck->deck=NULL;
+    deck->tile_tab=NULL;
     return deck;
 }
 
@@ -185,7 +185,7 @@ void init_deck(deck_t *struct_deck){
         }
     }
     free(tile_tab);
-    struct_deck->deck=deck;
+    struct_deck->tile_tab=deck;
 }
 
 tile_t ** creates_all_tiles(){
