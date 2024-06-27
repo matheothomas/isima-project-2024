@@ -15,7 +15,7 @@
 
 
 play_t *initialisation(game_t *game, hash_t **h) {
-	linked_plays_t *lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
+	linked_plays_t *lp = game->bot->rocks > 0 ? gen_tiles_rec_from_game(game, true) : gen_tiles_rec_false_start(game->bot, game->card_1);
 	hash_map_add(h, game->bot, lp);
 
 	return lp->play;
@@ -129,9 +129,9 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 		} else {						// first time exploring this node, adding initialisation 
 		if(is_bot) {
-				lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
+				lp = game->bot->rocks > 0 ? gen_tiles_rec_from_game(game, true) : gen_tiles_rec_false_start(game->bot, game->card_1);
 			} else {
-				lp = game->player->rocks > 0 ? gen_tiles_from_game(game, false) : gen_tiles(game->player->cell_tab, game->card_1);
+				lp = game->player->rocks > 0 ? gen_tiles_rec_from_game(game, false) : gen_tiles_rec_false_start(game->player, game->card_1);
 			}
 			game->deck->n++;
 			is_bot ? hash_map_add(h, game->bot, lp) : hash_map_add(h, game->player, lp);
@@ -151,9 +151,9 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 		}
 	} else {							// random recursion until end game
 		if(is_bot) {
-			lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
+			lp = game->bot->rocks > 0 ? gen_tiles_rec_from_game(game, true) : gen_tiles_rec_false_start(game->bot, game->card_1);
 		} else {
-			lp = game->player->rocks > 0 ? gen_tiles_from_game(game, false) : gen_tiles(game->player->cell_tab, game->card_1);
+			lp = game->player->rocks > 0 ? gen_tiles_rec_from_game(game, false) : gen_tiles_rec_false_start(game->player, game->card_1);
 		}
 		game->deck->n++;
 

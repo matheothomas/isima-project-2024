@@ -406,8 +406,12 @@ void add_tile_to_board(board_t * board, tile_t * tile) {
 	update_scoring_table(board);
 }
 
-/*
-void gen_tiles_rec(linked_plays_t * play, tile_t * tile, cell_t * cell, bool * visited) {
+
+void gen_tiles_rec(linked_plays_t * linked_plays, tile_t * tile, cell_t * cell, bool * visited) {
+
+	play_t * cours = NULL;
+
+	visited[cell -> id] = true;
 
 	for (int orientation = 0; orientation < 6; orientation++) {
 		tile_t * new_tile = malloc(sizeof(tile_t));
@@ -422,19 +426,40 @@ void gen_tiles_rec(linked_plays_t * play, tile_t * tile, cell_t * cell, bool * v
 		new_tile -> cell_types[1] = tile -> cell_types[1];
 		new_tile -> cell_types[2] = tile -> cell_types[2];
 
+		if (validity_tile(new_tile)) {
+			play_t * play = malloc(sizeof(play_t));
+			play -> n_coup = 0;
+			play -> gain_coup = 0;
+			play -> next = NULL;
+			play -> tile = new_tile;
+			cours = linked_plays -> play;
+			linked_plays -> play = play;
+			linked_plays -> play -> next = cours;
+			linked_plays -> size++;
+		}
+		else {
+			free(new_tile);
+		}
+	}
+	
+	for (int i = 0; i < 6; i++) {
+		if (cell -> neighbour[i] != NULL && !visited[cell -> neighbour[i] -> id]) {
+			gen_tiles_rec(linked_plays, tile, cell -> neighbour[i], visited);
+		}
+
 	}
 
 }
 
-linked_plays_t * gen_tiles_rec_false_start(board_t * board) {
-	bool visited[] = {false};
+linked_plays_t * gen_tiles_rec_false_start(board_t * board, tile_t * tile) {
+	bool visited[CELL_NUMBER] = {false};
 	linked_plays_t * linked_plays = malloc(sizeof(linked_plays_t));
 	linked_plays -> size = 0;
 	linked_plays -> play = NULL;
-	gen_tiles_rec(linked_plays, board -> cell, visited);
+	gen_tiles_rec(linked_plays, tile, board -> cell, visited);
 
 	return linked_plays;
-}*/
+}
 
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile) {
 
@@ -504,6 +529,14 @@ linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot) {
 		return fusion_linked_plays(gen_tiles(game -> bot -> cell_tab, game -> card_1), gen_tiles(game -> bot -> cell_tab, game -> card_2));
 	}
 	return fusion_linked_plays(gen_tiles(game -> player -> cell_tab, game -> card_1), gen_tiles(game -> player -> cell_tab, game -> card_2));
+}
+
+linked_plays_t * gen_tiles_rec_from_game(game_t * game, bool is_bot) {
+
+	if (is_bot) {
+		return fusion_linked_plays(gen_tiles_rec_false_start(game -> bot, game -> card_1), gen_tiles_rec_false_start(game -> bot, game -> card_2));
+	}
+	return fusion_linked_plays(gen_tiles_rec_false_start(game -> player, game -> card_1), gen_tiles_rec_false_start(game -> player, game -> card_2));
 }
 
 /*

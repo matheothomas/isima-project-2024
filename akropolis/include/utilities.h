@@ -101,6 +101,8 @@ void add_tile_to_board(board_t * board, tile_t * tile);
 /// Flemme
 void add_tile_to_board_without_score(board_t * board, tile_t * tile);
 
+linked_plays_t * gen_tiles_rec_false_start(board_t * board, tile_t * tile);
+
 /// Generate all plays associated to the current state of the board and the tile given
 linked_plays_t * gen_tiles(cell_t ** cell_tab, tile_t * tile);
 
@@ -109,6 +111,8 @@ linked_plays_t * fusion_linked_plays(linked_plays_t * linked_plays_1, linked_pla
 
 /// Generates all possible plays from two tiles
 linked_plays_t * gen_tiles_from_game(game_t * game, bool is_bot);
+
+linked_plays_t * gen_tiles_rec_from_game(game_t * game, bool is_bot);
 
 /*
  * Deck functions
