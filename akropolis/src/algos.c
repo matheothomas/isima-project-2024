@@ -89,7 +89,7 @@ int calculate_score(game_t *game, bool is_bot) {
 		// update_scoring_table(game->player);
 		// calculate_score_from_table(game->player);
 	// }
-	update_scoring_table(is_bot ? game->bot : game->player);
+	update_scoring_table_rec_false_start(is_bot ? game->bot : game->player);
 	calculate_score_from_table(is_bot ? game->bot : game->player);
 	return is_bot ? game->bot->score - game->player->score : game->player->score - game->bot->score;
 }
@@ -117,11 +117,11 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 			play_t *new_play = get_random_tile(hash_cell->plays);
 			game->deck->n++;
 
-			is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
+			is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 			play->n_coup ++;
 			int temp_score = simulation(new_play, h, game, !is_bot, is_last_node);
 			play->gain_coup += temp_score;
-			is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
+			is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 			// UNDO THE DECK
 			game->deck->n--;
@@ -138,12 +138,12 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 			play_t *new_play = get_random_tile(lp);
 
-			is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
+			is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 
 			play->n_coup ++;
 			int temp_score = simulation(new_play, h, game, !is_bot, !is_last_node);
 			play->gain_coup += temp_score;
-			is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
+			is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 			// UNDO THE DECK
 			game->deck->n--;
@@ -159,9 +159,9 @@ int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last
 
 		play_t *new_play = get_random_tile(lp);
 
-		is_bot ? add_tile_to_board(game->bot, play->tile) : add_tile_to_board(game->player, play->tile);
+		is_bot ? add_tile_to_board_without_score(game->bot, play->tile) : add_tile_to_board_without_score(game->player, play->tile);
 		int temp_score = simulation(new_play, h, game, !is_bot, is_last_node);
-		is_bot ? remove_tile_from_board_without_null(game->bot, play->tile) : remove_tile_from_board_without_null(game->player, play->tile);
+		is_bot ? remove_tile_from_board_without_null_without_score(game->bot, play->tile) : remove_tile_from_board_without_null_without_score(game->player, play->tile);
 
 		// UNDO THE DECK
 		game->deck->n--;
