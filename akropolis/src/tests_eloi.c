@@ -107,6 +107,7 @@ void test_add_tiles() {
 	hash_t ** hash_map = create_hash_map();
 	for (int i = 0; i < plays -> size; i++) {
 		printf("Score before add : %d %d\n", game -> player -> score, game -> player -> table -> blue_mult);
+		print_table(game -> player -> table);
 		add_tile_to_board(game -> player, cours -> tile);
 		printf("rocks %d\n", game -> player -> rocks);
 		display_game(g, game);

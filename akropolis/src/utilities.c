@@ -275,7 +275,7 @@ void update_scoring_table_rec(board_t * board, cell_t * cell, bool * visited) {
 		break;
 	}
 	for (int i = 0; i < 6; i++) {
-		if (cell -> neighbour[i] != NULL && cell -> neighbour[i] -> level -> cell_type != EMPTY && visited[cell -> neighbour[i] -> id]) {
+		if (cell -> neighbour[i] != NULL && cell -> neighbour[i] -> level -> cell_type != EMPTY && !visited[cell -> neighbour[i] -> id]) {
 			update_scoring_table_rec(board, cell -> neighbour[i], visited);
 		}
 	}
@@ -285,6 +285,7 @@ void update_scoring_table_rec_false_start(board_t * board) {
 	bool visited[CELL_NUMBER] = {false};
 	reinitialize_table_to_zero(board -> table);
 	update_scoring_table_rec(board, board -> cell, visited);
+	calculate_score_from_table(board);
 }
 
 void update_scoring_table(board_t * board) {
