@@ -128,6 +128,8 @@ void test_add_tiles() {
 	// mouse's position and state
 	int x = 0;
 	int y = 0;
+	(void)x;
+	(void)y;
 	int mouse_state = 0;
 
     // Initialisation for the event loop
