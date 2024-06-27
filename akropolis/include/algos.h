@@ -11,7 +11,7 @@
 #include "utilities.h"
 #include "hash_map.h"
 
-#define NUM_THREADS 8
+#define NUM_THREADS 1
 
 /* Struct definitions */
 
@@ -34,7 +34,7 @@ typedef struct args {
 linked_plays_t *initialisation(game_t *game, hash_t **h);
 
 /// Selects the play to play.
-play_t *selection(play_t *play, float c, int * n, bool * working_nodes);
+play_t *selection(play_t *play, float c, int * n, int * i, bool * working_nodes);
 
 /// Returns a random tile from a play list.
 play_t *get_random_tile(linked_plays_t *lp);
@@ -43,7 +43,7 @@ play_t *get_random_tile(linked_plays_t *lp);
 int simulation(play_t *play, hash_t **h, game_t *game, bool is_bot, bool is_last_node);
 
 ///
-play_t *ucb(play_t *play, float c, int * n, int i, bool * working_nodes);
+play_t *ucb(play_t *play, float c, int * n, int * i, bool * working_nodes);
 
 /// Applies the MCTS algorithm for a fixed time.
 play_t *mcts(game_t *game);

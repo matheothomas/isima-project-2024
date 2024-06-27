@@ -31,38 +31,37 @@ float interest(play_t *play, float c, int * n) {
 	return G(play) + c * sqrtf(logf(*n) / play->n_coup);
 }
 
-play_t *ucb(play_t *play, float c, int * n, int i, bool * working_nodes) {
+play_t *ucb(play_t *play, float c, int * n, int * i, bool * working_nodes) {
 	float temp_interest = 0, interest_max = 0;
 	play_t *max_play = play;
 	int j = 0;
 
 	while (play != NULL) {
 		temp_interest = interest(play, c, n);
-		if (temp_interest > interest_max && !working_nodes[j]) {
+		if (temp_interest > interest_max) {
 			interest_max = temp_interest;
 			max_play = play;
-			i = j;
+			*i = j;
 		}
 		j++;
 		play = play->next;
 	}
 	
-	working_nodes[i] = true;
+	working_nodes[*i] = true;
 
 	return max_play;
 }
 
-play_t *selection(play_t *play, float c, int * n, bool * working_nodes) {
+play_t *selection(play_t *play, float c, int * n, int * i, bool * working_nodes) {
 
 	play_t *temp = play;
-	int i = 0;
 	while(temp != NULL) {
-		if (temp->n_coup == 0 && !working_nodes[i]) {
-			working_nodes[i] = true;
+		if (temp->n_coup == 0) {
+			working_nodes[*i] = true;
 			break;
 		}
 		temp = temp->next;
-		i++;
+		(*i)++;
 	}
 	if (temp == NULL) {
 		// UCB
@@ -205,17 +204,20 @@ void * create_thread(void * args) {
 	play_t * p2 = NULL;
 
 	while (*(vals -> pthread_state)) {
+		int i = 0;
 		if (pthread_mutex_lock(vals -> plays_mutex)) {
 			fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
 		}
-		p2 = selection(vals -> p -> play, vals -> c, vals -> n, vals -> working_nodes);
+		p2 = selection(vals -> p -> play, vals -> c, vals -> n, &i, vals -> working_nodes);
+		printf("address %p %p\n", p2, vals -> p -> play);
 
-		vals -> n++;
+		(*vals->n)++;
 		if (pthread_mutex_unlock(vals -> plays_mutex)) {
 			fprintf(stderr, "Error unlocking tree_mutex in get_temp_address\n");
 		}
 
 		simulation(p2, vals -> hash_map, vals -> game, 0, 0);
+		vals -> working_nodes[i] = false;
 	}
 
 	return NULL;
@@ -234,14 +236,17 @@ play_t *mcts(game_t *game) {
 	pthread_t threads[NUM_THREADS];
 	args_t arguments[NUM_THREADS];
 	bool pthread_states[NUM_THREADS] = {true};
+	bool working_nodes[p -> size];
 
 	for (int i = 0; i < NUM_THREADS; i++) {
 		arguments[i].pthread_state = &pthread_states[i];
-		arguments[i].game = (game);
+		arguments[i].game = game;
 		arguments[i].p = p;
 		arguments[i].hash_map = h;
 		arguments[i].n = &n;
 		arguments[i].c = c;
+		arguments[i].plays_mutex = &play_mutex;
+		arguments[i].working_nodes = working_nodes;
 	}
 
 	for (int i = 0; i < NUM_THREADS; i++) {
@@ -268,7 +273,7 @@ play_t *mcts(game_t *game) {
 	play_t * cour = p -> play;
 	play_t *max_play = cour;
 
-	while (p != NULL) {
+	while (cour != NULL) {
 		gain = G(p -> play);
 		if (gain > gain_max) {
 			gain_max = gain;
