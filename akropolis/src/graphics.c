@@ -54,7 +54,7 @@ graphics_t *init_sdl() {
     TTF_Init();
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
-    SDL_Rect *window_dimensions, *displayed_board, *board_bot, *panel;
+    SDL_Rect *window_dimensions, *main_board, *displayed_board, *board_bot, *panel;
 
 	SDL_Rect *bot;
 	SDL_Rect *score_bot;
@@ -108,6 +108,7 @@ graphics_t *init_sdl() {
 	offset_x=2*0.866*offset_y;
 
 	displayed_board=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
+	main_board=crea_rect(0, 0, 40*offset_x, window_dimensions->h);
 
 	int ratio=window_dimensions->w - 47 * offset_x;
 	board_bot=crea_rect(40*offset_x, 0, ratio, 61 * ratio/69.28);
@@ -177,6 +178,7 @@ graphics_t *init_sdl() {
     graphics->font=font;
 	graphics->offset_x=offset_x;
 	graphics->offset_y=offset_y;
+	graphics->main_board=main_board;
 	graphics->displayed_board=displayed_board;
 	graphics->mini_board=board_bot;
 	graphics->panel=panel;
@@ -322,7 +324,7 @@ int is_in_hexa (SDL_Rect dest, int x, int y, int offset_x, int offset_y){
 	return is_in;
 }
 
-void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal) {
+void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitude, int decal_x, int decal_y) {
 	SDL_Rect source = {0}, destination = {0}, destination_alt = {0};
 
 	char *string_altitude= malloc(2*sizeof(char));
@@ -338,18 +340,18 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 	int i=id%39;
 
 	if(i>=0 && i<=19){
-		destination.x=2*i * graphics->offset_x +decal;
-		destination.y=6*((int)id/39) * graphics->offset_y;
+		destination.x=2*i * graphics->offset_x + decal_x;
+		destination.y=6*((int)id/39) * graphics->offset_y + decal_y;
 
-		destination_alt.x=(2*i+0.75) * graphics->offset_x +decal;
-		destination_alt.y=(6*((int)id/39)+2) * graphics->offset_y;
+		destination_alt.x=(2*i+0.75) * graphics->offset_x + decal_x;
+		destination_alt.y=(6*((int)id/39)+2) * graphics->offset_y + decal_y;
 	}
 	else if (i>=20 && i<=38){
-		destination.x=(((2*id)%39)) * graphics->offset_x +decal;
-		destination.y=(6*((int)id/39)+3) * graphics->offset_y;
+		destination.x=(((2*id)%39)) * graphics->offset_x + decal_x;
+		destination.y=(6*((int)id/39)+3) * graphics->offset_y + decal_y;
 
-		destination_alt.x=(((2*id)%39)+0.75) * graphics->offset_x +decal;
-		destination_alt.y=(6*((int)id/39)+5) * graphics->offset_y;
+		destination_alt.x=(((2*id)%39)+0.75) * graphics->offset_x + decal_x;
+		destination_alt.y=(6*((int)id/39)+5) * graphics->offset_y + decal_y;
 	}
 
 	//printf("x : %d y : %d id : %d\n", destination.x,destination.y, id);
@@ -364,7 +366,7 @@ void display_cell(SDL_Texture *texture, graphics_t *graphics, int id, int altitu
 	free(string_altitude);
 }
 
-int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal){
+int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int decal_x, int decal_y){
 	int id=-1;
 	int i=0;
 	SDL_Rect destination = {0};
@@ -372,8 +374,8 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 	destination.h = 4 * graphics->offset_y;
 	for(int k=0;k<390;k+=39){
 		for(i=k;i<k+20;i++){
-			destination.x=2*i%39 * graphics->offset_x +decal;
-			destination.y=6*((int)i/39) * graphics->offset_y;
+			destination.x=2*i%39 * graphics->offset_x + decal_x;
+			destination.y=6*((int)i/39) * graphics->offset_y + decal_y;
 			if(is_in_hexa(destination, x, y, graphics->offset_x, graphics->offset_y)){
 				id=i;
 				k=390;
@@ -381,8 +383,8 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 			}
 		}
 		for(i=k+20;i<k+39;i++){
-			destination.x=(((2*i)%39)) * graphics->offset_x +decal;
-			destination.y=(6*((int)i/39)+3) * graphics->offset_y;
+			destination.x=(((2*i)%39)) * graphics->offset_x + decal_x;
+			destination.y=(6*((int)i/39)+3) * graphics->offset_y + decal_y;
 			if(is_in_hexa(destination, x, y, graphics->offset_x, graphics->offset_y)){
 				id=i;
 				k=390;
@@ -393,14 +395,14 @@ int get_cell_id_from_mouse_position(graphics_t *graphics, int x, int y, int deca
 	return id;
 }
 
-void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
+void display_board(graphics_t *g, game_t *game, board_t * board, int decal_x, int decal_y) {
 ///*
 	if(game->selected_card==1){
 		if(game->card_1->orientation%2){
 			for(int i=0;i<390;i++){
 				if( board->cell_tab[i]->neighbour[5] && board->cell_tab[i]->neighbour[2]){
 					if(!(board->cell_tab[i]->selection==MOUSE) && !(board->cell_tab[i]->neighbour[5]->selection==MOUSE)){
-						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 					}
 					else if (board->cell_tab[i]->selection==MOUSE && board->cell_tab[i]->neighbour[3] && board->cell_tab[i]->neighbour[0] && board->cell_tab[i]->neighbour[1]){
 						if(board->cell_tab[i]->neighbour[0]->neighbour[0] && board->cell_tab[i]->neighbour[0]->neighbour[5] && board->cell_tab[i]->neighbour[1]->neighbour[2]){
@@ -409,20 +411,20 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 					}
 				}
 				else{
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 			}
 		}
 		else{
 			for(int i=0;i<390;i++){
 				if(!(board->cell_tab[i]->selection==MOUSE)){
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 				else if (board->cell_tab[i]->selection==MOUSE){
 					display_mouse_cells(game->card_1, board->cell_tab[i], g);
 				}
 				else{
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 			}
 		}
@@ -432,7 +434,7 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 			for(int i=0;i<390;i++){
 				if( board->cell_tab[i]->neighbour[5] && board->cell_tab[i]->neighbour[2]){
 					if(!(board->cell_tab[i]->selection==MOUSE) && !(board->cell_tab[i]->neighbour[5]->selection==MOUSE)){
-						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+						display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 					}
 					else if (board->cell_tab[i]->selection==MOUSE && board->cell_tab[i]->neighbour[3] && board->cell_tab[i]->neighbour[0] && board->cell_tab[i]->neighbour[1]){
 						if(board->cell_tab[i]->neighbour[0]->neighbour[0] && board->cell_tab[i]->neighbour[0]->neighbour[5] && board->cell_tab[i]->neighbour[1]->neighbour[2]){
@@ -441,20 +443,20 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 					}
 				}
 				else{
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 			}
 		}
 		else{
 			for(int i=0;i<390;i++){
 				if(!(board->cell_tab[i]->selection==MOUSE)){
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 				else if (board->cell_tab[i]->selection==MOUSE){
 					display_mouse_cells(game->card_2, board->cell_tab[i], g);
 				}
 				else{
-					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+					display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 				}
 			}
 		}
@@ -462,7 +464,7 @@ void display_board(graphics_t *g, game_t *game, board_t * board, int decal) {
 	else {
 		for(int i=0;i<390;i++){
 			if(!(board->cell_tab[i]->selection==MOUSE)){
-				display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal);
+				display_cell(g->type_texture[board->cell_tab[i]->level->cell_type], g, board->cell_tab[i]->id, board->cell_tab[i]->altitude, decal_x, decal_y);
 			}
 		}
 	}
@@ -585,16 +587,16 @@ void display_tile_in_rect(SDL_Rect *rect, tile_t *tile, graphics_t *graphics){
 void display_mouse_cells(tile_t *tile, cell_t *cell, graphics_t *graphics){
 	if(tile->orientation%2){
 		if(cell->neighbour[2] && cell->neighbour[1]){
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->id, cell->altitude+1, 0);
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, 0);
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[2]->id, cell->neighbour[2]->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->id, cell->altitude+1, graphics->main_board->x,graphics->main_board->y);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, graphics->main_board->x,graphics->main_board->y);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[2]->id, cell->neighbour[2]->altitude+1, graphics->main_board->x,graphics->main_board->y);
 		}
 	}
 	else{
 		if(cell->neighbour[0] && cell->neighbour[1]){
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->id, cell->altitude+1, 0);
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[0]->id, cell->neighbour[0]->altitude+1, 0);
-			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, 0);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation)%3]], graphics, cell->id, cell->altitude+1, graphics->main_board->x,graphics->main_board->y);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+1)%3]], graphics, cell->neighbour[0]->id, cell->neighbour[0]->altitude+1, graphics->main_board->x,graphics->main_board->y);
+			display_cell(graphics->type_texture[tile->cell_types[(tile->orientation+2)%3]], graphics, cell->neighbour[1]->id, cell->neighbour[1]->altitude+1, graphics->main_board->x,graphics->main_board->y);
 		}
 	}
 }
@@ -632,12 +634,23 @@ void display_game(graphics_t* g, game_t *game){
 
 
 	// board
+///*
 	if(game->player_board){
-		display_board(g, game, game->player,0);
+		display_board(g, game, game->player,g->main_board->x,g->main_board->y);
 	}
 	else {
-		display_board(g, game, game->bot,0);
+		display_board(g, game, game->bot, g->main_board->x, g->main_board->y);
 	}
+//*/
+/*
+	if(game->player_board){
+		display_board_in_rect(g, game, game->player,g->main_board);
+	}
+	else {
+		display_board_in_rect(g, game, game->bot,g->main_board);
+	}
+*/
+
 
 
 	// panel
@@ -725,4 +738,17 @@ void display_game(graphics_t* g, game_t *game){
 
 	// shows
 	SDL_RenderPresent(g->renderer);
+}
+
+void update_graphics(float n, int decal_x, int decal_y, graphics_t *graphics){
+	int x = (1-n) * graphics->main_board->w / 2;
+	int y = (1-n) * graphics->main_board->h / 2;
+
+	graphics->offset_x=graphics->offset_x*n;
+	graphics->offset_y=graphics->offset_y*n;
+	graphics->main_board->w = graphics->main_board->w*n;
+	graphics->main_board->h = graphics->main_board->h*n;
+
+	graphics->main_board->x+=(float)decal_x/graphics->main_board->w * (graphics->window_dimensions->h * 1.136) + x;
+	graphics->main_board->y+=(float)decal_y/graphics->main_board->h * graphics->window_dimensions->h + y;
 }

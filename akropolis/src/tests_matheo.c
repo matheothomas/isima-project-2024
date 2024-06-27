@@ -184,15 +184,15 @@ void test_matheo_2(){
 		}
 
 		// get the id of the cell under the mouse's cursor
-		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+		id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
 
 		// display the cell under the mouse's cursor in red
 		if(mouse_state == 0){
 			//if(is_in(g->board_player, x, y)){
-			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+			id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
 			if(id_mouse_cell >= 0 && id_mouse_cell<390){
 				if(game->player->cell_tab[id_mouse_cell]->selection == UNSELECT){
-					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, 0);
+					id_mouse_cell = get_cell_id_from_mouse_position(g, x, y, g->main_board->x,g->main_board->y);
 					game->player->cell_tab[id_mouse_cell]->selection = MOUSE;
 				}
 			}

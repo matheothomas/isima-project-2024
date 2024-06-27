@@ -531,3 +531,142 @@ void undo_deck(game_t *game, tile_t *tile, bool is_bot) {
 		game->card_2 = tile;
 	}
 }
+
+game_t *copy_game(game_t* game){
+	game_t* game_copy=malloc(sizeof(game_t));
+	game_copy->selected_card=game->selected_card;
+	game_copy->player_board=game->player_board;
+
+	game_copy->card_1=copy_tile_for_deck(game->card_1);
+	game_copy->card_2=copy_tile_for_deck(game->card_2);
+
+	game_copy->bot=copy_board(game->bot);
+	game_copy->player=copy_board(game->player);
+
+	game_copy->deck=copy_deck(game->deck);
+
+	return game_copy;
+}
+
+tile_t *copy_tile(tile_t *tile,board_t *board_copy){
+	tile_t *tile_copy=malloc(sizeof(tile_t));
+	tile_copy->id=tile->id;
+	tile_copy->orientation=tile->orientation;
+	for(int i=0; i<2; i++){
+		tile_copy->cell_types[i]=tile->cell_types[i];
+		tile_copy->cell_tab[i]=board_copy->cell_tab[tile->cell_tab[i]->id];
+	}
+	return tile_copy;
+}
+
+tile_t *copy_tile_for_deck(tile_t *tile){
+	tile_t *tile_copy=malloc(sizeof(tile_t));
+	tile_copy->id=tile->id;
+	tile_copy->orientation=tile->orientation;
+	for(int i=0; i<2; i++){
+		tile_copy->cell_types[i]=tile->cell_types[i];
+		tile_copy->cell_tab[i]=NULL;
+	}
+	return tile_copy;
+}
+
+deck_t *copy_deck(deck_t *deck){
+	deck_t *deck_copy=malloc(sizeof(deck_t));
+	tile_t **tile_tab_copy = malloc(34* sizeof(tile_t *));
+	for(int i=0;i<34;i++){
+		tile_tab_copy[i]=copy_tile_for_deck(deck->tile_tab[i]);
+	}
+	deck_copy->n=deck->n;
+	return deck_copy;
+}
+
+type_linked_t *copy_type_linked(type_linked_t* type_linked, board_t *board_copy){
+	type_linked_t *type_linked_copy=NULL;
+	if(type_linked){
+		type_linked_t *cur_type_linked=type_linked;
+		type_linked_t *type_linked_copy_next=NULL;
+
+		type_linked_copy=malloc(sizeof(type_linked_t));
+		type_linked_copy->cell_type=cur_type_linked->cell_type;
+		if(cur_type_linked->cell_type){
+			type_linked_copy->tile=copy_tile(cur_type_linked->tile, board_copy);
+		}
+		type_linked_copy->next=NULL;
+
+		cur_type_linked=cur_type_linked->next;
+
+		if(cur_type_linked){
+
+			type_linked_copy_next=malloc(sizeof(type_linked_t));
+			type_linked_copy_next->cell_type=cur_type_linked->cell_type;
+			if(cur_type_linked->cell_type){
+				type_linked_copy_next->tile=copy_tile(cur_type_linked->tile, board_copy);
+			}
+			type_linked_copy_next->next=NULL;
+
+			type_linked_copy->next=type_linked_copy_next;
+			
+
+			cur_type_linked=cur_type_linked->next;
+			while(cur_type_linked){
+
+				//type_linked_copy_next->next=type_linked_copy_next;
+
+				type_linked_copy_next->next=malloc(sizeof(type_linked_t));
+				type_linked_copy_next->next->cell_type=cur_type_linked->cell_type;
+				if(cur_type_linked->cell_type){
+					type_linked_copy_next->next->tile=copy_tile(cur_type_linked->tile, board_copy);
+				}
+				type_linked_copy_next->next->next=NULL;
+
+				
+				type_linked_copy_next=type_linked_copy_next->next;
+
+				cur_type_linked=cur_type_linked->next;
+			}
+			type_linked_copy_next=NULL;
+		}
+	}
+	return type_linked_copy;
+}
+
+
+
+void copy_scoring_table(scoring_table_t *scoring_table, scoring_table_t *scoring_table_copy){
+	scoring_table_copy->blue_mult=scoring_table->blue_mult;
+	scoring_table_copy->blue_nb_alt=scoring_table->blue_nb_alt;
+
+	scoring_table_copy->red_mult=scoring_table->red_mult;
+	scoring_table_copy->red_nb_alt=scoring_table->red_nb_alt;
+
+	scoring_table_copy->yellow_mult=scoring_table->yellow_mult;
+	scoring_table_copy->yellow_nb_alt=scoring_table->yellow_nb_alt;
+
+	scoring_table_copy->purple_mult=scoring_table->purple_mult;
+	scoring_table_copy->purple_nb_alt=scoring_table->purple_nb_alt;
+
+	scoring_table_copy->green_mult=scoring_table->green_mult;
+	scoring_table_copy->green_nb_alt=scoring_table->green_nb_alt;
+}
+
+board_t *copy_board(board_t *board){
+	board_t *board_copy=create_board();
+	for(int i=0;i<390;i++){
+		copy_cell(board->cell_tab[i], board_copy->cell_tab[i], board_copy);
+	}
+	board_copy->rocks=board->rocks;
+	board_copy->score=board->score;
+	copy_scoring_table(board->table, board_copy->table);
+
+	return board_copy;
+}
+
+void copy_cell(cell_t *cell, cell_t *cell_copy, board_t *board_copy){
+	cell_copy->id=cell->id;
+	cell_copy->x=cell->x;
+	cell_copy->y=cell->y;
+	cell_copy->altitude=cell->altitude;
+	cell_copy->selection=cell->selection;
+	cell_copy->level=copy_type_linked(cell->level, board_copy);
+}
+
