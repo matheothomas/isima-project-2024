@@ -56,39 +56,39 @@ void test_add_tiles() {
     init_deck(deck);
 
     game_t *game=create_game();
-    update_game(game, player, bot, deck->deck[0], deck->deck[1], deck);
+    update_game(game, player, bot, deck->tile_tab[0], deck->tile_tab[1], deck);
 	
-	tile_t * tile = game -> deck -> deck[3];
+	tile_t * tile = game -> deck -> tile_tab[3];
 	tile -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
 	tile -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
 	tile -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
 	
-	tile_t * tile2 = game -> deck -> deck[4];
+	tile_t * tile2 = game -> deck -> tile_tab[4];
 	tile2 -> cell_tab[0] = game -> player -> cell -> neighbour[5];
 	tile2 -> cell_tab[1] = game -> player -> cell -> neighbour[4];
 	tile2 -> cell_tab[2] = game -> player -> cell -> neighbour[4] -> neighbour[5];
 
-	tile_t * tile3 = game -> deck -> deck[5];
+	tile_t * tile3 = game -> deck -> tile_tab[5];
 	tile3 -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[5];
 	tile3 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[5] -> neighbour[4];
 	tile3 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[5] -> neighbour[5];
 
-	tile_t * tile4 = game -> deck -> deck[6];
+	tile_t * tile4 = game -> deck -> tile_tab[6];
 	tile4 -> cell_tab[0] = game -> player -> cell -> neighbour[5];
 	tile4 -> cell_tab[1] = game -> player -> cell -> neighbour[5] -> neighbour[5];
 	tile4 -> cell_tab[2] = game -> player -> cell -> neighbour[5] -> neighbour[0];
 
-	tile_t * tile5 = game -> deck -> deck[7];
+	tile_t * tile5 = game -> deck -> tile_tab[7];
 	tile5 -> cell_tab[0] = game -> player -> cell -> neighbour[3];
 	tile5 -> cell_tab[1] = game -> player -> cell -> neighbour[2];
 	tile5 -> cell_tab[2] = game -> player -> cell -> neighbour[2] -> neighbour[3];
 
-	tile_t * tile6 = game -> deck -> deck[8];
+	tile_t * tile6 = game -> deck -> tile_tab[8];
 	tile6 -> cell_tab[0] = game -> player -> cell -> neighbour[0];
 	tile6 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0];
 	tile6 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[1];
 
-	tile_t * tile7 = game -> deck -> deck[9];
+	tile_t * tile7 = game -> deck -> tile_tab[9];
 	tile7 -> cell_tab[0] = game -> player -> cell -> neighbour[0] -> neighbour[0];
 	tile7 -> cell_tab[1] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[1];
 	tile7 -> cell_tab[2] = game -> player -> cell -> neighbour[0] -> neighbour[0] -> neighbour[2];
@@ -193,7 +193,7 @@ void test_add_tiles() {
 	//*/
 
     for(int i=0;i<34;i++){
-        free(deck->deck[i]);
+        free(deck->tile_tab[i]);
     }
 
     free(deck);

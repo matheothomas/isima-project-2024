@@ -66,7 +66,7 @@ typedef struct tile {
 
 typedef struct deck{
 	int n;
-	struct tile **deck;
+	struct tile **tile_tab;
 } deck_t;
 
 typedef struct scoring_table {
