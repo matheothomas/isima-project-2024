@@ -216,7 +216,7 @@ void * create_thread(void * args) {
 			fprintf(stderr, "Error unlocking tree_mutex in get_temp_address\n");
 		}
 
-		simulation(p2, vals -> hash_map, vals -> game, 0, 0);
+		simulation(p2, vals -> hash_map, vals -> game, 1, 0);
 		vals -> working_nodes[i] = false;
 	}
 
@@ -274,7 +274,8 @@ play_t *mcts(game_t *game) {
 	play_t *max_play = cour;
 
 	while (cour != NULL) {
-		gain = G(p -> play);
+		gain = G(cour);
+		
 		if (gain > gain_max) {
 			gain_max = gain;
 			max_play = cour;
@@ -286,7 +287,7 @@ play_t *mcts(game_t *game) {
 	max_play = copy_play(max_play);
 	free_hash_map(h);
 
-	printf("number of iterations : %d\n", n);
+	printf("number of iterations : %d %p\n", n, max_play);
 
 	return max_play;
 }
