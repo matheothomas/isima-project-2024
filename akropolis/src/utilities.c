@@ -563,7 +563,7 @@ tile_t *copy_tile_for_deck(tile_t *tile){
 	tile_t *tile_copy=malloc(sizeof(tile_t));
 	tile_copy->id=tile->id;
 	tile_copy->orientation=tile->orientation;
-	for(int i=0; i<2; i++){
+	for(int i=0; i<3; i++){
 		tile_copy->cell_types[i]=tile->cell_types[i];
 		tile_copy->cell_tab[i]=NULL;
 	}
@@ -577,6 +577,7 @@ deck_t *copy_deck(deck_t *deck){
 		tile_tab_copy[i]=copy_tile_for_deck(deck->tile_tab[i]);
 	}
 	deck_copy->n=deck->n;
+	deck_copy->tile_tab=tile_tab_copy;
 	return deck_copy;
 }
 
