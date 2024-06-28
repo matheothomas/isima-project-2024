@@ -1,0 +1,473 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>include/hash_map.h - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8h/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="include/hash_map.h">
+  <meta property="og:description" content="include/hash_map.h Classes Name struct hash Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Types Name typedef struct hash hash_t Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc2">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="include/hash_map.h">
+  <meta name="twitter:description" content="include/hash_map.h Classes Name struct hash Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Types Name typedef struct hash hash_t Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#types">Types</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#defines">Defines</a></li>
+    <li><a href="#types-documentation">Types Documentation</a>
+      <ul>
+        <li><a href="#typedef-hash_t">typedef hash_t</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-pow_u32">function pow_u32</a></li>
+        <li><a href="#function-create_hash_map">function create_hash_map</a></li>
+        <li><a href="#function-hash_board">function hash_board</a></li>
+        <li><a href="#function-create_linked_hash">function create_linked_hash</a></li>
+        <li><a href="#function-merge_plays">function merge_plays</a></li>
+        <li><a href="#function-hash_map_add">function hash_map_add</a></li>
+        <li><a href="#function-free_plays">function free_plays</a></li>
+        <li><a href="#function-free_linked_plays">function free_linked_plays</a></li>
+        <li><a href="#function-free_hash_list">function free_hash_list</a></li>
+        <li><a href="#function-free_hash_map">function free_hash_map</a></li>
+      </ul>
+    </li>
+    <li><a href="#macros-documentation">Macros Documentation</a>
+      <ul>
+        <li><a href="#define-hashmap_size">define HASHMAP_SIZE</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="includehash_maph">include/hash_map.h</h1>
+<h2 id="classes">Classes</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structhash.md">hash</a></strong> <!-- raw HTML omitted -->Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>typedef struct <a href="classes/structhash.md">hash</a></td>
+<td><strong><a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a></strong> <!-- raw HTML omitted -->Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32_t</td>
+<td><strong><a href="files/hash__map_8h.md#function-pow-u32">pow_u32</a></strong>(uint32_t x, int n)<!-- raw HTML omitted -->Calculate power for uint32_t type.</td>
+</tr>
+<tr>
+<td><a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> **</td>
+<td><strong><a href="files/hash__map_8h.md#function-create-hash-map">create_hash_map</a></strong>()<!-- raw HTML omitted -->Generate an empty hash_map.</td>
+</tr>
+<tr>
+<td>uint32_t</td>
+<td><strong><a href="files/hash__map_8h.md#function-hash-board">hash_board</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board_t)<!-- raw HTML omitted -->Return the unmoduled hash of a board.</td>
+</tr>
+<tr>
+<td><a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> *</td>
+<td><strong><a href="files/hash__map_8h.md#function-create-linked-hash">create_linked_hash</a></strong>(uint32_t hashed_board, <a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * plays, <a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> * next)<!-- raw HTML omitted -->Initialize and fills the hash_t structure.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-merge-plays">merge_plays</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play, <a href="files/utilities_8h.md#typedef-play-t">play_t</a> * new_play)<!-- raw HTML omitted -->Merge two plays scores in place.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-hash-map-add">hash_map_add</a></strong>(<a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> ** hash_map, <a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * plays)<!-- raw HTML omitted -->Adds a board to the hash_map.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-free-plays">free_plays</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * plays)<!-- raw HTML omitted -->Free play_t list.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-free-linked-plays">free_linked_plays</a></strong>(<a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * linked_plays)<!-- raw HTML omitted -->Free linked_play_t list.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-free-hash-list">free_hash_list</a></strong>(<a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> * hash)<!-- raw HTML omitted -->Free all the hash in a hash_map entry.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/hash__map_8h.md#function-free-hash-map">free_hash_map</a></strong>(<a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> ** hash_map)<!-- raw HTML omitted -->Free the hash_map.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="defines">Defines</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong><a href="files/hash__map_8h.md#define-hashmap-size">HASHMAP_SIZE</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-documentation">Types Documentation</h2>
+<h3 id="typedef-hash_t">typedef hash_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">hash</span> hash_t;
+</span></span></code></pre></div><p>Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board.</p>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-pow_u32">function pow_u32</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">uint32_t</span> pow_u32(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint32_t</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Calculate power for uint32_t type.</p>
+<h3 id="function-create_hash_map">function create_hash_map</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>hash_t <span style="color:#f92672">**</span> create_hash_map()
+</span></span></code></pre></div><p>Generate an empty hash_map.</p>
+<h3 id="function-hash_board">function hash_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">uint32_t</span> hash_board(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board_t
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Return the unmoduled hash of a board.</p>
+<h3 id="function-create_linked_hash">function create_linked_hash</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>hash_t <span style="color:#f92672">*</span> create_linked_hash(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint32_t</span> hashed_board,
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> plays,
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">*</span> next
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Initialize and fills the hash_t structure.</p>
+<h3 id="function-merge_plays">function merge_plays</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> merge_plays(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> new_play
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Merge two plays scores in place.</p>
+<h3 id="function-hash_map_add">function hash_map_add</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> hash_map_add(
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">**</span> hash_map,
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> plays
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Adds a board to the hash_map.</p>
+<h3 id="function-free_plays">function free_plays</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> free_plays(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> plays
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Free play_t list.</p>
+<h3 id="function-free_linked_plays">function free_linked_plays</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> free_linked_plays(
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> linked_plays
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Free linked_play_t list.</p>
+<h3 id="function-free_hash_list">function free_hash_list</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> free_hash_list(
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">*</span> hash
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Free all the hash in a hash_map entry.</p>
+<h3 id="function-free_hash_map">function free_hash_map</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> free_hash_map(
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">**</span> hash_map
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Free the hash_map.</p>
+<h2 id="macros-documentation">Macros Documentation</h2>
+<h3 id="define-hashmap_size">define HASHMAP_SIZE</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define HASHMAP_SIZE 1000000
+</span></span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef hash_map_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define hash_map_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define HASHMAP_SIZE 1000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;utilities.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Struct definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">hash</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint32_t</span> hashed_board;
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> plays;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">hash</span> <span style="color:#f92672">*</span> next;
+</span></span><span style="display:flex;"><span>} hash_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Functions definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint32_t</span> <span style="color:#a6e22e">pow_u32</span>(<span style="color:#66d9ef">uint32_t</span> x, <span style="color:#66d9ef">int</span> n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hash_t <span style="color:#f92672">**</span> <span style="color:#a6e22e">create_hash_map</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint32_t</span> <span style="color:#a6e22e">hash_board</span>(board_t <span style="color:#f92672">*</span> board_t);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hash_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">create_linked_hash</span>(<span style="color:#66d9ef">uint32_t</span> hashed_board, linked_plays_t <span style="color:#f92672">*</span> plays, hash_t <span style="color:#f92672">*</span> next);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">merge_plays</span>(play_t <span style="color:#f92672">*</span> play, play_t <span style="color:#f92672">*</span> new_play);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hash_map_add</span>(hash_t <span style="color:#f92672">**</span> hash_map, board_t <span style="color:#f92672">*</span> board, linked_plays_t <span style="color:#f92672">*</span> plays);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free_plays</span>(play_t <span style="color:#f92672">*</span> plays);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free_linked_plays</span>(linked_plays_t <span style="color:#f92672">*</span> linked_plays);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free_hash_list</span>(hash_t <span style="color:#f92672">*</span> hash);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free_hash_map</span>(hash_t <span style="color:#f92672">**</span> hash_map);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><hr>
+<p>Updated on 2024-06-28 at 08:11:56 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>
