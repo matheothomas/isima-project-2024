@@ -209,7 +209,6 @@ void * create_thread(void * args) {
 			fprintf(stderr, "Error locking tree_mutex in get_temp_address\n");
 		}
 		p2 = selection(vals -> p -> play, vals -> c, vals -> n, &i, vals -> working_nodes);
-		printf("address %p %p\n", p2, vals -> p -> play);
 
 		(*vals->n)++;
 		if (pthread_mutex_unlock(vals -> plays_mutex)) {
@@ -236,11 +235,11 @@ play_t *mcts(game_t *game) {
 	pthread_t threads[NUM_THREADS];
 	args_t arguments[NUM_THREADS];
 	bool pthread_states[NUM_THREADS] = {true};
-	bool working_nodes[p -> size];
+	bool working_nodes[20000] = {false};
 
 	for (int i = 0; i < NUM_THREADS; i++) {
 		arguments[i].pthread_state = &pthread_states[i];
-		arguments[i].game = game;
+		arguments[i].game = copy_game(game);
 		arguments[i].p = p;
 		arguments[i].hash_map = h;
 		arguments[i].n = &n;
