@@ -17,6 +17,7 @@
 play_t *initialisation(game_t *game, hash_t **h) {
 	linked_plays_t *lp = game->bot->rocks > 0 ? gen_tiles_from_game(game, true) : gen_tiles(game->bot->cell_tab, game->card_1);
 	hash_map_add(h, game->bot, lp);
+	printf("hash : %zu\n", hash_board(game->bot));
 
 	return lp->play;
 }
@@ -202,7 +203,7 @@ play_t *mcts(game_t *game) {
 
 	time_t t0 = time(0);
 	time_t t1 = time(0);
-	while(difftime(t1, t0) < 2) {
+	while(difftime(t1, t0) < 10) {
 		p2 = selection(p, c, n);
 
 		simulation(p2, h, game, 0, 0);
@@ -221,8 +222,16 @@ play_t *mcts(game_t *game) {
 			gain_max = gain;
 			max_play = p;
 		}
+		printf("gain : %f, n : %d, gain_coup : %f\n", gain, p->n_coup, p->gain_coup);
 
 		p = p->next;
+	}
+
+	for(int i = 0; i < HASHMAP_SIZE; i++) {
+		if (h[i] != NULL) {
+			printf("h[i] : %d\n", i);
+		
+		}
 	}
 
 	max_play = copy_play(max_play);
