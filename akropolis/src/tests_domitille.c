@@ -139,7 +139,6 @@ void test_domi(){
 	int x = 0;
 	int y = 0;
 	int mouse_state = 0;
-    int move = 0;
     float zoom = 1;
     int id_mouse_cell=-1;
     bool is_bot_turn=0;
@@ -156,7 +155,6 @@ void test_domi(){
 
 		// process event
 		mouse_state = 0;
-        move = 0;
         zoom = 1;
         decal_x=0;
         decal_y=0;
@@ -330,7 +328,7 @@ void test_domi(){
         display_game(g, game);
 		SDL_Delay(1);
 	}
-
+/*
     game_t *game_copy=copy_game(game);
     program_on=1;
 
@@ -474,7 +472,7 @@ void test_domi(){
         display_game(g, game_copy);
 		SDL_Delay(1);
 	}
-
+*/
     ///*
 	SDL_RenderClear(g->renderer);
 

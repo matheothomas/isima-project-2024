@@ -382,6 +382,8 @@ void update_game(game_t *game, board_t *player, board_t *bot, tile_t *card_1, ti
     game->deck=deck;
     game->player=player;
     game->bot=bot;
+    game->player->rocks=0;
+    game->bot->rocks=1;
 }
 
 
