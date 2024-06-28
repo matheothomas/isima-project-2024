@@ -333,8 +333,8 @@ void test_domi(){
 	}
 
     game_t *game_copy=copy_game(game);
-    game_copy->deck=game->deck;
-    //program_on=1;
+    //game_copy->deck=game->deck;
+    program_on=1;
 
     while (program_on) {
 
