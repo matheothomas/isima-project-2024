@@ -5,3 +5,4 @@ bin/*
 compile_flags.txt
 Doxyfile
 output/*
+docs/*
