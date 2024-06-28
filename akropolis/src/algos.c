@@ -202,7 +202,7 @@ play_t *mcts(game_t *game) {
 
 	time_t t0 = time(0);
 	time_t t1 = time(0);
-	while(difftime(t1, t0) < 2) {
+	while(difftime(t1, t0) < 20) {
 		p2 = selection(p, c, n);
 
 		simulation(p2, h, game, 0, 0);
@@ -226,6 +226,22 @@ play_t *mcts(game_t *game) {
 	}
 
 	max_play = copy_play(max_play);
+	
+	int m = 0;
+	for (int i = 0; i < HASHMAP_SIZE; i++) {
+		int l = 0;
+		hash_t * parcour = h[i];
+		while (parcour != NULL) {
+			l++;
+			parcour = parcour -> next;
+		}
+		if (l != 0) {
+			m++;
+			printf("%d %d\n", i, l);
+		}
+	}
+	printf("%d\n", m);
+
 	free_hash_map(h);
 
 	printf("number of iterations : %d\n", n);
