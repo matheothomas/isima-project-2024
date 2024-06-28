@@ -225,10 +225,10 @@ void test_domi(){
 
 		// update
         if(is_bot_turn){
-            //mcts_play = mcts(game);
+            mcts_play = mcts(game);
 
-            //add_tile_to_board(game->bot, mcts_play->tile);
-            //update_deck(game, mcts_play->tile, true);
+            add_tile_to_board(game->bot, mcts_play->tile);
+            update_deck(game, mcts_play->tile, true);
             game->selected_card=0;
             is_bot_turn=0;
         }
@@ -328,12 +328,10 @@ void test_domi(){
 
 		// render
         display_game(g, game);
-        //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}
 
     game_t *game_copy=copy_game(game);
-    //game_copy->deck=game->deck;
     program_on=1;
 
     while (program_on) {
@@ -371,10 +369,10 @@ void test_domi(){
 
 		// update
         if(is_bot_turn){
-            //mcts_play = mcts(game);
+            mcts_play = mcts(game);
 
-            //add_tile_to_board(game->bot, mcts_play->tile);
-            //update_deck(game, mcts_play->tile, true);
+            add_tile_to_board(game->bot, mcts_play->tile);
+            update_deck(game, mcts_play->tile, true);
             game_copy->selected_card=0;
             is_bot_turn=0;
         }
@@ -474,7 +472,6 @@ void test_domi(){
 
 		// render
         display_game(g, game_copy);
-        //display_board(g, game->bot, g->board_bot->x);
 		SDL_Delay(1);
 	}
 
