@@ -582,6 +582,7 @@ void display_cell_bis(SDL_Texture *texture, graphics_t *graphics, int id, int al
 
 
 void display_board_in_rect(graphics_t *g, game_t *game, board_t * board, SDL_Rect *rect) {
+	(void)game;
 
 	int offset_x=rect->w/40;
 	int offset_y=rect->h/61;
