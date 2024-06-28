@@ -210,7 +210,267 @@
 
 <div class="postcard-layout content-margin">
     
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8h/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>include/algos.h</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>include/algos.h Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores. play_t * ucb(play_t * play, float c, int n) play_t * mcts(game_t * game)Applies the MCTS algorithm for a fixed time.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
     
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8h/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>include/graphics.h</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>include/graphics.h Classes Name struct graphics struct coordinates struct colours struct type_texture Types Name typedef struct graphics graphics_t typedef struct coordinates coordinates_t typedef struct colours colours_t typedef struct type_texture type_texture_t Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle &amp;ldquo;dest&amp;rdquo; void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Types Documentation typedef graphics_t typedef struct graphics graphics_t; typedef coordinates_t typedef struct coordinates coordinates_t; typedef colours_t typedef struct colours colours_t; typedef type_texture_t typedef struct type_texture type_texture_t; Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8h/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>include/hash_map.h</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>include/hash_map.h Classes Name struct hash Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Types Name typedef struct hash hash_t Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/init_8h/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>include/init.h</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>include/init.h Classes Name struct type_linked struct cell struct tile struct deck struct scoring_table struct board struct game struct args used for the different searches Types Name enum cell_type { EMPTY, HOUSE_BLUE, BARRAK_RED, MARKET_YELLOW, TEMPLE_PURPLE, PARK_GREEN, QUARRY_GRAY, BLUE_PLACE, YELLOW_PLACE, RED_PLACE, PURPLE_PLACE, GREEN_PLACE} enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell/tile on the board typedef enum cell_type cell_type_e typedef enum selection selection_e state of selection of a cell/tile on the board typedef struct type_linked type_linked_t typedef struct cell cell_t typedef struct tile tile_t typedef struct deck deck_t typedef struct scoring_table scoring_table_t typedef struct board board_t typedef struct game game_t typedef struct args args_t used for the different searches Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) tile_t ** creates_all_tiles() deck_t * create_deck() void init_deck(deck_t * struct_deck) args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, struct play * next) Defines Name CELL_NUMBER DECK_NUMBER DUMP(X) Types Documentation enum cell_type Enumerator Value Description EMPTY HOUSE_BLUE BARRAK_RED MARKET_YELLOW TEMPLE_PURPLE PARK_GREEN QUARRY_GRAY BLUE_PLACE YELLOW_PLACE RED_PLACE PURPLE_PLACE GREEN_PLACE enum selection Enumerator Value Description UNSELECT SELECT MOUSE state of selection of a cell/tile on the board</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8h/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>include/utilities.h</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>include/utilities.h Classes Name struct play Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. struct tree Tree used for MCTS. struct linked_plays Wrapper for play_t that adds the size of the linked list. Types Name typedef struct play play_t Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. typedef struct tree tree_t Tree used for MCTS.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/algos.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/algos.c Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. float G(play_t * play) float interest(play_t * play, float c, int n) play_t * ucb(play_t * play, float c, int n) play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. bool is_game_finished(game_t * game) int calculate_score(game_t * game, bool is_bot) int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/graphics.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle &amp;ldquo;dest&amp;rdquo; void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_cell_bis(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y) void display_board_in_rect(graphics_t * g, game_t * game, board_t * board, SDL_Rect * rect) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/hash_map.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/hash_map.c Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map. uint32_t hash_board(board_t * board)Return the unmoduled hash of a board. hash_t * create_linked_hash(uint32_t hashed_board, linked_plays_t * plays, hash_t * next)Initialize and fills the hash_t structure. void merge_plays(play_t * play, play_t * new_play)Merge two plays scores in place. void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays)Adds a board to the hash_map. void free_plays(play_t * plays)Free play_t list.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/init_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/init.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/init.c Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) deck_t * create_deck() void init_deck(deck_t * struct_deck) tile_t ** creates_all_tiles() args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next) Functions Documentation function create_type_linked type_linked_t * create_type_linked() function init_type_linked void init_type_linked( type_linked_t * type_linked ) function create_cell cell_t * create_cell() function init_cell void init_cell( cell_t * cell ) function create_board board_t * create_board() function init_board void init_board( board_t * board ) function init_scoring_table scoring_table_t * init_scoring_table() function create_tile tile_t * create_tile() function init_tile void init_tile( tile_t * tile ) function fill_tile void fill_tile( tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2 ) function create_deck deck_t * create_deck() function init_deck void init_deck( deck_t * struct_deck ) function creates_all_tiles tile_t ** creates_all_tiles() function create_and_init_args args_t * create_and_init_args() function updates_args void updates_args( args_t * args, tile_t * tile, cell_t * cell, int score ) function create_game game_t * create_game() function update_game void update_game( game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck ) function create_play struct play * create_play() function update_play void update_play( struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next ) Source code /* name : init.</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+        <a href="https://matheothomas.github.io/isima-project-2024/doc2/files/main_8c/">
+            <div class="postcard-item">
+                <div class="postcard-title">
+                    <span>src/main.c</span>
+                </div>
+                <div class="postcard-summary">
+                    <span>src/main.c Functions Name int main(int argc, char * argv[]) Functions Documentation function main int main( int argc, char * argv[] ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 23-06-24 */ #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;time.h&amp;gt; #include &amp;#34;tests_domitille.h&amp;#34; #include &amp;#34;tests_eloi.h&amp;#34; #include &amp;#34;tests_matheo.h&amp;#34; int main(int argc, char *argv[]){ srand(time(0)); if(argc == 2) { if(strcmp(argv[1], &amp;#34;domitille&amp;#34;) == 0) { printf(&amp;#34;domitille\n&amp;#34;); test_domi(); } else if(strcmp(argv[1], &amp;#34;eloi&amp;#34;) == 0) { printf(&amp;#34;eloi\n&amp;#34;); test_add_tiles(); } else if(strcmp(argv[1], &amp;#34;matheo&amp;#34;) == 0) { printf(&amp;#34;matheo\n&amp;#34;); // test_matheo(); test_matheo_2(); } } else { } return 0; } Updated on 2024-06-28 at 08:11:55 &#43;0200</span>
+                </div>
+                <div class="postcard-metadata">
+                    <span>0001/01/01 · 
+    
+        
+    
+
+    
+        
+            <span>doc</span>
+        
+    
+</span>
+                </div>
+            </div>
+        </a>
+    
+    
+    <ul class="pagination pagination-default">
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/isima-project-2024/doc2/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/isima-project-2024/doc2/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/isima-project-2024/doc2/page/2/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
 </div>
 
 

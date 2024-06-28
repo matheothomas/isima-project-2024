@@ -1,0 +1,1210 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src/graphics.c - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8c/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="src/graphics.c">
+  <meta property="og:description" content="src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle “dest” void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_cell_bis(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y) void display_board_in_rect(graphics_t * g, game_t * game, board_t * board, SDL_Rect * rect) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc2">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="src/graphics.c">
+  <meta name="twitter:description" content="src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle “dest” void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_cell_bis(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y) void display_board_in_rect(graphics_t * g, game_t * game, board_t * board, SDL_Rect * rect) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-end_sdl">function end_sdl</a></li>
+        <li><a href="#function-init_sdl">function init_sdl</a></li>
+        <li><a href="#function-init_colours">function init_colours</a></li>
+        <li><a href="#function-init_type_texture">function init_type_texture</a></li>
+        <li><a href="#function-load_texture_from_image">function load_texture_from_image</a></li>
+        <li><a href="#function-create_texture_for_text">function create_texture_for_text</a></li>
+        <li><a href="#function-crea_rect">function crea_rect</a></li>
+        <li><a href="#function-crea_rect_in_rect">function crea_rect_in_rect</a></li>
+        <li><a href="#function-is_in">function is_in</a></li>
+        <li><a href="#function-is_in_hexa">function is_in_hexa</a></li>
+        <li><a href="#function-display_cell">function display_cell</a></li>
+        <li><a href="#function-get_cell_id_from_mouse_position">function get_cell_id_from_mouse_position</a></li>
+        <li><a href="#function-display_board">function display_board</a></li>
+        <li><a href="#function-display_cell_bis">function display_cell_bis</a></li>
+        <li><a href="#function-display_board_in_rect">function display_board_in_rect</a></li>
+        <li><a href="#function-display_tile_in_rect">function display_tile_in_rect</a></li>
+        <li><a href="#function-display_mouse_cells">function display_mouse_cells</a></li>
+        <li><a href="#function-update_tile_position">function update_tile_position</a></li>
+        <li><a href="#function-display_game">function display_game</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="srcgraphicsc">src/graphics.c</h1>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-end-sdl">end_sdl</a></strong>(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)<!-- raw HTML omitted -->ends the SDL elements and handles errors</td>
+</tr>
+<tr>
+<td><a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> *</td>
+<td><strong><a href="files/graphics_8c.md#function-init-sdl">init_sdl</a></strong>()<!-- raw HTML omitted -->initialises the sdl components and returns them in a struct</td>
+</tr>
+<tr>
+<td><a href="files/graphics_8h.md#typedef-colours-t">colours_t</a> *</td>
+<td><strong><a href="files/graphics_8c.md#function-init-colours">init_colours</a></strong>()</td>
+</tr>
+<tr>
+<td><a href="files/graphics_8h.md#typedef-type-texture-t">type_texture_t</a> *</td>
+<td><strong><a href="files/graphics_8c.md#function-init-type-texture">init_type_texture</a></strong>(SDL_Window * window, SDL_Renderer * renderer)</td>
+</tr>
+<tr>
+<td>SDL_Texture *</td>
+<td><strong><a href="files/graphics_8c.md#function-load-texture-from-image">load_texture_from_image</a></strong>(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)<!-- raw HTML omitted -->loads a texture from an image</td>
+</tr>
+<tr>
+<td>SDL_Texture *</td>
+<td><strong><a href="files/graphics_8c.md#function-create-texture-for-text">create_texture_for_text</a></strong>(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)<!-- raw HTML omitted -->creates a texture for a text</td>
+</tr>
+<tr>
+<td>SDL_Rect *</td>
+<td><strong><a href="files/graphics_8c.md#function-crea-rect">crea_rect</a></strong>(int x, int y, int width, int height)<!-- raw HTML omitted -->create a pointer to a rectangle</td>
+</tr>
+<tr>
+<td>SDL_Rect *</td>
+<td><strong><a href="files/graphics_8c.md#function-crea-rect-in-rect">crea_rect_in_rect</a></strong>(SDL_Rect * button, float i, float j, float k, float l)<!-- raw HTML omitted -->create a pointer to a rectangle inside another rectangle</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/graphics_8c.md#function-is-in">is_in</a></strong>(SDL_Rect * button, int x, int y)<!-- raw HTML omitted -->checks if a position (x, y) is in a rectangle button</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/graphics_8c.md#function-is-in-hexa">is_in_hexa</a></strong>(SDL_Rect dest, int x, int y, int offset_x, int offset_y)<!-- raw HTML omitted -->checks if a position (x, y) is in the hexagon corresponding to a rectangle &ldquo;dest&rdquo;</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-cell">display_cell</a></strong>(SDL_Texture * texture, <a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * graphics, int id, int altitude, int decal)</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/graphics_8c.md#function-get-cell-id-from-mouse-position">get_cell_id_from_mouse_position</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * graphics, int x, int y, int decal)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-board">display_board</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, <a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/init_8h.md#typedef-board-t">board_t</a> * board, int decal)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-cell-bis">display_cell_bis</a></strong>(SDL_Texture * texture, <a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-board-in-rect">display_board_in_rect</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, <a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/init_8h.md#typedef-board-t">board_t</a> * board, SDL_Rect * rect)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-tile-in-rect">display_tile_in_rect</a></strong>(SDL_Rect * rect, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * graphics)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-mouse-cells">display_mouse_cells</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, <a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * graphics)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-update-tile-position">update_tile_position</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/graphics_8c.md#function-display-game">display_game</a></strong>(<a href="files/graphics_8h.md#typedef-graphics-t">graphics_t</a> * g, <a href="files/init_8h.md#typedef-game-t">game_t</a> * game)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-end_sdl">function end_sdl</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> end_sdl(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> ok,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span> msg,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>ends the SDL elements and handles errors</p>
+<h3 id="function-init_sdl">function init_sdl</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>graphics_t <span style="color:#f92672">*</span> init_sdl()
+</span></span></code></pre></div><p>initialises the sdl components and returns them in a struct</p>
+<h3 id="function-init_colours">function init_colours</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>colours_t <span style="color:#f92672">*</span> init_colours()
+</span></span></code></pre></div><h3 id="function-init_type_texture">function init_type_texture</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>type_texture_t <span style="color:#f92672">*</span> init_type_texture(
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-load_texture_from_image">function load_texture_from_image</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Texture <span style="color:#f92672">*</span> load_texture_from_image(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> file_image_name,
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span> window,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>loads a texture from an image</p>
+<h3 id="function-create_texture_for_text">function create_texture_for_text</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Texture <span style="color:#f92672">*</span> create_texture_for_text(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> text,
+</span></span><span style="display:flex;"><span>    TTF_Font <span style="color:#f92672">*</span> font,
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span> renderer,
+</span></span><span style="display:flex;"><span>    SDL_Color colour
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>creates a texture for a text</p>
+<h3 id="function-crea_rect">function crea_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Rect <span style="color:#f92672">*</span> crea_rect(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> width,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> height
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>create a pointer to a rectangle</p>
+<h3 id="function-crea_rect_in_rect">function crea_rect_in_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>SDL_Rect <span style="color:#f92672">*</span> crea_rect_in_rect(
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> i,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> j,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> k,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> l
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>create a pointer to a rectangle inside another rectangle</p>
+<h3 id="function-is_in">function is_in</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> is_in(
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> button,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>checks if a position (x, y) is in a rectangle button</p>
+<h3 id="function-is_in_hexa">function is_in_hexa</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> is_in_hexa(
+</span></span><span style="display:flex;"><span>    SDL_Rect dest,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>checks if a position (x, y) is in the hexagon corresponding to a rectangle &ldquo;dest&rdquo;</p>
+<h3 id="function-display_cell">function display_cell</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_cell(
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> texture,
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> graphics,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> altitude,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> decal
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-get_cell_id_from_mouse_position">function get_cell_id_from_mouse_position</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> get_cell_id_from_mouse_position(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> graphics,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> decal
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-display_board">function display_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_board(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> decal
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><ul>
+<li></li>
+</ul>
+<h3 id="function-display_cell_bis">function display_cell_bis</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_cell_bis(
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> texture,
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> graphics,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> altitude,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_y,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> decal_x,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> decal_y
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-display_board_in_rect">function display_board_in_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_board_in_rect(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> rect
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-display_tile_in_rect">function display_tile_in_rect</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_tile_in_rect(
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span> rect,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> graphics
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-display_mouse_cells">function display_mouse_cells</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_mouse_cells(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> graphics
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-update_tile_position">function update_tile_position</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_tile_position(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-display_game">function display_game</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> display_game(
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span> g,
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : graphics.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 23-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_image.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_pixels.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_rect.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_render.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_surface.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_timer.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_ttf.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;SDL2/SDL_video.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;graphics.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">end_sdl</span>(<span style="color:#66d9ef">char</span> ok, <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>msg, SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer) {              <span style="color:#75715e">// renderer to close
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> msg_formated[<span style="color:#ae81ff">255</span>];                                            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> l;                                                     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>ok) {                                      <span style="color:#75715e">// printing what is wrong
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        strncpy(msg_formated, msg, <span style="color:#ae81ff">250</span>);                                         
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">=</span> strlen(msg_formated);                                            
+</span></span><span style="display:flex;"><span>        strcpy(msg_formated <span style="color:#f92672">+</span> l, <span style="color:#e6db74">&#34; : %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);                                     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SDL_Log(msg_formated, SDL_GetError());                                   
+</span></span><span style="display:flex;"><span>    }                                                          
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (renderer <span style="color:#f92672">!=</span> NULL) {                         <span style="color:#75715e">// renderer&#39;s destruction if necessary
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        SDL_DestroyRenderer(renderer);
+</span></span><span style="display:flex;"><span>        renderer <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (window <span style="color:#f92672">!=</span> NULL)   {                         <span style="color:#75715e">// windows destruction if necessary
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        SDL_DestroyWindow(window);
+</span></span><span style="display:flex;"><span>        window<span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Quit();                                                    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>ok) {
+</span></span><span style="display:flex;"><span>        exit(EXIT_FAILURE);                                                  
+</span></span><span style="display:flex;"><span>    }            
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>graphics_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_sdl</span>() {
+</span></span><span style="display:flex;"><span>    TTF_Init();
+</span></span><span style="display:flex;"><span>    SDL_Window <span style="color:#f92672">*</span>window <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    SDL_Renderer <span style="color:#f92672">*</span>renderer <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>window_dimensions, <span style="color:#f92672">*</span>displayed_board, <span style="color:#f92672">*</span>board_bot, <span style="color:#f92672">*</span>panel;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>bot;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>score_bot;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>player;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>score_player;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>left_arrow;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>right_arrow;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>first_tile;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>second_tile;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>deck;
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>tiles_in_deck;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>bot_text;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>player_text;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>left_arrow_text;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>right_arrow_text;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    colours_t <span style="color:#f92672">*</span>colours;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">**</span>type_texture;
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>background;
+</span></span><span style="display:flex;"><span>    TTF_Font <span style="color:#f92672">*</span> font;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> offset_x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    type_texture_t <span style="color:#f92672">*</span>types;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_DisplayMode screen;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// SDL INITIALISATION
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (SDL_Init(SDL_INIT_VIDEO) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        end_sdl(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;ERROR SDL INIT&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_GetCurrentDisplayMode(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">&amp;</span>screen);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Window creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    window <span style="color:#f92672">=</span> SDL_CreateWindow(<span style="color:#e6db74">&#34;Premier dessin&#34;</span>, SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 
+</span></span><span style="display:flex;"><span>                            screen.h <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span>,
+</span></span><span style="display:flex;"><span>                            screen.h <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.9</span>, SDL_WINDOW_OPENGL);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (window <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>        end_sdl(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;ERROR WINDOW CREATION&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Font opening
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    font<span style="color:#f92672">=</span>TTF_OpenFont(<span style="color:#e6db74">&#34;res/Unique.ttf&#34;</span>, <span style="color:#ae81ff">72</span> );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Rects creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    window_dimensions<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, screen.h <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span>, screen.h <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.9</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    offset_y<span style="color:#f92672">=</span>(<span style="color:#66d9ef">float</span>)window_dimensions<span style="color:#f92672">-&gt;</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">61</span>;
+</span></span><span style="display:flex;"><span>    offset_x<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#ae81ff">0.866</span><span style="color:#f92672">*</span>offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    displayed_board<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x, window_dimensions<span style="color:#f92672">-&gt;</span>h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> ratio<span style="color:#f92672">=</span>window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">*</span> offset_x;
+</span></span><span style="display:flex;"><span>    board_bot<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x, <span style="color:#ae81ff">0</span>, ratio, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span><span style="color:#ae81ff">69.28</span>);
+</span></span><span style="display:flex;"><span>    panel<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x, <span style="color:#ae81ff">0</span>, window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x, window_dimensions<span style="color:#f92672">-&gt;</span>h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    bot<span style="color:#f92672">=</span>crea_rect(window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>));
+</span></span><span style="display:flex;"><span>    score_bot<span style="color:#f92672">=</span>crea_rect(window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>), <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>));
+</span></span><span style="display:flex;"><span>    player<span style="color:#f92672">=</span>crea_rect(window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>), <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>));
+</span></span><span style="display:flex;"><span>    score_player<span style="color:#f92672">=</span>crea_rect(window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>), <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span>(<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span><span style="color:#ae81ff">69.28</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    left_arrow<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span><span style="color:#ae81ff">69.28</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">6</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>    right_arrow<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span> , <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span><span style="color:#ae81ff">69.28</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">6</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    first_tile<span style="color:#f92672">=</span>crea_rect( <span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">53.43</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span><span style="color:#ae81ff">69.28</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">5.71</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>    second_tile<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">53.43</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">7.71</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">61</span> <span style="color:#f92672">*</span> ratio<span style="color:#f92672">/</span><span style="color:#ae81ff">69.28</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">14</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">5.71</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    deck<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> offset_x, window_dimensions<span style="color:#f92672">-&gt;</span>h <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>    tiles_in_deck<span style="color:#f92672">=</span>crea_rect(<span style="color:#ae81ff">40</span><span style="color:#f92672">*</span>offset_x <span style="color:#f92672">+</span> (window_dimensions<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">-</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">*</span> offset_x)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> offset_x, window_dimensions<span style="color:#f92672">-&gt;</span>h <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_x, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Renderer creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    renderer <span style="color:#f92672">=</span> SDL_CreateRenderer(
+</span></span><span style="display:flex;"><span>        window, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, SDL_RENDERER_ACCELERATED <span style="color:#f92672">|</span> SDL_RENDERER_PRESENTVSYNC);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (renderer <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>        end_sdl(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;ERROR RENDERER CREATION&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    colours<span style="color:#f92672">=</span>init_colours();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    types<span style="color:#f92672">=</span>init_type_texture( window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">=</span>malloc(<span style="color:#ae81ff">12</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(SDL_Texture<span style="color:#f92672">*</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>empty;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>blue;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>red;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>yellow;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">4</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>purple;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>green;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">6</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>grey;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">7</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>blue_place;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">8</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>yellow_place;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">9</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>red_place;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">10</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>purple_place;
+</span></span><span style="display:flex;"><span>    type_texture[<span style="color:#ae81ff">11</span>]<span style="color:#f92672">=</span>types<span style="color:#f92672">-&gt;</span>green_place;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Textures creation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    background<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/background.jpeg&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    background<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    bot_text<span style="color:#f92672">=</span>create_texture_for_text(<span style="color:#e6db74">&#34; Bot :    &#34;</span>, font, renderer, colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>    player_text<span style="color:#f92672">=</span>create_texture_for_text(<span style="color:#e6db74">&#34; Player : &#34;</span>, font, renderer, colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    left_arrow_text<span style="color:#f92672">=</span>load_texture_from_image(<span style="color:#e6db74">&#34;res/arrow_left.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    right_arrow_text<span style="color:#f92672">=</span>load_texture_from_image(<span style="color:#e6db74">&#34;res/arrow_right.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;x : %f y : %f </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, offset_x, offset_y);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics_t <span style="color:#f92672">*</span>graphics <span style="color:#f92672">=</span> malloc(<span style="color:#66d9ef">sizeof</span>(graphics_t));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>window<span style="color:#f92672">=</span>window;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>renderer<span style="color:#f92672">=</span>renderer;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>window_dimensions<span style="color:#f92672">=</span>window_dimensions;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>background<span style="color:#f92672">=</span>background;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">=</span>colours;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>type_texture<span style="color:#f92672">=</span>type_texture;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>font<span style="color:#f92672">=</span>font;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>offset_x<span style="color:#f92672">=</span>offset_x;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>offset_y<span style="color:#f92672">=</span>offset_y;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>displayed_board<span style="color:#f92672">=</span>displayed_board;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>mini_board<span style="color:#f92672">=</span>board_bot;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>panel<span style="color:#f92672">=</span>panel;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>bot_rect<span style="color:#f92672">=</span>bot;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>score_bot<span style="color:#f92672">=</span>score_bot;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>player_rect<span style="color:#f92672">=</span>player;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>score_player<span style="color:#f92672">=</span>score_player;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>left_arrow<span style="color:#f92672">=</span>left_arrow;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>right_arrow<span style="color:#f92672">=</span>right_arrow;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>first_tile<span style="color:#f92672">=</span>first_tile;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>second_tile<span style="color:#f92672">=</span>second_tile;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>deck<span style="color:#f92672">=</span>deck;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>tiles_in_deck<span style="color:#f92672">=</span>tiles_in_deck;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>bot_text<span style="color:#f92672">=</span>bot_text;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>player_text<span style="color:#f92672">=</span>player_text;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>left_arrow_text<span style="color:#f92672">=</span>left_arrow_text;
+</span></span><span style="display:flex;"><span>    graphics<span style="color:#f92672">-&gt;</span>right_arrow_text<span style="color:#f92672">=</span>right_arrow_text;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    free(types);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> graphics;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>colours_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_colours</span>(){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    colours_t <span style="color:#f92672">*</span>colours<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(colours_t));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Color yellow <span style="color:#f92672">=</span> {<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">250</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>}; 
+</span></span><span style="display:flex;"><span>    SDL_Color black <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>};
+</span></span><span style="display:flex;"><span>    SDL_Color dark_red <span style="color:#f92672">=</span> {<span style="color:#ae81ff">25</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">255</span>};
+</span></span><span style="display:flex;"><span>    SDL_Color white <span style="color:#f92672">=</span> {<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">255</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    colours<span style="color:#f92672">-&gt;</span>yellow<span style="color:#f92672">=</span>yellow;
+</span></span><span style="display:flex;"><span>    colours<span style="color:#f92672">-&gt;</span>black<span style="color:#f92672">=</span>black;
+</span></span><span style="display:flex;"><span>    colours<span style="color:#f92672">-&gt;</span>dark_red<span style="color:#f92672">=</span>dark_red;
+</span></span><span style="display:flex;"><span>    colours<span style="color:#f92672">-&gt;</span>white<span style="color:#f92672">=</span>white;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> colours;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>type_texture_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_type_texture</span>( SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    type_texture_t <span style="color:#f92672">*</span>type_texture<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(type_texture_t));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>empty, <span style="color:#f92672">*</span>blue, <span style="color:#f92672">*</span>red, <span style="color:#f92672">*</span>yellow, <span style="color:#f92672">*</span>green, <span style="color:#f92672">*</span>purple, <span style="color:#f92672">*</span>grey, <span style="color:#f92672">*</span>blue_place, <span style="color:#f92672">*</span>red_place, <span style="color:#f92672">*</span>yellow_place, <span style="color:#f92672">*</span>green_place, <span style="color:#f92672">*</span>purple_place;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    empty<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/empty.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    blue<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/blue.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    red<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/red.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    yellow<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/yellow.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    purple<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/purple.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    green<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/green.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    grey<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/gray.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    blue_place<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/blue_star.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    red_place<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/red_star.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    yellow_place<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/yellow_star.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    purple_place<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/purple_star.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>    green_place<span style="color:#f92672">=</span> load_texture_from_image(<span style="color:#e6db74">&#34;res/green_star.png&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>empty<span style="color:#f92672">=</span>empty;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>blue<span style="color:#f92672">=</span>blue;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>red<span style="color:#f92672">=</span>red;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>yellow<span style="color:#f92672">=</span>yellow;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>purple<span style="color:#f92672">=</span>purple;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>green<span style="color:#f92672">=</span>green;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>grey<span style="color:#f92672">=</span>grey;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>blue_place<span style="color:#f92672">=</span>blue_place;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>red_place<span style="color:#f92672">=</span>red_place;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>yellow_place<span style="color:#f92672">=</span>yellow_place;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>purple_place<span style="color:#f92672">=</span>purple_place;
+</span></span><span style="display:flex;"><span>    type_texture<span style="color:#f92672">-&gt;</span>green_place<span style="color:#f92672">=</span>green_place;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> type_texture;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Texture<span style="color:#f92672">*</span> <span style="color:#a6e22e">load_texture_from_image</span>(<span style="color:#66d9ef">char</span>  <span style="color:#f92672">*</span>  file_image_name, SDL_Window <span style="color:#f92672">*</span>window, SDL_Renderer <span style="color:#f92672">*</span>renderer ){
+</span></span><span style="display:flex;"><span>    SDL_Surface <span style="color:#f92672">*</span>my_image <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    SDL_Texture<span style="color:#f92672">*</span> my_texture <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    my_image <span style="color:#f92672">=</span> IMG_Load(file_image_name);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (my_image <span style="color:#f92672">==</span> NULL) end_sdl(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;Chargement de l&#39;image impossible&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    my_texture <span style="color:#f92672">=</span> SDL_CreateTextureFromSurface(renderer, my_image);
+</span></span><span style="display:flex;"><span>    SDL_FreeSurface(my_image);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (my_texture <span style="color:#f92672">==</span> NULL) end_sdl(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;Echec de la transformation de la surface en texture&#34;</span>, window, renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> my_texture;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Texture<span style="color:#f92672">*</span> <span style="color:#a6e22e">create_texture_for_text</span>(<span style="color:#66d9ef">char</span>  <span style="color:#f92672">*</span>  text, TTF_Font <span style="color:#f92672">*</span> font, SDL_Renderer <span style="color:#f92672">*</span>renderer, SDL_Color colour){       
+</span></span><span style="display:flex;"><span>    SDL_Surface <span style="color:#f92672">*</span> my_text <span style="color:#f92672">=</span> TTF_RenderText_Blended(font, text, colour);
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span> my_texture <span style="color:#f92672">=</span> SDL_CreateTextureFromSurface(renderer, my_text);
+</span></span><span style="display:flex;"><span>    SDL_FreeSurface(my_text);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> my_texture;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Rect<span style="color:#f92672">*</span> <span style="color:#a6e22e">crea_rect</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> width, <span style="color:#66d9ef">int</span> height){
+</span></span><span style="display:flex;"><span>    SDL_Rect<span style="color:#f92672">*</span> rect<span style="color:#f92672">=</span>(SDL_Rect<span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(SDL_Rect));
+</span></span><span style="display:flex;"><span>    rect<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    rect<span style="color:#f92672">-&gt;</span>y <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    rect<span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> width;
+</span></span><span style="display:flex;"><span>    rect<span style="color:#f92672">-&gt;</span>h <span style="color:#f92672">=</span> height;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> rect;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SDL_Rect<span style="color:#f92672">*</span> <span style="color:#a6e22e">crea_rect_in_rect</span>(SDL_Rect <span style="color:#f92672">*</span>button, <span style="color:#66d9ef">float</span> i, <span style="color:#66d9ef">float</span> j, <span style="color:#66d9ef">float</span> k, <span style="color:#66d9ef">float</span> l){
+</span></span><span style="display:flex;"><span>    SDL_Rect <span style="color:#f92672">*</span>dir<span style="color:#f92672">=</span>crea_rect(button<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">+</span>((<span style="color:#66d9ef">float</span>)i<span style="color:#f92672">*</span>(button<span style="color:#f92672">-&gt;</span>w)), button<span style="color:#f92672">-&gt;</span>y<span style="color:#f92672">+</span>((<span style="color:#66d9ef">float</span>)j<span style="color:#f92672">*</span>(button<span style="color:#f92672">-&gt;</span>h)), k<span style="color:#f92672">*</span>(button<span style="color:#f92672">-&gt;</span>w), l<span style="color:#f92672">*</span>(button<span style="color:#f92672">-&gt;</span>h));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dir;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">is_in</span> (SDL_Rect<span style="color:#f92672">*</span> button,<span style="color:#66d9ef">int</span> x,<span style="color:#66d9ef">int</span> y){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> is_in<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(x<span style="color:#f92672">&gt;</span>button<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">&amp;&amp;</span> x<span style="color:#f92672">&lt;</span>button<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">+</span>button<span style="color:#f92672">-&gt;</span>w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(y<span style="color:#f92672">&gt;</span>button<span style="color:#f92672">-&gt;</span>y <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">&lt;</span>button<span style="color:#f92672">-&gt;</span>y<span style="color:#f92672">+</span>button<span style="color:#f92672">-&gt;</span>h){
+</span></span><span style="display:flex;"><span>            is_in<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_in;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">is_in_hexa</span> (SDL_Rect dest, <span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> offset_x, <span style="color:#66d9ef">int</span> offset_y){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> is_in <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x_bis <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> dest.x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y_bis <span style="color:#f92672">=</span> y <span style="color:#f92672">-</span> dest.y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(x_bis <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> y_bis <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">&gt;</span> offset_x <span style="color:#f92672">*</span> offset_y){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(x_bis <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">-</span> y_bis <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">&lt;</span> offset_x <span style="color:#f92672">*</span> offset_y){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(x_bis <span style="color:#f92672">&lt;</span> dest.w){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>((x_bis <span style="color:#f92672">-</span> offset_x) <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> (y_bis <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> offset_y) <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">&lt;</span> offset_x <span style="color:#f92672">*</span> offset_y){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(x_bis <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">-</span> (y_bis <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y) <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">&gt;</span> offset_x <span style="color:#f92672">*</span> offset_y){
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(x_bis <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                            is_in <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_in;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_cell</span>(SDL_Texture <span style="color:#f92672">*</span>texture, graphics_t <span style="color:#f92672">*</span>graphics, <span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">int</span> altitude, <span style="color:#66d9ef">int</span> decal) {
+</span></span><span style="display:flex;"><span>    SDL_Rect source <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>}, destination <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>}, destination_alt <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>string_altitude<span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+</span></span><span style="display:flex;"><span>    sprintf(string_altitude, <span style="color:#e6db74">&#34;%d&#34;</span>,altitude);
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>texture_altitude<span style="color:#f92672">=</span>create_texture_for_text(string_altitude, graphics<span style="color:#f92672">-&gt;</span>font, graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    destination.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x;
+</span></span><span style="display:flex;"><span>    destination.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    destination_alt.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x;
+</span></span><span style="display:flex;"><span>    destination_alt.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>id<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">19</span>){
+</span></span><span style="display:flex;"><span>        destination.x<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>        destination.y<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        destination_alt.x<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">0.75</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>        destination_alt.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">&amp;&amp;</span> i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">38</span>){
+</span></span><span style="display:flex;"><span>        destination.x<span style="color:#f92672">=</span>(((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>id)<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>)) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>        destination.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        destination_alt.x<span style="color:#f92672">=</span>(((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>id)<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">0.75</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>        destination_alt.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//printf(&#34;x : %d y : %d id : %d\n&#34;, destination.x,destination.y, id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, texture, <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture_altitude, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, texture_altitude, <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination_alt);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_DestroyTexture(texture_altitude);
+</span></span><span style="display:flex;"><span>    free(string_altitude);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_cell_id_from_mouse_position</span>(graphics_t <span style="color:#f92672">*</span>graphics, <span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y, <span style="color:#66d9ef">int</span> decal){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    SDL_Rect destination <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>    destination.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x;
+</span></span><span style="display:flex;"><span>    destination.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;k<span style="color:#f92672">+=</span><span style="color:#ae81ff">39</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k;i<span style="color:#f92672">&lt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            destination.x<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span> <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>            destination.y<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)i<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in_hexa(destination, x, y, graphics<span style="color:#f92672">-&gt;</span>offset_x, graphics<span style="color:#f92672">-&gt;</span>offset_y)){
+</span></span><span style="display:flex;"><span>                id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>                k<span style="color:#f92672">=</span><span style="color:#ae81ff">390</span>;
+</span></span><span style="display:flex;"><span>                i<span style="color:#f92672">=</span><span style="color:#ae81ff">390</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span>;i<span style="color:#f92672">&lt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">39</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            destination.x<span style="color:#f92672">=</span>(((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i)<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>)) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_x <span style="color:#f92672">+</span>decal;
+</span></span><span style="display:flex;"><span>            destination.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)i<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>) <span style="color:#f92672">*</span> graphics<span style="color:#f92672">-&gt;</span>offset_y;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(is_in_hexa(destination, x, y, graphics<span style="color:#f92672">-&gt;</span>offset_x, graphics<span style="color:#f92672">-&gt;</span>offset_y)){
+</span></span><span style="display:flex;"><span>                id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>                k<span style="color:#f92672">=</span><span style="color:#ae81ff">390</span>;
+</span></span><span style="display:flex;"><span>                i<span style="color:#f92672">=</span><span style="color:#ae81ff">390</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> id;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_board</span>(graphics_t <span style="color:#f92672">*</span>g, game_t <span style="color:#f92672">*</span>game, board_t <span style="color:#f92672">*</span> board, <span style="color:#66d9ef">int</span> decal) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>selected_card<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>card_1<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>( board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE)){
+</span></span><span style="display:flex;"><span>                        display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]){
+</span></span><span style="display:flex;"><span>                            display_mouse_cells(game<span style="color:#f92672">-&gt;</span>card_1, board<span style="color:#f92672">-&gt;</span>cell_tab[i], g);
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE)){
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE){
+</span></span><span style="display:flex;"><span>                    display_mouse_cells(game<span style="color:#f92672">-&gt;</span>card_1, board<span style="color:#f92672">-&gt;</span>cell_tab[i], g);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>selected_card<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>card_2<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>( board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]){
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE)){
+</span></span><span style="display:flex;"><span>                        display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">&amp;&amp;</span> board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]){
+</span></span><span style="display:flex;"><span>                            display_mouse_cells(game<span style="color:#f92672">-&gt;</span>card_2, board<span style="color:#f92672">-&gt;</span>cell_tab[i], g);
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE)){
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE){
+</span></span><span style="display:flex;"><span>                    display_mouse_cells(game<span style="color:#f92672">-&gt;</span>card_2, board<span style="color:#f92672">-&gt;</span>cell_tab[i], g);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">==</span>MOUSE)){
+</span></span><span style="display:flex;"><span>                display_cell(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, decal);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//*/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // display all cells
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i=0;i&lt;390;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(!(board-&gt;cell_tab[i]-&gt;selection==MOUSE)){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            display_cell(g-&gt;type_texture[board-&gt;cell_tab[i]-&gt;level-&gt;cell_type], g, board-&gt;cell_tab[i]-&gt;id, board-&gt;cell_tab[i]-&gt;altitude, decal);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    // &#34;drag&#34; for drag and drop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    for(int i=0;i&lt;390;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if (board-&gt;cell_tab[i]-&gt;selection==MOUSE) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            if(game-&gt;selected_card==1){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                display_mouse_cells(game-&gt;card_1, board-&gt;cell_tab[i], g);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            if(game-&gt;selected_card==2){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                display_mouse_cells(game-&gt;card_2, board-&gt;cell_tab[i], g);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_cell_bis</span>(SDL_Texture <span style="color:#f92672">*</span>texture, graphics_t <span style="color:#f92672">*</span>graphics, <span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">int</span> altitude, <span style="color:#66d9ef">int</span> offset_x, <span style="color:#66d9ef">int</span> offset_y, <span style="color:#66d9ef">int</span> decal_x, <span style="color:#66d9ef">int</span> decal_y) {
+</span></span><span style="display:flex;"><span>    SDL_Rect source <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>}, destination <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>}, destination_alt <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>string_altitude<span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+</span></span><span style="display:flex;"><span>    sprintf(string_altitude, <span style="color:#e6db74">&#34;%d&#34;</span>,altitude);
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>texture_altitude<span style="color:#f92672">=</span>create_texture_for_text(string_altitude, graphics<span style="color:#f92672">-&gt;</span>font, graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    destination.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> offset_x;
+</span></span><span style="display:flex;"><span>    destination.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    destination_alt.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> offset_x;
+</span></span><span style="display:flex;"><span>    destination_alt.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span> <span style="color:#f92672">*</span> offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>id<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">19</span>){
+</span></span><span style="display:flex;"><span>        destination.x<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> decal_x;
+</span></span><span style="display:flex;"><span>        destination.y<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>) <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> decal_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        destination_alt.x<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">0.75</span>) <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> decal_x;
+</span></span><span style="display:flex;"><span>        destination_alt.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> decal_y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">&amp;&amp;</span> i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">38</span>){
+</span></span><span style="display:flex;"><span>        destination.x<span style="color:#f92672">=</span>(((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>id)<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>)) <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> decal_x;
+</span></span><span style="display:flex;"><span>        destination.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>) <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> decal_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        destination_alt.x<span style="color:#f92672">=</span>(((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>id)<span style="color:#f92672">%</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">0.75</span>) <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> decal_x;
+</span></span><span style="display:flex;"><span>        destination_alt.y<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>((<span style="color:#66d9ef">int</span>)id<span style="color:#f92672">/</span><span style="color:#ae81ff">39</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>) <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> decal_y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//printf(&#34;x : %d y : %d id : %d\n&#34;, destination.x,destination.y, id);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, texture, <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture_altitude, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, texture_altitude, <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination_alt);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_DestroyTexture(texture_altitude);
+</span></span><span style="display:flex;"><span>    free(string_altitude);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_board_in_rect</span>(graphics_t <span style="color:#f92672">*</span>g, game_t <span style="color:#f92672">*</span>game, board_t <span style="color:#f92672">*</span> board, SDL_Rect <span style="color:#f92672">*</span>rect) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_x<span style="color:#f92672">=</span>rect<span style="color:#f92672">-&gt;</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">40</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_y<span style="color:#f92672">=</span>rect<span style="color:#f92672">-&gt;</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">61</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// display all cells
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        display_cell_bis(g<span style="color:#f92672">-&gt;</span>type_texture[board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">-&gt;</span>cell_type], g, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>id, board<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>altitude, offset_x, offset_y, rect<span style="color:#f92672">-&gt;</span>x, rect<span style="color:#f92672">-&gt;</span>y);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_tile_in_rect</span>(SDL_Rect <span style="color:#f92672">*</span>rect, tile_t <span style="color:#f92672">*</span>tile, graphics_t <span style="color:#f92672">*</span>graphics){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_x <span style="color:#f92672">=</span> rect<span style="color:#f92672">-&gt;</span>w<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> offset_y <span style="color:#f92672">=</span> rect<span style="color:#f92672">-&gt;</span>h<span style="color:#f92672">/</span><span style="color:#ae81ff">7</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_Rect source <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>}, destination <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    destination.w <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> offset_x;
+</span></span><span style="display:flex;"><span>    destination.h <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> offset_y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            destination.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>x;
+</span></span><span style="display:flex;"><span>            destination.y <span style="color:#f92672">=</span> rect<span style="color:#f92672">-&gt;</span>y;
+</span></span><span style="display:flex;"><span>            SDL_QueryTexture(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>i)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>            SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>i)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        destination.x <span style="color:#f92672">=</span> offset_x <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>x;
+</span></span><span style="display:flex;"><span>        destination.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>y;
+</span></span><span style="display:flex;"><span>        SDL_QueryTexture(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>        SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        destination.x <span style="color:#f92672">=</span> offset_x <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>x;
+</span></span><span style="display:flex;"><span>        destination.y <span style="color:#f92672">=</span> rect<span style="color:#f92672">-&gt;</span>y;
+</span></span><span style="display:flex;"><span>        SDL_QueryTexture(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>        SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            destination.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">*</span> offset_x <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>x;
+</span></span><span style="display:flex;"><span>            destination.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> offset_y <span style="color:#f92672">+</span> rect<span style="color:#f92672">-&gt;</span>y;
+</span></span><span style="display:flex;"><span>            SDL_QueryTexture(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>i)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>            SDL_RenderCopy(graphics<span style="color:#f92672">-&gt;</span>renderer, graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>i)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], <span style="color:#f92672">&amp;</span>source, <span style="color:#f92672">&amp;</span>destination);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_mouse_cells</span>(tile_t <span style="color:#f92672">*</span>tile, cell_t <span style="color:#f92672">*</span>cell, graphics_t <span style="color:#f92672">*</span>graphics){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&amp;&amp;</span> cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            display_cell(graphics<span style="color:#f92672">-&gt;</span>type_texture[tile<span style="color:#f92672">-&gt;</span>cell_types[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]], graphics, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>id, cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_tile_position</span>(tile_t <span style="color:#f92672">*</span>tile, cell_t <span style="color:#f92672">*</span>cell){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">&amp;&amp;</span> cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell;
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell;
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>            tile<span style="color:#f92672">-&gt;</span>cell_tab[(tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display_game</span>(graphics_t<span style="color:#f92672">*</span> g, game_t <span style="color:#f92672">*</span>game){
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    SDL_Rect source <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// clear renderer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    SDL_RenderClear(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// background
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//SDL_QueryTexture(g-&gt;background, NULL, NULL, &amp;source.w, &amp;source.h);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//SDL_RenderCopy(g-&gt;renderer, g-&gt;background, &amp;source, g-&gt;window_dimensions);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>player_board){
+</span></span><span style="display:flex;"><span>        display_board(g, game, game<span style="color:#f92672">-&gt;</span>player,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        display_board(g, game, game<span style="color:#f92672">-&gt;</span>bot,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// panel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    SDL_RenderFillRect(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>panel);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// mini board
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    SDL_RenderDrawRect(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>mini_board);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>player_board){
+</span></span><span style="display:flex;"><span>        display_board_in_rect(g, game, game<span style="color:#f92672">-&gt;</span>bot, g<span style="color:#f92672">-&gt;</span>mini_board);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        display_board_in_rect(g, game, game<span style="color:#f92672">-&gt;</span>player, g<span style="color:#f92672">-&gt;</span>mini_board);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// text
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// &#34;bot :&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_QueryTexture(g<span style="color:#f92672">-&gt;</span>bot_text, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>bot_text, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>bot_rect);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// bot score
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>bot_score<span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+</span></span><span style="display:flex;"><span>    sprintf(bot_score, <span style="color:#e6db74">&#34;  %d   &#34;</span>,game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>score);
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>texture_bot_score<span style="color:#f92672">=</span>create_texture_for_text(bot_score, g<span style="color:#f92672">-&gt;</span>font, g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture_bot_score, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, texture_bot_score, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>score_bot);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_DestroyTexture(texture_bot_score);
+</span></span><span style="display:flex;"><span>    free(bot_score);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// &#34;player :&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_QueryTexture(g<span style="color:#f92672">-&gt;</span>player_text, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>player_text, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>player_rect);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// player score
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>player_score<span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+</span></span><span style="display:flex;"><span>    sprintf(player_score, <span style="color:#e6db74">&#34;  %d   &#34;</span>,game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>score);
+</span></span><span style="display:flex;"><span>    SDL_Texture <span style="color:#f92672">*</span>texture_player_score<span style="color:#f92672">=</span>create_texture_for_text(player_score, g<span style="color:#f92672">-&gt;</span>font, g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(texture_player_score, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, texture_player_score, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>score_player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_DestroyTexture(texture_player_score);
+</span></span><span style="display:flex;"><span>    free(player_score);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// arrows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_QueryTexture(g<span style="color:#f92672">-&gt;</span>left_arrow_text, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>left_arrow_text, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>left_arrow);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    SDL_QueryTexture(g<span style="color:#f92672">-&gt;</span>right_arrow_text, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>    SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>right_arrow_text, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>right_arrow);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// tiles
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_SetRenderDrawColor(g<span style="color:#f92672">-&gt;</span>renderer, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">255</span>);
+</span></span><span style="display:flex;"><span>    display_tile_in_rect(g<span style="color:#f92672">-&gt;</span>first_tile, game<span style="color:#f92672">-&gt;</span>card_1, g);
+</span></span><span style="display:flex;"><span>    display_tile_in_rect(g<span style="color:#f92672">-&gt;</span>second_tile, game<span style="color:#f92672">-&gt;</span>card_2, g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>selected_card<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        SDL_RenderDrawRect(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>first_tile);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(game<span style="color:#f92672">-&gt;</span>selected_card<span style="color:#f92672">==</span><span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>        SDL_RenderDrawRect(g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>second_tile);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// deck
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//if(game-&gt;deck-&gt;n&gt;0){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>tiles_in_deck<span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">17</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+</span></span><span style="display:flex;"><span>        sprintf(tiles_in_deck, <span style="color:#e6db74">&#34;  %d   &#34;</span>,<span style="color:#ae81ff">34</span> <span style="color:#f92672">-</span> game<span style="color:#f92672">-&gt;</span>deck<span style="color:#f92672">-&gt;</span>n);
+</span></span><span style="display:flex;"><span>        SDL_Texture <span style="color:#f92672">*</span>texture_tiles_in_deck<span style="color:#f92672">=</span>create_texture_for_text(tiles_in_deck, g<span style="color:#f92672">-&gt;</span>font, g<span style="color:#f92672">-&gt;</span>renderer, g<span style="color:#f92672">-&gt;</span>colours<span style="color:#f92672">-&gt;</span>white);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SDL_QueryTexture(texture_tiles_in_deck, NULL, NULL, <span style="color:#f92672">&amp;</span>source.w, <span style="color:#f92672">&amp;</span>source.h);
+</span></span><span style="display:flex;"><span>        SDL_RenderCopy(g<span style="color:#f92672">-&gt;</span>renderer, texture_tiles_in_deck, <span style="color:#f92672">&amp;</span>source, g<span style="color:#f92672">-&gt;</span>tiles_in_deck);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SDL_DestroyTexture(texture_tiles_in_deck);
+</span></span><span style="display:flex;"><span>        free(tiles_in_deck);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// shows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    SDL_RenderPresent(g<span style="color:#f92672">-&gt;</span>renderer);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Updated on 2024-06-28 at 08:11:55 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

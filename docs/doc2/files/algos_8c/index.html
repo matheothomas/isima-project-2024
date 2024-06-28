@@ -15,9 +15,9 @@
 
 
 <!DOCTYPE html>
-<html lang='en-us'><head><script src="/isima-project-2024/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=isima-project-2024/livereload" data-no-instant defer></script>
+<html lang='en-us'><head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href='http://localhost:1313/isima-project-2024/favicon.ico' type="image/x-icon">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>src/algos.c - Project</title>
 
@@ -28,10 +28,10 @@
     
 
     
-        <meta property="og:url" content="http://localhost:1313/isima-project-2024/doc2/files/algos_8c/">
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8c/">
   <meta property="og:site_name" content="Project">
   <meta property="og:title" content="src/algos.c">
-  <meta property="og:description" content="src/algos.c Functions Name int max_value(int a, int b)return the max value of a and b int min_value(int a, int b)return the min value of a and b int max(tree_t * tree, bool player)returns the max/min value of a tree node, depending on the player turn play_t * max_play(tree_t * tree)return the max play of a tree node int basic_heuristic(cell_t ** cell_tab)basic heuristic function maximizing the ratio between our cells and the adversary play_t * choose_play(board_t * board, cell_t ** cell_tab, bool player)returns the best play depending on the player board_t * apply_play(board_t * board, play_t * play)applies a play to the board board_t * undo_play(board_t * board, play_t * play)reverts a play to the board int eval(board_t * board, cell_t ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)applies the min-max algorithm Attributes Name int play_count int undo_count Functions Documentation function max_value int max_value( int a, int b ) return the max value of a and b">
+  <meta property="og:description" content="src/algos.c Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. float G(play_t * play) float interest(play_t * play, float c, int n) play_t * ucb(play_t * play, float c, int n) play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. bool is_game_finished(game_t * game) int calculate_score(game_t * game, bool is_bot) int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="doc2">
@@ -57,9 +57,9 @@
         
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="src/algos.c">
-  <meta name="twitter:description" content="src/algos.c Functions Name int max_value(int a, int b)return the max value of a and b int min_value(int a, int b)return the min value of a and b int max(tree_t * tree, bool player)returns the max/min value of a tree node, depending on the player turn play_t * max_play(tree_t * tree)return the max play of a tree node int basic_heuristic(cell_t ** cell_tab)basic heuristic function maximizing the ratio between our cells and the adversary play_t * choose_play(board_t * board, cell_t ** cell_tab, bool player)returns the best play depending on the player board_t * apply_play(board_t * board, play_t * play)applies a play to the board board_t * undo_play(board_t * board, play_t * play)reverts a play to the board int eval(board_t * board, cell_t ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)applies the min-max algorithm Attributes Name int play_count int undo_count Functions Documentation function max_value int max_value( int a, int b ) return the max value of a and b">
+  <meta name="twitter:description" content="src/algos.c Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. float G(play_t * play) float interest(play_t * play, float c, int n) play_t * ucb(play_t * play, float c, int n) play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. bool is_game_finished(game_t * game) int calculate_score(game_t * game, bool is_bot) int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores.">
 
-    <link rel="stylesheet" href="/isima-project-2024/style.css" integrity="">
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
 
 
 
@@ -77,11 +77,11 @@
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/isima-project-2024/js/header.js" integrity=""></script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
 
 
 
-    <script defer src="/isima-project-2024/js/zooming.js" integrity=""></script>
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
 
 
 
@@ -92,7 +92,7 @@
     
         
         
-            <script defer src="/isima-project-2024/js/builtin-copy.js" integrity=""></script>
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
         
     
 
@@ -165,7 +165,11 @@
                     
                 </li><li class="navbar-item pure-menu-item ">
                     
-                        <a href="/isima-project-2024/doc/" class="pure-menu-link">Documentation</a>
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
                     
                 </li><li class="navbar-item pure-menu-item ">
                     
@@ -184,7 +188,9 @@
                 </li><li>
                     <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
                 </li><li>
-                    <a href="/isima-project-2024/doc/">Documentation</a>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
                 </li><li>
                     <a href="/isima-project-2024/planning/">Planning</a>
                 </li><li>
@@ -198,24 +204,19 @@
             <nav id="TableOfContents">
   <ul>
     <li><a href="#functions">Functions</a></li>
-    <li><a href="#attributes">Attributes</a></li>
     <li><a href="#functions-documentation">Functions Documentation</a>
       <ul>
-        <li><a href="#function-max_value">function max_value</a></li>
-        <li><a href="#function-min_value">function min_value</a></li>
-        <li><a href="#function-max">function max</a></li>
-        <li><a href="#function-max_play">function max_play</a></li>
-        <li><a href="#function-basic_heuristic">function basic_heuristic</a></li>
-        <li><a href="#function-choose_play">function choose_play</a></li>
-        <li><a href="#function-apply_play">function apply_play</a></li>
-        <li><a href="#function-undo_play">function undo_play</a></li>
-        <li><a href="#function-eval">function eval</a></li>
-      </ul>
-    </li>
-    <li><a href="#attributes-documentation">Attributes Documentation</a>
-      <ul>
-        <li><a href="#variable-play_count">variable play_count</a></li>
-        <li><a href="#variable-undo_count">variable undo_count</a></li>
+        <li><a href="#function-initialisation">function initialisation</a></li>
+        <li><a href="#function-g">function G</a></li>
+        <li><a href="#function-interest">function interest</a></li>
+        <li><a href="#function-ucb">function ucb</a></li>
+        <li><a href="#function-selection">function selection</a></li>
+        <li><a href="#function-get_random_tile">function get_random_tile</a></li>
+        <li><a href="#function-is_game_finished">function is_game_finished</a></li>
+        <li><a href="#function-calculate_score">function calculate_score</a></li>
+        <li><a href="#function-simulation">function simulation</a></li>
+        <li><a href="#function-copy_play">function copy_play</a></li>
+        <li><a href="#function-mcts">function mcts</a></li>
       </ul>
     </li>
     <li><a href="#source-code">Source code</a></li>
@@ -244,345 +245,357 @@
 </thead>
 <tbody>
 <tr>
-<td>int</td>
-<td><strong><a href="files/algos_8c.md#function-max-value">max_value</a></strong>(int a, int b)<!-- raw HTML omitted -->return the max value of a and b</td>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-initialisation">initialisation</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> ** h)<!-- raw HTML omitted -->Itinialises the root of the tree with the two tiles available.</td>
+</tr>
+<tr>
+<td>float</td>
+<td><strong><a href="files/algos_8c.md#function-g">G</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play)</td>
+</tr>
+<tr>
+<td>float</td>
+<td><strong><a href="files/algos_8c.md#function-interest">interest</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play, float c, int n)</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-ucb">ucb</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play, float c, int n)</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-selection">selection</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play, float c, int n)<!-- raw HTML omitted -->Selects the play to play.</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-get-random-tile">get_random_tile</a></strong>(<a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * lp)<!-- raw HTML omitted -->Returns a random tile from a play list.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="files/algos_8c.md#function-is-game-finished">is_game_finished</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game)</td>
 </tr>
 <tr>
 <td>int</td>
-<td><strong><a href="files/algos_8c.md#function-min-value">min_value</a></strong>(int a, int b)<!-- raw HTML omitted -->return the min value of a and b</td>
+<td><strong><a href="files/algos_8c.md#function-calculate-score">calculate_score</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, bool is_bot)</td>
 </tr>
 <tr>
 <td>int</td>
-<td><strong><a href="files/algos_8c.md#function-max">max</a></strong>(<a href="files/algos_8h.md#typedef-tree-t">tree_t</a> * tree, bool player)<!-- raw HTML omitted -->returns the max/min value of a tree node, depending on the player turn</td>
+<td><strong><a href="files/algos_8c.md#function-simulation">simulation</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play, <a href="files/hash__map_8h.md#typedef-hash-t">hash_t</a> ** h, <a href="files/init_8h.md#typedef-game-t">game_t</a> * game, bool is_bot, bool is_last_node)<!-- raw HTML omitted -->Simulates the plays and updates their scores.</td>
 </tr>
 <tr>
-<td><a href="files/algos_8h.md#typedef-play-t">play_t</a> *</td>
-<td><strong><a href="files/algos_8c.md#function-max-play">max_play</a></strong>(<a href="files/algos_8h.md#typedef-tree-t">tree_t</a> * tree)<!-- raw HTML omitted -->return the max play of a tree node</td>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-copy-play">copy_play</a></strong>(<a href="files/utilities_8h.md#typedef-play-t">play_t</a> * play)</td>
 </tr>
 <tr>
-<td>int</td>
-<td><strong><a href="files/algos_8c.md#function-basic-heuristic">basic_heuristic</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab)<!-- raw HTML omitted -->basic heuristic function maximizing the ratio between our cells and the adversary</td>
-</tr>
-<tr>
-<td><a href="files/algos_8h.md#typedef-play-t">play_t</a> *</td>
-<td><strong><a href="files/algos_8c.md#function-choose-play">choose_play</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab, bool player)<!-- raw HTML omitted -->returns the best play depending on the player</td>
-</tr>
-<tr>
-<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
-<td><strong><a href="files/algos_8c.md#function-apply-play">apply_play</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/algos_8h.md#typedef-play-t">play_t</a> * play)<!-- raw HTML omitted -->applies a play to the board</td>
-</tr>
-<tr>
-<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
-<td><strong><a href="files/algos_8c.md#function-undo-play">undo_play</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/algos_8h.md#typedef-play-t">play_t</a> * play)<!-- raw HTML omitted -->reverts a play to the board</td>
-</tr>
-<tr>
-<td>int</td>
-<td><strong><a href="files/algos_8c.md#function-eval">eval</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)<!-- raw HTML omitted -->applies the min-max algorithm</td>
-</tr>
-</tbody>
-</table>
-<h2 id="attributes">Attributes</h2>
-<table class="mc-table">
-<thead>
-<tr>
-<th></th>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>int</td>
-<td><strong><a href="files/algos_8c.md#variable-play-count">play_count</a></strong></td>
-</tr>
-<tr>
-<td>int</td>
-<td><strong><a href="files/algos_8c.md#variable-undo-count">undo_count</a></strong></td>
+<td><a href="files/utilities_8h.md#typedef-play-t">play_t</a> *</td>
+<td><strong><a href="files/algos_8c.md#function-mcts">mcts</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game)<!-- raw HTML omitted -->Applies the MCTS algorithm for a fixed time.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="functions-documentation">Functions Documentation</h2>
-<h3 id="function-max_value">function max_value</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> max_value(
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> b
+<h3 id="function-initialisation">function initialisation</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> initialisation(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">**</span> h
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>return the max value of a and b</p>
-<h3 id="function-min_value">function min_value</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> min_value(
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> b
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>return the min value of a and b</p>
-<h3 id="function-max">function max</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> max(
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span> tree,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> player
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>returns the max/min value of a tree node, depending on the player turn</p>
-<h3 id="function-max_play">function max_play</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> max_play(
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span> tree
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>return the max play of a tree node</p>
-<h3 id="function-basic_heuristic">function basic_heuristic</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> basic_heuristic(
-</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>basic heuristic function maximizing the ratio between our cells and the adversary</p>
-<h3 id="function-choose_play">function choose_play</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> choose_play(
-</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
-</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> player
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>returns the best play depending on the player</p>
-<h3 id="function-apply_play">function apply_play</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> apply_play(
-</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span></code></pre></div><p>Itinialises the root of the tree with the two tiles available.</p>
+<h3 id="function-g">function G</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">float</span> G(
 </span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>applies a play to the board</p>
-<h3 id="function-undo_play">function undo_play</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> undo_play(
-</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span></code></pre></div><h3 id="function-interest">function interest</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">float</span> interest(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> c,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-ucb">function ucb</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> ucb(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> c,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-selection">function selection</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> selection(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> c,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Selects the play to play.</p>
+<h3 id="function-get_random_tile">function get_random_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> get_random_tile(
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> lp
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Returns a random tile from a play list.</p>
+<h3 id="function-is_game_finished">function is_game_finished</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> is_game_finished(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-calculate_score">function calculate_score</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> calculate_score(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-simulation">function simulation</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> simulation(
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">**</span> h,
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_last_node
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Simulates the plays and updates their scores.</p>
+<h3 id="function-copy_play">function copy_play</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> copy_play(
 </span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>reverts a play to the board</p>
-<h3 id="function-eval">function eval</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> eval(
-</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
-</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> depth,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> max_depth,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> player,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> alpha,
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> beta
+</span></span></code></pre></div><h3 id="function-mcts">function mcts</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span> mcts(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game
 </span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>applies the min-max algorithm</p>
-<h2 id="attributes-documentation">Attributes Documentation</h2>
-<h3 id="variable-play_count">variable play_count</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> play_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span></code></pre></div><h3 id="variable-undo_count">variable undo_count</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> undo_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span></code></pre></div><h2 id="source-code">Source code</h2>
+</span></span></code></pre></div><p>Applies the MCTS algorithm for a fixed time.</p>
+<h2 id="source-code">Source code</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : algos.c
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 18-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 23-06-24
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;graphics.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;hash_map.h&#34;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;utilities.h&#34;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> play_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> undo_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">initialisation</span>(game_t <span style="color:#f92672">*</span>game, hash_t <span style="color:#f92672">**</span>h) {
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span>lp <span style="color:#f92672">=</span> game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>rocks <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> gen_tiles_from_game(game, true) <span style="color:#f92672">:</span> gen_tiles(game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>cell_tab, game<span style="color:#f92672">-&gt;</span>card_1);
+</span></span><span style="display:flex;"><span>    hash_map_add(h, game<span style="color:#f92672">-&gt;</span>bot, lp);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max_value</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;max_value\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b <span style="color:#f92672">?</span> b : a;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lp<span style="color:#f92672">-&gt;</span>play;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">min_value</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;min_value\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b <span style="color:#f92672">?</span> a : b;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">float</span> <span style="color:#a6e22e">G</span>(play_t <span style="color:#f92672">*</span>play) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> play<span style="color:#f92672">-&gt;</span>gain_coup <span style="color:#f92672">/</span> (<span style="color:#66d9ef">float</span>)play<span style="color:#f92672">-&gt;</span>n_coup;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max</span>(tree_t <span style="color:#f92672">*</span>tree, <span style="color:#66d9ef">bool</span> player) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;max\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> is_max <span style="color:#f92672">=</span> player <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span>temp <span style="color:#f92672">=</span> tree;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val_max <span style="color:#f92672">=</span> tree<span style="color:#f92672">-&gt;</span>value;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(temp<span style="color:#f92672">-&gt;</span>next_tree <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (temp<span style="color:#f92672">-&gt;</span>value <span style="color:#f92672">*</span> is_max <span style="color:#f92672">&gt;</span> val_max <span style="color:#f92672">*</span> is_max) {
-</span></span><span style="display:flex;"><span>            val_max <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>value;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>next_tree;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> val_max;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">float</span> <span style="color:#a6e22e">interest</span>(play_t <span style="color:#f92672">*</span>play, <span style="color:#66d9ef">float</span> c, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> G(play) <span style="color:#f92672">+</span> c <span style="color:#f92672">*</span> sqrtf(logf(n) <span style="color:#f92672">/</span> play<span style="color:#f92672">-&gt;</span>n_coup);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">max_play</span>(tree_t <span style="color:#f92672">*</span>tree) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;max_play\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    tree_t <span style="color:#f92672">*</span>tree_max <span style="color:#f92672">=</span> tree;
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span>temp <span style="color:#f92672">=</span> tree;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val_max <span style="color:#f92672">=</span> tree<span style="color:#f92672">-&gt;</span>value;
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">ucb</span>(play_t <span style="color:#f92672">*</span>play, <span style="color:#66d9ef">float</span> c, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> temp_interest <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, interest_max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>max_play <span style="color:#f92672">=</span> play;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(temp<span style="color:#f92672">-&gt;</span>next_tree <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (temp<span style="color:#f92672">-&gt;</span>value <span style="color:#f92672">&gt;</span> val_max) {
-</span></span><span style="display:flex;"><span>            tree_max <span style="color:#f92672">=</span> temp;
-</span></span><span style="display:flex;"><span>            val_max <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>value;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>next_tree;
-</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;max play value : %d\n&#34;, tree_max-&gt;value);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> tree_max<span style="color:#f92672">-&gt;</span>play;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">basic_heuristic</span>(cell_t <span style="color:#f92672">**</span>cell_tab) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;basic_heuristic\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> score;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> nb_white <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> nb_black <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> CELL_NUMBER; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">==</span> WHITE) {
-</span></span><span style="display:flex;"><span>            nb_white<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">==</span> BLACK) {
-</span></span><span style="display:flex;"><span>            nb_black<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> nb_white <span style="color:#f92672">-</span> nb_black;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> score;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// play_t *choose_play(board_t *board, graphics_t *g, cell_t **cell_tab) {
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">choose_play</span>(board_t <span style="color:#f92672">*</span>board, cell_t <span style="color:#f92672">**</span>cell_tab, <span style="color:#66d9ef">bool</span> player) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;choose_play\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    play_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    undo_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span>tree <span style="color:#f92672">=</span> gen_plays(board, <span style="color:#ae81ff">0</span>, player);
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span>temp <span style="color:#f92672">=</span> tree;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(tree <span style="color:#f92672">==</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// printf(&#34;something is null\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> NULL;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (temp<span style="color:#f92672">-&gt;</span>next_tree <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// display_board(g-&gt;board, g-&gt;white, g-&gt;white, g-&gt;window, g-&gt;renderer, cell_tab);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// SDL_Delay(1000);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// printf(&#34;play : %d\n&#34;, temp-&gt;play-&gt;cell_tab_length);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(validity_play(temp<span style="color:#f92672">-&gt;</span>play, player)) {
-</span></span><span style="display:flex;"><span>            temp<span style="color:#f92672">-&gt;</span>value <span style="color:#f92672">=</span> eval(apply_play(board, temp<span style="color:#f92672">-&gt;</span>play), cell_tab, <span style="color:#ae81ff">0</span>, MAX_DEPTH, <span style="color:#f92672">!</span>player, INT_MIN, INT_MAX);
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// printf(&#34;temp-&gt;value : %d\n&#34;, temp-&gt;value);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            undo_play(board, temp<span style="color:#f92672">-&gt;</span>play);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (play <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>        temp_interest <span style="color:#f92672">=</span> interest(play, c, n);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (temp_interest <span style="color:#f92672">&gt;</span> interest_max) {
+</span></span><span style="display:flex;"><span>            interest_max <span style="color:#f92672">=</span> temp_interest;
+</span></span><span style="display:flex;"><span>            max_play <span style="color:#f92672">=</span> play;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>next_tree;
+</span></span><span style="display:flex;"><span>        play <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>next;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;play_count : %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, play_count);
-</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;undo_count : %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, undo_count);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_play(tree);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_play;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span><span style="color:#a6e22e">apply_play</span>(board_t <span style="color:#f92672">*</span>board, play_t <span style="color:#f92672">*</span>play) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;apply_play\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    play_count<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">selection</span>(play_t <span style="color:#f92672">*</span>play, <span style="color:#66d9ef">float</span> c, <span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// duplicates the balls
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>movement_direction] <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>movement_direction]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>state;
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>temp <span style="color:#f92672">=</span> play;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(temp <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (temp<span style="color:#f92672">-&gt;</span>n_coup <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (temp <span style="color:#f92672">==</span> NULL) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// UCB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        temp <span style="color:#f92672">=</span> ucb(play, c, n);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> temp;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">get_random_tile</span>(linked_plays_t <span style="color:#f92672">*</span>lp) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> play_i <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> lp<span style="color:#f92672">-&gt;</span>size;
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> lp<span style="color:#f92672">-&gt;</span>play;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(play_i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        play_i<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">is_game_finished</span>(game_t <span style="color:#f92672">*</span>game) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> game<span style="color:#f92672">-&gt;</span>deck<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> true <span style="color:#f92672">:</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">calculate_score</span>(game_t <span style="color:#f92672">*</span>game, <span style="color:#66d9ef">bool</span> is_bot) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// if(is_bot) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// update_scoring_table(game-&gt;bot);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// calculate_score_from_table(game-&gt;bot);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// } else {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// update_scoring_table(game-&gt;player);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// calculate_score_from_table(game-&gt;player);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    update_scoring_table_rec_false_start(is_bot <span style="color:#f92672">?</span> game<span style="color:#f92672">-&gt;</span>bot : game<span style="color:#f92672">-&gt;</span>player);
+</span></span><span style="display:flex;"><span>    calculate_score_from_table(is_bot <span style="color:#f92672">?</span> game<span style="color:#f92672">-&gt;</span>bot : game<span style="color:#f92672">-&gt;</span>player);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_bot <span style="color:#f92672">?</span> game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>score <span style="color:#f92672">-</span> game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>score : game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>score <span style="color:#f92672">-</span> game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>score;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">simulation</span>(play_t <span style="color:#f92672">*</span>play, hash_t <span style="color:#f92672">**</span>h, game_t <span style="color:#f92672">*</span>game, <span style="color:#66d9ef">bool</span> is_bot, <span style="color:#66d9ef">bool</span> is_last_node) {
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span>lp <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(is_game_finished(game)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> calculate_score(game, is_bot);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>is_last_node) {
+</span></span><span style="display:flex;"><span>        board_t <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> is_bot <span style="color:#f92672">?</span> game<span style="color:#f92672">-&gt;</span>bot : game<span style="color:#f92672">-&gt;</span>player;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint32_t</span> hash_value <span style="color:#f92672">=</span> hash_board(b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> hash_index <span style="color:#f92672">=</span> hash_value <span style="color:#f92672">%</span> HASHMAP_SIZE;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hash_t <span style="color:#f92672">*</span>hash_cell <span style="color:#f92672">=</span> h[hash_index];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (hash_cell <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> hash_cell<span style="color:#f92672">-&gt;</span>hashed_board <span style="color:#f92672">!=</span> hash_value) {
+</span></span><span style="display:flex;"><span>            hash_cell <span style="color:#f92672">=</span> hash_cell<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (hash_cell <span style="color:#f92672">!=</span> NULL) {        <span style="color:#75715e">// the node has already been explored before
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            play_t <span style="color:#f92672">*</span>new_play <span style="color:#f92672">=</span> get_random_tile(hash_cell<span style="color:#f92672">-&gt;</span>plays);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// game-&gt;deck-&gt;n++;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            update_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            is_bot <span style="color:#f92672">?</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
+</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>n_coup <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> temp_score <span style="color:#f92672">=</span> simulation(new_play, h, game, <span style="color:#f92672">!</span>is_bot, is_last_node);
+</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>gain_coup <span style="color:#f92672">+=</span> temp_score;
+</span></span><span style="display:flex;"><span>            is_bot <span style="color:#f92672">?</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// UNDO THE DECK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// game-&gt;deck-&gt;n--;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            undo_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> temp_score;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {                        <span style="color:#75715e">// first time exploring this node, adding initialisation 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(is_bot) {
+</span></span><span style="display:flex;"><span>                lp <span style="color:#f92672">=</span> game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>rocks <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> gen_tiles_from_game(game, true) <span style="color:#f92672">:</span> gen_tiles(game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>cell_tab, game<span style="color:#f92672">-&gt;</span>card_1);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                lp <span style="color:#f92672">=</span> game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>rocks <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> gen_tiles_from_game(game, false) <span style="color:#f92672">:</span> gen_tiles(game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>cell_tab, game<span style="color:#f92672">-&gt;</span>card_1);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// game-&gt;deck-&gt;n++;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            is_bot <span style="color:#f92672">?</span> hash_map_add(h, game<span style="color:#f92672">-&gt;</span>bot, lp) <span style="color:#f92672">:</span> hash_map_add(h, game<span style="color:#f92672">-&gt;</span>player, lp);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            play_t <span style="color:#f92672">*</span>new_play <span style="color:#f92672">=</span> get_random_tile(lp);
+</span></span><span style="display:flex;"><span>            update_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            is_bot <span style="color:#f92672">?</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>n_coup <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> temp_score <span style="color:#f92672">=</span> simulation(new_play, h, game, <span style="color:#f92672">!</span>is_bot, <span style="color:#f92672">!</span>is_last_node);
+</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>gain_coup <span style="color:#f92672">+=</span> temp_score;
+</span></span><span style="display:flex;"><span>            is_bot <span style="color:#f92672">?</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// UNDO THE DECK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// game-&gt;deck-&gt;n--;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            undo_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> temp_score;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {                            <span style="color:#75715e">// random recursion until end game
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(is_bot) {
+</span></span><span style="display:flex;"><span>            lp <span style="color:#f92672">=</span> game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>rocks <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> gen_tiles_from_game(game, true) <span style="color:#f92672">:</span> gen_tiles(game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">-&gt;</span>cell_tab, game<span style="color:#f92672">-&gt;</span>card_1);
 </span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">==</span> WHITE) {
-</span></span><span style="display:flex;"><span>                board<span style="color:#f92672">-&gt;</span>n_white <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">==</span> BLACK) {
-</span></span><span style="display:flex;"><span>                board<span style="color:#f92672">-&gt;</span>n_black <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            lp <span style="color:#f92672">=</span> game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>rocks <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> gen_tiles_from_game(game, false) <span style="color:#f92672">:</span> gen_tiles(game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">-&gt;</span>cell_tab, game<span style="color:#f92672">-&gt;</span>card_1);
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// removes the old balls that have been duplicated
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>movement_direction <span style="color:#f92672">==</span> play<span style="color:#f92672">-&gt;</span>cell_direction) {
-</span></span><span style="display:flex;"><span>        play<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> EMPTY;
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> EMPTY;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> board;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span><span style="color:#a6e22e">undo_play</span>(board_t <span style="color:#f92672">*</span>board, play_t <span style="color:#f92672">*</span>play) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;undo_play\n&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    undo_count<span style="color:#f92672">++</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// duplicates the balls
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>cell_direction] <span style="color:#f92672">==</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (play<span style="color:#f92672">-&gt;</span>buffer[play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> WHITE) {
-</span></span><span style="display:flex;"><span>            board<span style="color:#f92672">-&gt;</span>n_white <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (play<span style="color:#f92672">-&gt;</span>buffer[play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> BLACK) {
-</span></span><span style="display:flex;"><span>            board<span style="color:#f92672">-&gt;</span>n_black <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>buffer[i];
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// removes the old balls that have been duplicated
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_direction <span style="color:#f92672">==</span> play<span style="color:#f92672">-&gt;</span>movement_direction) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>cell_direction] <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>            play<span style="color:#f92672">-&gt;</span>cell_tab[play<span style="color:#f92672">-&gt;</span>cell_tab_length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>cell_direction]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> EMPTY;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> play<span style="color:#f92672">-&gt;</span>cell_tab_length; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>movement_direction] <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>                play<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbor[play<span style="color:#f92672">-&gt;</span>movement_direction]<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">=</span> EMPTY;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> board;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">eval</span>(board_t <span style="color:#f92672">*</span>board, cell_t <span style="color:#f92672">**</span>cell_tab, <span style="color:#66d9ef">int</span> depth, <span style="color:#66d9ef">int</span> max_depth, <span style="color:#66d9ef">bool</span> player, <span style="color:#66d9ef">int</span> alpha, <span style="color:#66d9ef">int</span> beta) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// printf(&#34;eval\n&#34;);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// game-&gt;deck-&gt;n++;
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> score <span style="color:#f92672">=</span> basic_heuristic(cell_tab);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (max_depth <span style="color:#f92672">==</span> depth <span style="color:#f92672">||</span> score <span style="color:#f92672">==</span> CELL_NUMBER<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">||</span> score <span style="color:#f92672">==</span> <span style="color:#f92672">-</span>CELL_NUMBER<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> score;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    tree_t <span style="color:#f92672">*</span>tree <span style="color:#f92672">=</span> gen_plays(board, depth, player);
+</span></span><span style="display:flex;"><span>        play_t <span style="color:#f92672">*</span>new_play <span style="color:#f92672">=</span> get_random_tile(lp);
+</span></span><span style="display:flex;"><span>        update_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(tree <span style="color:#f92672">==</span> NULL) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> score;
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        tree_t <span style="color:#f92672">*</span>temp <span style="color:#f92672">=</span> tree;
+</span></span><span style="display:flex;"><span>        is_bot <span style="color:#f92672">?</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> add_tile_to_board_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> temp_score <span style="color:#f92672">=</span> simulation(new_play, h, game, <span style="color:#f92672">!</span>is_bot, is_last_node);
+</span></span><span style="display:flex;"><span>        is_bot <span style="color:#f92672">?</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>bot, play<span style="color:#f92672">-&gt;</span>tile) <span style="color:#f92672">:</span> remove_tile_from_board_without_null_without_score(game<span style="color:#f92672">-&gt;</span>player, play<span style="color:#f92672">-&gt;</span>tile);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(temp<span style="color:#f92672">-&gt;</span>next_tree <span style="color:#f92672">!=</span> NULL) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(validity_play(temp<span style="color:#f92672">-&gt;</span>play, player)) {
-</span></span><span style="display:flex;"><span>                temp<span style="color:#f92672">-&gt;</span>value <span style="color:#f92672">=</span> eval(apply_play(board, temp<span style="color:#f92672">-&gt;</span>play), cell_tab, depth <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, max_depth, <span style="color:#f92672">!</span>player, alpha, beta);
-</span></span><span style="display:flex;"><span>                undo_play(board, temp<span style="color:#f92672">-&gt;</span>play);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(player) {
-</span></span><span style="display:flex;"><span>                    alpha <span style="color:#f92672">=</span> max_value(alpha, temp<span style="color:#f92672">-&gt;</span>value);
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(beta <span style="color:#f92672">&lt;=</span> alpha) {
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                    beta <span style="color:#f92672">=</span> min_value(beta, temp<span style="color:#f92672">-&gt;</span>value);
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span>(beta <span style="color:#f92672">&lt;=</span> alpha) {
-</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>                    }
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            temp <span style="color:#f92672">=</span> temp<span style="color:#f92672">-&gt;</span>next_tree;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(player) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> max(tree, <span style="color:#f92672">!</span>player);
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> max(tree, player);
-</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// UNDO THE DECK
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// game-&gt;deck-&gt;n--;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        undo_deck(game, new_play<span style="color:#f92672">-&gt;</span>tile, NULL);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> temp_score;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">copy_play</span>(play_t <span style="color:#f92672">*</span>play) {
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>new_play <span style="color:#f92672">=</span> malloc(<span style="color:#66d9ef">sizeof</span>(play_t));
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span>tile <span style="color:#f92672">=</span> malloc(<span style="color:#66d9ef">sizeof</span>(tile_t));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>id;
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_tab[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>id <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>id;
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>orientation <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">-&gt;</span>orientation;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    new_play<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    new_play<span style="color:#f92672">-&gt;</span>n_coup <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>n_coup;
+</span></span><span style="display:flex;"><span>    new_play<span style="color:#f92672">-&gt;</span>gain_coup <span style="color:#f92672">=</span> play<span style="color:#f92672">-&gt;</span>gain_coup;
+</span></span><span style="display:flex;"><span>    new_play<span style="color:#f92672">-&gt;</span>tile <span style="color:#f92672">=</span> tile;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> new_play;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>play_t <span style="color:#f92672">*</span><span style="color:#a6e22e">mcts</span>(game_t <span style="color:#f92672">*</span>game) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> c <span style="color:#f92672">=</span> sqrtf(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    hash_t <span style="color:#f92672">**</span>h <span style="color:#f92672">=</span> create_hash_map();
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> initialisation(game, h);
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>p2 <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    time_t t0 <span style="color:#f92672">=</span> time(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    time_t t1 <span style="color:#f92672">=</span> time(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(difftime(t1, t0) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>        p2 <span style="color:#f92672">=</span> selection(p, c, n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        simulation(p2, h, game, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        t1 <span style="color:#f92672">=</span> time(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> gain <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> gain_max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>max_play <span style="color:#f92672">=</span> p;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>        gain <span style="color:#f92672">=</span> G(p);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (gain <span style="color:#f92672">&gt;</span> gain_max) {
+</span></span><span style="display:flex;"><span>            gain_max <span style="color:#f92672">=</span> gain;
+</span></span><span style="display:flex;"><span>            max_play <span style="color:#f92672">=</span> p;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    max_play <span style="color:#f92672">=</span> copy_play(max_play);
+</span></span><span style="display:flex;"><span>    free_hash_map(h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;number of iterations : %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_play;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Updated on 2024-06-28 at 08:11:55 +0200</p>
+
 </article>
 </div>
 

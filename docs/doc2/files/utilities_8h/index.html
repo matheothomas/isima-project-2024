@@ -1,0 +1,708 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>include/utilities.h - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8h/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="include/utilities.h">
+  <meta property="og:description" content="include/utilities.h Classes Name struct play Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. struct tree Tree used for MCTS. struct linked_plays Wrapper for play_t that adds the size of the linked list. Types Name typedef struct play play_t Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. typedef struct tree tree_t Tree used for MCTS.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc2">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="include/utilities.h">
+  <meta name="twitter:description" content="include/utilities.h Classes Name struct play Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. struct tree Tree used for MCTS. struct linked_plays Wrapper for play_t that adds the size of the linked list. Types Name typedef struct play play_t Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. typedef struct tree tree_t Tree used for MCTS.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#types">Types</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#types-documentation">Types Documentation</a>
+      <ul>
+        <li><a href="#typedef-play_t">typedef play_t</a></li>
+        <li><a href="#typedef-tree_t">typedef tree_t</a></li>
+        <li><a href="#typedef-linked_plays_t">typedef linked_plays_t</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-validity_tile">function validity_tile</a></li>
+        <li><a href="#function-add_level">function add_level</a></li>
+        <li><a href="#function-remove_level">function remove_level</a></li>
+        <li><a href="#function-add_tile">function add_tile</a></li>
+        <li><a href="#function-undo_tile">function undo_tile</a></li>
+        <li><a href="#function-undo_without_null_tile">function undo_without_null_tile</a></li>
+        <li><a href="#function-cell_in_periphery">function cell_in_periphery</a></li>
+        <li><a href="#function-cell_isolated">function cell_isolated</a></li>
+        <li><a href="#function-cell_circled">function cell_circled</a></li>
+        <li><a href="#function-get_connex_size">function get_connex_size</a></li>
+        <li><a href="#function-get_connex_size_with_altitude">function get_connex_size_with_altitude</a></li>
+        <li><a href="#function-maximum_connex_size_with_altitude">function maximum_connex_size_with_altitude</a></li>
+        <li><a href="#function-calculate_score_from_table">function calculate_score_from_table</a></li>
+        <li><a href="#function-update_scoring_table">function update_scoring_table</a></li>
+        <li><a href="#function-print_table">function print_table</a></li>
+        <li><a href="#function-update_scoring_table_rec">function update_scoring_table_rec</a></li>
+        <li><a href="#function-update_scoring_table_rec_false_start">function update_scoring_table_rec_false_start</a></li>
+        <li><a href="#function-remove_tile_from_board">function remove_tile_from_board</a></li>
+        <li><a href="#function-remove_tile_from_board_without_null_without_score">function remove_tile_from_board_without_null_without_score</a></li>
+        <li><a href="#function-remove_tile_from_board_without_null">function remove_tile_from_board_without_null</a></li>
+        <li><a href="#function-add_tile_to_board">function add_tile_to_board</a></li>
+        <li><a href="#function-add_tile_to_board_without_score">function add_tile_to_board_without_score</a></li>
+        <li><a href="#function-gen_tiles">function gen_tiles</a></li>
+        <li><a href="#function-fusion_linked_plays">function fusion_linked_plays</a></li>
+        <li><a href="#function-gen_tiles_from_game">function gen_tiles_from_game</a></li>
+        <li><a href="#function-update_deck">function update_deck</a></li>
+        <li><a href="#function-undo_deck">function undo_deck</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="includeutilitiesh">include/utilities.h</h1>
+<h2 id="classes">Classes</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structplay.md">play</a></strong> <!-- raw HTML omitted -->Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS.</td>
+</tr>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structtree.md">tree</a></strong> <!-- raw HTML omitted -->Tree used for MCTS.</td>
+</tr>
+<tr>
+<td>struct</td>
+<td><strong><a href="classes/structlinked__plays.md">linked_plays</a></strong> <!-- raw HTML omitted -->Wrapper for play_t that adds the size of the linked list.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>typedef struct <a href="classes/structplay.md">play</a></td>
+<td><strong><a href="files/utilities_8h.md#typedef-play-t">play_t</a></strong> <!-- raw HTML omitted -->Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS.</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structtree.md">tree</a></td>
+<td><strong><a href="files/utilities_8h.md#typedef-tree-t">tree_t</a></strong> <!-- raw HTML omitted -->Tree used for MCTS.</td>
+</tr>
+<tr>
+<td>typedef struct <a href="classes/structlinked__plays.md">linked_plays</a></td>
+<td><strong><a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a></strong> <!-- raw HTML omitted -->Wrapper for play_t that adds the size of the linked list.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td><strong><a href="files/utilities_8h.md#function-validity-tile">validity_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile_to_add)<!-- raw HTML omitted -->Check if a tile with the correct pointers in cell_tab is valid.</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-type-linked-t">type_linked_t</a> *</td>
+<td><strong><a href="files/utilities_8h.md#function-add-level">add_level</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/init_8h.md#typedef-type-linked-t">type_linked_t</a> * level, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> cell_type)<!-- raw HTML omitted -->declares a type_linked_t</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-remove-level">remove_level</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell)<!-- raw HTML omitted -->Remove a level from a cell.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-add-tile">add_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Update altitude and add level to all cells in the tile.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-undo-tile">undo_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Inverse of add_tile and put pointers of cells in the tile to NULL.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-undo-without-null-tile">undo_without_null_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Same as undo_tile bus does not puts the pointers to NULL.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="files/utilities_8h.md#function-cell-in-periphery">cell_in_periphery</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell)<!-- raw HTML omitted -->Test if cell is on the edge.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="files/utilities_8h.md#function-cell-isolated">cell_isolated</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> cell_type)<!-- raw HTML omitted -->Test if cell has no neighbors of the same cell_type.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="files/utilities_8h.md#function-cell-circled">cell_circled</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell)<!-- raw HTML omitted -->Test if cell is not on the edge.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/utilities_8h.md#function-get-connex-size">get_connex_size</a></strong>(bool * visited, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> cell_type)<!-- raw HTML omitted -->Returns the size of the linked space corresponding to cell_type given.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/utilities_8h.md#function-get-connex-size-with-altitude">get_connex_size_with_altitude</a></strong>(bool * visited, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> cell_type)<!-- raw HTML omitted -->Same as get_connex_size but multiply result by the altitude of the cell.</td>
+</tr>
+<tr>
+<td>int</td>
+<td><strong><a href="files/utilities_8h.md#function-maximum-connex-size-with-altitude">maximum_connex_size_with_altitude</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> cell_type)<!-- raw HTML omitted -->Return the maximum connex size coefficented with altitude.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-calculate-score-from-table">calculate_score_from_table</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board)<!-- raw HTML omitted -->Like the title says.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-update-scoring-table">update_scoring_table</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board)<!-- raw HTML omitted -->Update the value of the score table. Operation describes addition (1) and soustraction (-1)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-print-table">print_table</a></strong>(<a href="files/init_8h.md#typedef-scoring-table-t">scoring_table_t</a> * table)<!-- raw HTML omitted -->print the score table</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-update-scoring-table-rec">update_scoring_table_rec</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, bool * visited)<!-- raw HTML omitted -->table is updated recursively</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-update-scoring-table-rec-false-start">update_scoring_table_rec_false_start</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-remove-tile-from-board">remove_tile_from_board</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Remove table from the board and puts pointers to NULL.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-remove-tile-from-board-without-null-without-score">remove_tile_from_board_without_null_without_score</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Remove tile from board without updating the score.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-remove-tile-from-board-without-null">remove_tile_from_board_without_null</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Remove table from the board.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-add-tile-to-board">add_tile_to_board</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Same.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-add-tile-to-board-without-score">add_tile_to_board_without_score</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Flemme.</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> *</td>
+<td><strong><a href="files/utilities_8h.md#function-gen-tiles">gen_tiles</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> ** cell_tab, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)<!-- raw HTML omitted -->Generate all plays associated to the current state of the board and the tile given.</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> *</td>
+<td><strong><a href="files/utilities_8h.md#function-fusion-linked-plays">fusion_linked_plays</a></strong>(<a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * linked_plays_1, <a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> * linked_plays_2)<!-- raw HTML omitted -->Fusion two linked_plays_t lists.</td>
+</tr>
+<tr>
+<td><a href="files/utilities_8h.md#typedef-linked-plays-t">linked_plays_t</a> *</td>
+<td><strong><a href="files/utilities_8h.md#function-gen-tiles-from-game">gen_tiles_from_game</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, bool is_bot)<!-- raw HTML omitted -->Generates all possible plays from two tiles.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-update-deck">update_deck</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, bool is_bot)<!-- raw HTML omitted -->Updates the deck.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/utilities_8h.md#function-undo-deck">undo_deck</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, bool is_bot)<!-- raw HTML omitted -->Undo the deck.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-documentation">Types Documentation</h2>
+<h3 id="typedef-play_t">typedef play_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> play_t;
+</span></span></code></pre></div><p>Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS.</p>
+<h3 id="typedef-tree_t">typedef tree_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">tree</span> tree_t;
+</span></span></code></pre></div><p>Tree used for MCTS.</p>
+<h3 id="typedef-linked_plays_t">typedef linked_plays_t</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">linked_plays</span> linked_plays_t;
+</span></span></code></pre></div><p>Wrapper for play_t that adds the size of the linked list.</p>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-validity_tile">function validity_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> validity_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile_to_add
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Check if a tile with the correct pointers in cell_tab is valid.</p>
+<h3 id="function-add_level">function add_level</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>type_linked_t <span style="color:#f92672">*</span> add_level(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    type_linked_t <span style="color:#f92672">*</span> level,
+</span></span><span style="display:flex;"><span>    cell_type_e cell_type
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>declares a type_linked_t</p>
+<h3 id="function-remove_level">function remove_level</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> remove_level(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Remove a level from a cell.</p>
+<h3 id="function-add_tile">function add_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> add_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Update altitude and add level to all cells in the tile.</p>
+<h3 id="function-undo_tile">function undo_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> undo_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Inverse of add_tile and put pointers of cells in the tile to NULL.</p>
+<h3 id="function-undo_without_null_tile">function undo_without_null_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> undo_without_null_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Same as undo_tile bus does not puts the pointers to NULL.</p>
+<h3 id="function-cell_in_periphery">function cell_in_periphery</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> cell_in_periphery(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Test if cell is on the edge.</p>
+<h3 id="function-cell_isolated">function cell_isolated</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> cell_isolated(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    cell_type_e cell_type
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Test if cell has no neighbors of the same cell_type.</p>
+<h3 id="function-cell_circled">function cell_circled</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> cell_circled(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Test if cell is not on the edge.</p>
+<h3 id="function-get_connex_size">function get_connex_size</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> get_connex_size(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    cell_type_e cell_type
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Returns the size of the linked space corresponding to cell_type given.</p>
+<h3 id="function-get_connex_size_with_altitude">function get_connex_size_with_altitude</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> get_connex_size_with_altitude(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    cell_type_e cell_type
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Same as get_connex_size but multiply result by the altitude of the cell.</p>
+<h3 id="function-maximum_connex_size_with_altitude">function maximum_connex_size_with_altitude</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> maximum_connex_size_with_altitude(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    cell_type_e cell_type
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Return the maximum connex size coefficented with altitude.</p>
+<h3 id="function-calculate_score_from_table">function calculate_score_from_table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> calculate_score_from_table(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Like the title says.</p>
+<h3 id="function-update_scoring_table">function update_scoring_table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_scoring_table(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Update the value of the score table. Operation describes addition (1) and soustraction (-1)</p>
+<h3 id="function-print_table">function print_table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> print_table(
+</span></span><span style="display:flex;"><span>    scoring_table_t <span style="color:#f92672">*</span> table
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>print the score table</p>
+<h3 id="function-update_scoring_table_rec">function update_scoring_table_rec</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_scoring_table_rec(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>table is updated recursively</p>
+<h3 id="function-update_scoring_table_rec_false_start">function update_scoring_table_rec_false_start</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_scoring_table_rec_false_start(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-remove_tile_from_board">function remove_tile_from_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> remove_tile_from_board(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Remove table from the board and puts pointers to NULL.</p>
+<h3 id="function-remove_tile_from_board_without_null_without_score">function remove_tile_from_board_without_null_without_score</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> remove_tile_from_board_without_null_without_score(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Remove tile from board without updating the score.</p>
+<h3 id="function-remove_tile_from_board_without_null">function remove_tile_from_board_without_null</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> remove_tile_from_board_without_null(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Remove table from the board.</p>
+<h3 id="function-add_tile_to_board">function add_tile_to_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> add_tile_to_board(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Same.</p>
+<h3 id="function-add_tile_to_board_without_score">function add_tile_to_board_without_score</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> add_tile_to_board_without_score(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Flemme.</p>
+<h3 id="function-gen_tiles">function gen_tiles</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> gen_tiles(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span> cell_tab,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Generate all plays associated to the current state of the board and the tile given.</p>
+<h3 id="function-fusion_linked_plays">function fusion_linked_plays</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> fusion_linked_plays(
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> linked_plays_1,
+</span></span><span style="display:flex;"><span>    linked_plays_t <span style="color:#f92672">*</span> linked_plays_2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Fusion two linked_plays_t lists.</p>
+<h3 id="function-gen_tiles_from_game">function gen_tiles_from_game</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> gen_tiles_from_game(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Generates all possible plays from two tiles.</p>
+<h3 id="function-update_deck">function update_deck</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_deck(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Updates the deck.</p>
+<h3 id="function-undo_deck">function undo_deck</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> undo_deck(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> is_bot
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Undo the deck.</p>
+<h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : utilities.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 23-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifndef utilities_h 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define utilities_h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">/* Struct definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> {
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n_coup;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> gain_coup;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span> next;
+</span></span><span style="display:flex;"><span>} play_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">tree</span> {
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span>play;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">tree</span> <span style="color:#f92672">*</span>next;
+</span></span><span style="display:flex;"><span>} tree_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">linked_plays</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> play;
+</span></span><span style="display:flex;"><span>} linked_plays_t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Functions definitions */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">validity_tile</span>(tile_t <span style="color:#f92672">*</span> tile_to_add);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>type_linked_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">add_level</span>(tile_t <span style="color:#f92672">*</span> tile, type_linked_t <span style="color:#f92672">*</span> level, cell_type_e cell_type);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove_level</span>(cell_t <span style="color:#f92672">*</span> cell);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_tile</span>(tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">undo_tile</span>(tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">undo_without_null_tile</span>(tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cell_in_periphery</span>(cell_t <span style="color:#f92672">*</span> cell);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cell_isolated</span>(cell_t <span style="color:#f92672">*</span> cell, cell_type_e cell_type);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cell_circled</span>(cell_t <span style="color:#f92672">*</span> cell);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_connex_size</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited, cell_t <span style="color:#f92672">*</span> cell, cell_type_e cell_type);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_connex_size_with_altitude</span>(<span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited, cell_t <span style="color:#f92672">*</span> cell, cell_type_e cell_type);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maximum_connex_size_with_altitude</span>(board_t <span style="color:#f92672">*</span> board, cell_type_e cell_type);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">calculate_score_from_table</span>(board_t <span style="color:#f92672">*</span> board);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_scoring_table</span>(board_t <span style="color:#f92672">*</span> board);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_table</span>(scoring_table_t <span style="color:#f92672">*</span> table);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_scoring_table_rec</span>(board_t <span style="color:#f92672">*</span> board, cell_t <span style="color:#f92672">*</span> cell, <span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> visited);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_scoring_table_rec_false_start</span>(board_t <span style="color:#f92672">*</span> board);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove_tile_from_board</span>(board_t <span style="color:#f92672">*</span> board, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove_tile_from_board_without_null_without_score</span>(board_t <span style="color:#f92672">*</span> board, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove_tile_from_board_without_null</span>(board_t <span style="color:#f92672">*</span> board, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_tile_to_board</span>(board_t <span style="color:#f92672">*</span> board, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_tile_to_board_without_score</span>(board_t <span style="color:#f92672">*</span> board, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">gen_tiles</span>(cell_t <span style="color:#f92672">**</span> cell_tab, tile_t <span style="color:#f92672">*</span> tile);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">fusion_linked_plays</span>(linked_plays_t <span style="color:#f92672">*</span> linked_plays_1, linked_plays_t <span style="color:#f92672">*</span> linked_plays_2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>linked_plays_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">gen_tiles_from_game</span>(game_t <span style="color:#f92672">*</span> game, <span style="color:#66d9ef">bool</span> is_bot);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Deck functions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_deck</span>(game_t <span style="color:#f92672">*</span>game, tile_t <span style="color:#f92672">*</span>tile, <span style="color:#66d9ef">bool</span> is_bot);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">undo_deck</span>(game_t <span style="color:#f92672">*</span>game, tile_t <span style="color:#f92672">*</span>tile, <span style="color:#66d9ef">bool</span> is_bot);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><hr>
+<p>Updated on 2024-06-28 at 08:11:56 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

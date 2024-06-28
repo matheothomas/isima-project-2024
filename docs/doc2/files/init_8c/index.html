@@ -1,0 +1,841 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='https://matheothomas.github.io/isima-project-2024/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>src/init.c - Project</title>
+
+    
+
+    
+
+    
+
+    
+        <meta property="og:url" content="https://matheothomas.github.io/isima-project-2024/doc2/files/init_8c/">
+  <meta property="og:site_name" content="Project">
+  <meta property="og:title" content="src/init.c">
+  <meta property="og:description" content="src/init.c Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) deck_t * create_deck() void init_deck(deck_t * struct_deck) tile_t ** creates_all_tiles() args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next) Functions Documentation function create_type_linked type_linked_t * create_type_linked() function init_type_linked void init_type_linked( type_linked_t * type_linked ) function create_cell cell_t * create_cell() function init_cell void init_cell( cell_t * cell ) function create_board board_t * create_board() function init_board void init_board( board_t * board ) function init_scoring_table scoring_table_t * init_scoring_table() function create_tile tile_t * create_tile() function init_tile void init_tile( tile_t * tile ) function fill_tile void fill_tile( tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2 ) function create_deck deck_t * create_deck() function init_deck void init_deck( deck_t * struct_deck ) function creates_all_tiles tile_t ** creates_all_tiles() function create_and_init_args args_t * create_and_init_args() function updates_args void updates_args( args_t * args, tile_t * tile, cell_t * cell, int score ) function create_game game_t * create_game() function update_game void update_game( game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck ) function create_play struct play * create_play() function update_play void update_play( struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next ) Source code /* name : init.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="doc2">
+
+    
+  
+	
+		
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\$', '\$']]                  
+    }
+  };
+</script>
+
+
+	
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="src/init.c">
+  <meta name="twitter:description" content="src/init.c Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) deck_t * create_deck() void init_deck(deck_t * struct_deck) tile_t ** creates_all_tiles() args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next) Functions Documentation function create_type_linked type_linked_t * create_type_linked() function init_type_linked void init_type_linked( type_linked_t * type_linked ) function create_cell cell_t * create_cell() function init_cell void init_cell( cell_t * cell ) function create_board board_t * create_board() function init_board void init_board( board_t * board ) function init_scoring_table scoring_table_t * init_scoring_table() function create_tile tile_t * create_tile() function init_tile void init_tile( tile_t * tile ) function fill_tile void fill_tile( tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2 ) function create_deck deck_t * create_deck() function init_deck void init_deck( deck_t * struct_deck ) function creates_all_tiles tile_t ** creates_all_tiles() function create_and_init_args args_t * create_and_init_args() function updates_args void updates_args( args_t * args, tile_t * tile, cell_t * cell, int score ) function create_game game_t * create_game() function update_game void update_game( game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck ) function create_play struct play * create_play() function update_play void update_play( struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next ) Source code /* name : init.">
+
+    <link rel="stylesheet" href="/isima-project-2024/style.min.b2aef0533dfe74449de95ab5c1e2ecc79d38b2893741e7867177320f1fe7cdc6b434071ec693ce08009133c8c5bf661e6c3f26363f2d1f409f46a0e2e648dd52.css" integrity="sha512-sq7wUz3&#43;dESd6Vq1weLsx504sok3QeeGcXcyDx/nzca0NAcexpPOCACRM8jFv2YebD8mNj8tH0CfRqDi5kjdUg==">
+
+
+
+
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/isima-project-2024/js/header.ef6a12cbb6ff661b899d830d9eb30134ede25fc9c26aaddecec6089c686d2e45a0bf73fa531eb2aba666bfa46699790ecc7cfee38ebc17a00ccaeffd2155eea0.js" integrity="sha512-72oSy7b/ZhuJnYMNnrMBNO3iX8nCaq3ezsYInGhtLkWgv3P6Ux6yq6Zmv6RmmXkOzHz&#43;4468F6AMyu/9IVXuoA=="></script>
+
+
+
+    <script defer src="/isima-project-2024/js/zooming.684b5d075bf94d0adfa21a7e7eb9acec1ddfb2e7b47d6657981617f0db0cf50949f1172801595afa3051f51b28d67f6a2d0c41be677b59b564307d9dbe4a4fd2.js" integrity="sha512-aEtdB1v5TQrfohp&#43;frms7B3fsue0fWZXmBYX8NsM9QlJ8RcoAVla&#43;jBR9Rso1n9qLQxBvmd7WbVkMH2dvkpP0g=="></script>
+
+
+
+
+
+
+
+    
+        
+        
+            <script defer src="/isima-project-2024/js/builtin-copy.56e07a74dd440b068ab36af35542ed8960865686c19fb809f38436877ac081570612cc8a913650b0c0e3073a336680c5df960e73bf7b1de83dc6aa996f2db858.js" integrity="sha512-VuB6dN1ECwaKs2rzVULtiWCGVobBn7gJ84Q2h3rAgVcGEsyKkTZQsMDjBzozZoDF35YOc797Heg9xqqZby24WA=="></script>
+        
+    
+
+
+
+
+
+
+
+	
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/isima-project-2024/">Projet ISIMA 2024</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem1/" class="pure-menu-link">Première semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/sem2/" class="pure-menu-link">Deuxième semaine</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/doc1/" class="pure-menu-link">Documentation 1</a>
+                    
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/isima-project-2024/doc2/" class="pure-menu-link">Documentation 2</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/planning/" class="pure-menu-link">Planning</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/isima-project-2024/about1/" class="pure-menu-link">À Propos</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <a href="/isima-project-2024/sem1/">Première semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/sem2/">Deuxième semaine</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc1/">Documentation 1</a>
+                </li><li>
+                    <a href="/isima-project-2024/doc2/">Documentation 2</a>
+                </li><li>
+                    <a href="/isima-project-2024/planning/">Planning</a>
+                </li><li>
+                    <a href="/isima-project-2024/about1/">À Propos</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <div class="collapsible-menu-wrapper"><div class="collapsible-menu-type"><span>Table of contents</span></div><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#functions-documentation">Functions Documentation</a>
+      <ul>
+        <li><a href="#function-create_type_linked">function create_type_linked</a></li>
+        <li><a href="#function-init_type_linked">function init_type_linked</a></li>
+        <li><a href="#function-create_cell">function create_cell</a></li>
+        <li><a href="#function-init_cell">function init_cell</a></li>
+        <li><a href="#function-create_board">function create_board</a></li>
+        <li><a href="#function-init_board">function init_board</a></li>
+        <li><a href="#function-init_scoring_table">function init_scoring_table</a></li>
+        <li><a href="#function-create_tile">function create_tile</a></li>
+        <li><a href="#function-init_tile">function init_tile</a></li>
+        <li><a href="#function-fill_tile">function fill_tile</a></li>
+        <li><a href="#function-create_deck">function create_deck</a></li>
+        <li><a href="#function-init_deck">function init_deck</a></li>
+        <li><a href="#function-creates_all_tiles">function creates_all_tiles</a></li>
+        <li><a href="#function-create_and_init_args">function create_and_init_args</a></li>
+        <li><a href="#function-updates_args">function updates_args</a></li>
+        <li><a href="#function-create_game">function create_game</a></li>
+        <li><a href="#function-update_game">function update_game</a></li>
+        <li><a href="#function-create_play">function create_play</a></li>
+        <li><a href="#function-update_play">function update_play</a></li>
+      </ul>
+    </li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+        
+    </div></div>
+
+
+
+    <div class="content-margin">
+
+
+
+<article class="line-numbers">
+    
+    
+    <h1 id="srcinitc">src/init.c</h1>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/init_8h.md#typedef-type-linked-t">type_linked_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-type-linked">create_type_linked</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-init-type-linked">init_type_linked</a></strong>(<a href="files/init_8h.md#typedef-type-linked-t">type_linked_t</a> * type_linked)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-cell-t">cell_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-cell">create_cell</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-init-cell">init_cell</a></strong>(<a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-board-t">board_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-board">create_board</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-init-board">init_board</a></strong>(<a href="files/init_8h.md#typedef-board-t">board_t</a> * board)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-scoring-table-t">scoring_table_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-init-scoring-table">init_scoring_table</a></strong>()</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-tile-t">tile_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-tile">create_tile</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-init-tile">init_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-fill-tile">fill_tile</a></strong>(<a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> type_0, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> type_1, <a href="files/init_8h.md#typedef-cell-type-e">cell_type_e</a> type_2)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-deck-t">deck_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-deck">create_deck</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-init-deck">init_deck</a></strong>(<a href="files/init_8h.md#typedef-deck-t">deck_t</a> * struct_deck)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-tile-t">tile_t</a> **</td>
+<td><strong><a href="files/init_8c.md#function-creates-all-tiles">creates_all_tiles</a></strong>()</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-args-t">args_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-and-init-args">create_and_init_args</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-updates-args">updates_args</a></strong>(<a href="files/init_8h.md#typedef-args-t">args_t</a> * args, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, <a href="files/init_8h.md#typedef-cell-t">cell_t</a> * cell, int score)</td>
+</tr>
+<tr>
+<td><a href="files/init_8h.md#typedef-game-t">game_t</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-game">create_game</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-update-game">update_game</a></strong>(<a href="files/init_8h.md#typedef-game-t">game_t</a> * game, <a href="files/init_8h.md#typedef-board-t">board_t</a> * player, <a href="files/init_8h.md#typedef-board-t">board_t</a> * bot, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * card_1, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * card_2, <a href="files/init_8h.md#typedef-deck-t">deck_t</a> * deck)</td>
+</tr>
+<tr>
+<td>struct <a href="classes/structplay.md">play</a> *</td>
+<td><strong><a href="files/init_8c.md#function-create-play">create_play</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="files/init_8c.md#function-update-play">update_play</a></strong>(struct <a href="classes/structplay.md">play</a> * play, <a href="files/init_8h.md#typedef-tile-t">tile_t</a> * tile, int n_coup, float gain_coup, <a href="files/utilities_8h.md#typedef-play-t">play_t</a> * next)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-documentation">Functions Documentation</h2>
+<h3 id="function-create_type_linked">function create_type_linked</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>type_linked_t <span style="color:#f92672">*</span> create_type_linked()
+</span></span></code></pre></div><h3 id="function-init_type_linked">function init_type_linked</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init_type_linked(
+</span></span><span style="display:flex;"><span>    type_linked_t <span style="color:#f92672">*</span> type_linked
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-create_cell">function create_cell</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>cell_t <span style="color:#f92672">*</span> create_cell()
+</span></span></code></pre></div><h3 id="function-init_cell">function init_cell</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init_cell(
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-create_board">function create_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span> create_board()
+</span></span></code></pre></div><h3 id="function-init_board">function init_board</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init_board(
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> board
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-init_scoring_table">function init_scoring_table</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>scoring_table_t <span style="color:#f92672">*</span> init_scoring_table()
+</span></span></code></pre></div><h3 id="function-create_tile">function create_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>tile_t <span style="color:#f92672">*</span> create_tile()
+</span></span></code></pre></div><h3 id="function-init_tile">function init_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-fill_tile">function fill_tile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> fill_tile(
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    cell_type_e type_0,
+</span></span><span style="display:flex;"><span>    cell_type_e type_1,
+</span></span><span style="display:flex;"><span>    cell_type_e type_2
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-create_deck">function create_deck</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>deck_t <span style="color:#f92672">*</span> create_deck()
+</span></span></code></pre></div><h3 id="function-init_deck">function init_deck</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init_deck(
+</span></span><span style="display:flex;"><span>    deck_t <span style="color:#f92672">*</span> struct_deck
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-creates_all_tiles">function creates_all_tiles</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>tile_t <span style="color:#f92672">**</span> creates_all_tiles()
+</span></span></code></pre></div><h3 id="function-create_and_init_args">function create_and_init_args</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>args_t <span style="color:#f92672">*</span> create_and_init_args()
+</span></span></code></pre></div><h3 id="function-updates_args">function updates_args</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> updates_args(
+</span></span><span style="display:flex;"><span>    args_t <span style="color:#f92672">*</span> args,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span> cell,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> score
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-create_game">function create_game</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>game_t <span style="color:#f92672">*</span> create_game()
+</span></span></code></pre></div><h3 id="function-update_game">function update_game</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_game(
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span> game,
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> player,
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span> bot,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> card_1,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> card_2,
+</span></span><span style="display:flex;"><span>    deck_t <span style="color:#f92672">*</span> deck
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="function-create_play">function create_play</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span> create_play()
+</span></span></code></pre></div><h3 id="function-update_play">function update_play</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> update_play(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span> play,
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span> tile,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n_coup,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> gain_coup,
+</span></span><span style="display:flex;"><span>    play_t <span style="color:#f92672">*</span> next
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="source-code">Source code</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* name : init.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * authors : eloi petit, matheo thomas, domitille vale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * date : 23-06-24
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;init.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;algos.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>type_linked_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_type_linked</span>(){
+</span></span><span style="display:flex;"><span>    type_linked_t <span style="color:#f92672">*</span>type_linked<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(type_linked_t));
+</span></span><span style="display:flex;"><span>    init_type_linked(type_linked);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> type_linked;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_type_linked</span>(type_linked_t <span style="color:#f92672">*</span> type_linked){
+</span></span><span style="display:flex;"><span>    type_linked<span style="color:#f92672">-&gt;</span>cell_type<span style="color:#f92672">=</span>EMPTY;
+</span></span><span style="display:flex;"><span>    type_linked<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    type_linked<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cell_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_cell</span>(){
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span>cell<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(cell_t));
+</span></span><span style="display:flex;"><span>    init_cell(cell);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cell;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_cell</span>(cell_t <span style="color:#f92672">*</span> cell){
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>level<span style="color:#f92672">=</span>create_type_linked();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">6</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cell<span style="color:#f92672">-&gt;</span>neighbour[i]<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>y<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>altitude<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    cell<span style="color:#f92672">-&gt;</span>selection<span style="color:#f92672">=</span>UNSELECT;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//cell-&gt;parent=NULL;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>board_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_board</span>(){
+</span></span><span style="display:flex;"><span>    board_t <span style="color:#f92672">*</span>board<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(board_t));
+</span></span><span style="display:flex;"><span>    init_board(board);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">*</span>cur_cell<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    cell_t <span style="color:#f92672">**</span>cell_tab<span style="color:#f92672">=</span>(cell_t <span style="color:#f92672">**</span>)malloc(<span style="color:#ae81ff">390</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(cell_t<span style="color:#f92672">*</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// creates all cells and stock them in cell_tab
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;k<span style="color:#f92672">+=</span><span style="color:#ae81ff">39</span>){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k;i<span style="color:#f92672">&lt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">=</span>create_cell();
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">=</span>cur_cell;
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">=</span>cur_cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">38</span>;i<span style="color:#f92672">&gt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">=</span>create_cell();
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">=</span>cur_cell;
+</span></span><span style="display:flex;"><span>            cur_cell<span style="color:#f92672">=</span>cur_cell<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// creates link between cells
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">390</span>;k<span style="color:#f92672">+=</span><span style="color:#ae81ff">39</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// i=k
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cell_tab[k]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(k){
+</span></span><span style="display:flex;"><span>            cell_tab[k]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>];
+</span></span><span style="display:flex;"><span>            cell_tab[k<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">4</span>]<span style="color:#f92672">=</span>cell_tab[k];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(k){
+</span></span><span style="display:flex;"><span>                cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>                cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell_tab[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>];
+</span></span><span style="display:flex;"><span>                cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">4</span>]<span style="color:#f92672">=</span>cell_tab[i];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// i=k+19
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">18</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(k){
+</span></span><span style="display:flex;"><span>            cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>];
+</span></span><span style="display:flex;"><span>            cell_tab[k<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// i=k+38
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">38</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">37</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">37</span>;i<span style="color:#f92672">&gt;</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span>;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>            cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">=</span>cell_tab[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>];
+</span></span><span style="display:flex;"><span>            cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">4</span>]<span style="color:#f92672">=</span>cell_tab[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">!=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">&amp;&amp;</span> i<span style="color:#f92672">!=</span>k<span style="color:#f92672">+</span><span style="color:#ae81ff">38</span>){
+</span></span><span style="display:flex;"><span>                cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">5</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                cell_tab[i]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>cell_tab[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// i=k+20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">20</span>]<span style="color:#f92672">-&gt;</span>neighbour[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>cell_tab[k<span style="color:#f92672">+</span><span style="color:#ae81ff">21</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>cell<span style="color:#f92672">=</span>cell_tab[<span style="color:#ae81ff">165</span>];
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>cell_tab<span style="color:#f92672">=</span>cell_tab;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> board;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_board</span>(board_t <span style="color:#f92672">*</span> board){
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>cell<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>table<span style="color:#f92672">=</span>init_scoring_table();
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>score<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>rocks<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    board<span style="color:#f92672">-&gt;</span>cell_tab<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scoring_table_t <span style="color:#f92672">*</span><span style="color:#a6e22e">init_scoring_table</span>(){
+</span></span><span style="display:flex;"><span>    scoring_table_t <span style="color:#f92672">*</span>scoring_table<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(scoring_table_t));
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>blue_mult<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>blue_nb_alt<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>yellow_mult<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>yellow_nb_alt<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>red_mult<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>red_nb_alt<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>purple_mult<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>purple_nb_alt<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>green_mult<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    scoring_table<span style="color:#f92672">-&gt;</span>green_nb_alt<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> scoring_table;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tile_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_tile</span>(){
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">*</span>tile<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(tile_t));
+</span></span><span style="display:flex;"><span>    init_tile(tile);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tile;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_tile</span>(tile_t <span style="color:#f92672">*</span> tile){
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        tile<span style="color:#f92672">-&gt;</span>cell_tab[i]<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>        tile<span style="color:#f92672">-&gt;</span>cell_types[i]<span style="color:#f92672">=</span>QUARRY_GRAY;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>orientation<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fill_tile</span>(tile_t <span style="color:#f92672">*</span>tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2){
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">=</span>type_0;
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>type_1;
+</span></span><span style="display:flex;"><span>    tile<span style="color:#f92672">-&gt;</span>cell_types[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span>type_2;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>deck_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_deck</span>(){
+</span></span><span style="display:flex;"><span>    deck_t <span style="color:#f92672">*</span>deck<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(deck_t));
+</span></span><span style="display:flex;"><span>    deck<span style="color:#f92672">-&gt;</span>n<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    deck<span style="color:#f92672">-&gt;</span>tile_tab<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> deck;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_deck</span>(deck_t <span style="color:#f92672">*</span>struct_deck){
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">**</span>deck <span style="color:#f92672">=</span> malloc(<span style="color:#ae81ff">34</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(tile_t <span style="color:#f92672">*</span>));
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">**</span>tile_tab <span style="color:#f92672">=</span> creates_all_tiles();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">34</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> random <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">34</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(tile_tab[random]) {
+</span></span><span style="display:flex;"><span>            deck[i] <span style="color:#f92672">=</span> tile_tab[random];
+</span></span><span style="display:flex;"><span>            tile_tab[random] <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            i<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    free(tile_tab);
+</span></span><span style="display:flex;"><span>    struct_deck<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">=</span> DECK_NUMBER<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    struct_deck<span style="color:#f92672">-&gt;</span>tile_tab<span style="color:#f92672">=</span>deck;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tile_t <span style="color:#f92672">**</span> <span style="color:#a6e22e">creates_all_tiles</span>(){
+</span></span><span style="display:flex;"><span>    tile_t <span style="color:#f92672">**</span>tile_tab<span style="color:#f92672">=</span>malloc(<span style="color:#ae81ff">37</span><span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(tile_t<span style="color:#f92672">*</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//for (i=0;i&lt;3;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>        init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>        fill_tile(tile_tab[i], BLUE_PLACE, QUARRY_GRAY, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>        init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>        fill_tile(tile_tab[i], i<span style="color:#f92672">+</span><span style="color:#ae81ff">7</span>, QUARRY_GRAY, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">8</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>        init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>        fill_tile(tile_tab[i], i<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, QUARRY_GRAY, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, RED_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, MARKET_YELLOW);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, HOUSE_BLUE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, QUARRY_GRAY, PURPLE_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, TEMPLE_PURPLE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, BARRAK_RED, PURPLE_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, MARKET_YELLOW);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, YELLOW_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, PARK_GREEN, BARRAK_RED);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, MARKET_YELLOW);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, TEMPLE_PURPLE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], BARRAK_RED, QUARRY_GRAY, YELLOW_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], MARKET_YELLOW, QUARRY_GRAY, TEMPLE_PURPLE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//for(int k=0;k&lt;2;k++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>        init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>        fill_tile(tile_tab[i], MARKET_YELLOW, QUARRY_GRAY, BARRAK_RED);
+</span></span><span style="display:flex;"><span>        tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>        i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], PARK_GREEN, QUARRY_GRAY, MARKET_YELLOW);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], PARK_GREEN, QUARRY_GRAY, BLUE_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], QUARRY_GRAY, HOUSE_BLUE, GREEN_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], QUARRY_GRAY, HOUSE_BLUE, PURPLE_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, TEMPLE_PURPLE, RED_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], HOUSE_BLUE, TEMPLE_PURPLE, MARKET_YELLOW);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], GREEN_PLACE, HOUSE_BLUE, BARRAK_RED);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], GREEN_PLACE, HOUSE_BLUE, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], MARKET_YELLOW, HOUSE_BLUE, RED_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], MARKET_YELLOW, TEMPLE_PURPLE, QUARRY_GRAY);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], MARKET_YELLOW, BARRAK_RED, BLUE_PLACE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>    i<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">=</span>create_tile();
+</span></span><span style="display:flex;"><span>    init_tile(tile_tab[i]);
+</span></span><span style="display:flex;"><span>    fill_tile(tile_tab[i], YELLOW_PLACE, TEMPLE_PURPLE, HOUSE_BLUE);
+</span></span><span style="display:flex;"><span>    tile_tab[i]<span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>i;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tile_tab;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>args_t <span style="color:#f92672">*</span><span style="color:#a6e22e">create_and_init_args</span>(){
+</span></span><span style="display:flex;"><span>    args_t <span style="color:#f92672">*</span>args<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(args_t));
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>cell<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>score<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> args;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updates_args</span>(args_t <span style="color:#f92672">*</span>args, tile_t <span style="color:#f92672">*</span>tile, cell_t <span style="color:#f92672">*</span>cell, <span style="color:#66d9ef">int</span> score){
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>cell<span style="color:#f92672">=</span>cell;
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">=</span>tile;
+</span></span><span style="display:flex;"><span>    args<span style="color:#f92672">-&gt;</span>score<span style="color:#f92672">=</span>score;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>game_t <span style="color:#f92672">*</span> <span style="color:#a6e22e">create_game</span>(){
+</span></span><span style="display:flex;"><span>    game_t <span style="color:#f92672">*</span>game<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(game_t));
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>card_1<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>card_2<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>deck<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>selected_card<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>player_board<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> game;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_game</span>(game_t <span style="color:#f92672">*</span>game, board_t <span style="color:#f92672">*</span>player, board_t <span style="color:#f92672">*</span>bot, tile_t <span style="color:#f92672">*</span>card_1, tile_t <span style="color:#f92672">*</span>card_2, deck_t <span style="color:#f92672">*</span>deck){
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>card_1<span style="color:#f92672">=</span>card_1;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>card_2<span style="color:#f92672">=</span>card_2;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>deck<span style="color:#f92672">=</span>deck;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>player<span style="color:#f92672">=</span>player;
+</span></span><span style="display:flex;"><span>    game<span style="color:#f92672">-&gt;</span>bot<span style="color:#f92672">=</span>bot;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">create_play</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span>play<span style="color:#f92672">=</span>malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span>));
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>n_coup<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>gain_coup<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">=</span>NULL;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> play;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update_play</span>(<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">play</span> <span style="color:#f92672">*</span>play, tile_t <span style="color:#f92672">*</span>tile, <span style="color:#66d9ef">int</span> n_coup, <span style="color:#66d9ef">float</span> gain_coup, play_t <span style="color:#f92672">*</span>next){
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>tile<span style="color:#f92672">=</span>tile;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>n_coup<span style="color:#f92672">=</span>n_coup;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>gain_coup<span style="color:#f92672">=</span>gain_coup;
+</span></span><span style="display:flex;"><span>    play<span style="color:#f92672">-&gt;</span>next<span style="color:#f92672">=</span>next;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>Updated on 2024-06-28 at 08:11:55 +0200</p>
+
+</article>
+</div>
+
+
+                
+                    
+                
+            </div>
+<footer>
+    <article>Mathéo Thomas - 2024</article>
+</footer>
+
+</main>
+    </body>
+</html>

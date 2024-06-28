@@ -16,6 +16,15 @@
     </item>
     
     <item>
+      <title>include/algos.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8h/</guid>
+      <description>include/algos.h Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores. play_t * ucb(play_t * play, float c, int n) play_t * mcts(game_t * game)Applies the MCTS algorithm for a fixed time.</description>
+    </item>
+    
+    <item>
       <title>include/graphics.h</title>
       <link>https://matheothomas.github.io/isima-project-2024/doc1/files/graphics_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -25,12 +34,39 @@
     </item>
     
     <item>
+      <title>include/graphics.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8h/</guid>
+      <description>include/graphics.h Classes Name struct graphics struct coordinates struct colours struct type_texture Types Name typedef struct graphics graphics_t typedef struct coordinates coordinates_t typedef struct colours colours_t typedef struct type_texture type_texture_t Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle &amp;ldquo;dest&amp;rdquo; void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Types Documentation typedef graphics_t typedef struct graphics graphics_t; typedef coordinates_t typedef struct coordinates coordinates_t; typedef colours_t typedef struct colours colours_t; typedef type_texture_t typedef struct type_texture type_texture_t; Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors</description>
+    </item>
+    
+    <item>
+      <title>include/hash_map.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8h/</guid>
+      <description>include/hash_map.h Classes Name struct hash Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Types Name typedef struct hash hash_t Linked list for the hash_map. It contains the unmoduled hash of the board and the list of possible plays associated to this board. Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map.</description>
+    </item>
+    
+    <item>
       <title>include/init.h</title>
       <link>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8h/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8h/</guid>
       <description>include/init.h Classes Name struct cell cell of the board struct board board containing the number of cells for each player, and a pointer to the middle cell Types Name enum state { EMPTY, WHITE, BLACK}state of a cell on the board enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell on the board typedef enum state state_e state of a cell on the board typedef enum selection selection_e state of selection of a cell on the board typedef struct cell cell_t cell of the board typedef struct board board_t board containing the number of cells for each player, and a pointer to the middle cell Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Defines Name CELL_NUMBER MAX_DEPTH Types Documentation enum state Enumerator Value Description EMPTY WHITE BLACK state of a cell on the board</description>
+    </item>
+    
+    <item>
+      <title>include/init.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/init_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/init_8h/</guid>
+      <description>include/init.h Classes Name struct type_linked struct cell struct tile struct deck struct scoring_table struct board struct game struct args used for the different searches Types Name enum cell_type { EMPTY, HOUSE_BLUE, BARRAK_RED, MARKET_YELLOW, TEMPLE_PURPLE, PARK_GREEN, QUARRY_GRAY, BLUE_PLACE, YELLOW_PLACE, RED_PLACE, PURPLE_PLACE, GREEN_PLACE} enum selection { UNSELECT, SELECT, MOUSE}state of selection of a cell/tile on the board typedef enum cell_type cell_type_e typedef enum selection selection_e state of selection of a cell/tile on the board typedef struct type_linked type_linked_t typedef struct cell cell_t typedef struct tile tile_t typedef struct deck deck_t typedef struct scoring_table scoring_table_t typedef struct board board_t typedef struct game game_t typedef struct args args_t used for the different searches Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) tile_t ** creates_all_tiles() deck_t * create_deck() void init_deck(deck_t * struct_deck) args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, struct play * next) Defines Name CELL_NUMBER DECK_NUMBER DUMP(X) Types Documentation enum cell_type Enumerator Value Description EMPTY HOUSE_BLUE BARRAK_RED MARKET_YELLOW TEMPLE_PURPLE PARK_GREEN QUARRY_GRAY BLUE_PLACE YELLOW_PLACE RED_PLACE PURPLE_PLACE GREEN_PLACE enum selection Enumerator Value Description UNSELECT SELECT MOUSE state of selection of a cell/tile on the board</description>
     </item>
     
     <item>
@@ -52,12 +88,30 @@
     </item>
     
     <item>
+      <title>include/utilities.h</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8h/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8h/</guid>
+      <description>include/utilities.h Classes Name struct play Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. struct tree Tree used for MCTS. struct linked_plays Wrapper for play_t that adds the size of the linked list. Types Name typedef struct play play_t Linked dtructure used to represent placing a tile on the board. It contains the coefficients for MCTS. typedef struct tree tree_t Tree used for MCTS.</description>
+    </item>
+    
+    <item>
       <title>src/algos.c</title>
       <link>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/algos_8c/</guid>
       <description>src/algos.c Functions Name int max_value(int a, int b)return the max value of a and b int min_value(int a, int b)return the min value of a and b int max(tree_t * tree, bool player)returns the max/min value of a tree node, depending on the player turn play_t * max_play(tree_t * tree)return the max play of a tree node int basic_heuristic(cell_t ** cell_tab)basic heuristic function maximizing the ratio between our cells and the adversary play_t * choose_play(board_t * board, cell_t ** cell_tab, bool player)returns the best play depending on the player board_t * apply_play(board_t * board, play_t * play)applies a play to the board board_t * undo_play(board_t * board, play_t * play)reverts a play to the board int eval(board_t * board, cell_t ** cell_tab, int depth, int max_depth, bool player, int alpha, int beta)applies the min-max algorithm Attributes Name int play_count int undo_count Functions Documentation function max_value int max_value( int a, int b ) return the max value of a and b</description>
+    </item>
+    
+    <item>
+      <title>src/algos.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/algos_8c/</guid>
+      <description>src/algos.c Functions Name play_t * initialisation(game_t * game, hash_t ** h)Itinialises the root of the tree with the two tiles available. float G(play_t * play) float interest(play_t * play, float c, int n) play_t * ucb(play_t * play, float c, int n) play_t * selection(play_t * play, float c, int n)Selects the play to play. play_t * get_random_tile(linked_plays_t * lp)Returns a random tile from a play list. bool is_game_finished(game_t * game) int calculate_score(game_t * game, bool is_bot) int simulation(play_t * play, hash_t ** h, game_t * game, bool is_bot, bool is_last_node)Simulates the plays and updates their scores.</description>
     </item>
     
     <item>
@@ -70,12 +124,39 @@
     </item>
     
     <item>
+      <title>src/graphics.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/graphics_8c/</guid>
+      <description>src/graphics.c Functions Name void end_sdl(char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer)ends the SDL elements and handles errors graphics_t * init_sdl()initialises the sdl components and returns them in a struct colours_t * init_colours() type_texture_t * init_type_texture(SDL_Window * window, SDL_Renderer * renderer) SDL_Texture * load_texture_from_image(char * file_image_name, SDL_Window * window, SDL_Renderer * renderer)loads a texture from an image SDL_Texture * create_texture_for_text(char * text, TTF_Font * font, SDL_Renderer * renderer, SDL_Color colour)creates a texture for a text SDL_Rect * crea_rect(int x, int y, int width, int height)create a pointer to a rectangle SDL_Rect * crea_rect_in_rect(SDL_Rect * button, float i, float j, float k, float l)create a pointer to a rectangle inside another rectangle int is_in(SDL_Rect * button, int x, int y)checks if a position (x, y) is in a rectangle button int is_in_hexa(SDL_Rect dest, int x, int y, int offset_x, int offset_y)checks if a position (x, y) is in the hexagon corresponding to a rectangle &amp;ldquo;dest&amp;rdquo; void display_cell(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int decal) int get_cell_id_from_mouse_position(graphics_t * graphics, int x, int y, int decal) void display_board(graphics_t * g, game_t * game, board_t * board, int decal) void display_cell_bis(SDL_Texture * texture, graphics_t * graphics, int id, int altitude, int offset_x, int offset_y, int decal_x, int decal_y) void display_board_in_rect(graphics_t * g, game_t * game, board_t * board, SDL_Rect * rect) void display_tile_in_rect(SDL_Rect * rect, tile_t * tile, graphics_t * graphics) void display_mouse_cells(tile_t * tile, cell_t * cell, graphics_t * graphics) void update_tile_position(tile_t * tile, cell_t * cell) void display_game(graphics_t * g, game_t * game) Functions Documentation function end_sdl void end_sdl( char ok, char const * msg, SDL_Window * window, SDL_Renderer * renderer ) ends the SDL elements and handles errors</description>
+    </item>
+    
+    <item>
+      <title>src/hash_map.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/hash__map_8c/</guid>
+      <description>src/hash_map.c Functions Name uint32_t pow_u32(uint32_t x, int n)Calculate power for uint32_t type. hash_t ** create_hash_map()Generate an empty hash_map. uint32_t hash_board(board_t * board)Return the unmoduled hash of a board. hash_t * create_linked_hash(uint32_t hashed_board, linked_plays_t * plays, hash_t * next)Initialize and fills the hash_t structure. void merge_plays(play_t * play, play_t * new_play)Merge two plays scores in place. void hash_map_add(hash_t ** hash_map, board_t * board, linked_plays_t * plays)Adds a board to the hash_map. void free_plays(play_t * plays)Free play_t list.</description>
+    </item>
+    
+    <item>
       <title>src/init.c</title>
       <link>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/init_8c/</guid>
       <description>src/init.c Functions Name cell_t * create_cell(int id)creates a cell of the board board_t * create_clean_board()creates an empty board board_t * start_config(board_t * b)puts balls on the board into a start configuration board_t * start_config_2(board_t * b)puts balls on the board into another start configuration cell_t ** create_table(board_t b)creates an array with all the cells of the board Functions Documentation function create_cell cell_t * create_cell( int id ) creates a cell of the board</description>
+    </item>
+    
+    <item>
+      <title>src/init.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/init_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/init_8c/</guid>
+      <description>src/init.c Functions Name type_linked_t * create_type_linked() void init_type_linked(type_linked_t * type_linked) cell_t * create_cell() void init_cell(cell_t * cell) board_t * create_board() void init_board(board_t * board) scoring_table_t * init_scoring_table() tile_t * create_tile() void init_tile(tile_t * tile) void fill_tile(tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2) deck_t * create_deck() void init_deck(deck_t * struct_deck) tile_t ** creates_all_tiles() args_t * create_and_init_args() void updates_args(args_t * args, tile_t * tile, cell_t * cell, int score) game_t * create_game() void update_game(game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck) struct play * create_play() void update_play(struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next) Functions Documentation function create_type_linked type_linked_t * create_type_linked() function init_type_linked void init_type_linked( type_linked_t * type_linked ) function create_cell cell_t * create_cell() function init_cell void init_cell( cell_t * cell ) function create_board board_t * create_board() function init_board void init_board( board_t * board ) function init_scoring_table scoring_table_t * init_scoring_table() function create_tile tile_t * create_tile() function init_tile void init_tile( tile_t * tile ) function fill_tile void fill_tile( tile_t * tile, cell_type_e type_0, cell_type_e type_1, cell_type_e type_2 ) function create_deck deck_t * create_deck() function init_deck void init_deck( deck_t * struct_deck ) function creates_all_tiles tile_t ** creates_all_tiles() function create_and_init_args args_t * create_and_init_args() function updates_args void updates_args( args_t * args, tile_t * tile, cell_t * cell, int score ) function create_game game_t * create_game() function update_game void update_game( game_t * game, board_t * player, board_t * bot, tile_t * card_1, tile_t * card_2, deck_t * deck ) function create_play struct play * create_play() function update_play void update_play( struct play * play, tile_t * tile, int n_coup, float gain_coup, play_t * next ) Source code /* name : init.</description>
     </item>
     
     <item>
@@ -88,12 +169,30 @@
     </item>
     
     <item>
+      <title>src/main.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/main_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/main_8c/</guid>
+      <description>src/main.c Functions Name int main(int argc, char * argv[]) Functions Documentation function main int main( int argc, char * argv[] ) Source code /* name : main.c * authors : eloi petit, matheo thomas, domitille vale * date : 23-06-24 */ #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;time.h&amp;gt; #include &amp;#34;tests_domitille.h&amp;#34; #include &amp;#34;tests_eloi.h&amp;#34; #include &amp;#34;tests_matheo.h&amp;#34; int main(int argc, char *argv[]){ srand(time(0)); if(argc == 2) { if(strcmp(argv[1], &amp;#34;domitille&amp;#34;) == 0) { printf(&amp;#34;domitille\n&amp;#34;); test_domi(); } else if(strcmp(argv[1], &amp;#34;eloi&amp;#34;) == 0) { printf(&amp;#34;eloi\n&amp;#34;); test_add_tiles(); } else if(strcmp(argv[1], &amp;#34;matheo&amp;#34;) == 0) { printf(&amp;#34;matheo\n&amp;#34;); // test_matheo(); test_matheo_2(); } } else { } return 0; } Updated on 2024-06-28 at 08:11:55 +0200</description>
+    </item>
+    
+    <item>
       <title>src/utilities.c</title>
       <link>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://matheothomas.github.io/isima-project-2024/doc1/files/utilities_8c/</guid>
       <description>src/utilities.c Functions Name void print_play(play_t * play)prints the content of a play for debugging purposes bool is_duplicate(play_t * play1, play_t * play2)tests if two plays are identical bool validity_play(play_t * play, bool player)tests if a play is valid void free_tree(tree_t * tree)frees a tree tree_t * create_tree(play_t * play, int value, int depth)creats a tree void append_tree(tree_t * tree, play_t * play, int value, int depth)adds a node to the linked list tree void fill_play_buffer(play_t * play)fills the buffer of a play void cell_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play belongs to the player void cell_does_not_belongs_to_player(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)part of the traversal_rec function, case where the following cell of a play does not belong to the player void traversal_rec(board_t * board, tree_t * tree, play_t * play, cell_t * cell, bool * visited, bool player)recursively generates plays tree_t * gen_plays(board_t * board, int depth, bool player)generates all valid plays available given a board and a player Functions Documentation function print_play void print_play( play_t * play ) prints the content of a play for debugging purposes</description>
+    </item>
+    
+    <item>
+      <title>src/utilities.c</title>
+      <link>https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matheothomas.github.io/isima-project-2024/doc2/files/utilities_8c/</guid>
+      <description>src/utilities.c Functions Name bool validity_tile(tile_t * tile_to_add)Check if a tile with the correct pointers in cell_tab is valid. type_linked_t * add_level(tile_t * tile, type_linked_t * level, cell_type_e cell_type)declares a type_linked_t void remove_level(cell_t * cell)Remove a level from a cell. void undo_tile(tile_t * tile)Inverse of add_tile and put pointers of cells in the tile to NULL. void undo_without_null_tile(tile_t * tile)Same as undo_tile bus does not puts the pointers to NULL. void add_tile(tile_t * tile)Update altitude and add level to all cells in the tile.</description>
     </item>
     
   </channel>
