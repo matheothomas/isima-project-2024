@@ -267,7 +267,8 @@ void test_domi(){
                                 is_bot_turn=1;
                             }
                         }
-                        else if(game->selected_card==2){
+                        else if(game->selected_card==2 && game -> player -> rocks > 0){
+
                             update_tile_position(game->card_2, game->player->cell_tab[id_mouse_cell]);
                             if(validity_tile(game->card_2)){
                                 add_tile_to_board(game->player, game->card_2);
