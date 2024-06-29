@@ -102,7 +102,7 @@ void test_add_tiles() {
 	add_tile_to_board(game -> player, tile5);
 	// add_tile_to_board(game -> player, tile6);
 
-	linked_plays_t * plays = gen_tiles(game -> player -> cell_tab, tile);
+	linked_plays_t * plays = gen_tiles_rec_false_start(game -> player, tile);
 	play_t * cours = plays -> play;
 	hash_t ** hash_map = create_hash_map();
 	for (int i = 0; i < plays -> size; i++) {
