@@ -10,14 +10,14 @@ This first project uses the game **Abalone** to implement the **min-max** algori
 - [x] Improve our heuristics.
 
 ## Principle
-It is a 1v1 game, it is played against our algorithm.
-Each player has 14 balls.
+It is a 1v1 game, you play against our algorithm.
+Each player has 14 balls, one wins if it pushes over every opponent ball.
 
-### Rules
-[...]
+<!-- ### Rules -->
 
-### Goal
-The goal is to push every ball of the opponent out of the board.
+
+<!-- ### Goal -->
+<!-- The goal is to push every ball of the opponent out of the board. -->
 
 ## To launch the game
 ```bash
@@ -25,3 +25,11 @@ make dir
 make
 ./bin/main
 ```
+
+## Screenshots
+
+![start](res/start.png)
+
+![game beginning](res/play1.png)
+
+![game](res/play2.png)

@@ -27,7 +27,7 @@ Details for launching the programs are available with each project READMEs.
 ## Screenshots
 
 ### Abalone
-![abalone](abalone/res/game2.png)
+![abalone](abalone/res/play2.png)
 
 ### Akropolis
-![akropolis](akropolis/res/game.png)
+![akropolis](akropolis/res/play.png)
